@@ -1,4 +1,3 @@
-import logo from "./square_border_big.png";
 import "./App.css";
 
 function App() {
