@@ -1,36 +1,38 @@
 {
-  "name": "gym-logistical-tracker",
-  "version": "1.0.0",
-  "engines": {
-    "node": "14.x",
-    "npm": "6.x"
-  },
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "jest",
-    "start": "node server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/NewWorldCoder603/Gym-Logistical-Tracker.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/NewWorldCoder603/Gym-Logistical-Tracker/issues"
-  },
-  "homepage": "https://github.com/NewWorldCoder603/Gym-Logistical-Tracker#readme",
+  "name": "my-first-react-app",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "body-parser": "^1.19.0",
-    "compress": "^0.99.0",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "jest": "^26.6.3",
-    "md5": "^2.3.0",
-    "mysql2": "^2.2.5",
-    "nodemon": "^2.0.7",
-    "sequelize": "^6.3.5",
-    "server": "^1.0.31"
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.5",
+    "@testing-library/user-event": "^12.6.3",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-scripts": "4.0.2",
+    "web-vitals": "^1.1.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
