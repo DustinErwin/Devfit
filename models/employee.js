@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const MemberSchema = new Schema({
+const EmployeeSchema = new Schema({
   email:{
       type: String,
       unique: true,
@@ -26,12 +26,6 @@ const MemberSchema = new Schema({
       trim: true,
       required: [true, 'Last Name is required']
   },
-  date_of_birth: {
-      type: Date,
-      set: function(v) {
-        return new Date(v.getFullYear(), v.getMonth(), v.getDate());
-      }
-  },
   gender: {
       type: String,
   },
@@ -40,12 +34,16 @@ const MemberSchema = new Schema({
       minlength: 10,
       maxlength: 10
   },
+  role: {
+      type: String,
+      required: "Role is required. Please select a role."
+  },
   is_logged_in: {
       type: Boolean,
       default: false
   }
 });
 
-const Member = mongoose.model("Member", MemberSchema);
+const Employee = mongoose.model("Employee", EmployeeSchema);
 
-module.exports = Member;
+module.exports = Employee;
