@@ -1,24 +1,34 @@
-import React from 'react'
+import React from "react";
+import { Row, Col, Container } from "react-bootstrap";
+import "./styles.css";
 
 function Header() {
-    return   <section class="mb-5 background-dark container-fluid ">
-    <div class="row align-items-center ">
-      <div class="col">
-        <h1 class="big-heading-text less-big-heading no-heading text-end ">Dev</h1>
-      </div>
-      <div class="col text-center ">
-        <img
-          class="logo"
-          src="./assets/images/Color_Logo_dark_background.png"
-          alt="funny logo of skinny kid trying to lift a huge weight"
-        />
-      </div>
-      <div class="col">
-        <h1 class="big-heading-text less-big-heading no-heading">  Fit</h1> 
-      </div>
-    </div>
-    
-  </section>
+  return (
+    <Container fluid className="header-background">
+      <Row className="align-items-center">
+        <Col>
+          <h1 className="large-screen-text small-screen-text xsmall-screen-no-text text-right">
+            Dev
+          </h1>
+        </Col>
+        <Col className="text-center ">
+          <img
+            className="logo"
+            img
+            src={
+              process.env.PUBLIC_URL + "/images/Color_logo_dark_background.png"
+            }
+            alt="funny logo of skinny kid trying to lift a huge weight"
+          />
+        </Col>
+        <Col>
+          <h1 className="large-screen-text small-screen-text xsmall-screen-no-text">
+            Fit
+          </h1>
+        </Col>
+      </Row>
+    </Container>
+  );
 }
 
-export default Header
+export default Header;
