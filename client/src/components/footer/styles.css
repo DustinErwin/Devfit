@@ -1,0 +1,11 @@
+/* Background Color */
+
+.footer-background {
+  background: rgb(49, 49, 49);
+}
+
+.footer-font {
+  font-size: 1.2em;
+  color: #d22e33;
+  text-align: center;
+}
