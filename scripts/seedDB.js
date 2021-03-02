@@ -1,13 +1,27 @@
+const e = require("express");
 const mongoose = require("mongoose");
 const db = require("../models");
+const ObjectId = mongoose.Types.ObjectId;
 
 
 mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost/gymManagementSystem"
+  process.env.MONGODB_URI || "mongodb://localhost/gymManagementSystem",
+  { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true }
 );
+
+member1_id = ObjectId();
+member2_id = ObjectId();
+member3_id = ObjectId();
+member4_id = ObjectId();
+
+employee1_id = ObjectId();
+employee2_id = ObjectId();
+employee3_id = ObjectId();
+employee4_id = ObjectId();
 
 const memberSeed = [
   {
+    _id: member1_id,
     email: "Sarah@fitpro.com",
     password: "member1",
     first_name: "Sarah",
@@ -18,6 +32,7 @@ const memberSeed = [
     is_logged_in: 0
  },
  {
+    _id: member2_id,
     email: "Dwreck@over9000.com",
     password: "member2",
     first_name: "Dustin",
@@ -28,6 +43,7 @@ const memberSeed = [
     is_logged_in: 0
  },
  {
+    _id: member3_id,
     email: "JbigInt@yahoo.com",
     password: "member3",
     first_name: "Jesal",
@@ -38,6 +54,7 @@ const memberSeed = [
     is_logged_in: 0
  },
  {
+    _id: member4_id,
     email: "eSwiss@gmail.com",
     password: "member4",
     first_name: "Ethan",
@@ -52,6 +69,7 @@ const memberSeed = [
 
 const employeeSeed = [
     {
+      _id: employee1_id,
       email: "jimdhima@yahoo.com",
       password: "manager1",
       first_name: "Jim",
@@ -62,6 +80,7 @@ const employeeSeed = [
       is_logged_in: 0
    },
    {
+      _id: employee2_id,
       email: "arav@gmail.com",
       password: "trainer1",
       first_name: "Aarav",
@@ -72,6 +91,7 @@ const employeeSeed = [
       is_logged_in: 0
    },
    {
+      _id: employee3_id,
       email: "FW@yahoo.com",
       password: "trainer2",
       first_name: "Felicia",
@@ -82,6 +102,7 @@ const employeeSeed = [
       is_logged_in: 0
    },
    {
+      _id: employee4_id,
       email: "abeer@yahoo.com",
       password: "trainer3",
       first_name: "Abeer",
@@ -91,7 +112,38 @@ const employeeSeed = [
       phone: "5839583255",
       is_logged_in: 0
    }
-  ]
+]
+
+const classSeed = [
+    {
+      class_name: "Zumba",
+      day: "Thursday",
+      start_time: "09:00:00",
+      current_size: 0,
+      max_size: 12,
+      trainer_id: employee2_id,
+      roster: []
+    },
+    {
+        class_name: "Spin",
+        day: "Tuesday",
+        start_time: "14:00:00",
+        current_size: 2,
+        max_size: 10,
+        trainer_id: employee4_id,
+        roster: [member1_id, member3_id]
+    },
+    {
+        class_name: "Barbell Blast",
+        day: "Monday",
+        start_time: "17:00:00",
+        current_size: 1,
+        max_size: 14,
+        trainer_id: employee4_id,
+        roster: [member2_id]
+    }
+
+]
 
 db.Member
     .remove({})
@@ -108,6 +160,16 @@ db.Employee
     .then(() => db.Employee.collection.insertMany(employeeSeed))
     .then(data => {
         console.log(data.result.n + " employee records inserted!");
+    })
+    .catch(err => {
+        console.error("employee " + err);
+    });
+
+db.Class
+    .remove({})
+    .then(() => db.Class.collection.insertMany(classSeed))
+    .then(data => {
+        console.log(data.result.n + " class records inserted!");
         process.exit(0);
     })
     .catch(err => {
