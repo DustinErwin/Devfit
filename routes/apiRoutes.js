@@ -54,7 +54,9 @@ module.exports = (app) => {
   });
 
   // Query to insert the new employee registration record in the employee table in the database
-  app.post("/api/addEmployee", (req, res) => {
+
+  //Not tested--Wondering how this will work with auth0
+  app.post("/api/manager/addEmployee", (req, res) => {
     db.Employee.insert({
       userName: req.body.userName,
       password: req.body.password,
@@ -77,6 +79,23 @@ module.exports = (app) => {
           res.json(buildRoster(members, selectedClass))
         );
       })
+      .catch((err) => res.json(err));
+  });
+
+  // API for adding a class
+  app.post("/api/employee/addClass", (req, res) => {
+    const newClass = {
+      class_name: req.body.class_name,
+      day: req.body.day,
+      start_time: req.body.start_time,
+      current_size: req.body.current_size,
+      max_size: req.body.max_size,
+      trainer_id: req.body.trainer_id,
+      roster: req.body.roster,
+    };
+
+    db.Class.create(newClass)
+      .then(() => res.send("Success!"))
       .catch((err) => res.json(err));
   });
 };
