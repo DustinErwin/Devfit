@@ -1,4 +1,3 @@
-import "./App.css";
 import LoginPage from "./pages/loginPage";
 import MemberPage from "./pages/memberPage";
 import EmployeePage from "./pages/employeePage";
@@ -7,6 +6,7 @@ import RegistrationPage from "./pages/registrationPage";
 import MemberStore from "./pages/memberStore";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+
 
 function App() {
   return (
