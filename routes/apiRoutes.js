@@ -1,7 +1,6 @@
 const db = require("../models");
 const getClassBundle = require("../utilities/classBundle");
-const mongoose = require("mongoose");
-const ObjectId = mongoose.Types.ObjectId;
+const addToClass = require("../utilities/addToClass");
 
 module.exports = (app) => {
   // GET object to populate divs with class info
@@ -20,5 +19,15 @@ module.exports = (app) => {
           .catch((err) => res.json(err));
       })
       .catch((err) => res.json(err));
+  });
+
+  //API to add member into chosen class
+  app.post("/api/addToClass", (req, res) => {
+    db.Class.findOne({ _id: req.body.id }).then((selectedClass) => {
+      const classUpdate = addToClass(selectedClass, req.body.memberid);
+      db.Class.updateOne({ _id: req.body.id }, { $set: classUpdate })
+        .then(() => res.send("Success!"))
+        .catch((err) => res.json(err));
+    });
   });
 };
