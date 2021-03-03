@@ -1,6 +1,6 @@
 import React from "react";
 import "./styles.css";
-import { Button as BootstrapButton } from "react-bootstrap";
+import { Button as BootstrapButton } from "react-bootstrap/Button";
 
 /* Takes three Props 
 1. styleClass: use btn-red or btn-dark. You can also add new css classes, but do not alter the current ones. 
