@@ -3,6 +3,7 @@ const getClassBundle = require("../utilities/classBundle");
 const addToClass = require("../utilities/addToClass");
 const getEmployeeClassBundle = require("../utilities/employeeClassBundle");
 const buildRoster = require("../utilities/buildRoster");
+const trainerSchedule = require("../utilities/trainerSchedule");
 
 module.exports = (app) => {
   // GET object to populate divs with class info
@@ -105,5 +106,16 @@ module.exports = (app) => {
     db.Class.remove({ _id: req.params.id })
       .then(() => res.send("Success!"))
       .catch((err) => res.status(500).json(err));
+  });
+
+  //API to get trainer schedule
+  app.get("/api/employee/:id/schedule", (req, res) => {
+    db.Class.find({ trainer_id: req.params.id })
+      .then((classes) => {
+        db.Employee.findOne({ _id: req.params.id })
+          .then((trainer) => res.send(trainerSchedule(trainer, classes)))
+          .catch((err) => res.status(401).json(err));
+      })
+      .catch((err) => res.status(401).json(err));
   });
 };
