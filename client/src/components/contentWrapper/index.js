@@ -10,7 +10,7 @@ import Container from "react-bootstrap/Container";
 
 function ContentWrapper(props) {
   return (
-    <Container className={"button align-self-center " + props.styleClass}>
+    <Container className={"button align-self-center" + props.styleClass}>
       {props.children}
     </Container>
   );
