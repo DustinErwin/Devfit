@@ -2,6 +2,7 @@ const db = require("../models");
 const getClassBundle = require("../utilities/classBundle");
 const addToClass = require("../utilities/addToClass");
 const getEmployeeClassBundle = require("../utilities/employeeClassBundle");
+const buildRoster = require("../utilities/buildRoster");
 
 module.exports = (app) => {
   // GET object to populate divs with class info
@@ -48,6 +49,33 @@ module.exports = (app) => {
               .catch((err) => res.json(err));
           })
           .catch((err) => res.json(err));
+      })
+      .catch((err) => res.json(err));
+  });
+
+  // Query to insert the new employee registration record in the employee table in the database
+  app.post("/api/addEmployee", (req, res) => {
+    db.Employee.insert({
+      userName: req.body.userName,
+      password: req.body.password,
+      first_name: req.body.first_name,
+      last_name: req.body.last_name,
+      gender: req.body.gender,
+      email: req.body.email,
+      phone: req.body.phone ? parseInt(req.body.phone) : null,
+      role: req.body.role.toLowerCase(),
+    })
+      .then(() => res.send("Success!"))
+      .catch((err) => res.json(err));
+  });
+
+  // API to get class roster
+  app.get("/api/class/:id/roster", (req, res) => {
+    db.Class.findOne({ _id: req.params.id })
+      .then((selectedClass) => {
+        db.Member.find({}).then((members) =>
+          res.json(buildRoster(members, selectedClass))
+        );
       })
       .catch((err) => res.json(err));
   });
