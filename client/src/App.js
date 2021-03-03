@@ -6,6 +6,7 @@ import ManagerPage from "./pages/managerPage";
 import RegistrationPage from "./pages/registrationPage";
 import MemberStore from "./pages/memberStore";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
