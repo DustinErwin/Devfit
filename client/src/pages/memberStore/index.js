@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 
-function ManagerPage() {
+function memberStore() {
   return (
     <>
       <Header />
@@ -12,4 +12,4 @@ function ManagerPage() {
   );
 }
 
-export default ManagerPage;
+export default memberStore;
