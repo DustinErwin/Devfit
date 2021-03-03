@@ -1,44 +1,45 @@
 //This function will build the object sent to populate the class schedule for members
 module.exports = function (classes, currentUser, trainers) {
   let classesJoined = [];
-  let roster = [];
   let classBundle = [];
 
-  const userName = currentUser.dataValues.first_name;
-  //Loop to match trainer with class and build object for each class
+  const userName = currentUser.first_name;
+
   classes.forEach((unit) => {
-    const activeTrainer = trainers.filter(
-      (trainer) => trainer.dataValues.id === unit.dataValues.trainer_id
-    );
+    const activeTrainer = trainers.filter((trainer) => {
+      return JSON.stringify(trainer._id) === JSON.stringify(unit.trainer_id);
+    });
+
     //If roster is not empty then split and search for user's id
-    if (roster) {
-      const roster = unit.dataValues.roster.split(",");
+    if (unit.roster) {
+      const roster = unit.roster;
 
       roster.filter((participant) => {
-        if (currentUser.dataValues.id === parseInt(participant)) {
+        if (JSON.stringify(currentUser._id) === JSON.stringify(participant)) {
           let thisClass = {
-            id: unit.dataValues.id,
-            class_name: unit.dataValues.class_name,
-            day: unit.dataValues.day,
-            trainer_name: activeTrainer[0].dataValues.first_name,
-            start_time: unit.dataValues.start_time,
+            id: JSON.stringify(unit._id),
+            class_name: unit.class_name,
+            day: unit.day,
+            trainer_name: activeTrainer[0].first_name,
+            start_time: unit.start_time,
           };
           //Add class to user's joined classes to show in UI
           classesJoined.push(thisClass);
         }
       });
+      console.log(classesJoined);
     }
 
     //Object to be sent to UI
     const reqClass = {
-      id: unit.dataValues.id,
-      class_name: unit.dataValues.class_name,
-      day: unit.dataValues.day,
-      start_time: unit.dataValues.start_time,
-      current_size: unit.dataValues.current_size,
-      max_size: unit.dataValues.max_size,
-      trainer_id: unit.dataValues.trainer_id,
-      trainer_name: activeTrainer[0].dataValues.first_name,
+      id: unit.id,
+      class_name: unit.class_name,
+      day: unit.day,
+      start_time: unit.start_time,
+      current_size: unit.current_size,
+      max_size: unit.max_size,
+      trainer_id: unit.trainer_id,
+      trainer_name: activeTrainer[0].first_name,
       userName: userName,
       classJoined: classesJoined,
     };

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "proxy": "http://localhost:3001",
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
     "start:prod": "node server.js",
@@ -11,8 +12,7 @@
     "install": "cd client && npm install",
     "build": "cd client && npm run build",
     "heroku-postbuild": "npm run build",
-    "seed": "node scripts/seedDB.js",
-    "test": "jest"
+    "seed": "node scripts/seedDB.js"
   },
   "author": "",
   "license": "ISC",
@@ -23,7 +23,6 @@
   "dependencies": {
     "express": "^4.16.3",
     "if-env": "^1.0.4",
-    "jest": "^26.6.3",
     "mongoose": "^5.8.11"
   }
 }
