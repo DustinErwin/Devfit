@@ -83,6 +83,7 @@ module.exports = (app) => {
   });
 
   // API for adding a class
+  // NOTE: Currently Broken! Roster will usually start empty and is rejected by model verification
   app.post("/api/employee/addClass", (req, res) => {
     const newClass = {
       class_name: req.body.class_name,
@@ -97,5 +98,12 @@ module.exports = (app) => {
     db.Class.create(newClass)
       .then(() => res.send("Success!"))
       .catch((err) => res.json(err));
+  });
+
+  //API to remove class from the database
+  app.delete("/api/employee/removeClass/:id", (req, res) => {
+    db.Class.remove({ _id: req.params.id })
+      .then(() => res.send("Success!"))
+      .catch((err) => res.status(500).json(err));
   });
 };
