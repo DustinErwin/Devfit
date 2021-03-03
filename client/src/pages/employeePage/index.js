@@ -1,9 +1,15 @@
-import React from 'react'
+import React from "react";
+import Header from "../../components/header";
+import Footer from "../../components/footer";
 
+function EmployeePage() {
+  return (
+    <>
+      <Header />
 
-function EmployeePage () {
-
-
+      <Footer />
+    </>
+  );
 }
 
-export default EmployeePage
+export default EmployeePage;
