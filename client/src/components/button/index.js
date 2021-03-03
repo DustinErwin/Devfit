@@ -1,14 +1,14 @@
 import React from "react";
 import "./styles.css";
-import { Button as BootstrapButton } from "react-bootstrap/Button";
+import { Button as BootstrapButton } from "react-bootstrap";
 
 /* Takes three Props 
 1. styleClass: use btn-red or btn-dark. You can also add new css classes, but do not alter the current ones. 
-2. text: The text the button displays
-3. handleClick: attatch to any btnClick event*/
+2. handleClick: attatch to any btnClick event
+3. props.children allows us to enter text between tags as normal when making buttons*/
 
 
-function Button(props) {
+function DevBtn(props) {
   return (
     <BootstrapButton
       className={
@@ -16,9 +16,9 @@ function Button(props) {
       }
       onClick={props.handleClick}
     >
-      {props.text}
+      {props.children}
     </BootstrapButton>
   );
 }
 
-export default Button;
+export default DevBtn;
