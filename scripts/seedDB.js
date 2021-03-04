@@ -2,6 +2,7 @@ const e = require("express");
 const mongoose = require("mongoose");
 const db = require("../models");
 const ObjectId = mongoose.Types.ObjectId;
+//const md5 = require("md5");
 
 mongoose.connect(
   process.env.MONGODB_URI || "mongodb://localhost/gymManagementSystem",
