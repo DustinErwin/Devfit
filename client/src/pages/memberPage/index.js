@@ -5,9 +5,8 @@ import ContentWrapper from "../../components/contentWrapper";
 import MemberInfoBox from "../../components/memberInfoBox";
 import MeetYourTrainerBox from "../../components/meetYourTrainerBox";
 import Row from "react-bootstrap/Row";
-import ScheduleColumn from "../../components/scheduleColumn";
-import add from "date-fns/add";
-import { format } from "date-fns";
+import renderDates from "../../utilities/dateUtils"
+
 
 function MemberPage() {
   //weekLength creates an array so map iterates once per week day
@@ -25,29 +24,8 @@ function MemberPage() {
 
       <ContentWrapper>
         <Row>
-          {
-          weekLength.map((nothing, i) => {
-            const addDay = add(new Date(), {
-              years: 0,
-              months: 0,
-              weeks: 0,
-              days: i,
-              hours: 0,
-              minutes: 0,
-              seconds: 0,
-            });
-
-            let calendarDate = format(addDay, "LLL, do");
-            let dayOfWeek = format(addDay, "EEEE");
-
-            return (
-              <ScheduleColumn
-                dayOfWeek={dayOfWeek}
-                todaysDate={calendarDate}
-                key={i}
-              />
-            );
-          })}
+          { renderDates()
+       }
         </Row>
       </ContentWrapper>
 
