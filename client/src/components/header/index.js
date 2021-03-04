@@ -14,7 +14,6 @@ function Header() {
         <Col className="text-center ">
           <img
             className="logo"
-            img
             src={
               process.env.PUBLIC_URL + "/images/Color_logo_dark_background.png"
             }
