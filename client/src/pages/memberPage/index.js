@@ -5,7 +5,7 @@ import ContentWrapper from "../../components/contentWrapper";
 import MemberInfoBox from "../../components/memberInfoBox";
 import MeetYourTrainerBox from "../../components/meetYourTrainerBox";
 import Row from "react-bootstrap/Row";
-import RenderScheduleHeadings from "../../utilities/render-schedule-headings";
+import RenderScheduleHeadings from "../../components/scheduleColumn";
 
 function MemberPage() {
   return (
