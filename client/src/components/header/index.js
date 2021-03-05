@@ -4,7 +4,7 @@ import "./styles.css";
 
 function Header() {
   return (
-    <Container fluid className="header-background">
+    <Container fluid className="header-background mb-5 ">
       <Row className="align-items-center">
         <Col>
           <h1 className="large-screen-text small-screen-text xsmall-screen-no-text text-right">
@@ -14,7 +14,6 @@ function Header() {
         <Col className="text-center ">
           <img
             className="logo"
-            img
             src={
               process.env.PUBLIC_URL + "/images/Color_logo_dark_background.png"
             }
