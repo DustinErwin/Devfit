@@ -3,9 +3,10 @@ import ScheduleColumn from "../components/scheduleColumn";
 import add from "date-fns/add";
 import { format } from "date-fns";
 
-//Needs no inputs. Grabs, formats, and returns column dates. Just place in JSK with { } wrap.
-function renderDates() {
-    const weekLength = [0,1,2,3,4,5,6]
+//This function generates the day or week and dates for the 7 columns on the weekly schedule.
+//It doesn't need any inputs. Just place in jsx with  { }.
+function RenderScheduleHeadings() {
+  const weekLength = [0, 1, 2, 3, 4, 5, 6];
 
   return weekLength.map((nothing, i) => {
     const addDay = add(new Date(), {
@@ -22,10 +23,9 @@ function renderDates() {
     let dayOfWeek = format(addDay, "EEEE");
 
     return (
-      <ScheduleColumn dayOfWeek={dayOfWeek} todaysDate={calendarDate} key={i} />
+      <ScheduleColumn dayOfWeek={dayOfWeek} todaysDate={calendarDate} key={i} id={dayOfWeek} />
     );
   });
- 
 }
 
-export default renderDates 
+export default RenderScheduleHeadings;

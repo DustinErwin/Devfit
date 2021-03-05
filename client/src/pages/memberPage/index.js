@@ -5,9 +5,7 @@ import ContentWrapper from "../../components/contentWrapper";
 import MemberInfoBox from "../../components/memberInfoBox";
 import MeetYourTrainerBox from "../../components/meetYourTrainerBox";
 import Row from "react-bootstrap/Row";
-import renderDates from "../../utilities/dateUtils";
-
-const data = fetch()
+import RenderScheduleHeadings from "../../utilities/render-schedule-headings";
 
 function MemberPage() {
   return (
@@ -21,7 +19,7 @@ function MemberPage() {
       </ContentWrapper>
 
       <ContentWrapper>
-        <Row>{renderDates()}</Row>
+        <Row>{RenderScheduleHeadings()}</Row>
       </ContentWrapper>
 
       <Footer />

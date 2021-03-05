@@ -12,7 +12,7 @@ function ScheduleColumns(props) {
         <p className=" pb-2 font-large">
           {props.todaysDate}
         </p>
-        <div>The classes will go here</div>
+        <div id={props.id}>The classes will go here</div>
       </Col>
     </>
   );
