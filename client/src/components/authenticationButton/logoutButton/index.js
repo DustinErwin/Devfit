@@ -6,7 +6,7 @@ const LogoutButton = () => {
   const { logout } = useAuth0();
   return (
     <BootstrapButton
-      className="btn-red"
+      className="btn-dark"
       onClick={() =>
         logout({
           returnTo: window.location.origin,
