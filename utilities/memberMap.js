@@ -3,8 +3,8 @@ module.exports = function (members) {
   const memberList = [];
   members.map((member) => {
     const oneMember = {
-      id: member.dataValues.id,
-      fullName: `${member.dataValues.first_name} ${member.dataValues.last_name}`,
+      id: member._id,
+      fullName: `${member.first_name} ${member.last_name}`,
     };
     memberList.push(oneMember);
   });

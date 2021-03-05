@@ -27,7 +27,6 @@ module.exports = function (classes, currentUser, trainers) {
           classesJoined.push(thisClass);
         }
       });
-      console.log(classesJoined);
     }
 
     //Object to be sent to UI
