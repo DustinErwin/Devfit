@@ -123,14 +123,14 @@ module.exports = (app) => {
       class_name: req.body.class_name,
       day: req.body.day,
       start_time: req.body.start_time,
-      current_size: req.body.current_size,
+      current_size: 0,
       max_size: req.body.max_size,
-      trainer_id: req.body.trainer_id,
-      roster: req.body.roster,
+      trainer_id: db.ObjectId(req.body.trainer_id),
+      roster: [],
     };
 
     db.Class.create(newClass)
-      .then(() => res.send("Success!"))
+      .then((clazz) => res.send(clazz))
       .catch((err) => res.json(err));
   });
 
