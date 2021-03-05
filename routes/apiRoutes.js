@@ -4,6 +4,7 @@ const addToClass = require("../utilities/addToClass");
 const getEmployeeClassBundle = require("../utilities/employeeClassBundle");
 const buildRoster = require("../utilities/buildRoster");
 const trainerSchedule = require("../utilities/trainerSchedule");
+const memberMap = require("../utilities/memberMap");
 
 module.exports = (app) => {
   // GET object to populate divs with class info

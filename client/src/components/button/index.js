@@ -7,13 +7,10 @@ import { Button as BootstrapButton } from "react-bootstrap";
 2. handleClick: attatch to any btnClick event
 3. props.children allows us to enter text between tags as normal when making buttons*/
 
-
 function DevBtn(props) {
   return (
     <BootstrapButton
-      className={
-        "button align-self-center " + props.styleClass
-      }
+      className={"button align-self-center " + props.styleClass}
       onClick={props.handleClick}
     >
       {props.children}

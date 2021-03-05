@@ -6,11 +6,13 @@ import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import ContentWrapper from "../../components/contentWrapper";
 import EmptyCarousel from "../../components/EmptyCarousel";
+import AuthenticationButton from "../../components/authenticationButton";
 
 function LoginPage() {
   return (
     <>
       <Header />
+      <AuthenticationButton />
       <ContentWrapper>
         This container should contain the 4 boxes of info on sign up page.
         <Container>

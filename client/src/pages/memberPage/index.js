@@ -4,7 +4,8 @@ import Footer from "../../components/footer";
 import ContentWrapper from "../../components/contentWrapper";
 import MemberInfoBox from "../../components/memberInfoBox";
 import MeetYourTrainerBox from "../../components/meetYourTrainerBox";
-import Row from 'react-bootstrap/Row'
+import Row from "react-bootstrap/Row";
+import RenderScheduleHeadings from "../../utilities/render-schedule-headings";
 
 function MemberPage() {
   return (
@@ -12,12 +13,15 @@ function MemberPage() {
       <Header />
       <ContentWrapper>
         <Row>
-        <MemberInfoBox />
-        <MeetYourTrainerBox />
+          <MemberInfoBox />
+          <MeetYourTrainerBox />
         </Row>
       </ContentWrapper>
 
-      <ContentWrapper>This Wrapper contains the schedule</ContentWrapper>
+      <ContentWrapper>
+        <Row>{RenderScheduleHeadings()}</Row>
+      </ContentWrapper>
+
       <Footer />
     </>
   );
