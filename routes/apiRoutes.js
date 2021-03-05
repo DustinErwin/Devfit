@@ -88,19 +88,20 @@ module.exports = (app) => {
 
   // Query to insert the new employee registration record in the employee table in the database
 
-  //Not tested--Wondering how this will work with auth0
+  // Wondering how this will work with auth0
+  // Tested and working now
   app.post("/api/manager/addEmployee", (req, res) => {
-    db.Employee.insert({
-      userName: req.body.userName,
-      password: req.body.password,
+    const newEmployee = new db.Employee({
       first_name: req.body.first_name,
       last_name: req.body.last_name,
+      password: req.body.password,
       gender: req.body.gender,
       email: req.body.email,
-      phone: req.body.phone ? parseInt(req.body.phone) : null,
+      phone: req.body.phone,
       role: req.body.role.toLowerCase(),
-    })
-      .then(() => res.send("Success!"))
+    });
+    newEmployee.save()
+      .then((result) => res.send(result))
       .catch((err) => res.json(err));
   });
 
