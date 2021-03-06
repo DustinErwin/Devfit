@@ -43,6 +43,25 @@ module.exports = (app) => {
         });
       })
 
+    // REGISTER PAGE API
+
+    // POST API and query to insert the new member registration record in the member table in the database
+    // Need to work on the date of birth
+    app.post("/api/register", (req, res) => {
+      const newMember = new db.Member({
+        email: req.body.userName,
+        password: req.body.password,
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        date_of_birth: req.body.date_of_birth ? req.body.date_of_birth : null,
+        gender: req.body.gender,
+        phone: req.body.phone
+      }) // sends the member details as response
+      newMember.save()
+      .then((dbMember) => res.send(dbMember))
+      .catch((err) => res.status(500).json(err));
+  });
+
   // MEMBER PAGE APIs
 
   // GET object to populate divs with class info
@@ -138,7 +157,7 @@ module.exports = (app) => {
       .catch((err) => res.status(500).json(err));
   });
 
-
+  // MANAGER PAGE APIs
   // API to insert the new employee registration record in the employee table in the database
   // Wondering how this will work with auth0
   app.post("/api/manager/addEmployee", (req, res) => {
