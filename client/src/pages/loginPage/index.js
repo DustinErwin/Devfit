@@ -8,16 +8,13 @@ import Container from "react-bootstrap/Container";
 // import ContentWrapper from "../../components/contentWrapper";
 // import EmptyCarousel from "../../components/EmptyCarousel";
 import AuthenticationButton from "../../components/authenticationButton";
-<<<<<<< HEAD
 import { useAuth0 } from "@auth0/auth0-react";
 import { Redirect } from "react-router";
 import UserContext from "../../utilities/userContext";
-=======
 import Carousel from "react-bootstrap/Carousel";
 import "./styles.css";
 import "../../components/button/styles.css";
 import DevBtn from "../../components/button";
->>>>>>> master
 
 function LoginPage() {
   const [userInfo, setUserInfo] = useState();
@@ -47,21 +44,11 @@ function LoginPage() {
 
   return (
     <>
-<<<<<<< HEAD
-      <UserContext.Provider value={userInfo}>
-        <Header />
-        <AuthenticationButton />
-        {userRole ? userRole : null}
-        <ContentWrapper>
-          This container should contain the 4 boxes of info on sign up page.
-        </ContentWrapper>
-        <Footer />
-      </UserContext.Provider>
-=======
       <Header />
 
       <Container className="loginPage">
         <AuthenticationButton className="btn-dark" />
+        {userRole ? userRole : null}
         <Row>
           <Col className="align-self-stretch background-dark">
             <Container className="my-5 py-3">
@@ -173,7 +160,6 @@ function LoginPage() {
       </Container>
 
       <Footer />
->>>>>>> master
     </>
   );
 }
