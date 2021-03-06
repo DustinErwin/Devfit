@@ -4,7 +4,7 @@ import Footer from "../../components/footer";
 import ContentWrapper from "../../components/contentWrapper";
 import RenderScheduleHeadings from "../../components/scheduleColumn";
 import Row from "react-bootstrap/Row";
-import ScheduleContainer from "../../components/scheduleContainer"
+import ScheduleContainerTest from "../../components/scheduleTest"
 
 
 function EmployeePage() {
@@ -26,7 +26,7 @@ function EmployeePage() {
     <>
       <Header />
       <ContentWrapper>This Wrapper the two boxes for employees.</ContentWrapper>
-      <ScheduleContainer />
+      <ScheduleContainerTest />
       <Footer />
     </>
   );

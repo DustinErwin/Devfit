@@ -9,22 +9,27 @@ function ScheduleContainer() {
   //Declare an array 7 in length for the weekLength.map function that creates 7 columns
   const weekLength = [0, 1, 2, 3, 4, 5, 6];
 
-  const [schedule, setSchedule] = useState(["temp argument to stop bug"]);
+  const [mondaySchedule, setMondaySchedule] = useState({});
+  const [tuesdaySchedule, setTuesdaySchedule] = useState([""]);
+  const [wednesdaySchedule, setWednesdaySchedule] = useState([""]);
+  const [thursdaySchedule, setThursdaySchedule] = useState([""]);
+  const [fridaySchedule, setFridaySchedule] = useState([""]);
+  const [saturdaySchedule, setSaturdaySchedule] = useState([""]);
+  const [sundaySchedule, setSundaySchedule] = useState([""]);
+
+  const [userName, setUserName] = useState("");
 
   useEffect(() => {
     fetch("/api/employee/6041105aad06d732a00f6be4/classes", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        Accept: "application/json",
       },
     })
       .then((res) => res.json())
-      .then((res) => {
-        setSchedule(res);
-      });
+      .then((res) => {});
   }, []);
-
-  console.log();
 
   return (
     <>
@@ -50,7 +55,11 @@ function ScheduleContainer() {
               key={i}
               id={dayOfWeek}
             >
-              <ScheduleClass />
+              <ScheduleClass
+                fitClassName={thursdaySchedule.class_name}
+                classTime={thursdaySchedule.start_time}
+                classTrainer={thursdaySchedule.trainer_name}
+              />
             </ScheduleColumn>
           );
         })}
