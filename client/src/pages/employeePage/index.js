@@ -12,10 +12,10 @@ function EmployeePage() {
 
   useEffect(() => {
     fetch("/api/employee/6041105aad06d732a00f6be4/classes", {
-      method: 'GET', 
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
-      }
+        "Content-Type": "application/json",
+      },
     })
     .then(res => res.json())
     .then((res) => {  setSchedule(res)})
@@ -25,6 +25,7 @@ function EmployeePage() {
   return (
     <>
       <Header />
+      <AuthenticationButton />
       <ContentWrapper>This Wrapper the two boxes for employees.</ContentWrapper>
       <ScheduleContainerTest />
       <Footer />
