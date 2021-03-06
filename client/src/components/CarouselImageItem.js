@@ -8,11 +8,22 @@ export default function CarouselImageItem(props) {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src={process.env.PUBLIC_URL + props.imgUrl}
-            alt={props.altText}
+            src={process.env.PUBLIC_URL + props.imgUrl1}
+            alt={props.altText2}
           />
-          <Carousel.Caption>
-            <h5>{props.carouselCaption1}</h5>
+          <Carousel.Caption className="background-t-red">
+            <h5>{props.carouselHeader1}</h5>
+            <p>{props.carouselCaption1}</p>
+          </Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src={process.env.PUBLIC_URL + props.imgUrl2}
+            alt={props.altText2}
+          />
+          <Carousel.Caption className="background-t-red">
+            <h5>{props.carouselHeader2}</h5>
             <p>{props.carouselCaption2}</p>
           </Carousel.Caption>
         </Carousel.Item>
