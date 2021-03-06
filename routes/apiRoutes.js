@@ -5,8 +5,46 @@ const getEmployeeClassBundle = require("../utilities/employeeClassBundle");
 const buildRoster = require("../utilities/buildRoster");
 const trainerSchedule = require("../utilities/trainerSchedule");
 const memberMap = require("../utilities/memberMap");
+const removeClassMember=require("../utilities/removeClassMember");
 
 module.exports = (app) => {
+
+  //LOGIN PAGE API
+
+    // POST "api/login" authenticates the member login credentials in the database, and responds with the member id
+    app.post("/api/login", (req, res) => {
+      // Find if there is a matching member
+        db.Member.findOne({ email: req.body.username, password: req.body.password})
+        .then((userMember) => {
+          if (!userMember) {
+            // No matching member found. Lets see if we have a matching Employee instead.
+            db.Employee.findOne({ email: req.body.username, password: req.body.password})
+            .then((employee) => {
+              if (!employee) {
+                res.status(401).json({error: "Invalid login. Please try again" })
+              } else {
+                employee.is_logged_in = true;
+                employee.save().then((updatedEmployee) => {
+                  res.json({
+                    id: updatedEmployee._id,
+                    userName: updatedEmployee.first_name,
+                    role: updatedEmployee.role,
+                  });
+                })
+              }
+            });
+          } else {
+            console.log("Found Member ", userMember);
+            userMember.is_logged_in = true;
+            userMember.save().then((updatedMember) => {
+              res.json({id: updatedMember._id});
+            });
+          }
+        });
+      })
+
+  // MEMBER PAGE APIs
+
   // GET object to populate divs with class info
   app.get("/api/member/:id/classes/", function (req, res) {
     db.Class.find({})
@@ -18,51 +56,20 @@ module.exports = (app) => {
               .then((trainers) => {
                 res.json(getClassBundle(classes, currentUser, trainers));
               })
-              .catch((err) => res.json(err));
+              .catch((err) => res.status(500).json(err));
           })
-          .catch((err) => res.json(err));
+          .catch((err) => res.status(500).json(err));
       })
-      .catch((err) => res.json(err));
+      .catch((err) => res.status(500).json(err));
   });
 
-  // POST "api/login" authenticates the member login credentials in the database, and responds with the member id
-  app.post("/api/login", (req, res) => {
-  // Find if there is a matching member
-    db.Member.findOne({ email: req.body.username, password: req.body.password})
-    .then((userMember) => {
-      if (!userMember) {
-        // No matching member found. Lets see if we have a matching Employee instead.
-        db.Employee.findOne({ email: req.body.username, password: req.body.password})
-        .then((employee) => {
-          if (!employee) {
-            res.status(401).json({error: "Invalid login. Please try again" })
-          } else {
-            employee.is_logged_in = true;
-            employee.save().then((updatedEmployee) => {
-              res.json({
-                id: updatedEmployee._id,
-                userName: updatedEmployee.first_name,
-                role: updatedEmployee.role,
-              });
-            })
-          }
-        });
-      } else {
-        console.log("Found Member ", userMember);
-        userMember.is_logged_in = true;
-        userMember.save().then((updatedMember) => {
-          res.json({id: updatedMember._id});
-        });
-      }
-    });
-  })
   //API to add member into chosen class -- Requires body with class id as id and member id as memberid
   app.post("/api/member/addToClass", (req, res) => {
     db.Class.findOne({ _id: req.body.id }).then((selectedClass) => {
       const classUpdate = addToClass(selectedClass, req.body.memberid);
       db.Class.updateOne({ _id: req.body.id }, { $set: classUpdate })
         .then(() => res.send("Success!"))
-        .catch((err) => res.json(err));
+        .catch((err) => res.status(500).json(err));
     });
   });
 
@@ -79,30 +86,11 @@ module.exports = (app) => {
                   getEmployeeClassBundle(classes, currentUser, trainers)
                 );
               })
-              .catch((err) => res.json(err));
+              .catch((err) => res.status(500).json(err));
           })
-          .catch((err) => res.json(err));
+          .catch((err) => res.status(500).json(err));
       })
-      .catch((err) => res.json(err));
-  });
-
-  // Query to insert the new employee registration record in the employee table in the database
-
-  // Wondering how this will work with auth0
-  // Tested and working now
-  app.post("/api/manager/addEmployee", (req, res) => {
-    const newEmployee = new db.Employee({
-      first_name: req.body.first_name,
-      last_name: req.body.last_name,
-      password: req.body.password,
-      gender: req.body.gender,
-      email: req.body.email,
-      phone: req.body.phone,
-      role: req.body.role.toLowerCase(),
-    });
-    newEmployee.save()
-      .then((result) => res.send(result))
-      .catch((err) => res.json(err));
+      .catch((err) => res.status(500).json(err));
   });
 
   // API to get class roster
@@ -113,11 +101,10 @@ module.exports = (app) => {
           res.json(buildRoster(members, selectedClass))
         );
       })
-      .catch((err) => res.json(err));
+      .catch((err) => res.status(500).json(err));
   });
 
   // API for adding a class
-  // NOTE: Currently Broken! Roster will usually start empty and is rejected by model verification
   app.post("/api/employee/addClass", (req, res) => {
     const newClass = {
       class_name: req.body.class_name,
@@ -128,10 +115,9 @@ module.exports = (app) => {
       trainer_id: db.ObjectId(req.body.trainer_id),
       roster: [],
     };
-
     db.Class.create(newClass)
       .then((clazz) => res.send(clazz))
-      .catch((err) => res.json(err));
+      .catch((err) => res.status(500).json(err));
   });
 
   //API to remove class from the database
@@ -147,8 +133,42 @@ module.exports = (app) => {
       .then((classes) => {
         db.Employee.findOne({ _id: req.params.id })
           .then((trainer) => res.send(trainerSchedule(trainer, classes)))
-          .catch((err) => res.status(401).json(err));
+          .catch((err) => res.status(500).json(err));
       })
-      .catch((err) => res.status(401).json(err));
+      .catch((err) => res.status(500).json(err));
   });
+
+
+  // API to insert the new employee registration record in the employee table in the database
+  // Wondering how this will work with auth0
+  app.post("/api/manager/addEmployee", (req, res) => {
+    const newEmployee = new db.Employee({
+      first_name: req.body.first_name,
+      last_name: req.body.last_name,
+      password: req.body.password,
+      gender: req.body.gender,
+      email: req.body.email,
+      phone: req.body.phone,
+      role: req.body.role
+    });
+    newEmployee.save()
+      .then((result) => res.send(result))
+      .catch((err) => res.status(500).json(err));
+  });
+
+  // API that allows a manager to view all trainers
+  app.get("/api/manager/trainers", (req, res)=>{
+    db.Employee.find({role:"Trainer"})
+    .then((trainers) => res.json(trainers))
+    .catch((err) => res.status(500).json(err));
+  })
+
+
+// DELETE API that allows a manager to delete a trainer
+  app.delete("/api/manager/deleteTrainer/:id", (req, res) => {
+    db.Employee.remove({_id: req.params.id })
+      .then(() => res.send("Success!"))
+      .catch((err) => res.status(500).json(err));
+  });
+
 };
