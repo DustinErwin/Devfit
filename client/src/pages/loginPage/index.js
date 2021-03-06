@@ -7,15 +7,21 @@ import Container from "react-bootstrap/Container";
 import CarouselImageItem from "../../components/CarouselImageItem";
 // import ContentWrapper from "../../components/contentWrapper";
 import AuthenticationButton from "../../components/authenticationButton";
+<<<<<<< HEAD
 import "./styles.css";
 import "../../components/button/styles.css";
+=======
+>>>>>>> registration
 import { useAuth0 } from "@auth0/auth0-react";
 import { Redirect } from "react-router";
 import UserContext from "../../utilities/userContext";
 import Carousel from "react-bootstrap/Carousel";
 import "../../components/button/styles.css";
 import DevBtn from "../../components/button";
+<<<<<<< HEAD
 
+=======
+>>>>>>> registration
 
 function LoginPage() {
   const [userInfo, setUserInfo] = useState();
@@ -45,6 +51,7 @@ function LoginPage() {
 
   return (
     <>
+<<<<<<< HEAD
       <UserContext.Provider value={userInfo}>
         <Header />
         <AuthenticationButton />
@@ -57,6 +64,13 @@ function LoginPage() {
       <Header />
 
       <Container className="loginPage">
+=======
+      <Header />
+
+      <Container className="loginPage">
+        <AuthenticationButton className="btn-dark" />
+        {userRole ? userRole : null}
+>>>>>>> registration
         <Row>
           <Col className="align-self-stretch background-dark">
             <Container className="my-5 py-3">

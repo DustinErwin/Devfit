@@ -1,4 +1,4 @@
-// src/auth/auth0-provider-with-history.js
+// Auth0 Custom hook to handle user login
 
 import React from "react";
 import { useHistory } from "react-router-dom";
