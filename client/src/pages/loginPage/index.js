@@ -45,18 +45,11 @@ function LoginPage() {
 
   return (
     <>
-      <UserContext.Provider value={userInfo}>
-        <Header />
-        <AuthenticationButton />
-        {userRole ? userRole : null}
-        <ContentWrapper>
-          This container should contain the 4 boxes of info on sign up page.
-        </ContentWrapper>
-        <Footer />
-      </UserContext.Provider>
       <Header />
 
       <Container className="loginPage">
+        <AuthenticationButton className="btn-dark" />
+        {userRole ? userRole : null}
         <Row>
           <Col className="align-self-stretch background-dark">
             <Container className="my-5 py-3">
