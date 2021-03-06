@@ -164,10 +164,34 @@ module.exports = (app) => {
   })
 
 
-// DELETE API that allows a manager to delete a trainer
+ // DELETE API that allows a manager to delete a trainer
   app.delete("/api/manager/deleteTrainer/:id", (req, res) => {
     db.Employee.remove({_id: req.params.id })
       .then(() => res.send("Success!"))
+      .catch((err) => res.status(500).json(err));
+  });
+
+  // POST API that allows a manager to add a member/client to a class
+  app.post("/api/manager/addToClass", (req, res) => {
+    db.Class.findOne({ _id: req.body.id})
+      .then((selectedClass) => {
+        const classUpdate = addToClass(selectedClass, req.body.memberid);
+        db.Class.updateOne({ _id: req.body.id }, {$set: classUpdate})
+          .then(() => res.send("Success!"))
+          .catch((err) => res.status(500).json(err));
+      })
+      .catch((err) => res.status(500).json(err));
+  });
+
+  // POST API that allows a manager to remove a member/client from a class
+  app.post("/api/manager/removeFromClass", (req, res) => {
+    db.Class.findOne({_id: req.body.id })
+      .then((selectedClass) => {
+        const classUpdate = removeClassMember(selectedClass, req.body.memberid);
+        db.Class.updateOne({_id: req.body.id }, {$set: classUpdate})
+          .then(() => res.send("Success!"))
+          .catch((err) => res.status(500).json(err));
+      })
       .catch((err) => res.status(500).json(err));
   });
 
