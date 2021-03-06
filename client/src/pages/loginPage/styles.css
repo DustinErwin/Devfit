@@ -22,3 +22,20 @@
   font-family: verdana, sans-serif;
   font-size: x-large;
 }
+
+.btnBorder {
+  height: 5px;
+  width: 10px;
+}
+
+.regBtn-dark {
+  background: rgb(49, 49, 49) !important;
+  border: none !important;
+  color: whitesmoke;
+}
+
+.background-t-red {
+  background: #d22e33;
+  opacity: 0.9;
+  /* height: 38%; */
+}
