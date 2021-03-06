@@ -195,4 +195,11 @@ module.exports = (app) => {
       .catch((err) => res.status(500).json(err));
   });
 
+  // GET API that gets list of all member names and ids
+  app.get("/api/manager/memberList", (req, res) => {
+    db.Member.find({})
+      .then((members) => res.json(memberMap(members)))
+      .catch((err) => res.status(500).json(err));
+  });
+
 };
