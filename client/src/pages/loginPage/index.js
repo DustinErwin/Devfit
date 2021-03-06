@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import Row from "react-bootstrap/Row";
@@ -9,11 +9,51 @@ import CarouselImageItem from "../../components/CarouselImageItem";
 import AuthenticationButton from "../../components/authenticationButton";
 import "./styles.css";
 import "../../components/button/styles.css";
-import DevBtn from "../../components/button/index";
+import { useAuth0 } from "@auth0/auth0-react";
+import { Redirect } from "react-router";
+import UserContext from "../../utilities/userContext";
+import Carousel from "react-bootstrap/Carousel";
+import "../../components/button/styles.css";
+import DevBtn from "../../components/button";
+
 
 function LoginPage() {
+  const [userInfo, setUserInfo] = useState();
+  const [userRole, setUserRole] = useState(null);
+  // const [isAuthenticated, setisAuthenticated] = useState(false)
+
+  const { isAuthenticated } = useAuth0();
+  const { user } = useAuth0();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      const { email } = user;
+
+      fetch(`/api/user/${email}`)
+        .then((response) => response.json())
+        .then((currentUser) => {
+          setUserInfo({ ...userInfo, currentUser });
+          if (currentUser) {
+            setUserRole(<Redirect to={`/${currentUser.role}`} />);
+          } else {
+            setUserRole(<Redirect to={`/registration`} />);
+          }
+        });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated]);
+
   return (
     <>
+      <UserContext.Provider value={userInfo}>
+        <Header />
+        <AuthenticationButton />
+        {userRole ? userRole : null}
+        <ContentWrapper>
+          This container should contain the 4 boxes of info on sign up page.
+        </ContentWrapper>
+        <Footer />
+      </UserContext.Provider>
       <Header />
 
       <Container className="loginPage">
