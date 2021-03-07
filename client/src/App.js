@@ -1,9 +1,9 @@
-import LoginPage from "./pages/loginPage";
-import MemberPage from "./pages/memberPage";
-import EmployeePage from "./pages/employeePage";
-import ManagerPage from "./pages/managerPage";
-import RegistrationPage from "./pages/registrationPage";
-import MemberStore from "./pages/memberStore";
+import LoginPage from "./pages/loginPage/loginPage";
+import MemberPage from "./pages/memberPage/memberPage";
+import EmployeePage from "./pages/employeePage/employeePage";
+import ManagerPage from "./pages/managerPage/managerPage";
+import RegistrationPage from "./pages/registrationPage/registrationPage";
+import MemberStore from "./pages/memberStore/memberStore";
 import { BrowserRouter as Switch, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 

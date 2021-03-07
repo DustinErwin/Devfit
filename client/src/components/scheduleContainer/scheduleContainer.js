@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import add from "date-fns/add";
 import { format } from "date-fns";
-import ScheduleClass from "../scheduleClass";
-import ScheduleColumn from "../scheduleColumn";
+import ScheduleClass from "../scheduleClass/scheduleClass";
+import ScheduleColumn from "../scheduleColumn/scheduleColumn";
 import { Row, Container } from "react-bootstrap/";
-import DevBtn from "../button";
+import DevBtn from "../button/button";
 
 /*TODO: Fetch is currently Hardcoded. Update to fetch current user's info when login is set up*/ 
 
@@ -74,18 +74,18 @@ function ScheduleContainer(props) {
             todaysDate={day.date}
             key={day.date}
           >
-            {day.classData.map((day) => {
+            {day.classData.map((singleClass) => {
               // Render Logic for button. If employee teaches class, then a delete btn appears to delete class
               let employeesClass;
-            userName === day.trainer_name ?  employeesClass=true :  employeesClass=false
+            userName === singleClass.trainer_name ?  employeesClass=true :  employeesClass=false
               
               return (
                 <ScheduleClass
-                  fitClassName={day.class_name}
-                  classTime={day.start_time}
-                  classTrainer={day.trainer_name}
-                  spotsLeft = {day.max_size - day.current_size}
-                  key={day.start_time}
+                  fitClassName={singleClass.class_name}
+                  classTime={singleClass.start_time}
+                  classTrainer={singleClass.trainer_name}
+                  spotsLeft = {singleClass.max_size - singleClass.current_size}
+                  key={singleClass.start_time}
                 >
                     {employeesClass ? <DevBtn styleClass="btn-red">Delete</DevBtn> : null }
                   </ScheduleClass >

@@ -11,7 +11,7 @@ function ScheduleClass(props) {
           {props.classTrainer}
         </div>
         <div className="class-spots-left-${fitClass.day}">
-          {" "}
+          
           slots left {props.spotsLeft}
         </div>
       </div>

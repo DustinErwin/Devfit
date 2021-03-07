@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Header from "../../components/header";
-import Footer from "../../components/footer";
+import Header from "../../components/header/header";
+import Footer from "../../components/footer/footer";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import CarouselImageItem from "../../components/CarouselImageItem";
-// import ContentWrapper from "../../components/contentWrapper";
 import AuthenticationButton from "../../components/authenticationButton";
 import "./styles.css";
 import "../../components/button/styles.css";
@@ -14,7 +13,7 @@ import { Redirect } from "react-router";
 import UserContext from "../../utilities/userContext";
 import Carousel from "react-bootstrap/Carousel";
 import "../../components/button/styles.css";
-import DevBtn from "../../components/button";
+import DevBtn from "../../components/button/button";
 
 
 function LoginPage() {
