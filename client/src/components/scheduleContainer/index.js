@@ -6,6 +6,8 @@ import ScheduleColumn from "../scheduleColumn";
 import { Row, Container } from "react-bootstrap/";
 import DevBtn from "../button";
 
+/*TODO: Fetch is currently Hardcoded. Update to fetch current user's info when login is set up*/ 
+
 function ScheduleContainer(props) {
   const weekLength = [0, 1, 2, 3, 4, 5, 6];
 
@@ -13,7 +15,7 @@ function ScheduleContainer(props) {
   const [userName, setUserName] = useState("");
 
   useEffect(() => {
-    fetch("/api/employee/6041105aad06d732a00f6be4/classes", {
+    fetch("/api/employee/6041105aad06d732a00f6be7/classes", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
