@@ -3,13 +3,16 @@ import Header from "../../components/header/header";
 import Footer from "../../components/footer/footer";
 import ScheduleContainer from "../../components/scheduleContainer/scheduleContainer";
 import Container from "react-bootstrap/Container";
+import TrainerCarousel from "../../components/trainerCarousel/TrainerCarousel"
 
 function EmployeePage() {
 
   return (
     <>
       <Header />
-      <Container>This Wrapper the two boxes for employees.</Container>
+      <Container>
+      <TrainerCarousel />
+      </Container>
       <ScheduleContainer />
       <Footer />
     </>
