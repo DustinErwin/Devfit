@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Header from "../../components/header/header";
 import Footer from "../../components/footer/footer";
-import ScheduleContainer from "../../components/scheduleContainer/scheduleContainer";
+import ScheduleContainer from "../../components/employeeSchedule/employeeSchedule";
 import Container from "react-bootstrap/Container";
-import TrainerCarousel from "../../components/trainerCarousel/TrainerCarousel"
+import Col from "react-bootstrap/Col"
+import Row from "react-bootstrap/Row"
+import TrainerInfoBox from "../../components/trainerInfoBox/trainerInfoBox"
+import './styles.css'
+
 
 function EmployeePage() {
 
@@ -11,7 +15,7 @@ function EmployeePage() {
     <>
       <Header />
       <Container>
-      <TrainerCarousel />
+        <TrainerInfoBox />
       </Container>
       <ScheduleContainer />
       <Footer />

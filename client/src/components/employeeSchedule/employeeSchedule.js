@@ -8,7 +8,7 @@ import DevBtn from "../button/button";
 
 /*TODO: Fetch is currently Hardcoded. Update to fetch current user's info when login is set up*/
 
-function ScheduleContainer() {
+function EmployeeSchedule() {
   const weekLength = [0, 1, 2, 3, 4, 5, 6];
 
   const [data, setData] = useState([]);
@@ -16,7 +16,7 @@ function ScheduleContainer() {
 
   //fetches all the information needed to render a schedule and stores it in state.
   function fetchScheduleData() {
-    fetch("/api/employee/6045473d1d033b25b4e82005/classes", {
+    fetch("/api/employee/604551ad344b442bf4250f61/classes", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -123,4 +123,4 @@ function ScheduleContainer() {
   );
 }
 
-export default ScheduleContainer;
+export default EmployeeSchedule;
