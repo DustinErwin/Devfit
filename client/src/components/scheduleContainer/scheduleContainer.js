@@ -6,16 +6,17 @@ import ScheduleColumn from "../scheduleColumn/scheduleColumn";
 import { Row, Container } from "react-bootstrap/";
 import DevBtn from "../button/button";
 
-/*TODO: Fetch is currently Hardcoded. Update to fetch current user's info when login is set up*/ 
+/*TODO: Fetch is currently Hardcoded. Update to fetch current user's info when login is set up*/
 
-function ScheduleContainer(props) {
+function ScheduleContainer() {
   const weekLength = [0, 1, 2, 3, 4, 5, 6];
 
   const [data, setData] = useState([]);
   const [userName, setUserName] = useState("");
 
-  useEffect(() => {
-    fetch("/api/employee/6041105aad06d732a00f6be7/classes", {
+  //fetches all the information needed to render a schedule and stores it in state.
+  function fetchScheduleData() {
+    fetch("/api/employee/6045473d1d033b25b4e82005/classes", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -61,42 +62,64 @@ function ScheduleContainer(props) {
 
         setData(stateArray);
       });
+  }
+
+  useEffect(() => {
+    //on page load, fetch the schedule data
+    fetchScheduleData();
   }, []);
+
+  //when delete btns are clicked, send a delete request, then fetchSchedule data, re-rendering page.
+  function handleDelete(event) {
+    fetch("/api/employee/removeClass/" + event.target.id, {
+      method: "DELETE",
+    })
+      .then((res) => res.text())
+      .then((res) => fetchScheduleData());
+  }
 
   return (
     <Container fluid>
-    <Row>
-      {data.map((day) => {
+      <Row>
+        {data.map((day) => {
+          return (
+            <ScheduleColumn
+              dayOfWeek={day.weekDay}
+              todaysDate={day.date}
+              key={day.date}
+            >
+              {day.classData.map((singleClass) => {
+                // Render Logic for button. If employee teaches class, then a delete btn appears to delete class
+                let employeesClass;
+                userName === singleClass.trainer_name
+                  ? (employeesClass = true)
+                  : (employeesClass = false);
 
-        return (
-          <ScheduleColumn
-            dayOfWeek={day.weekDay}
-            todaysDate={day.date}
-            key={day.date}
-          >
-            {day.classData.map((singleClass) => {
-              // Render Logic for button. If employee teaches class, then a delete btn appears to delete class
-              let employeesClass;
-            userName === singleClass.trainer_name ?  employeesClass=true :  employeesClass=false
-              
-              return (
-                <ScheduleClass
-                  fitClassName={singleClass.class_name}
-                  classTime={singleClass.start_time}
-                  classTrainer={singleClass.trainer_name}
-                  spotsLeft = {singleClass.max_size - singleClass.current_size}
-                  key={singleClass.start_time}
-                >
-                    {employeesClass ? <DevBtn styleClass="btn-red">Delete</DevBtn> : null }
-                  </ScheduleClass >
-
-              );
-            })}
-          </ScheduleColumn>
-        );
-      })}
-    </Row>
-    </Container >
+                return (
+                  <ScheduleClass
+                    fitClassName={singleClass.class_name}
+                    classTime={singleClass.start_time}
+                    classTrainer={singleClass.trainer_name}
+                    spotsLeft={singleClass.max_size - singleClass.current_size}
+                    key={singleClass.start_time}
+                  >
+                    {employeesClass ? (
+                      <DevBtn
+                        id={singleClass.id}
+                        styleClass="btn-red"
+                        onClick={handleDelete}
+                      >
+                        Delete
+                      </DevBtn>
+                    ) : null}
+                  </ScheduleClass>
+                );
+              })}
+            </ScheduleColumn>
+          );
+        })}
+      </Row>
+    </Container>
   );
 }
 
