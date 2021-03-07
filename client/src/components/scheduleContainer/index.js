@@ -5,7 +5,7 @@ import ScheduleClass from "../scheduleClass";
 import ScheduleColumn from "../scheduleColumn";
 import { Row, Container } from "react-bootstrap/";
 
-function ScheduleContainerTest(props) {
+function Schedul(props) {
   const weekLength = [0, 1, 2, 3, 4, 5, 6];
 
   const [data, setData] = useState([]);
@@ -22,7 +22,7 @@ function ScheduleContainerTest(props) {
       .then((res) => res.json())
       .then((res) => {
         setUserName(res[0].userName);
-        const test = [];
+        const stateArray = [];
         weekLength.map((nothing, i) => {
           //Use date-fns to get data for the 7 days of the week
           const addDay = add(new Date(), {
@@ -53,10 +53,10 @@ function ScheduleContainerTest(props) {
           };
 
           //add that object to state
-          test.push(dataObject);
+          stateArray.push(dataObject);
         });
 
-        setData(test);
+        setData(stateArray);
       });
   }, []);
 
@@ -89,4 +89,4 @@ function ScheduleContainerTest(props) {
   );
 }
 
-export default ScheduleContainerTest;
+export default Schedul;
