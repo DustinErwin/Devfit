@@ -4,8 +4,9 @@ import { format } from "date-fns";
 import ScheduleClass from "../scheduleClass";
 import ScheduleColumn from "../scheduleColumn";
 import { Row, Container } from "react-bootstrap/";
+import DevBtn from "../button";
 
-function Schedul(props) {
+function ScheduleContainer(props) {
   const weekLength = [0, 1, 2, 3, 4, 5, 6];
 
   const [data, setData] = useState([]);
@@ -64,6 +65,7 @@ function Schedul(props) {
     <Container fluid>
     <Row>
       {data.map((day) => {
+
         return (
           <ScheduleColumn
             dayOfWeek={day.weekDay}
@@ -71,6 +73,10 @@ function Schedul(props) {
             key={day.date}
           >
             {day.classData.map((day) => {
+              // Render Logic for button. If employee teaches class, then a delete btn appears to delete class
+              let employeesClass;
+            userName === day.trainer_name ?  employeesClass=true :  employeesClass=false
+              
               return (
                 <ScheduleClass
                   fitClassName={day.class_name}
@@ -78,7 +84,10 @@ function Schedul(props) {
                   classTrainer={day.trainer_name}
                   spotsLeft = {day.max_size - day.current_size}
                   key={day.start_time}
-                />
+                >
+                    {employeesClass ? <DevBtn styleClass="btn-red">Delete</DevBtn> : null }
+                  </ScheduleClass >
+
               );
             })}
           </ScheduleColumn>
@@ -89,4 +98,4 @@ function Schedul(props) {
   );
 }
 
-export default Schedul;
+export default ScheduleContainer;
