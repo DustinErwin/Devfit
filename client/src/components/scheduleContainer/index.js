@@ -3,7 +3,7 @@ import add from "date-fns/add";
 import { format } from "date-fns";
 import ScheduleClass from "../scheduleClass";
 import ScheduleColumn from "../scheduleColumn";
-import { Row, Col } from "react-bootstrap/";
+import { Row, Container } from "react-bootstrap/";
 
 function ScheduleContainerTest(props) {
   const weekLength = [0, 1, 2, 3, 4, 5, 6];
@@ -59,10 +59,9 @@ function ScheduleContainerTest(props) {
         setData(test);
       });
   }, []);
-  console.log(data);
-  console.log(data.length);
 
   return (
+    <Container fluid>
     <Row>
       {data.map((day) => {
         return (
@@ -78,6 +77,7 @@ function ScheduleContainerTest(props) {
                   classTime={day.start_time}
                   classTrainer={day.trainer_name}
                   spotsLeft = {day.max_size - day.current_size}
+                  key={day.start_time}
                 />
               );
             })}
@@ -85,6 +85,7 @@ function ScheduleContainerTest(props) {
         );
       })}
     </Row>
+    </Container >
   );
 }
 
