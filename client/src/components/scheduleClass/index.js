@@ -12,7 +12,7 @@ return  <div className="row m-0 pb-3 pt-3 border-to-bottom-thin font-large">
   <div className="class-spots-left-${fitClass.day}"> slots left {props.spotsLeft}</div>
 </div>
 <div className="col border-to-right border-teal d-flex">
-<DevBtn >Join</DevBtn>
+<DevBtn styleClass="btn-red">Delete</DevBtn>
 </div>
 </div>
 }
