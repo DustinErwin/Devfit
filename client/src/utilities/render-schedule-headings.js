@@ -1,5 +1,5 @@
 import React from "react";
-import ScheduleColumn from "../components/scheduleColumn";
+import ScheduleColumn from "../components/scheduleColumn/scheduleColumn";
 import add from "date-fns/add";
 import { format } from "date-fns";
 

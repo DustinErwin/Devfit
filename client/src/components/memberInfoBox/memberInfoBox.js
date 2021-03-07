@@ -1,7 +1,7 @@
 import React from "react";
 import Col from "react-bootstrap/Col";
 import "./styles.css";
-import DevBtn from "../button";
+import DevBtn from "../button/button";
 
 //TODO: Basic Framework Created. Still need to add Api Call and show classes signed up for.
 function MemberInfoBox() {

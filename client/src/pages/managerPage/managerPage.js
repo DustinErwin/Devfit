@@ -1,9 +1,9 @@
 import React from "react";
-import Header from "../../components/header";
-import Footer from "../../components/footer";
-import ContentWrapper from "../../components/contentWrapper";
+import Header from "../../components/header/header";
+import Footer from "../../components/footer/footer";
 import RenderScheduleHeadings from "../../utilities/render-schedule-headings";
 import Row from "react-bootstrap/Row";
+import Container from "react-bootstrap/Container"
 import AuthenticationButton from "../../components/authenticationButton";
 
 function ManagerPage() {
@@ -11,11 +11,11 @@ function ManagerPage() {
     <>
       <Header />
       <AuthenticationButton />
-      <ContentWrapper>This Wrapper the two boxes for Managers.</ContentWrapper>
+      <Container >This Wrapper the two boxes for Managers.</Container>
 
-      <ContentWrapper>
+      <Container>
         <Row>{RenderScheduleHeadings()}</Row>
-      </ContentWrapper>
+      </Container>
       <Footer />
     </>
   );
