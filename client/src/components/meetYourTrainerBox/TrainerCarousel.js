@@ -7,7 +7,7 @@ import Carousel from "react-bootstrap/Carousel";
 function MeetYourTrainerBox() {
   return (
     <Col className="col-12 col-md-6 text-center meet-your-trainer-box">
-      <h2 class="div text-red my-3">Meet Your Trainers!</h2>
+      <h2 className="div text-red my-3">Meet Your Trainers!</h2>
       <Carousel className="trainerCarousel" indicators={false}>
         <Carousel.Item>
           <img

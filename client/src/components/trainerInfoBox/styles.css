@@ -1,5 +1,38 @@
 .trainer-info-box {
   background: #d22e33;
-  color: whitesmoke;
+  color:whitesmoke;
   text-align: center;
+}
+
+.trainers-class{
+    display:flex;
+    flex-direction:row;
+    justify-content: center;
+    align-items:center
+}
+
+/* Aligns buttons with text better  */
+.trainer-class-p {
+ padding-top: 10px;
+}
+
+.roster-container{
+    background: rgb(49, 49, 49);
+    color: whitesmoke; 
+    display: flex; 
+    justify-content: center;
+
+}
+
+.roster-card {
+background: #d22e33 !important;
+width: 70%; 
+text-align: center;
+}
+
+.col-no- {
+    padding-left:0 !important;
+    padding-right: 0 !important;
+    margin-right: 0 !important;
+    margin-left: 0 !important; 
 }

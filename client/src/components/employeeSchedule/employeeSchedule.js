@@ -16,7 +16,7 @@ function EmployeeSchedule() {
 
   //fetches all the information needed to render a schedule and stores it in state.
   function fetchScheduleData() {
-    fetch("/api/employee/604551ad344b442bf4250f61/classes", {
+    fetch("/api/employee/6046653df074fb3b2831dca9/classes", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
