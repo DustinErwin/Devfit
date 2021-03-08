@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import Header from "../../components/header/header";
 import Footer from "../../components/footer/footer";
 import Row from "react-bootstrap/Row";
@@ -8,8 +8,8 @@ import AdCarousel from "../../components/AdCarousel";
 import AuthenticationButton from "../../components/authenticationButton";
 import "./styles.css";
 import "../../components/button/styles.css";
-import { useAuth0 } from "@auth0/auth0-react";
-import { Redirect } from "react-router";
+// import { useAuth0 } from "@auth0/auth0-react";
+// import { Redirect } from "react-router";
 // import UserContext from "../../utilities/userContext";
 import "../../components/button/styles.css";
 import DevBtn from "../../components/button/button";
