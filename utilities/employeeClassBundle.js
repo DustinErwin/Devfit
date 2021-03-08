@@ -4,7 +4,6 @@ module.exports = function (classes, currentUser, trainers) {
 
   //Get user name and add it as the first index
   const userName = currentUser.first_name;
-  classBundle.push({ userName: userName });
 
   //Loop to match trainer with class and build object for each class
   classes.forEach((unit) => {

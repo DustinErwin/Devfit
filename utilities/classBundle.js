@@ -39,12 +39,10 @@ module.exports = function (classes, currentUser, trainers) {
       max_size: unit.max_size,
       trainer_id: unit.trainer_id,
       trainer_name: activeTrainer[0].first_name,
-      userName: userName,
-      classJoined: classesJoined,
     };
 
     classBundle.push(reqClass);
   });
-
+  classBundle.push(classesJoined);
   return classBundle;
 };

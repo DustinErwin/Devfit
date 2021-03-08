@@ -1,22 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import add from "date-fns/add";
 import { format } from "date-fns";
 import ScheduleClass from "../scheduleClass/scheduleClass";
 import ScheduleColumn from "../scheduleColumn/scheduleColumn";
 import { Row, Container } from "react-bootstrap/";
 import DevBtn from "../button/button";
+import UserContext from "../../utilities/userContext";
 
 /*TODO: Fetch is currently Hardcoded. Update to fetch current user's info when login is set up*/
 
 function EmployeeSchedule() {
   const weekLength = [0, 1, 2, 3, 4, 5, 6];
-
+  const user = useContext(UserContext);
   const [data, setData] = useState([]);
   const [userName, setUserName] = useState("");
 
   //fetches all the information needed to render a schedule and stores it in state.
   function fetchScheduleData() {
-    fetch("/api/employee/6046653df074fb3b2831dca9/classes", {
+    fetch("/api/employee/6043b0a98b39b7250cffb630/classes", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -25,7 +26,8 @@ function EmployeeSchedule() {
     })
       .then((res) => res.json())
       .then((res) => {
-        setUserName(res[0].userName);
+        console.log(res);
+        setUserName(user.firstName);
         const stateArray = [];
         weekLength.map((nothing, i) => {
           //Use date-fns to get data for the 7 days of the week

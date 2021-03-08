@@ -21,7 +21,6 @@ function LoginPage() {
     <>
       <Header />
       <Container className="loginPage">
-        <AuthenticationButton className="btn-dark" />
         <Row>
           <Col className="align-self-stretch background-dark">
             <Container className="my-5 py-3">
