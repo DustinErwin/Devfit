@@ -6,11 +6,11 @@ function ScheduleClass(props) {
     <div className="row m-0 pb-3 pt-3 border-to-bottom-thin font-large">
       <div className="col border-teal pb-3 text-center">
         <h4 className=" bold text-red">{props.fitClassName} </h4>
-        <div className="class-time-${fitClass.day}">{props.classTime}</div>
-        <div className="class-trainer-${fitClass.day}">
+        <div>{props.classTime}</div>
+        <div>
           {props.classTrainer}
         </div>
-        <div className="class-spots-left-${fitClass.day}">
+        <div>
           
           slots left {props.spotsLeft}
         </div>

@@ -6,16 +6,14 @@ import "./styles.css";
 import getFirstName from "../../utilities/getFirstName";
 import DevBtn from "../../components/button/button";
 import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
 
 function TrainerInfoBox() {
   const [userData, setUserData] = useState({});
   const [userClasses, setUserClasses] = useState([]);
-  const [modalShow, setModalShow] = useState(false);
   const [toggleRoster, setToggleRoster] = useState(true);
   const [classRoster, setClassRoster] = useState("");
 
-
+//used on Roster btn click. Grabs current class roster and adds it to state so info can be displayed in card
   function fetchClassRoster(id) {
     fetch("/api/class/"+ id +"/roster", {
       method: "GET",
@@ -26,12 +24,12 @@ function TrainerInfoBox() {
     })
       .then((res) => res.json())
       .then((res) => {
-         console.log(res)
+         setClassRoster(res)
         
       });
   }
 
-
+//grabs userName and class schedule to populate schedule 
   function fetchUserData() {
     fetch("/api/employee/6046653df074fb3b2831dca9/schedule", {
       method: "GET",
@@ -82,7 +80,7 @@ function TrainerInfoBox() {
           </p>
           {userClasses.map((singleClass) => {
             return (
-              <div className="trainers-class mb-3">
+              <div className="trainers-class mb-3" key={singleClass.start_time + singleClass.day} >
                 <p className="mr-3 trainer-class-p">
                   - {singleClass.day}, {singleClass.class_name}, at{" "}
                   {singleClass.start_time} -
@@ -98,7 +96,7 @@ function TrainerInfoBox() {
           <div className="roster-container">
             <Card className="roster-card mb-5 mt-5">
               <Card.Body>
-                <Card.Title>Card Title</Card.Title>
+                <Card.Title>Roster</Card.Title>
                 <Card.Text>
                   Some quick example text to build on the card title and make up
                   the bulk of the card's content.
