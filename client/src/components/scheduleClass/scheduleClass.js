@@ -7,13 +7,8 @@ function ScheduleClass(props) {
       <div className="col border-teal pb-3 text-center">
         <h4 className=" bold text-red">{props.fitClassName} </h4>
         <div>{props.classTime}</div>
-        <div>
-          {props.classTrainer}
-        </div>
-        <div>
-          
-          slots left {props.spotsLeft}
-        </div>
+        <div>{props.classTrainer}</div>
+        <div>slots left {props.spotsLeft}</div>
       </div>
       <div className="col border-to-right border-teal d-flex">
         {/* Props.children is here to add buttons when this component is called to make this more reusable. */}
