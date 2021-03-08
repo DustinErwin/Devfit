@@ -11,11 +11,9 @@ import "./styles.css";
 import "../../components/button/styles.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Redirect } from "react-router";
-import UserContext from "../../utilities/userContext";
-import Carousel from "react-bootstrap/Carousel";
+// import UserContext from "../../utilities/userContext";
 import "../../components/button/styles.css";
 import DevBtn from "../../components/button";
-
 
 function LoginPage() {
   const [userInfo, setUserInfo] = useState();
@@ -48,7 +46,6 @@ function LoginPage() {
       <Header />
 
       <Container className="loginPage">
-        <AuthenticationButton className="btn-dark" />
         {userRole ? userRole : null}
         <Row>
           <Col className="align-self-stretch background-dark">
