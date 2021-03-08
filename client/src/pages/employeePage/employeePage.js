@@ -4,6 +4,7 @@ import Footer from "../../components/footer/footer";
 import ScheduleContainer from "../../components/scheduleContainer/scheduleContainer";
 import Container from "react-bootstrap/Container";
 import UserContext from "../../utilities/userContext";
+import AuthenticationButton from "../../components/authenticationButton";
 
 function EmployeePage() {
   const [schedule, setSchedule] = useState(["temp argument to stop bug"]);
@@ -25,6 +26,7 @@ function EmployeePage() {
   return (
     <>
       <Header />
+      <AuthenticationButton />
       <Container>This Wrapper the two boxes for employees.</Container>
       <ScheduleContainer />
       <Footer />

@@ -39,9 +39,22 @@ function App() {
             setUserRole(<Redirect to={`/registration`} />);
           }
         });
+    } else if (!isAuthenticated) {
+      setUserInfo({
+        ...userInfo,
+        _id: "",
+        email: "",
+        firstName: "",
+        lastName: "",
+        fullName: "",
+        role: "",
+        gender: "",
+      });
+      setUserRole(null);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
+
   return (
     <UserContext.Provider value={userInfo}>
       <div className="App">
