@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Header from "../../components/header/header";
 import Footer from "../../components/footer/footer";
 import Row from "react-bootstrap/Row";
@@ -8,47 +8,15 @@ import CarouselImageItem from "../../components/CarouselImageItem";
 import AuthenticationButton from "../../components/authenticationButton";
 import "./styles.css";
 import "../../components/button/styles.css";
-import { useAuth0 } from "@auth0/auth0-react";
-import { Redirect } from "react-router";
-import UserContext from "../../utilities/userContext";
-import Carousel from "react-bootstrap/Carousel";
 import "../../components/button/styles.css";
 import DevBtn from "../../components/button/button";
 
-
 function LoginPage() {
-  const [userInfo, setUserInfo] = useState();
-  const [userRole, setUserRole] = useState(null);
-  // const [isAuthenticated, setisAuthenticated] = useState(false)
-
-  const { isAuthenticated } = useAuth0();
-  const { user } = useAuth0();
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      const { email } = user;
-
-      fetch(`/api/user/${email}`)
-        .then((response) => response.json())
-        .then((currentUser) => {
-          setUserInfo({ ...userInfo, currentUser });
-          if (currentUser) {
-            setUserRole(<Redirect to={`/${currentUser.role}`} />);
-          } else {
-            setUserRole(<Redirect to={`/registration`} />);
-          }
-        });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuthenticated]);
-
   return (
     <>
       <Header />
-
       <Container className="loginPage">
         <AuthenticationButton className="btn-dark" />
-        {userRole ? userRole : null}
         <Row>
           <Col className="align-self-stretch background-dark">
             <Container className="my-5 py-3">
@@ -110,7 +78,6 @@ function LoginPage() {
           </Col>
         </Row>
       </Container>
-
       <Footer />
     </>
   );

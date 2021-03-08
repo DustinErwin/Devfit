@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Header from "../../components/header/header";
 import Footer from "../../components/footer/footer";
 import ScheduleContainer from "../../components/scheduleContainer/scheduleContainer";
 import Container from "react-bootstrap/Container";
+import UserContext from "../../utilities/userContext";
 
 function EmployeePage() {
   const [schedule, setSchedule] = useState(["temp argument to stop bug"]);
+  const user = useContext(UserContext);
 
   useEffect(() => {
-    fetch("/api/employee/6041105aad06d732a00f6be4/classes", {
+    fetch(`/api/employee/${user._id}/classes`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

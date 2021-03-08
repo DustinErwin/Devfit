@@ -16,6 +16,7 @@ module.exports = (app) => {
         } else {
           db.Employee.findOne({ email: req.params.email })
             .then((currentUser) => {
+              console.log(currentUser);
               res.json(currentUser);
             })
             .catch((err) => res.json(err));
