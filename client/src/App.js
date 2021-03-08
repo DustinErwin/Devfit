@@ -9,8 +9,21 @@ import UserContext from "./utilities/userContext";
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import LoginPage from "./pages/loginPage/loginPage";
+import ClassContext from "./utilities/ClassContext";
 
 function App() {
+  const [classes, setClasses] = useState({
+    _id: "",
+    className: "",
+    day: "",
+    startTime: "",
+    currentSize: 0,
+    maxSize: 0,
+    trainerId: "",
+    trainerName: "",
+    classesJoined: [],
+  });
+
   const [userInfo, setUserInfo] = useState({
     _id: "",
     email: "",
@@ -38,6 +51,14 @@ function App() {
           } else {
             setUserRole(<Redirect to={`/registration`} />);
           }
+        })
+        .then(() => {
+          fetch(`/api/member/${userInfo._id}/classes`)
+            .then((response) => response.json())
+            .then((classData) => {
+              console.log(classData);
+              setClasses({ ...classes, classData });
+            });
         });
     } else if (!isAuthenticated) {
       setUserInfo({
@@ -51,24 +72,37 @@ function App() {
         gender: "",
       });
       setUserRole(null);
+      setClasses({
+        _id: "",
+        className: "",
+        day: "",
+        startTime: "",
+        currentSize: 0,
+        maxSize: 0,
+        trainerId: "",
+        trainerName: "",
+        classesJoined: [],
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
 
   return (
-    <UserContext.Provider value={userInfo}>
-      <div className="App">
-        <Switch>
-          <Route path="/" component={LoginPage} exact />
-          <Route path="/member" component={MemberPage} />
-          <Route path="/employee" component={EmployeePage} />
-          <Route path="/manager" component={ManagerPage} />
-          <Route path="/registration" component={RegistrationPage} />
-          <Route path="/member-store" component={MemberStore} />
-          {userRole ? userRole : null}
-        </Switch>
-      </div>
-    </UserContext.Provider>
+    <ClassContext.Provider value={classes}>
+      <UserContext.Provider value={userInfo}>
+        <div className="App">
+          <Switch>
+            <Route path="/" component={LoginPage} exact />
+            <Route path="/member" component={MemberPage} />
+            <Route path="/employee" component={EmployeePage} />
+            <Route path="/manager" component={ManagerPage} />
+            <Route path="/registration" component={RegistrationPage} />
+            <Route path="/member-store" component={MemberStore} />
+            {userRole ? userRole : null}
+          </Switch>
+        </div>
+      </UserContext.Provider>
+    </ClassContext.Provider>
   );
 }
 
