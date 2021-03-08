@@ -2,3 +2,15 @@
   background: rgb(49, 49, 49);
   color: #d22e33;
 }
+
+
+/* Keeps all pictures the same size so the carousel doesn't change size with picture scroll */
+ .trainerCarousel img {
+  max-height: 400px;
+  width: auto; 
+}
+
+.carouselCaption {
+  background: #d22e33;
+  opacity: 0.9;
+}
