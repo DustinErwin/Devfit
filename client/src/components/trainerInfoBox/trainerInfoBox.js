@@ -1,21 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import "./styles.css";
-import getFirstName from "../../utilities/getFirstName";
 import DevBtn from "../../components/button/button";
 import Card from "react-bootstrap/Card";
+import UserContext from "../../utilities/userContext";
 
 function TrainerInfoBox() {
+  const user = useContext(UserContext);
+
   const [userData, setUserData] = useState({});
   const [userClasses, setUserClasses] = useState([]);
   const [toggleRoster, setToggleRoster] = useState(true);
   const [classRoster, setClassRoster] = useState("");
 
-//used on Roster btn click. Grabs current class roster and adds it to state so info can be displayed in card
+  //used on Roster btn click. Grabs current class roster and adds it to state so info can be displayed in card
   function fetchClassRoster(id) {
-    fetch("/api/class/"+ id +"/roster", {
+    fetch("/api/class/" + id + "/roster", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -24,14 +26,13 @@ function TrainerInfoBox() {
     })
       .then((res) => res.json())
       .then((res) => {
-         setClassRoster(res)
-        
+        setClassRoster(res);
       });
   }
 
-//grabs userName and class schedule to populate schedule 
+  //grabs userName and class schedule to populate schedule
   function fetchUserData() {
-    fetch("/api/employee/6046653df074fb3b2831dca9/schedule", {
+    fetch("/api/employee/" + user._id + "/schedule", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -40,12 +41,7 @@ function TrainerInfoBox() {
     })
       .then((res) => res.json())
       .then((res) => {
-         
-        //function in utils folder. takes a full name and returns first
-        const userFirstName = getFirstName(res[0]);
-
-        //0 index is trainer name, so res -1 gets class number.
-        const classesTaught = res.length - 1;
+        const classesTaught = res.length;
 
         //clone, then drop the first index so all we are left with are classes. (since first index is trainer name)
         const classesArray = [...res];
@@ -53,7 +49,7 @@ function TrainerInfoBox() {
 
         setUserClasses(classesArray);
         setUserData({
-          firstName: userFirstName,
+          firstName: user.firstName,
           numClassesTaught: classesTaught,
         });
       });
@@ -65,8 +61,8 @@ function TrainerInfoBox() {
   }, []);
 
   function handleRoster(e) {
-    const classId = e.target.id 
-    fetchClassRoster(classId)
+    const classId = e.target.id;
+    fetchClassRoster(classId);
   }
 
   return (
@@ -80,12 +76,19 @@ function TrainerInfoBox() {
           </p>
           {userClasses.map((singleClass) => {
             return (
-              <div className="trainers-class mb-3" key={singleClass.start_time + singleClass.day} >
+              <div
+                className="trainers-class mb-3"
+                key={singleClass.start_time + singleClass.day}
+              >
                 <p className="mr-3 trainer-class-p">
                   - {singleClass.day}, {singleClass.class_name}, at{" "}
                   {singleClass.start_time} -
                 </p>{" "}
-                <DevBtn styleClass="btn-dark" id={singleClass.id} onClick={(e) => handleRoster(e)}>
+                <DevBtn
+                  styleClass="btn-dark"
+                  id={singleClass.id}
+                  onClick={(e) => handleRoster(e)}
+                >
                   Roster
                 </DevBtn>{" "}
               </div>
