@@ -17,7 +17,7 @@ function EmployeeSchedule() {
 
   //fetches all the information needed to render a schedule and stores it in state.
   function fetchScheduleData() {
-    fetch("/api/employee/6043b0a98b39b7250cffb630/classes", {
+    fetch(`/api/employee/${user._id}/classes`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -26,7 +26,6 @@ function EmployeeSchedule() {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
         setUserName(user.firstName);
         const stateArray = [];
         weekLength.map((nothing, i) => {

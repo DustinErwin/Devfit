@@ -25,7 +25,7 @@ module.exports = (app) => {
   });
 
   // GET object to populate divs with class info
-  app.get("/api/member/:id/classes/", function (req, res) {
+  app.get("/api/member/:id/classes", function (req, res) {
     db.Class.find({})
       .sort({ start_time: 1 })
       .then((classes) => {
@@ -169,6 +169,13 @@ module.exports = (app) => {
           .then((trainer) => res.send(trainerSchedule(trainer, classes)))
           .catch((err) => res.status(401).json(err));
       })
+      .catch((err) => res.status(401).json(err));
+  });
+
+  // GET Api to retrieve order history
+  app.get("/api/manager/orderhistory", (req, res) => {
+    db.Order.find({})
+      .then((orders) => res.send(orders))
       .catch((err) => res.status(401).json(err));
   });
 };

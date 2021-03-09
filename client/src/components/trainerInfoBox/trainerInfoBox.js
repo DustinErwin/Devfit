@@ -56,9 +56,10 @@ function TrainerInfoBox() {
   }
 
   useEffect(() => {
+    console.log(user);
     //on page load, fetch the schedule data
     fetchUserData();
-  }, []);
+  }, [user]);
 
   function handleRoster(e) {
     const classId = e.target.id;

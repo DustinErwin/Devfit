@@ -32,7 +32,17 @@ function App() {
       fetch(`/api/user/${email}`)
         .then((response) => response.json())
         .then((currentUser) => {
-          setUserInfo({ ...userInfo, currentUser });
+          console.log(currentUser);
+          setUserInfo({
+            ...userInfo,
+            _id: currentUser._id,
+            email: currentUser.email,
+            firstName: currentUser.first_name,
+            lastName: currentUser.last_name,
+            fullName: `${currentUser.fisrt_name} ${currentUser.last_name}`,
+            role: currentUser.role,
+            gender: currentUser.gender,
+          });
           if (currentUser) {
             setUserRole(<Redirect to={`/${currentUser.role}`} />);
           } else {
