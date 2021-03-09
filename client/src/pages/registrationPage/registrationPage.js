@@ -5,12 +5,13 @@ import AuthenticationButton from "../../components/authenticationButton";
 import RegistrationForm from "../../components/Forms/RegistrationForm";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
+import "./registrationPage.css";
 
 function RegistrationPage() {
   return (
     <>
       <Header />
-      <Container>
+      <Container className="regPage">
         <h1>Sign Up for an Account:</h1>
         <Card>
           <RegistrationForm></RegistrationForm>
