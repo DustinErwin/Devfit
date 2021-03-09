@@ -8,9 +8,9 @@ import AdCarousel from "../../components/AdCarousel";
 import AuthenticationButton from "../../components/authenticationButton";
 import "./styles.css";
 import "../../components/button/styles.css";
-// import { useAuth0 } from "@auth0/auth0-react";
-// import { Redirect } from "react-router";
-// import UserContext from "../../utilities/userContext";
+import { useAuth0 } from "@auth0/auth0-react";
+import { Redirect } from "react-router";
+import UserContext from "../../utilities/userContext";
 import "../../components/button/styles.css";
 import DevBtn from "../../components/button/button";
 import { Link } from "react-router-dom";
@@ -50,12 +50,10 @@ function LoginPage() {
                 you'll master your body."
               </h3>
               <p className="text-white mb-5">-GYMQUOTES.CO</p>
-              {/* <Container className="background-dark align-content-center"> */}
               <h4 className="py-3 text-white">Already a Member?</h4>
               <AuthenticationButton />
               <br />
               <br />
-              {/* </Container> */}
             </Container>
           </Col>
         </Row>
