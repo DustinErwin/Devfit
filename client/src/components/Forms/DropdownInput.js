@@ -1,11 +1,10 @@
 import React from "react";
 
 export default function DropdownInput(props) {
-  let searchList = [];
-
   return (
     <DropdownInput
-      options={searchList}
+      options={props.searchList}
+      defaultValue={props.initialValue}
       menuClassName="dropdown-input"
       onSelect={props.onSelect}
       placeholder="Select..."
