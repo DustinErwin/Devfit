@@ -1,12 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "react-bootstrap/Card";
 import "./styles.css";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
+import DevBtn from "../../commonComponents/devButton/devButton";
 
 function InfoBoxRightColumn(props) {
-  console.log(props);
+  const [fitClassName, setFitClassName] = useState("");
+  const [weekday, setWeekday] = useState("Monday");
+  const [classTime, setClassTime] = useState("06:00:00:00");
+  const [maxSize, setMaxSize] = useState(10);
+
+  function handleClassCreation() {
+    const classData = {
+      "class_name" : fitClassName,
+      "day": weekday,
+      "start_time": classTime,
+      "trainer_id": props.trainerId,
+    };
+
+    fetch("/api/employee/addClass", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(classData),
+    })
+      .then((response) => response.json())
+      .then((classData) => {
+        console.log("Success:", classData);
+      })
+  }
 
   return props.displayAddClass === false ? (
     <Card className="view-roster mb-5 mt-5">
@@ -28,10 +53,17 @@ function InfoBoxRightColumn(props) {
         <Col className="col-6">
           <Form.Group>
             <p>Class Name</p>
-            <Form.Control type="text" placeholder="Class Name" />
+            <Form.Control
+              type="text"
+              placeholder="Class Name"
+              onChange={(e) => setFitClassName(e.target.value)}
+            />
             <br />
             <p>WeekDay</p>
-            <Form.Control as="select">
+            <Form.Control
+              as="select"
+              onChange={(e) => setWeekday(e.target.value)}
+            >
               <option>Monday</option>
               <option>Tuesday</option>
               <option>Wednesday</option>
@@ -46,7 +78,10 @@ function InfoBoxRightColumn(props) {
         <Col className="col-6">
           <Form.Group>
             <p>Max Class Size</p>
-            <Form.Control as="select">
+            <Form.Control
+              as="select"
+              onChange={(e) => setMaxSize(e.target.value)}
+            >
               <option>10</option>
               <option>11</option>
               <option>12</option>
@@ -61,25 +96,31 @@ function InfoBoxRightColumn(props) {
             </Form.Control>
             <br />
             <p>Class Start Time</p>
-            <Form.Control as="select">
-              <option>06:00:00</option>
-              <option>07:00:00</option>
-              <option>08:00:00</option>
-              <option>09:00:00</option>
-              <option>10:00:00</option>
-              <option>11:00:00</option>
-              <option>12:00:00</option>
-              <option>13:00:00</option>
-              <option>14:00:00</option>
-              <option>15:00:00</option>
-              <option>16:00:00</option>
-              <option>17:00:00</option>
-              <option>18:00:00</option>
+            <Form.Control
+              as="select"
+              onChange={(e) => setClassTime(e.target.value)}
+            >
+              <option>06:00:00:00</option>
+              <option>07:00:00:00</option>
+              <option>08:00:00:00</option>
+              <option>09:00:00:00</option>
+              <option>10:00:00:00</option>
+              <option>11:00:00:00</option>
+              <option>12:00:00:00</option>
+              <option>13:00:00:00</option>
+              <option>14:00:00:00</option>
+              <option>15:00:00:00</option>
+              <option>16:00:00:00</option>
+              <option>17:00:00:00</option>
+              <option>18:00:00:00</option>
             </Form.Control>
             <br />
           </Form.Group>
         </Col>
       </Row>
+      <DevBtn styleClass="btn-red mb-3" onClick={handleClassCreation}>
+        Create Class
+      </DevBtn>
     </Card>
   );
 }

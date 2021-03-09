@@ -78,7 +78,7 @@ function EmployeePage() {
             handleRoster={handleRoster}
           />
         }
-        colRight={<RightColumn rosterList={classRoster || []} displayAddClass={displayAddClass} />}
+        colRight={<RightColumn rosterList={classRoster || []} displayAddClass={displayAddClass} trainerId={'6047aab647549b4658f9e132'} />}
       ></UserInfoBox>
       <ScheduleContainer userData={userData} />
       <Footer />
