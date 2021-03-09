@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import add from "date-fns/add";
 import { format } from "date-fns";
-import ScheduleClass from "../scheduleClass/scheduleClass";
-import ScheduleColumn from "../scheduleColumn/scheduleColumn";
+import ScheduleClass from "../../commonComponents/scheduleClass/scheduleClass";
+import ScheduleColumn from "../../commonComponents/scheduleColumn/scheduleColumn";
 import { Row, Container } from "react-bootstrap/";
-import DevBtn from "../button/button";
-import UserContext from "../../utilities/userContext";
+import DevBtn from "../../commonComponents/devButton/devButton";
+import UserContext from "../../../utilities/userContext";
+
 
 /*TODO: Fetch is currently Hardcoded. Update to fetch current user's info when login is set up*/
 
@@ -13,21 +14,22 @@ function EmployeeSchedule() {
   const weekLength = [0, 1, 2, 3, 4, 5, 6];
   const user = useContext(UserContext);
   const [data, setData] = useState([]);
-  const [userName, setUserName] = useState("");
+
+
 
   //fetches all the information needed to render a schedule and stores it in state.
   function fetchScheduleData() {
-    fetch("/api/employee/6043b0a98b39b7250cffb630/classes", {
+    fetch("/api/employee/"+ user._id +"/classes", {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
       },
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
-        setUserName(user.firstName);
+        console.log(res)
+      
         const stateArray = [];
         weekLength.map((nothing, i) => {
           //Use date-fns to get data for the 7 days of the week
@@ -73,7 +75,7 @@ function EmployeeSchedule() {
 
   //when delete btns are clicked, send a delete request, then fetchSchedule data, re-rendering page.
   function handleDelete(event) {
-    fetch("/api/employee/removeClass/" + event.target.id, {
+    fetch("/api/employee/removeClass/" + user._id, {
       method: "DELETE",
     })
       .then((res) => res.text())
@@ -82,6 +84,7 @@ function EmployeeSchedule() {
 
   return (
     <Container fluid>
+    
       <Row>
         {data.map((day) => {
           return (
@@ -93,7 +96,7 @@ function EmployeeSchedule() {
               {day.classData.map((singleClass) => {
                 // Render Logic for button. If employee teaches class, then a delete btn appears to delete class
                 let employeesClass;
-                userName === singleClass.trainer_name
+                user.firstName === singleClass.trainer_name
                   ? (employeesClass = true)
                   : (employeesClass = false);
 

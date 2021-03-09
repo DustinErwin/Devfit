@@ -34,7 +34,7 @@ module.exports = (app) => {
             db.Employee.find({})
               .then((trainers) => {
                 res.json(getClassBundle(classes, currentUser, trainers));
-              })
+              }).then
               .catch((err) => res.json(err));
           })
           .catch((err) => res.json(err));
