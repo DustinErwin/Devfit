@@ -7,6 +7,8 @@ import { Row, Container } from "react-bootstrap/";
 import DevBtn from "../../commonComponents/devButton/devButton";
 import UserContext from "../../../utilities/userContext";
 import Col from "react-bootstrap/Col";
+import convertTime from "../../../utilities/convertTime"
+import "./styles.css"
 
 /*TODO: Fetch is currently Hardcoded. Update to fetch current user's info when login is set up*/
 
@@ -91,30 +93,36 @@ function EmployeeSchedule(props) {
               key={day.date}
             >
               {day.classData.map((singleClass) => {
-                console.log(singleClass)
+           
                 // Render Logic for button. If employee teaches class, then a delete btn appears to delete class
                 let employeesClass;
                 userData.firstName === singleClass.trainer_name
                   ? (employeesClass = true)
                   : (employeesClass = false);
 
+                  //convert time stamp into readable time 
+                  const convertedTime = convertTime(singleClass.start_time)
+
                 return (
-                  <Row className="m-0 pb-3 pt-3 border-to-bottom-thin font-large">
-                    <Col className="col border-teal pb-3 text-center">
+              
+                  <Row className="m-0 pb-3 pt-3 border-to-bottom-thin scheduleClass border-to-right">
+                    <Col className=" col-12 border-teal pb-3 text-center ">
                       <h4 className=" bold text-red">
                         {singleClass.class_name}{" "}
                       </h4>
-                      <div>{singleClass.start_time}</div>
+                      <div>{convertedTime}</div>
                       <div>{singleClass.trainer_name}</div>
                       <div>
                         slots left{" "}
                         {singleClass.max_size - singleClass.current_size}
                       </div>
                     </Col>
-                    <Col className="col border-to-right border-teal ">
-                      <DevBtn styleClass="btn-red" onClick={handleDelete} id={singleClass.id}>Delete </DevBtn>
+
+                    <Col className=" col-12 border-teal center-btn">
+                      <DevBtn styleClass="btn-red " onClick={handleDelete} id={singleClass.id}>Delete </DevBtn>
                     </Col>
                   </Row>
+        
                 );
               })}
             </ScheduleColumn>

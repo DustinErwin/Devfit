@@ -1,8 +1,10 @@
 import React from "react";
 import DevBtn from "../../../components/commonComponents/devButton/devButton";
 import "./styles.css";
+import tConvert from "../../../utilities/convertTime"
 
 function InfoBoxLeftColumn(props) {
+  
   return (
     <div className="left-column">
       <h2 className="mt-5 mb-4 trainer-name">Hi {props.firstName}!</h2>
@@ -10,6 +12,8 @@ function InfoBoxLeftColumn(props) {
         You are currently teaching {props.numClassesTaught} classes this week!
       </p>
       {props.userClasses.map((singleClass) => {
+          const convertedTime = tConvert(singleClass.start_time)
+         
         return (
           <div
             className="trainers-class mb-3"
@@ -17,7 +21,7 @@ function InfoBoxLeftColumn(props) {
           >
             <p className="mr-3 trainer-class-p">
               - {singleClass.day}, {singleClass.class_name}, at{" "}
-              {singleClass.start_time} -{" "}
+              {convertedTime} -{" "}
               <span>
                 {" "}
                 <DevBtn

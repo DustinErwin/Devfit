@@ -2,7 +2,7 @@ import React from 'react'
 
 //changes timestamp to readable time.
 //https://stackoverflow.com/questions/13898423/javascript-convert-24-hour-time-of-day-string-to-12-hour-time-with-am-pm-and-no
-function tConvert(time) {
+function convertTime(time) {
     // Check correct time format and split into components
     time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [
       time,

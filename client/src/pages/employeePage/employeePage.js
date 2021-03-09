@@ -24,9 +24,8 @@ function EmployeePage() {
     })
       .then((res) => res.json())
       .then((res) => {
-        let classArray = [...res]
-        classArray.pop()
-
+        let classArray = [...res];
+        classArray.pop();
         setClassRoster(classArray);
       });
   }
@@ -42,10 +41,8 @@ function EmployeePage() {
     })
       .then((res) => res.json())
       .then((res) => {
-
-
         const classesTaught = res.length - 1;
-        
+
         const classesArray = [...res];
         classesArray.shift();
         setUserClasses(classesArray);
@@ -82,7 +79,7 @@ function EmployeePage() {
         }
         colRight={<RightColumn rosterList={classRoster || []} />}
       ></UserInfoBox>
-      <ScheduleContainer userData={userData}/>
+      <ScheduleContainer userData={userData} />
       <Footer />
     </>
   );
