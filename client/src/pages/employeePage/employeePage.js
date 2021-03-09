@@ -5,13 +5,14 @@ import ScheduleContainer from "../../components/employeePageComponents/employeeS
 import UserInfoBox from "../../components/commonComponents/userInfoBox/userInfoBox";
 import UserContext from "../../utilities/userContext";
 import RightColumn from "../../components/employeePageComponents/userInfoBoxColumns/InfoBoxRightColumn";
-import LeftColumn from "../../components/employeePageComponents/userInfoBoxColumns/infoBoxLeftColumns";
+import LeftColumn from "../../components/employeePageComponents/userInfoBoxColumns/infoBoxLeftColumn";
 
 function EmployeePage() {
   const user = useContext(UserContext);
   const [userData, setUserData] = useState("");
   const [userClasses, setUserClasses] = useState([]);
   const [classRoster, setClassRoster] = useState("");
+  const [displayAddClass, setDisplayAddClass] = useState(true)
 
   //used on Roster btn click. Grabs current class roster and adds it to state so info can be displayed in card
   function fetchClassRoster(id) {
@@ -77,7 +78,7 @@ function EmployeePage() {
             handleRoster={handleRoster}
           />
         }
-        colRight={<RightColumn rosterList={classRoster || []} />}
+        colRight={<RightColumn rosterList={classRoster || []} displayAddClass={displayAddClass} />}
       ></UserInfoBox>
       <ScheduleContainer userData={userData} />
       <Footer />

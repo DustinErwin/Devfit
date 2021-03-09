@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import add from "date-fns/add";
 import { format } from "date-fns";
-import ScheduleClass from "../../commonComponents/scheduleClass/scheduleClass";
 import ScheduleColumn from "../../commonComponents/scheduleColumn/scheduleColumn";
 import { Row, Container } from "react-bootstrap/";
 import DevBtn from "../../commonComponents/devButton/devButton";
@@ -96,7 +95,7 @@ function EmployeeSchedule(props) {
            
                 // Render Logic for button. If employee teaches class, then a delete btn appears to delete class
                 let employeesClass;
-                console.log(userData.firstName === singleClass.trainer_name)
+          
                 userData.firstName === singleClass.trainer_name
                   ? (employeesClass = true)
                   : (employeesClass = false);

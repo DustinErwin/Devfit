@@ -1,6 +1,14 @@
-.right-column {
+.view-roster {
     background: #d22e33 !important;
     width: 70%; 
     text-align: center;
     }
+
+.add-class {
+    color:black; 
+    text-align: center !important;
+    width: 100% !important;
+    padding-left: 1em !important;
+    padding-right: 1em !important;
+}
     
