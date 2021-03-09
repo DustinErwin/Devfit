@@ -9,10 +9,8 @@ import LeftColumn from "../../components/employeePageComponents/userInfoBoxColum
 
 function EmployeePage() {
   const user = useContext(UserContext);
-
   const [userData, setUserData] = useState("");
   const [userClasses, setUserClasses] = useState([]);
-  const [toggleRoster, setToggleRoster] = useState(true);
   const [classRoster, setClassRoster] = useState("");
 
   //used on Roster btn click. Grabs current class roster and adds it to state so info can be displayed in card
@@ -26,67 +24,50 @@ function EmployeePage() {
     })
       .then((res) => res.json())
       .then((res) => {
-        setClassRoster(res);
+        let classArray = [...res]
+        classArray.pop()
+
+        setClassRoster(classArray);
       });
   }
 
   //grabs userName and class schedule to populate schedule
-  function fetchUserData() {
-    // fetch("/api/employee/" + user._id + "/schedule", {
-    //   method: "GET",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Accept: "application/json",
-    //   },
-    // })
-    //   .then((res) => res.json())
-    //   .then((res) => {
-    const res = [
-      {
-        id: "6046653df074fb3b2831dcac",
-        class_name: "Zumba",
-        day: "Thursday",
-        start_time: "09:00:00",
-        current_size: 0,
-        max_size: 12,
-        trainer_id: "6046653df074fb3b2831dca7",
-        trainer_name: "Aarav",
+  function fetchTrainerData() {
+    fetch("/api/employee/6047aab647549b4658f9e132/schedule", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
       },
-      {
-        id: "6046653df074fb3b2831dcae",
-        class_name: "Barbell Blast",
-        day: "Monday",
-        start_time: "17:00:00",
-        current_size: 1,
-        max_size: 14,
-        trainer_id: "6046653df074fb3b2831dca9",
-        trainer_name: "Abeer",
-      },
-    ];
-    const classesTaught = res.length;
+    })
+      .then((res) => res.json())
+      .then((res) => {
 
-    const classesArray = [...res];
 
-    setUserClasses(classesArray);
-    setUserData({
-      firstName: "Ethan",
-      numClassesTaught: classesTaught,
+        const classesTaught = res.length - 1;
+        
+        const classesArray = [...res];
+        classesArray.shift();
+        setUserClasses(classesArray);
+        const splitName = res[0].split(" ");
+        const trainerFirstName = splitName[0];
 
-      // });
-    });
+        setUserData({
+          firstName: trainerFirstName,
+          numClassesTaught: classesTaught,
+        });
+      });
   }
 
   useEffect(() => {
     //on page load, fetch the schedule data
-    fetchUserData();
+    fetchTrainerData();
   }, []);
 
   function handleRoster(e) {
-    // const classId = e.target.id;
-    // fetchClassRoster(classId);
-    console.log("clicked");
+    const classId = e.target.id;
+    fetchClassRoster(classId);
   }
-
   return (
     <>
       <Header />
@@ -99,9 +80,9 @@ function EmployeePage() {
             handleRoster={handleRoster}
           />
         }
-        colRight={<RightColumn />}
+        colRight={<RightColumn rosterList={classRoster || []} />}
       ></UserInfoBox>
-      <ScheduleContainer />
+      <ScheduleContainer userData={userData}/>
       <Footer />
     </>
   );
