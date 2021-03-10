@@ -1,0 +1,15 @@
+.col-left {
+    background: #d22e33 ;
+    color: whitesmoke;
+    text-align: center;
+  }
+
+.col-right {
+    background: rgb(49, 49, 49);
+    color: whiteSmoke;
+    display:flex;
+    justify-content: center
+  }
+  
+ 
+

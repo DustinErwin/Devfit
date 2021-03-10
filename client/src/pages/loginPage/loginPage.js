@@ -4,7 +4,7 @@ import Footer from "../../components/footer/footer";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
-import AdCarousel from "../../components/AdCarousel";
+import AdCarousel from "../../components/loginPageComponents/AdCarousel";
 import AuthenticationButton from "../../components/authenticationButton";
 import "./styles.css";
 import "../../components/button/styles.css";
