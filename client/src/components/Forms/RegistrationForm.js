@@ -1,26 +1,107 @@
-import React from "react";
+import { useState } from "react";
 import Form from "react-bootstrap/Form";
-import TextInput from "./TextInput";
-import FormLabel from "./FormLabel";
-import DropdownInput from "./DropdownInput";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import "./registrationForm.css";
+import UserContext from "../../utilities/userContext";
 
-export default function RegistrationForm() {
-  // let searchList = ["Apple", "Banana", "Strawberry"];
-  // const handleClick = () => {
-  //   console.log("clicked");
-  // };
+export default function RegistrationForm(props) {
+  const [users, setUser] = useState({
+    firstName: "",
+    lastName: "",
+    gender: "",
+    birthdate: "",
+    phoneNumber: "",
+  });
+
   return (
-    <Form>
-      <Form.Group controlId="exampleForm.ControlInput1">
-        <FormLabel message="abc"></FormLabel>
-        <TextInput placeholder="text"></TextInput>
-        {/* <DropdownInput
-          options={searchList}
-          menuClassName="dropdown-input"
-          onSelect={handleClick}
-          placeholder="Select..."
-        ></DropdownInput> */}
-      </Form.Group>
-    </Form>
+    <>
+      <Container className="regForm background-white">
+        <Form>
+          <Row>
+            <Col>
+              <Form.Group as={Row} controlId="formPlaintextEmail">
+                <Form.Label column sm="2">
+                  Email
+                </Form.Label>
+                <Col sm="10">
+                  <Form.Control
+                    plaintext
+                    readOnly
+                    defaultValue="email@example.com"
+                  />
+                </Col>
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Form.Group controlId="formBasicEmail">
+                <Form.Label>First Name*</Form.Label>
+                <Form.Control
+                  placeholder="First name"
+                  onChange={(event) => props.userInfo(event)}
+                  name="firstName"
+                />
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Group controlId="formBasicPassword">
+                <Form.Label>Last Name*</Form.Label>
+                <Form.Control
+                  placeholder="Last name"
+                  onChange={(event) => props.userInfo(event)}
+                  name="lastName"
+                />
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Form.Group controlId="exampleForm.ControlSelect1">
+                <Form.Label>Gender</Form.Label>
+                <Form.Control
+                  as="select"
+                  onClick={(event) => props.userInfo(event)}
+                  name="gender"
+                >
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </Form.Control>
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Group controlId="formBirthdate">
+                <Form.Label>Birthdate</Form.Label>
+                <Form.Control
+                  type="date"
+                  placeholder="Birthdate (yyyy-dd-mm)"
+                  onChange={(event) => props.userInfo(event)}
+                  name="birthdate"
+                ></Form.Control>
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Form.Group controlId="formPhoneNumber">
+                <Form.Label>
+                  Phone Number (ten digit number only, no parentheses / dashes
+                  please)
+                </Form.Label>
+                <Form.Control
+                  placeholder="Phone Number"
+                  pattern="[0-9]{10}"
+                  onChange={(event) => props.userInfo(event)}
+                  name="phoneNumber"
+                ></Form.Control>
+              </Form.Group>
+            </Col>
+          </Row>
+        </Form>
+      </Container>
+    </>
   );
 }

@@ -4,3 +4,9 @@
   border: none !important;
   color: whitesmoke;
 }
+
+.btn-dark {
+  background: rgb(49, 49, 49) !important;
+  border: none !important;
+  color: whitesmoke;
+}
