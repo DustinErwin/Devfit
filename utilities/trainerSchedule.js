@@ -2,10 +2,6 @@
 module.exports = function (trainer, classes) {
   const classBundle = [];
 
-  //Adds trainers full name as first index
-  const trainerName = `${trainer.first_name} ${trainer.last_name}`;
-  classBundle.push(trainerName);
-
   classes.forEach((unit) => {
     //Object to be sent to UI
     const reqClass = {

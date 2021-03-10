@@ -26,7 +26,7 @@ function App() {
   const { user } = useAuth0();
 
   useEffect(() => {
-    console.log("isAuthenticated?", isAuthenticated)
+    console.log("isAuthenticated?", isAuthenticated);
     if (isAuthenticated) {
       const { email } = user;
 
