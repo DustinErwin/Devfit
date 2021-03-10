@@ -16,21 +16,18 @@ import { format } from "date-fns";
 4. Style Right Column Roster 
 5. make classes text dynamically say class if class number is length 1*/
 
-
 function EmployeePage() {
   const user = useContext(UserContext);
-  const [userData, setUserData] = useState(""); //The uesr name and id 
+  const [userData, setUserData] = useState(""); //The uesr name and id
   const [userClasses, setUserClasses] = useState([]); //The classes the trainer is teaching in the left column info box
   const [classRoster, setClassRoster] = useState(""); //holds which members are in a particular class
   const [displayAddClass, setDisplayAddClass] = useState(true); // a toggle that switches between roster and add/class
   const [classSchedule, setClassSchedule] = useState([]); //all info for each class rendered in schedule
   const weekLength = [0, 1, 2, 3, 4, 5, 6];
 
-
-  
   //fetches all the information needed to render a schedule and stores it in state.
   function fetchScheduleData() {
-    fetch("/api/employee/6047aab647549b4658f9e132/classes", {
+    fetch("/api/employee/" + user._id + "/classes", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -96,7 +93,7 @@ function EmployeePage() {
 
   //grabs userName and class schedule to populate schedule
   function fetchTrainerData() {
-    fetch("/api/employee/6047aab647549b4658f9e132/schedule", {
+    fetch("/api/employee/" + user._id + "/schedule", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -105,32 +102,26 @@ function EmployeePage() {
     })
       .then((res) => res.json())
       .then((res) => {
-        const classesTaught = res.length - 1;
+        const classesTaught = res.length;
 
         const classesArray = [...res];
-        classesArray.shift();
         setUserClasses(classesArray);
-        const splitName = res[0].split(" ");
-        const trainerFirstName = splitName[0];
 
         setUserData({
-          firstName: trainerFirstName,
+          firstName: user.firstName,
           numClassesTaught: classesTaught,
         });
       });
   }
 
   useEffect(() => {
-    fetchScheduleData()
+    fetchScheduleData();
     fetchTrainerData();
-  }, []);
+  }, [user._id]);
 
-
-
-
-  function handleRoster(e) {
-    const classId = e.target.id;
-    console.log(classId)
+  function handleRoster(e, id) {
+    const classId = id;
+    console.log(classId);
     fetch(`/api/class/${classId}/roster`, {
       method: "GET",
       headers: {
@@ -140,8 +131,9 @@ function EmployeePage() {
     })
       .then((res) => res.json())
       .then((res) => {
-        const roster = res.shift()
-        setClassRoster([roster])
+        const roster = res.shift();
+        setClassRoster([roster]);
+        console.log(classRoster);
       });
   }
 
@@ -151,7 +143,7 @@ function EmployeePage() {
       <UserInfoBox
         colLeft={
           <LeftColumn
-            firstName={userData.firstName}
+            firstName={user.firstName}
             numClassesTaught={userData.numClassesTaught}
             userClasses={userClasses}
             handleRoster={handleRoster}
@@ -161,10 +153,9 @@ function EmployeePage() {
           <RightColumn
             rosterList={classRoster || []}
             displayAddClass={displayAddClass}
-            trainerId={"6047aab647549b4658f9e132"}
+            trainerId={user._id}
             fetchScheduleData={() => fetchScheduleData()}
             fetchTrainerData={() => fetchTrainerData()}
-
           />
         }
       ></UserInfoBox>

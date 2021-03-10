@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import Col from "react-bootstrap/Col";
 import "./styles.css";
-import UserContext from "../../utilities/userContext";
-import AuthenticationButton from "../authenticationButton";
+import UserContext from "../../../utilities/userContext";
+import AuthenticationButton from "../../authenticationButton";
 
 //TODO: Basic Framework Created. Still need to add Api Call and show classes signed up for.
 function MemberInfoBox() {

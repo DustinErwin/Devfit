@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col, Container } from "react-bootstrap";
-import AuthenticationButton from "../authenticationButton";
+import AuthenticationButton from "../../authenticationButton";
 import "./styles.css";
 
 function Header() {
