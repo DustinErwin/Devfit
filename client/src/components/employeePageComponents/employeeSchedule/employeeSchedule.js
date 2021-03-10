@@ -34,7 +34,7 @@ function EmployeeSchedule(props) {
               todaysDate={day.date}
               key={day.date}
             >
-              {day.classData.map((singleClass) => {
+              {day.classData.map((singleClass, i) => {
                 // Render Logic for button. If employee teaches class, then a delete btn appears to delete class
                 let employeesClass;
 
@@ -47,7 +47,7 @@ function EmployeeSchedule(props) {
 
                 return (
                   <Row
-                    key={singleClass.start_time + Math.random()}
+                    key={i}
                     className="m-0 pb-3 pt-3 border-to-bottom-thin scheduleClass border-to-right"
                   >
                     <Col className=" col-12 border-teal pb-3 text-center ">

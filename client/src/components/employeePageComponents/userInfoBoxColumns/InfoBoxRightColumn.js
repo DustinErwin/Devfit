@@ -56,7 +56,7 @@ function InfoBoxRightColumn(props) {
       </Card.Body>
     </Card>
   ) : (
-    <Card className="add-class mb-5 mt-5">
+    <Card className="add-class mb-3 mt-3 pb-3">
       {" "}
       <Card.Header>Add Class</Card.Header>
       <Row>

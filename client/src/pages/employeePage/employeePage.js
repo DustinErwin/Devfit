@@ -11,7 +11,6 @@ import { format } from "date-fns";
 
 /*ToDO: 
  
-1b. Create a logout button. 
 2. Feed times through the time converter function in utilities for better time 
 3. Fix Schedule Headings to be Red 
 4. Style Right Column Roster 
@@ -22,7 +21,7 @@ function EmployeePage() {
   const [userData, setUserData] = useState(""); //The uesr name and id
   const [userClasses, setUserClasses] = useState([]); //The classes the trainer is teaching in the left column info box
   const [classRoster, setClassRoster] = useState(""); //holds which members are in a particular class
-  const [rightColDisplay, setRightColDisplay] = useState("roster"); // a toggle that switches between roster and add/class
+  const [rightColDisplay, setRightColDisplay] = useState("addClass"); // a toggle that switches between roster and add/class
   const [classSchedule, setClassSchedule] = useState([]); //all info for each class rendered in schedule
   const weekLength = [0, 1, 2, 3, 4, 5, 6];
 
@@ -104,12 +103,10 @@ function EmployeePage() {
       });
   }
 
-
-
   function updateRoster(e) {
     const classId = e.target.id;
-    console.log(e.target)
-    console.log(classId)
+    console.log(e.target);
+    console.log(classId);
     fetch(`/api/class/${classId}/roster`, {
       method: "GET",
       headers: {
@@ -119,20 +116,16 @@ function EmployeePage() {
     })
       .then((res) => res.json())
       .then((res) => {
-        const roster = res.shift()
-        setClassRoster([roster])
+        const roster = res.shift();
+        setClassRoster([roster]);
         setRightColDisplay("roster");
       });
   }
-
 
   //updates right column to display the addClass form
   function toggleAddClass() {
     setRightColDisplay("addClass");
   }
-
- 
-
 
   return (
     <>
