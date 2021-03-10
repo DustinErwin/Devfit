@@ -92,7 +92,7 @@ function EmployeeSchedule() {
               {day.classData.map((singleClass) => {
                 // Render Logic for button. If employee teaches class, then a delete btn appears to delete class
                 let employeesClass;
-                userName === singleClass.trainer_name
+                user.firstName === singleClass.trainer_name
                   ? (employeesClass = true)
                   : (employeesClass = false);
 
