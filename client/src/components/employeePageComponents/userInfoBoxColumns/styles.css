@@ -15,4 +15,7 @@
 .text-red {
     color:#d22e33 
 }
-    
+
+.list-item{
+    list-style: none;
+}

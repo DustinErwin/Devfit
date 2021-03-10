@@ -12,7 +12,7 @@ import { format } from "date-fns";
 /*ToDO: 
  
 4. Style Right Column Roster 
-5. make classes text dynamically say class if class number is length 1*/
+*/
 
 function EmployeePage() {
   const user = useContext(UserContext);

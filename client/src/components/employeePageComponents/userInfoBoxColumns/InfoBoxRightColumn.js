@@ -42,9 +42,15 @@ function InfoBoxRightColumn(props) {
         <Card.Title>Roster</Card.Title>
         <Card.Text>
           {/* receives an array of members as a prop and renders them as card text */}
-          {props.rosterList.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
+          {props.rosterList.map((item) =>
+            item.length === 0 ? (
+              <p>No one signed up yet!</p>
+            ) : (
+              <li className="list-item" key={item}>
+                {item}{" "}
+              </li>
+            )
+          )}
         </Card.Text>
       </Card.Body>
     </Card>
