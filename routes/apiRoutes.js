@@ -6,6 +6,7 @@ const buildRoster = require("../utilities/buildRoster");
 const trainerSchedule = require("../utilities/trainerSchedule");
 const memberMap = require("../utilities/memberMap");
 const removeClassMember = require("../utilities/removeClassMember");
+const getJoinedClassBundle = require("../utilities/joinedClassBundle");
 
 module.exports = (app) => {
   //LOGIN PAGE API
@@ -85,6 +86,19 @@ module.exports = (app) => {
       .catch((err) => res.json(err));
   });
 
+  app.get("/api/classes", function (req, res) {
+    db.Class.find({})
+      .sort({ start_time: 1 })
+      .then((classes) => {
+        db.Employee.find({})
+          .then((trainers) => {
+            res.json(getClassBundle(classes, trainers));
+          })
+          .catch((err) => res.json(err));
+      })
+      .catch((err) => res.json(err));
+  });
+
   // GET object to populate divs with class info
   app.get("/api/member/:id/classes", function (req, res) {
     db.Class.find({})
@@ -92,11 +106,7 @@ module.exports = (app) => {
       .then((classes) => {
         db.Member.findOne({ _id: req.params.id })
           .then((currentUser) => {
-            db.Employee.find({})
-              .then((trainers) => {
-                res.json(getClassBundle(classes, currentUser, trainers));
-              }).then
-              .catch((err) => res.json(err));
+            res.json(getJoinedClassBundle(classes, currentUser));
           })
           .catch((err) => res.json(err));
       })
