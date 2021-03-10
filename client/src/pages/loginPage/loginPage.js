@@ -1,19 +1,21 @@
-import React from "react";
-import Header from "../../components/commonComponents/header/header";
-import Footer from "../../components/commonComponents/footer/footer";
+import React, { useContext, useEffect, useState } from "react";
+import Header from "../../components/header/header";
+import Footer from "../../components/footer/footer";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import AdCarousel from "../../components/loginPageComponents/AdCarousel";
 import AuthenticationButton from "../../components/authenticationButton";
 import "./styles.css";
+import "../../components/button/styles.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Redirect } from "react-router";
 import UserContext from "../../utilities/userContext";
-
-import DevBtn from "../../components/commonComponents/devButton/devButton";
+import "../../components/button/styles.css";
+import DevBtn from "../../components/button/button";
 import { Link } from "react-router-dom";
-
+import "../../components/button/styles.css";
+import "../../components/adCarousel.css";
 
 function LoginPage() {
   return (
@@ -26,6 +28,7 @@ function LoginPage() {
               <Container className="text-center">
                 <h1 className="text-red">Refactor your body!</h1>
                 <AdCarousel
+                  className="adCarousel"
                   imgUrl1="/images/girlfeetwaterbottle.jpg"
                   altText1="Girl sitting on floor next to water bottle"
                   carouselHeader1="Stretching your mind"
@@ -47,12 +50,10 @@ function LoginPage() {
                 you'll master your body."
               </h3>
               <p className="text-white mb-5">-GYMQUOTES.CO</p>
-              <Container className="background-dark align-content-center">
-                <h4 className="py-3 text-red">Already a Member?</h4>
-                <AuthenticationButton />
-                <br />
-                <br />
-              </Container>
+              <h4 className="py-3 text-white">Already a Member?</h4>
+              <AuthenticationButton />
+              <br />
+              <br />
             </Container>
           </Col>
         </Row>
@@ -69,6 +70,7 @@ function LoginPage() {
                   Sign up
                 </Link>
               </DevBtn>
+              <AuthenticationButton />
             </Container>
           </Col>
           <Col className="align-self-stretch background-dark">
@@ -76,6 +78,7 @@ function LoginPage() {
               <Container className="text-center">
                 <h1 className="text-red">Increase Your Stamina!</h1>
                 <AdCarousel
+                  className="adCarousel"
                   imgUrl1="/images/bench.jpg"
                   altText1="Man on weight bench"
                   carouselHeader1="Looking for personal training
