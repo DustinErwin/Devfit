@@ -1,10 +1,11 @@
 import React from "react";
 import Carousel from "react-bootstrap/Carousel";
+import "./adCarousel.css";
 
 export default function CarouselImageItem(props) {
   return (
     <>
-      <Carousel>
+      <Carousel className="adCarousel">
         <Carousel.Item>
           <img
             className="d-block w-100"
