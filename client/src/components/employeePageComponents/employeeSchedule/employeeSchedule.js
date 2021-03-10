@@ -44,6 +44,7 @@ function EmployeeSchedule(props) {
 
                 //convert time stamp into readable time
                 const convertedTime = convertTime(singleClass.start_time);
+       
 
                 return (
                   <Row
@@ -54,7 +55,7 @@ function EmployeeSchedule(props) {
                       <h4 className=" bold text-red">
                         {singleClass.class_name}{" "}
                       </h4>
-                      <div>{convertedTime}</div>
+                      <div>{convertedTime} </div>
                       <div>{singleClass.trainer_name}</div>
                       <div>
                         slots left{" "}

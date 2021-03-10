@@ -6,14 +6,11 @@ import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
 import DevBtn from "../../commonComponents/devButton/devButton";
 
-
 function InfoBoxRightColumn(props) {
   const [fitClassName, setFitClassName] = useState("");
   const [weekday, setWeekday] = useState("Monday");
   const [classTime, setClassTime] = useState("06:00:00:00");
   const [maxSize, setMaxSize] = useState(10);
-
-  
 
   // on Create Class click, create the new class, update the left col and schedule, then return to roster
   function handleClassCreation() {
@@ -36,14 +33,10 @@ function InfoBoxRightColumn(props) {
         props.fetchScheduleData();
         props.fetchTrainerData();
       });
-
- 
   }
- 
-
 
   //Ternery using toggleAddClass state in parent. Change Value in state to change right Col
-  return props.displayAddClass === 'roster' ? (
+  return props.displayAddClass === "roster" ? (
     <Card className="view-roster mb-5 mt-5">
       <Card.Body>
         <Card.Title>Roster</Card.Title>
@@ -110,19 +103,19 @@ function InfoBoxRightColumn(props) {
               as="select"
               onChange={(e) => setClassTime(e.target.value)}
             >
-              <option>06:00:00:00</option>
-              <option>07:00:00:00</option>
-              <option>08:00:00:00</option>
-              <option>09:00:00:00</option>
-              <option>10:00:00:00</option>
-              <option>11:00:00:00</option>
-              <option>12:00:00:00</option>
-              <option>13:00:00:00</option>
-              <option>14:00:00:00</option>
-              <option>15:00:00:00</option>
-              <option>16:00:00:00</option>
-              <option>17:00:00:00</option>
-              <option>18:00:00:00</option>
+              <option>06:00:00</option>
+              <option>07:00:00</option>
+              <option>08:00:00</option>
+              <option>09:00:00</option>
+              <option>10:00:00</option>
+              <option>11:00:00</option>
+              <option>12:00:00</option>
+              <option>13:00:00</option>
+              <option>14:00:00</option>
+              <option>15:00:00</option>
+              <option>16:00:00</option>
+              <option>17:00:00</option>
+              <option>18:00:00</option>
             </Form.Control>
             <br />
           </Form.Group>
