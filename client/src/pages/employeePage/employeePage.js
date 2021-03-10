@@ -11,6 +11,7 @@ import { format } from "date-fns";
 
 /*ToDO: 
 1. Create Add Class Button in Left Column that changes the right column to class Creation 
+1b. Create a logout button. 
 2. Feed times through the time converter function in utilities for better time 
 3. Fix Schedule Headings to be Red 
 4. Style Right Column Roster 
@@ -21,9 +22,15 @@ function EmployeePage() {
   const [userData, setUserData] = useState(""); //The uesr name and id
   const [userClasses, setUserClasses] = useState([]); //The classes the trainer is teaching in the left column info box
   const [classRoster, setClassRoster] = useState(""); //holds which members are in a particular class
-  const [displayAddClass, setDisplayAddClass] = useState(true); // a toggle that switches between roster and add/class
+  const [rightColDisplay, setRightColDisplay] = useState("roster"); // a toggle that switches between roster and add/class
   const [classSchedule, setClassSchedule] = useState([]); //all info for each class rendered in schedule
   const weekLength = [0, 1, 2, 3, 4, 5, 6];
+
+  //update all dynamic info on the page once user info is grabbed from context
+  useEffect(() => {
+    fetchScheduleData();
+    fetchTrainerData();
+  }, [user._id]);
 
   //fetches all the information needed to render a schedule and stores it in state.
   function fetchScheduleData() {
@@ -49,9 +56,9 @@ function EmployeePage() {
             seconds: 0,
           });
 
-          //the date like Jan 23rd
+          //the date written as Jan 23rd
           const calendarDate = format(addDay, "LLL, do");
-          //day of week like "Monday"
+          //day of week written as "Monday"
           const dayOfWeek = format(addDay, "EEEE");
 
           //Filter the fetch request to only grab classes on the current day weeklength.map is iterating through
@@ -71,23 +78,6 @@ function EmployeePage() {
         });
 
         setClassSchedule(stateArray);
-      });
-  }
-
-  //used on Roster btn click. Grabs current class roster and adds it to state so info can be displayed in card
-  function fetchClassRoster(id) {
-    fetch("/api/class/" + id + "/roster", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        let classArray = [...res];
-        classArray.pop();
-        setClassRoster(classArray);
       });
   }
 
@@ -114,14 +104,12 @@ function EmployeePage() {
       });
   }
 
-  useEffect(() => {
-    fetchScheduleData();
-    fetchTrainerData();
-  }, [user._id]);
 
-  function handleRoster(e, id) {
-    const classId = id;
-    console.log(classId);
+
+  function updateRoster(e) {
+    const classId = e.target.id;
+    console.log(e.target)
+    console.log(classId)
     fetch(`/api/class/${classId}/roster`, {
       method: "GET",
       headers: {
@@ -131,11 +119,20 @@ function EmployeePage() {
     })
       .then((res) => res.json())
       .then((res) => {
-        const roster = res.shift();
-        setClassRoster([roster]);
-        console.log(classRoster);
+        const roster = res.shift()
+        setClassRoster([roster])
+        setRightColDisplay("roster");
       });
   }
+
+
+  //updates right column to display the addClass form
+  function toggleAddClass() {
+    setRightColDisplay("addClass");
+  }
+
+ 
+
 
   return (
     <>
@@ -146,13 +143,14 @@ function EmployeePage() {
             firstName={user.firstName}
             numClassesTaught={userData.numClassesTaught}
             userClasses={userClasses}
-            handleRoster={handleRoster}
+            updateRoster={updateRoster}
+            toggleAddClass={toggleAddClass}
           />
         }
         colRight={
           <RightColumn
             rosterList={classRoster || []}
-            displayAddClass={displayAddClass}
+            displayAddClass={rightColDisplay}
             trainerId={user._id}
             fetchScheduleData={() => fetchScheduleData()}
             fetchTrainerData={() => fetchTrainerData()}

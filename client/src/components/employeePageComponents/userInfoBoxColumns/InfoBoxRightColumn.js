@@ -6,12 +6,14 @@ import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
 import DevBtn from "../../commonComponents/devButton/devButton";
 
+
 function InfoBoxRightColumn(props) {
   const [fitClassName, setFitClassName] = useState("");
   const [weekday, setWeekday] = useState("Monday");
   const [classTime, setClassTime] = useState("06:00:00:00");
   const [maxSize, setMaxSize] = useState(10);
-  const [toggleAddClass, setToggleAddClass] = useState(true);
+
+  
 
   // on Create Class click, create the new class, update the left col and schedule, then return to roster
   function handleClassCreation() {
@@ -35,11 +37,13 @@ function InfoBoxRightColumn(props) {
         props.fetchTrainerData();
       });
 
-    setToggleAddClass(false);
+ 
   }
+ 
+
 
   //Ternery using toggleAddClass state in parent. Change Value in state to change right Col
-  return toggleAddClass === false ? (
+  return props.displayAddClass === 'roster' ? (
     <Card className="view-roster mb-5 mt-5">
       <Card.Body>
         <Card.Title>Roster</Card.Title>
@@ -124,7 +128,7 @@ function InfoBoxRightColumn(props) {
           </Form.Group>
         </Col>
       </Row>
-      <DevBtn styleClass="btn-red mb-3" onClick={handleClassCreation}>
+      <DevBtn styleClass="btn-red" onClick={handleClassCreation}>
         Create Class
       </DevBtn>
     </Card>

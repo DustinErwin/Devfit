@@ -14,26 +14,34 @@ function InfoBoxLeftColumn(props) {
         const convertedTime = tConvert(singleClass.start_time);
 
         return (
-          <div
-            className="trainers-class mb-3"
-            key={singleClass.start_time + singleClass.day}
-          >
-            <p className="mr-3 trainer-class-p">
-              - {singleClass.day}, {singleClass.class_name}, at {convertedTime}{" "}
-              -{" "}
-              <span>
-                {" "}
-                <DevBtn
-                  styleClass="btn-dark"
-                  onClick={(e) => props.handleRoster(e, singleClass.id)}
-                >
-                  Roster
-                </DevBtn>{" "}
-              </span>
-            </p>{" "}
-          </div>
+          <>
+            <div
+              className="trainers-class mb-3"
+              key={singleClass.start_time + singleClass.day}
+            >
+              <p className="mr-3 trainer-class-p">
+                - {singleClass.day}, {singleClass.class_name}, at{" "}
+                {convertedTime} -{" "}
+                <span>
+                  {" "}
+                  <DevBtn
+                    styleClass="btn-dark"
+                    id={singleClass.id}
+                    onClick={props.updateRoster}
+                  >
+                    Roster
+                  </DevBtn>{" "}
+                </span>
+              </p>{" "}
+            </div>
+          </>
         );
       })}
+      <div>
+        <DevBtn styleClass="btn-dark " onClick={props.toggleAddClass}>
+          Add Class
+        </DevBtn>
+      </div>
     </div>
   );
 }
