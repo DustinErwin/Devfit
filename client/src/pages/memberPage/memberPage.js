@@ -5,14 +5,12 @@ import MemberInfoBox from "../../components/memberInfoBox/memberInfoBox";
 import MeetYourTrainerBox from "../../components/meetYourTrainerBox/TrainerCarousel";
 import Row from "react-bootstrap/Row";
 import RenderScheduleHeadings from "../../utilities/render-schedule-headings";
-import AuthenticationButton from "../../components/authenticationButton";
-import Container from "react-bootstrap/Container"
+import Container from "react-bootstrap/Container";
 
 function MemberPage() {
   return (
     <>
       <Header />
-      <AuthenticationButton />
       <Container>
         <Row>
           <MemberInfoBox />

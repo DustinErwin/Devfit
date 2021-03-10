@@ -185,111 +185,112 @@ module.exports = (app) => {
       .then((orders) => res.send(orders))
       .catch((err) => res.status(401).json(err));
   });
+
+  // MANAGER PAGE APIs
+  // API to insert the new employee registration record in the employee table in the database
+  // Wondering how this will work with auth0
+  app.post("/api/manager/addEmployee", (req, res) => {
+    const newEmployee = new db.Employee({
+      first_name: req.body.first_name,
+      last_name: req.body.last_name,
+      password: req.body.password,
+      gender: req.body.gender,
+      email: req.body.email,
+      phone: req.body.phone,
+      role: req.body.role,
+    });
+    newEmployee
+      .save()
+      .then((result) => res.send(result))
+      .catch((err) => res.status(500).json(err));
+  });
+
+  // API that allows a manager to view all trainers
+  app.get("/api/manager/trainers", (req, res) => {
+    db.Employee.find({ role: "Trainer" })
+      .then((trainers) => res.json(trainers))
+      .catch((err) => res.status(500).json(err));
+  });
+
+  // DELETE API that allows a manager to delete a trainer
+  app.delete("/api/manager/deleteTrainer/:id", (req, res) => {
+    db.Employee.remove({ _id: req.params.id })
+      .then(() => res.send("Success!"))
+      .catch((err) => res.status(500).json(err));
+  });
+
+  // POST API that allows a manager to add a member/client to a class
+  app.post("/api/manager/addToClass", (req, res) => {
+    db.Class.findOne({ _id: req.body.id })
+      .then((selectedClass) => {
+        const classUpdate = addToClass(selectedClass, req.body.memberid);
+        db.Class.updateOne({ _id: req.body.id }, { $set: classUpdate })
+          .then(() => res.send("Success!"))
+          .catch((err) => res.status(500).json(err));
+      })
+      .catch((err) => res.status(500).json(err));
+  });
+
+  // POST API that allows a manager to remove a member/client from a class
+  app.post("/api/manager/removeFromClass", (req, res) => {
+    db.Class.findOne({ _id: req.body.id })
+      .then((selectedClass) => {
+        const classUpdate = removeClassMember(selectedClass, req.body.memberid);
+        db.Class.updateOne({ _id: req.body.id }, { $set: classUpdate })
+          .then(() => res.send("Success!"))
+          .catch((err) => res.status(500).json(err));
+      })
+      .catch((err) => res.status(500).json(err));
+  });
+
+  // GET API that gets list of all member names and ids
+  app.get("/api/manager/memberList", (req, res) => {
+    db.Member.find({})
+      .then((members) => res.json(memberMap(members)))
+      .catch((err) => res.status(500).json(err));
+  });
+
+  // STORE APIs
+  // GET API that gets the list of all products
+  app.get("/api/store/productList", (req, res) => {
+    db.Product.find({})
+      .then((products) => res.json(products))
+      .catch((err) => res.status(500).json(err));
+  });
+
+  // POST API that saves the order to the database
+  app.post("/api/store/order", (req, res) => {
+    // Following object expected from front-end
+    // {
+    //   member_id:"",
+    //   order_details:[{
+    //     product_id:"",
+    //     price:,
+    //     quantity:
+    //   },{
+    //     product_id:"",
+    //     price:,
+    //     quantity:
+    //   }],
+    //   purchase_method:""
+    // }
+
+    let totalCost = 0;
+    const orderDetails = req.body.order_details;
+    orderDetails.forEach((orderItem) => {
+      const currentTotal = orderItem.price * orderItem.quantity;
+      totalCost += currentTotal;
+    });
+    const order = new db.Order({
+      member_id: db.ObjectId(req.body.member_id),
+      purchased_items: orderDetails,
+      order_date: Date.now(),
+      total_cost: totalCost,
+      purchase_method: req.body.purchase_method,
+    });
+    order
+      .save()
+      .then((savedOrder) => res.json(savedOrder))
+      .catch((err) => res.status(500).json(err));
+  });
 };
-// MANAGER PAGE APIs
-// API to insert the new employee registration record in the employee table in the database
-// Wondering how this will work with auth0
-app.post("/api/manager/addEmployee", (req, res) => {
-  const newEmployee = new db.Employee({
-    first_name: req.body.first_name,
-    last_name: req.body.last_name,
-    password: req.body.password,
-    gender: req.body.gender,
-    email: req.body.email,
-    phone: req.body.phone,
-    role: req.body.role,
-  });
-  newEmployee
-    .save()
-    .then((result) => res.send(result))
-    .catch((err) => res.status(500).json(err));
-});
-
-// API that allows a manager to view all trainers
-app.get("/api/manager/trainers", (req, res) => {
-  db.Employee.find({ role: "Trainer" })
-    .then((trainers) => res.json(trainers))
-    .catch((err) => res.status(500).json(err));
-});
-
-// DELETE API that allows a manager to delete a trainer
-app.delete("/api/manager/deleteTrainer/:id", (req, res) => {
-  db.Employee.remove({ _id: req.params.id })
-    .then(() => res.send("Success!"))
-    .catch((err) => res.status(500).json(err));
-});
-
-// POST API that allows a manager to add a member/client to a class
-app.post("/api/manager/addToClass", (req, res) => {
-  db.Class.findOne({ _id: req.body.id })
-    .then((selectedClass) => {
-      const classUpdate = addToClass(selectedClass, req.body.memberid);
-      db.Class.updateOne({ _id: req.body.id }, { $set: classUpdate })
-        .then(() => res.send("Success!"))
-        .catch((err) => res.status(500).json(err));
-    })
-    .catch((err) => res.status(500).json(err));
-});
-
-// POST API that allows a manager to remove a member/client from a class
-app.post("/api/manager/removeFromClass", (req, res) => {
-  db.Class.findOne({ _id: req.body.id })
-    .then((selectedClass) => {
-      const classUpdate = removeClassMember(selectedClass, req.body.memberid);
-      db.Class.updateOne({ _id: req.body.id }, { $set: classUpdate })
-        .then(() => res.send("Success!"))
-        .catch((err) => res.status(500).json(err));
-    })
-    .catch((err) => res.status(500).json(err));
-});
-
-// GET API that gets list of all member names and ids
-app.get("/api/manager/memberList", (req, res) => {
-  db.Member.find({})
-    .then((members) => res.json(memberMap(members)))
-    .catch((err) => res.status(500).json(err));
-});
-
-// STORE APIs
-// GET API that gets the list of all products
-app.get("/api/store/productList", (req, res) => {
-  db.Product.find({})
-    .then((products) => res.json(products))
-    .catch((err) => res.status(500).json(err));
-});
-
-// POST API that saves the order to the database
-app.post("/api/store/order", (req, res) => {
-  // Following object expected from front-end
-  // {
-  //   member_id:"",
-  //   order_details:[{
-  //     product_id:"",
-  //     price:,
-  //     quantity:
-  //   },{
-  //     product_id:"",
-  //     price:,
-  //     quantity:
-  //   }],
-  //   purchase_method:""
-  // }
-
-  let totalCost = 0;
-  const orderDetails = req.body.order_details;
-  orderDetails.forEach((orderItem) => {
-    const currentTotal = orderItem.price * orderItem.quantity;
-    totalCost += currentTotal;
-  });
-  const order = new db.Order({
-    member_id: db.ObjectId(req.body.member_id),
-    purchased_items: orderDetails,
-    order_date: Date.now(),
-    total_cost: totalCost,
-    purchase_method: req.body.purchase_method,
-  });
-  order
-    .save()
-    .then((savedOrder) => res.json(savedOrder))
-    .catch((err) => res.status(500).json(err));
-});
