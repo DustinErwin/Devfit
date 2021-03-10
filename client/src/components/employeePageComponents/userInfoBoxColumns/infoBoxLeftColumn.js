@@ -2,17 +2,15 @@ import React from "react";
 import DevBtn from "../../../components/commonComponents/devButton/devButton";
 import "./styles.css";
 import tConvert from "../../../utilities/convertTime";
-import AuthenticationButton from "../../authenticationButton/logoutButton/logoutButton"
-
+import AuthenticationButton from "../../authenticationButton/logoutButton/logoutButton";
 
 function InfoBoxLeftColumn(props) {
-
-
   return (
     <div className="left-column">
       <h2 className="mt-5 mb-4 trainer-name">Hi {props.firstName}!</h2>
       <p>
-        You are currently teaching {props.numClassesTaught} classes this week!
+        You are currently teaching {props.numClassesTaught}{" "}
+        {props.numClassesTaught === 1 ? "class" : "classes"} this week!
       </p>
       {props.userClasses.map((singleClass) => {
         const convertedTime = tConvert(singleClass.start_time);

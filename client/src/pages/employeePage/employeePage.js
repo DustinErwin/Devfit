@@ -11,7 +11,6 @@ import { format } from "date-fns";
 
 /*ToDO: 
  
-2. Feed times through the time converter function in utilities for better time 
 4. Style Right Column Roster 
 5. make classes text dynamically say class if class number is length 1*/
 
