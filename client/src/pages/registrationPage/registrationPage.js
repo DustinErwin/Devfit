@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import Header from "../../components/header/header";
-import Footer from "../../components/footer/footer";
+import Header from "../../components/commonComponents/header/header";
+import Footer from "../../components/commonComponents/footer/footer";
 import RegistrationForm from "../../components/Forms/RegistrationForm";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import "./registrationPage.css";
-import DevBtn from "../../components/button/button";
-import "../../components/button/styles.css";
+import DevBtn from "../../components/commonComponents/devButton/devButton";
 import { propTypes } from "react-bootstrap/esm/Image";
 
 function RegistrationPage() {

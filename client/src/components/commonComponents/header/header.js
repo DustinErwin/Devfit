@@ -1,5 +1,6 @@
 import React from "react";
 import { Row, Col, Container } from "react-bootstrap";
+import AuthenticationButton from "../../authenticationButton";
 import "./styles.css";
 
 function Header() {
@@ -26,6 +27,7 @@ function Header() {
           </h1>
         </Col>
       </Row>
+      <AuthenticationButton />
     </Container>
   );
 }

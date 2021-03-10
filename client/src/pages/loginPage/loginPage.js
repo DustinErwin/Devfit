@@ -1,21 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
-import Header from "../../components/header/header";
-import Footer from "../../components/footer/footer";
+import Header from "../../components/commonComponents/header/header";
+import Footer from "../../components/commonComponents/footer/footer";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import AdCarousel from "../../components/loginPageComponents/AdCarousel";
 import AuthenticationButton from "../../components/authenticationButton";
 import "./styles.css";
-import "../../components/button/styles.css";
-import { useAuth0 } from "@auth0/auth0-react";
-import { Redirect } from "react-router";
-import UserContext from "../../utilities/userContext";
-import "../../components/button/styles.css";
-import DevBtn from "../../components/button/button";
+
+import DevBtn from "../../components/commonComponents/devButton/devButton";
 import { Link } from "react-router-dom";
-import "../../components/button/styles.css";
-import "../../components/adCarousel.css";
 
 function LoginPage() {
   return (

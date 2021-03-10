@@ -5,59 +5,63 @@ const getEmployeeClassBundle = require("../utilities/employeeClassBundle");
 const buildRoster = require("../utilities/buildRoster");
 const trainerSchedule = require("../utilities/trainerSchedule");
 const memberMap = require("../utilities/memberMap");
-const removeClassMember=require("../utilities/removeClassMember");
+const removeClassMember = require("../utilities/removeClassMember");
 
 module.exports = (app) => {
-
   //LOGIN PAGE API
 
-    // POST "api/login" authenticates the member login credentials in the database, and responds with the member id
-    app.post("/api/login", (req, res) => {
-      // Find if there is a matching member
-        db.Member.findOne({ email: req.body.username, password: req.body.password})
-        .then((userMember) => {
-          if (!userMember) {
-            // No matching member found. Lets see if we have a matching Employee instead.
-            db.Employee.findOne({ email: req.body.username, password: req.body.password})
-            .then((employee) => {
-              if (!employee) {
-                res.status(401).json({error: "Invalid login. Please try again" })
-              } else {
-                employee.is_logged_in = true;
-                employee.save().then((updatedEmployee) => {
-                  res.json({
-                    id: updatedEmployee._id,
-                    userName: updatedEmployee.first_name,
-                    role: updatedEmployee.role,
-                  });
-                })
-              }
-            });
+  // POST "api/login" authenticates the member login credentials in the database, and responds with the member id
+  app.post("/api/login", (req, res) => {
+    // Find if there is a matching member
+    db.Member.findOne({
+      email: req.body.username,
+      password: req.body.password,
+    }).then((userMember) => {
+      if (!userMember) {
+        // No matching member found. Lets see if we have a matching Employee instead.
+        db.Employee.findOne({
+          email: req.body.username,
+          password: req.body.password,
+        }).then((employee) => {
+          if (!employee) {
+            res.status(401).json({ error: "Invalid login. Please try again" });
           } else {
-            console.log("Found Member ", userMember);
-            userMember.is_logged_in = true;
-            userMember.save().then((updatedMember) => {
-              res.json({id: updatedMember._id});
+            employee.is_logged_in = true;
+            employee.save().then((updatedEmployee) => {
+              res.json({
+                id: updatedEmployee._id,
+                userName: updatedEmployee.first_name,
+                role: updatedEmployee.role,
+              });
             });
           }
         });
-      })
+      } else {
+        console.log("Found Member ", userMember);
+        userMember.is_logged_in = true;
+        userMember.save().then((updatedMember) => {
+          res.json({ id: updatedMember._id });
+        });
+      }
+    });
+  });
 
-    // REGISTER PAGE API
+  // REGISTER PAGE API
 
-    // POST API and query to insert the new member registration record in the member table in the database
-    // Need to work on the date of birth
-    app.post("/api/register", (req, res) => {
-      const newMember = new db.Member({
-        email: req.body.userName,
-        password: req.body.password,
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        date_of_birth: req.body.date_of_birth ? req.body.date_of_birth : null,
-        gender: req.body.gender,
-        phone: req.body.phone
-      }) // sends the member details as response
-      newMember.save()
+  // POST API and query to insert the new member registration record in the member table in the database
+  // Need to work on the date of birth
+  app.post("/api/register", (req, res) => {
+    const newMember = new db.Member({
+      email: req.body.userName,
+      password: req.body.password,
+      first_name: req.body.first_name,
+      last_name: req.body.last_name,
+      date_of_birth: req.body.date_of_birth ? req.body.date_of_birth : null,
+      gender: req.body.gender,
+      phone: req.body.phone,
+    }); // sends the member details as response
+    newMember
+      .save()
       .then((dbMember) => res.send(dbMember))
       .catch((err) => res.status(500).json(err));
   });
@@ -82,7 +86,7 @@ module.exports = (app) => {
   });
 
   // GET object to populate divs with class info
-  app.get("/api/member/:id/classes/", function (req, res) {
+  app.get("/api/member/:id/classes", function (req, res) {
     db.Class.find({})
       .sort({ start_time: 1 })
       .then((classes) => {
@@ -175,6 +179,13 @@ module.exports = (app) => {
       .catch((err) => res.status(401).json(err));
   });
 
+  // GET Api to retrieve order history
+  app.get("/api/manager/orderhistory", (req, res) => {
+    db.Order.find({})
+      .then((orders) => res.send(orders))
+      .catch((err) => res.status(401).json(err));
+  });
+
   // MANAGER PAGE APIs
   // API to insert the new employee registration record in the employee table in the database
   // Wondering how this will work with auth0
@@ -186,34 +197,34 @@ module.exports = (app) => {
       gender: req.body.gender,
       email: req.body.email,
       phone: req.body.phone,
-      role: req.body.role
+      role: req.body.role,
     });
-    newEmployee.save()
+    newEmployee
+      .save()
       .then((result) => res.send(result))
       .catch((err) => res.status(500).json(err));
   });
 
   // API that allows a manager to view all trainers
-  app.get("/api/manager/trainers", (req, res)=>{
-    db.Employee.find({role:"Trainer"})
-    .then((trainers) => res.json(trainers))
-    .catch((err) => res.status(500).json(err));
-  })
+  app.get("/api/manager/trainers", (req, res) => {
+    db.Employee.find({ role: "Trainer" })
+      .then((trainers) => res.json(trainers))
+      .catch((err) => res.status(500).json(err));
+  });
 
-
- // DELETE API that allows a manager to delete a trainer
+  // DELETE API that allows a manager to delete a trainer
   app.delete("/api/manager/deleteTrainer/:id", (req, res) => {
-    db.Employee.remove({_id: req.params.id })
+    db.Employee.remove({ _id: req.params.id })
       .then(() => res.send("Success!"))
       .catch((err) => res.status(500).json(err));
   });
 
   // POST API that allows a manager to add a member/client to a class
   app.post("/api/manager/addToClass", (req, res) => {
-    db.Class.findOne({ _id: req.body.id})
+    db.Class.findOne({ _id: req.body.id })
       .then((selectedClass) => {
         const classUpdate = addToClass(selectedClass, req.body.memberid);
-        db.Class.updateOne({ _id: req.body.id }, {$set: classUpdate})
+        db.Class.updateOne({ _id: req.body.id }, { $set: classUpdate })
           .then(() => res.send("Success!"))
           .catch((err) => res.status(500).json(err));
       })
@@ -222,10 +233,10 @@ module.exports = (app) => {
 
   // POST API that allows a manager to remove a member/client from a class
   app.post("/api/manager/removeFromClass", (req, res) => {
-    db.Class.findOne({_id: req.body.id })
+    db.Class.findOne({ _id: req.body.id })
       .then((selectedClass) => {
         const classUpdate = removeClassMember(selectedClass, req.body.memberid);
-        db.Class.updateOne({_id: req.body.id }, {$set: classUpdate})
+        db.Class.updateOne({ _id: req.body.id }, { $set: classUpdate })
           .then(() => res.send("Success!"))
           .catch((err) => res.status(500).json(err));
       })
@@ -239,12 +250,11 @@ module.exports = (app) => {
       .catch((err) => res.status(500).json(err));
   });
 
-
   // STORE APIs
   // GET API that gets the list of all products
   app.get("/api/store/productList", (req, res) => {
     db.Product.find({})
-      .then(products => res.json(products))
+      .then((products) => res.json(products))
       .catch((err) => res.status(500).json(err));
   });
 
@@ -267,19 +277,20 @@ module.exports = (app) => {
 
     let totalCost = 0;
     const orderDetails = req.body.order_details;
-    orderDetails.forEach(orderItem =>{
-     const currentTotal = orderItem.price*orderItem.quantity;
-     totalCost += currentTotal
+    orderDetails.forEach((orderItem) => {
+      const currentTotal = orderItem.price * orderItem.quantity;
+      totalCost += currentTotal;
     });
     const order = new db.Order({
       member_id: db.ObjectId(req.body.member_id),
       purchased_items: orderDetails,
       order_date: Date.now(),
       total_cost: totalCost,
-      purchase_method: req.body.purchase_method
-    })
-    order.save()
-    .then((savedOrder) => res.json(savedOrder))
-    .catch(err => res.status(500).json(err))
-});
+      purchase_method: req.body.purchase_method,
+    });
+    order
+      .save()
+      .then((savedOrder) => res.json(savedOrder))
+      .catch((err) => res.status(500).json(err));
+  });
 };
