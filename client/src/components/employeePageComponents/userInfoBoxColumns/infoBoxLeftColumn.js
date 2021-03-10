@@ -2,6 +2,8 @@ import React from "react";
 import DevBtn from "../../../components/commonComponents/devButton/devButton";
 import "./styles.css";
 import tConvert from "../../../utilities/convertTime";
+import AuthenticationButton from "../../authenticationButton/logoutButton/logoutButton"
+
 
 function InfoBoxLeftColumn(props) {
   return (
@@ -36,11 +38,12 @@ function InfoBoxLeftColumn(props) {
             </div>
           </>
         );
-      })}
+      })}git 
       <div>
-        <DevBtn styleClass="btn-dark " onClick={props.toggleAddClass}>
+        <DevBtn styleClass="btn-dark mr-3" onClick={props.toggleAddClass}>
           Add Class
         </DevBtn>
+        <AuthenticationButton />
       </div>
     </div>
   );

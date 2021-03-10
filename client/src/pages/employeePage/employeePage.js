@@ -10,7 +10,7 @@ import add from "date-fns/add";
 import { format } from "date-fns";
 
 /*ToDO: 
-1. Create Add Class Button in Left Column that changes the right column to class Creation 
+ 
 1b. Create a logout button. 
 2. Feed times through the time converter function in utilities for better time 
 3. Fix Schedule Headings to be Red 
