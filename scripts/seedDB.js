@@ -19,6 +19,9 @@ employee2_id = ObjectId();
 employee3_id = ObjectId();
 employee4_id = ObjectId();
 
+product1_id = ObjectId();
+product2_id = ObjectId();
+
 const memberSeed = [
   {
     _id: member1_id,
@@ -133,6 +136,7 @@ const classSeed = [
 
 const ProductSeed = [
   {
+    _id: product1_id,
     name: "Barbell standard weight lifting plate, 2.5lbs",
     description: 'These 1" weight plates come with openings in the plates making them easier and safer to grip. Customize your workout by adding or removing weights from your bar or dumbbell handle (sold separately). Whether you are using an adjustable dumbbell, barbell, or trap bar, these weights can be loaded onto any standard bar with a 1-inch sleeve diameter. These weights feature a machined center hole to easily slide onto bars. The baked enamel finish offers a durable, long-lasting coating to prevent rust and damage. The 3-hole grip design allows for easy handling when loading or unloading weights. Add these grip plates to your home gym and use them for cardiovascular fitness or strength training! Each weight is sold individually, so recommended to purchase in pairs.',
     price: 10,
@@ -140,6 +144,7 @@ const ProductSeed = [
     image_path: "Barbell_weights_2.5lbs.jpeg"
   },
   {
+    _id: product2_id,
     name: "Barbell standard weight lifting plate, 5lbs",
     description: 'These weights feature a machined center hole to easily slide onto bars. The baked enamel finish offers a durable, long-lasting coating to prevent rust and damage. The 3-hole grip design allows for easy handling when loading or unloading weights. Add these grip plates to your home gym and use them for cardiovascular fitness or strength training! Each weight is sold individually, so recommended to purchase in pairs.',
     price: 30,
@@ -150,12 +155,12 @@ const ProductSeed = [
 
 const OrderDetailsSeed1= [
   {
-    product_name: "Barbell standard weight lifting plate, 2.5lbs",
+    product_id: product1_id,
     price: 10,
     quantity: 2
   },
   {
-    product_name: "Barbell standard weight lifting plate, 5lbs",
+    product_id: product2_id,
     price: 30,
     quantity: 4
   }
@@ -163,12 +168,12 @@ const OrderDetailsSeed1= [
 
 const OrderDetailsSeed2= [
   {
-    product_name: "Barbell standard weight lifting plate, 2.5lbs",
+    product_id: product1_id,
     price: 10,
     quantity: 3
   },
   {
-    product_name: "Barbell standard weight lifting plate, 5lbs",
+    product_id: product2_id,
     price: 30,
     quantity: 6
   }

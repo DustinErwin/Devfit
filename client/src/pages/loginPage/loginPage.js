@@ -8,7 +8,6 @@ import AdCarousel from "../../components/AdCarousel";
 import AuthenticationButton from "../../components/authenticationButton";
 import "./styles.css";
 import "../../components/button/styles.css";
-
 import "../../components/button/styles.css";
 import DevBtn from "../../components/button/button";
 import { Link } from "react-router-dom";

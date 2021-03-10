@@ -3,9 +3,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const OrderDetailsSchema = new Schema({
-    product_name:{
-        type: String,
-        required: [true, 'Product name is required'],
+    product_id:{
+        type: Schema.Types.ObjectId,
+        ref: "Product",
+        required: true,
     },
     price:{
         type: Number,
@@ -22,7 +23,7 @@ const OrderSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Member",
         required: true,
-        },
+    },
     purchased_items:[OrderDetailsSchema],
     order_date: {
         type: Date,

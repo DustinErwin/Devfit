@@ -56,7 +56,6 @@ function TrainerInfoBox() {
   }
 
   useEffect(() => {
-    console.log(user);
     //on page load, fetch the schedule data
     fetchUserData();
   }, [user]);
@@ -70,7 +69,7 @@ function TrainerInfoBox() {
     <Container>
       <Row>
         <Col className="trainer-info-box col-no-gutters">
-          <h2 className="mt-5 mb-4 trainer-name">Hi {userData.firstName}!</h2>
+          <h2 className="mt-5 mb-4 trainer-name">Hi {user.firstName}!</h2>
           <p>
             You are currently teaching {userData.numClassesTaught} classes this
             week!
