@@ -11,13 +11,15 @@ function InfoBoxRightColumn(props) {
   const [weekday, setWeekday] = useState("Monday");
   const [classTime, setClassTime] = useState("06:00:00:00");
   const [maxSize, setMaxSize] = useState(10);
+  const [toggleAddClass, setToggleAddClass] = useState(true);
 
+  // on Create Class click, create the new class, update the left col and schedule, then return to roster
   function handleClassCreation() {
     const classData = {
-      "class_name" : fitClassName,
-      "day": weekday,
-      "start_time": classTime,
-      "trainer_id": props.trainerId,
+      class_name: fitClassName,
+      day: weekday,
+      start_time: classTime,
+      trainer_id: props.trainerId,
     };
 
     fetch("/api/employee/addClass", {
@@ -27,13 +29,17 @@ function InfoBoxRightColumn(props) {
       },
       body: JSON.stringify(classData),
     })
-      .then((response) => response.json())
-      .then((classData) => {
-        console.log("Success:", classData);
-      })
+      .then((response) => response.text())
+      .then(() => {
+        props.fetchScheduleData();
+        props.fetchTrainerData();
+      });
+
+    setToggleAddClass(false);
   }
 
-  return props.displayAddClass === false ? (
+  //Ternery using toggleAddClass state in parent. Change Value in state to change right Col
+  return toggleAddClass === false ? (
     <Card className="view-roster mb-5 mt-5">
       <Card.Body>
         <Card.Title>Roster</Card.Title>
