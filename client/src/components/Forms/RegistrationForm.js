@@ -1,29 +1,37 @@
-import React from "react";
+import { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import "./registrationForm.css";
+import UserContext from "../../utilities/userContext";
 
-export default function RegistrationForm() {
+export default function RegistrationForm(props) {
+  const [users, setUser] = useState({
+    firstName: "",
+    lastName: "",
+    gender: "",
+    birthdate: "",
+    phoneNumber: "",
+  });
+
   return (
     <>
       <Container className="regForm background-white">
         <Form>
           <Row>
             <Col>
-              <Form.Group controlId="formBasicEmail">
-                <Form.Label className="pt-3">Email address*</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" />
-                <Form.Text className="text-muted">
-                  We'll never share your email with anyone else.
-                </Form.Text>
-              </Form.Group>
-            </Col>
-            <Col>
-              <Form.Group controlId="formBasicPassword">
-                <Form.Label className="pt-3">Password*</Form.Label>
-                <Form.Control type="password" placeholder="Password" />
+              <Form.Group as={Row} controlId="formPlaintextEmail">
+                <Form.Label column sm="2">
+                  Email
+                </Form.Label>
+                <Col sm="10">
+                  <Form.Control
+                    plaintext
+                    readOnly
+                    defaultValue="email@example.com"
+                  />
+                </Col>
               </Form.Group>
             </Col>
           </Row>
@@ -31,24 +39,36 @@ export default function RegistrationForm() {
             <Col>
               <Form.Group controlId="formBasicEmail">
                 <Form.Label>First Name*</Form.Label>
-                <Form.Control placeholder="First name" />
+                <Form.Control
+                  placeholder="First name"
+                  onChange={(event) => props.userInfo(event)}
+                  name="firstName"
+                />
               </Form.Group>
             </Col>
             <Col>
               <Form.Group controlId="formBasicPassword">
                 <Form.Label>Last Name*</Form.Label>
-                <Form.Control placeholder="Last name" />
+                <Form.Control
+                  placeholder="Last name"
+                  onChange={(event) => props.userInfo(event)}
+                  name="lastName"
+                />
               </Form.Group>
             </Col>
           </Row>
           <Row>
             <Col>
               <Form.Group controlId="exampleForm.ControlSelect1">
-                <Form.Label>Example select</Form.Label>
-                <Form.Control as="select">
-                  <option>Male</option>
-                  <option>Female</option>
-                  <option>Other</option>
+                <Form.Label>Gender</Form.Label>
+                <Form.Control
+                  as="select"
+                  onClick={(event) => props.userInfo(event)}
+                  name="gender"
+                >
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
                 </Form.Control>
               </Form.Group>
             </Col>
@@ -58,6 +78,8 @@ export default function RegistrationForm() {
                 <Form.Control
                   type="date"
                   placeholder="Birthdate (yyyy-dd-mm)"
+                  onChange={(event) => props.userInfo(event)}
+                  name="birthdate"
                 ></Form.Control>
               </Form.Group>
             </Col>
@@ -72,6 +94,8 @@ export default function RegistrationForm() {
                 <Form.Control
                   placeholder="Phone Number"
                   pattern="[0-9]{10}"
+                  onChange={(event) => props.userInfo(event)}
+                  name="phoneNumber"
                 ></Form.Control>
               </Form.Group>
             </Col>

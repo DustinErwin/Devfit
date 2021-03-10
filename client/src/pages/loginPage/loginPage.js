@@ -70,6 +70,7 @@ function LoginPage() {
                   Sign up
                 </Link>
               </DevBtn>
+              <AuthenticationButton />
             </Container>
           </Col>
           <Col className="align-self-stretch background-dark">

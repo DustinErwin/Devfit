@@ -1,23 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../../components/header/header";
 import Footer from "../../components/footer/footer";
-import AuthenticationButton from "../../components/authenticationButton";
 import RegistrationForm from "../../components/Forms/RegistrationForm";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import "./registrationPage.css";
+import DevBtn from "../../components/button/button";
+import "../../components/button/styles.css";
+import { propTypes } from "react-bootstrap/esm/Image";
 
 function RegistrationPage() {
+  const [users, setUser] = useState({
+    firstName: "",
+    lastName: "",
+    gender: "",
+    birthdate: "",
+    phoneNumber: "",
+  });
+
+  const userInfo = (event) => {
+    const { name, value } = event.target;
+    setUser({
+      ...users,
+      [name]: value,
+    });
+  };
+  console.log(users);
+
+  // const handleRegistrationSubmit = (event) => {
+  //   console.log("clicked");
+  // };
+
   return (
     <>
       <Header />
       <Container className="regPage">
-        <h1>Sign Up for an Account:</h1>
+        <h1>You're almost there! </h1>
+        <h3>Enter your information to become a member!</h3>
         <Card>
-          <RegistrationForm></RegistrationForm>
+          <RegistrationForm userInfo={(e) => userInfo(e)}></RegistrationForm>
         </Card>
-        <AuthenticationButton />
+        <DevBtn className="signupBtn" styleClass="btn-red">
+          Sign Up
+        </DevBtn>
       </Container>
+
       <Footer />
     </>
   );
