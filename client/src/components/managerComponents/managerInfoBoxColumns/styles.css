@@ -1,5 +1,10 @@
 .trainer-wrapper {
     display:flex;
     justify-content:start ;
-    margin-left: 30% !important;
+    margin-left: 30% ;
+    font-size: larger;
+}
+
+.trainer-item {
+     list-style: none;
 }
