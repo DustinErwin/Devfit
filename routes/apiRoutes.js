@@ -207,7 +207,7 @@ module.exports = (app) => {
 
   // API that allows a manager to view all trainers
   app.get("/api/manager/trainers", (req, res) => {
-    db.Employee.find({ role: "Trainer" })
+    db.Employee.find({ role: "employee" })
       .then((trainers) => res.json(trainers))
       .catch((err) => res.status(500).json(err));
   });

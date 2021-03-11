@@ -52,12 +52,14 @@ function ManagerPage() {
       .then((res) => res.json())
       .then((trainersArray) => {
         console.log(trainersArray, "trainersArray");
+        setAllTrainers(trainersArray)
       });
   }
 
+  //once user is grabbed from context, fetch all trainers. 
   useEffect(() => {
   fetchallTrainers()
-  }, []);
+  }, [user._id]);
 
   return (
     <>
