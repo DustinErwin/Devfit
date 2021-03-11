@@ -15,13 +15,13 @@ function InfoBoxLeftColumn(props) {
             <li className="list-item mb-3 ">
               {" "}
               <DevBtn id={item._id} styleClass="btn-dark mr-4" onClick={props.handleViewedTrainer}>View</DevBtn>{" "}
-              {`${item.first_name}  ${item.last_name}`}{" "}
+              {`${item.first_name}  ${item.last_name}`}{" "} 
             </li>
           </div>    
         );
       })}
        <div className="mt-3">
-          <AuthenticationButton />
+       <DevBtn styleClass="btn-dark mr-3" onClick={props.handleHireTrainer}>Hire Trainer</DevBtn> <AuthenticationButton /> 
         </div>
     </>
   );

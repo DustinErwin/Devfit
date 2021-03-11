@@ -12,21 +12,14 @@ import UserContext from "../../utilities/userContext";
 Top Area: 
 Manager Page
 
-1. Add Manager Info Box 
-2. a function that grabs current trainers and stores them in Current Trainers State
-3. a trainerInfo State that holds first, last, gender, email, and phone number of Trainer
-4. a currentTrainer function that grabs that info and stores it in state, then gets passed to left hand column
-5. A state that holds text "trainerInfo or hireNewTrainer for right column render"
-6. a terminateEmployee function that deletes that employee and their classes
 
 Left Hand Column: 
-1. A header that displays current trainerse 
-2. a map that display all trainer names 
-3. A view button with a click that calls the currentTrainer function---
+2. A Hire Traienr Button 
+2b. Function on manager page that fetche Posts new trainer data, then calls all trainers from server
+
+
 
 Right Hand Column: 
-1. A heading called Trainer's Information
-2. A rendered li map of each trainer's name and other info from trainerInfo state 
 3. A Terminate button that calls the terminateEmployee function 
 
 Schedule 
@@ -79,6 +72,10 @@ function ManagerPage() {
     setViewedTrainer(chosenTrainer)
   }
 
+  function handleHireTrainer() {
+    console.log('clicked')
+  }
+
   return (
     <>
       <Header />
@@ -87,7 +84,9 @@ function ManagerPage() {
           colLeft={
             <LeftColumn
               allTrainers={allTrainers}
-              handleViewedTrainer={(e) => handleViewedTrainer(e)}
+              handleHireTrainer={() => handleHireTrainer()}
+              handleViewedTrainer={(e) => handleViewedTrainer(e)
+              }
             />
           }
           colRight={<RightColumn viewedTrainer={viewedTrainer} />}
