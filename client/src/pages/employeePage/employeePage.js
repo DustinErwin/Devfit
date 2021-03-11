@@ -4,8 +4,8 @@ import Footer from "../../components/commonComponents/footer/footer";
 import EmployeeSchedule from "../../components/employeePageComponents/employeeSchedule/employeeSchedule";
 import UserInfoBox from "../../components/commonComponents/userInfoBox/userInfoBox";
 import UserContext from "../../utilities/userContext";
-import RightColumn from "../../components/employeePageComponents/userInfoBoxColumns/InfoBoxRightColumn";
-import LeftColumn from "../../components/employeePageComponents/userInfoBoxColumns/infoBoxLeftColumn";
+import RightColumn from "../../components/employeePageComponents/employeeInfoBoxColumns/eInfoBoxRightColumn";
+import LeftColumn from "../../components/employeePageComponents/employeeInfoBoxColumns/einfoBoxLeftColumn";
 import add from "date-fns/add";
 import { format } from "date-fns";
 

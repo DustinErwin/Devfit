@@ -1,5 +1,5 @@
 import React from "react";
-import DevBtn from "../../../components/commonComponents/devButton/devButton";
+import DevBtn from "../../commonComponents/devButton/devButton";
 import "./styles.css";
 import tConvert from "../../../utilities/convertTime";
 import AuthenticationButton from "../../authenticationButton/logoutButton/logoutButton";

@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../../components/commonComponents/header/header";
 import Footer from "../../components/commonComponents/footer/footer";
 import Row from "react-bootstrap/Row";
-import Container from "react-bootstrap/Container"
+import Container from "react-bootstrap/Container";
 import AuthenticationButton from "../../components/authenticationButton";
-import UserInfoBox from "../../components/commonComponents/userInfoBox/userInfoBox.js"
-
+import UserInfoBox from "../../components/commonComponents/userInfoBox/userInfoBox.js";
+import LeftColumn from "../../components/managerComponents/managerInfoBoxColumns/mInfoBoxLeftCol";
+import RightColumn from "../../components/managerComponents/managerInfoBoxColumns/mInfoBoxRightCol";
 
 /*
 Top Area: 
@@ -34,21 +35,35 @@ Schedule
 3. render button opens a modal  */
 
 function ManagerPage() {
+  const [allTrainers, setAllTrainers] = useState([]); //holds an array of all trainers for the manager
+
+  //fetch grabs all trainers and sets them to the allTrainers array
+  function fetchallTrainers() {
+    fetch("/api/manager/trainers", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((trainersArray) => {
+        console.log(trainersArray, "trainersArray");
+      });
+  }
+
+  useEffect(() => {
+  fetchallTrainers()
+  }, []);
+
   return (
     <>
       <Header />
       <AuthenticationButton />
-      <Container >This Wrapper the two boxes for Managers.</Container>
+      <Container>This Wrapper the two boxes for Managers.</Container>
       <UserInfoBox
-        colLeft={
-          <LeftColumn
- 
-          />
-        }
-        colRight={
-          <RightColumn
-          />
-        }
+        colLeft={<LeftColumn />}
+        colRight={<RightColumn />}
       ></UserInfoBox>
       <Container>
         <Row></Row>
