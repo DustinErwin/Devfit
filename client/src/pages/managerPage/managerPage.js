@@ -3,7 +3,6 @@ import Header from "../../components/commonComponents/header/header";
 import Footer from "../../components/commonComponents/footer/footer";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
-import AuthenticationButton from "../../components/authenticationButton";
 import UserInfoBox from "../../components/commonComponents/userInfoBox/userInfoBox.js";
 import LeftColumn from "../../components/managerComponents/managerInfoBoxColumns/mInfoBoxLeftCol";
 import RightColumn from "../../components/managerComponents/managerInfoBoxColumns/mInfoBoxRightCol";
@@ -23,7 +22,7 @@ Manager Page
 Left Hand Column: 
 1. A header that displays current trainerse 
 2. a map that display all trainer names 
-3. A view button with a click that calls the currentTrainer function
+3. A view button with a click that calls the currentTrainer function---
 
 Right Hand Column: 
 1. A heading called Trainer's Information
@@ -37,14 +36,14 @@ Schedule
 
 function ManagerPage() {
   const [allTrainers, setAllTrainers] = useState([]); //holds an array of all trainers for the manager
+  const [viewedTrainer, setViewedTrainer] = useState('hi'); //holds the info used to view a single trainer in right Col
 
   const user = useContext(UserContext);
 
-   //fetch an Array of all trainers
-   useEffect(() => {
+  //fetch an Array of all trainers
+  useEffect(() => {
     fetchallTrainers();
   }, []);
-
 
   //fetch grabs all trainers and sets them to the allTrainers array
   function fetchallTrainers() {
@@ -61,22 +60,38 @@ function ManagerPage() {
       });
   }
 
-//Delete request to terminate employee 
-fetch( `/api/manager/deleteTrainer/` + `id`, {
-  method: 'DELETE',
-})
-.then(res => res.text()) // or res.json()
-.then(res => console.log(res, 'terminated'))
- 
+  //Delete request to terminate employee
+  function terminateEmployee() {
+    fetch(`/api/manager/deleteTrainer/` + `id`, {
+      method: "DELETE",
+    })
+      .then((res) => res.text()) 
+      .then((res) => console.log(res, "terminated"));
+  }
+
+  //on View button click, set Chosen Traienr to state
+  function handleViewedTrainer(e) {
+    const chosenTrainerId = e.target.id;
+
+    const chosenTrainer = allTrainers.filter((item) => {
+      return item._id === chosenTrainerId;
+    });
+    setViewedTrainer(chosenTrainer)
+  }
 
   return (
     <>
       <Header />
       <Container>
-      <UserInfoBox
-        colLeft={<LeftColumn allTrainers={allTrainers} />}
-        colRight={<RightColumn />}
-      ></UserInfoBox>
+        <UserInfoBox
+          colLeft={
+            <LeftColumn
+              allTrainers={allTrainers}
+              handleViewedTrainer={(e) => handleViewedTrainer(e)}
+            />
+          }
+          colRight={<RightColumn viewedTrainer={viewedTrainer} />}
+        ></UserInfoBox>
       </Container>
       <Container>
         <Row></Row>

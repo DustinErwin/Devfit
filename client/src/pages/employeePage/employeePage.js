@@ -103,8 +103,6 @@ function EmployeePage() {
 
   function updateRoster(e) {
     const classId = e.target.id;
-    console.log(e.target);
-    console.log(classId);
     fetch(`/api/class/${classId}/roster`, {
       method: "GET",
       headers: {

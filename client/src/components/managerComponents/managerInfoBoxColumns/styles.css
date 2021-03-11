@@ -8,3 +8,13 @@
 .trainer-item {
      list-style: none;
 }
+
+.trainer-info-card{
+    width: 80%; 
+    background: #d22e33  !important;
+    color: black; 
+}
+
+.trainer-info-title{
+   color: whitesmoke
+}

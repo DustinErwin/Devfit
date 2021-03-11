@@ -9,9 +9,9 @@ import "./styles.css";
 function ContainerTest(props) {
   return (
     <Container>
-      <Row className="layout">
-        <Col className="col-left pb-4">{props.colLeft}</Col>
-        <Col className="col-right pb-4">{props.colRight}</Col>
+      <Row className="layout ">
+        <Col className="col-left pb-4 rounded-left">{props.colLeft}</Col>
+        <Col className="col-right pb-4 rounded-right">{props.colRight}</Col>
       </Row>
     </Container>
   );
