@@ -64,6 +64,20 @@ function MemberPage() {
       });
   }
 
+  function addToClass(classid) {
+    fetch("/api/member/addToClass", {
+      method: "POST",
+      body: {
+        id: classid,
+        memberid: user._id,
+      },
+    })
+      .then((res) => res.json())
+      .then((classJoined) => {
+        console.log(classJoined, "Class Joined");
+      });
+  }
+
   function fecthJoinedClasses() {
     fetch(`/api/member/${user._id}/classes`, {
       method: "GET",
@@ -95,8 +109,10 @@ function MemberPage() {
       <Container>
         <Row>
           <MemberSchedule
+            classesJoined={userClasses}
             classSchedule={classSchedule}
             fetchScheduleData={() => fetchScheduleData()}
+            joinClass={(e) => addToClass(e)}
           />
         </Row>
       </Container>

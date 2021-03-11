@@ -3,6 +3,7 @@ import Col from "react-bootstrap/Col";
 import "./styles.css";
 import UserContext from "../../../utilities/userContext";
 import AuthenticationButton from "../../authenticationButton";
+import convertTime from "../../../utilities/convertTime";
 
 //TODO: Basic Framework Created. Still need to add Api Call and show classes signed up for.
 function MemberInfoBox(props) {
@@ -20,7 +21,15 @@ function MemberInfoBox(props) {
         <span className="sentence-text-classes">{classAmount}</span> class(es)
         this week.
       </p>
-      <div className="classes-taken">Zuumba, 10 AM on Friday </div>
+      <div className="classes-taken">
+        {props.classesJoined.map((unit) => {
+          return (
+            <p>
+              {unit.class_name} at {convertTime(unit.start_time)} on {unit.day}
+            </p>
+          );
+        })}
+      </div>
 
       <AuthenticationButton />
     </Col>
