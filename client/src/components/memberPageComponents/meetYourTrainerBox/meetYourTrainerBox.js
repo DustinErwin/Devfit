@@ -2,6 +2,9 @@ import React from "react";
 import Col from "react-bootstrap/Col";
 import "./styles.css";
 import Carousel from "react-bootstrap/Carousel";
+import trainerAbeer from "../../../assets/images/trainer_abeer.jpg";
+import trainerArav from "../../../assets/images/trainer_arav.jpg";
+import trainerFelicia from "../../../assets/images/trainer_felicia.jpg";
 
 //TODO: Basic Framework Created. Still need to add Api Call and show classes signed up for.
 function MeetYourTrainerBox() {
@@ -12,7 +15,7 @@ function MeetYourTrainerBox() {
         <Carousel.Item>
           <img
             className="d-block w-80 center"
-            src={process.env.PUBLIC_URL + "/images/trainer_abeer.jpg"}
+            src={trainerAbeer}
             alt="Meet Abeer, our Zumba instructor"
           />
           <Carousel.Caption className="carouselCaption">
@@ -23,7 +26,7 @@ function MeetYourTrainerBox() {
         <Carousel.Item>
           <img
             className="d-block w-80 center"
-            src={process.env.PUBLIC_URL + "/images/trainer_arav.jpg"}
+            src={trainerArav}
             alt="Meet Arav, our Spin instructor"
           />
 
@@ -35,7 +38,7 @@ function MeetYourTrainerBox() {
         <Carousel.Item>
           <img
             className="d-block w-80 center"
-            src={process.env.PUBLIC_URL + "/images/trainer_felicia.jfif"}
+            src={trainerFelicia}
             alt="Meet Felicia, our Barbell Blast instructor"
           />
 

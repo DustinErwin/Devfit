@@ -1,6 +1,7 @@
 import React from "react";
 import { Row, Col, Container } from "react-bootstrap";
 import AuthenticationButton from "../../authenticationButton";
+import logoDark from "../../../assets/images/Color_Logo_dark_background.png";
 import "./styles.css";
 
 function Header() {
@@ -15,9 +16,7 @@ function Header() {
         <Col className="text-center ">
           <img
             className="logo"
-            src={
-              process.env.PUBLIC_URL + "/images/Color_logo_dark_background.png"
-            }
+            src={logoDark}
             alt="funny logo of skinny kid trying to lift a huge weight"
           />
         </Col>
