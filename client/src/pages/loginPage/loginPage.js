@@ -7,7 +7,10 @@ import Container from "react-bootstrap/Container";
 import AdCarousel from "../../components/loginPageComponents/AdCarousel";
 import AuthenticationButton from "../../components/authenticationButton";
 import "./styles.css";
-
+import girlFeet from "../../assets/images/girlfeetwaterbottle.jpg";
+import gymCoronavirus from "../../assets/images/gym-coronavirus.jpg";
+import bench from "../../assets/images/bench.jpg";
+import equipmentRoom from "../../assets/images/equipmentroom.jpg";
 import DevBtn from "../../components/commonComponents/devButton/devButton";
 import { Link } from "react-router-dom";
 
@@ -23,11 +26,11 @@ function LoginPage() {
                 <h1 className="text-red">Refactor your body!</h1>
                 <AdCarousel
                   className="adCarousel"
-                  imgUrl1="/images/girlfeetwaterbottle.jpg"
+                  imgUrl1={girlFeet}
                   altText1="Girl sitting on floor next to water bottle"
                   carouselHeader1="Stretching your mind"
                   carouselCaption1="but need to stretch your body?"
-                  imgUrl2="/images/gym-coronavirus.jpg"
+                  imgUrl2={gymCoronavirus}
                   altText2="Man picking up weight from weight rack"
                   carouselHeader2="Found your inner strength"
                   carouselCaption2="but still discovering your outer
@@ -73,12 +76,12 @@ function LoginPage() {
                 <h1 className="text-red">Increase Your Stamina!</h1>
                 <AdCarousel
                   className="adCarousel"
-                  imgUrl1="/images/bench.jpg"
+                  imgUrl1={bench}
                   altText1="Man on weight bench"
                   carouselHeader1="Looking for personal training
                   facilities"
                   carouselCaption1="to help you meet your fitness goals?"
-                  imgUrl2="/images/equipmentroom.jpg"
+                  imgUrl2={equipmentRoom}
                   altText2="Equipment Room"
                   carouselHeader2="Looking for a clean, comfortable
                   atmosphere"

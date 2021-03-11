@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Header from "../../components/commonComponents/header/header";
 import Footer from "../../components/commonComponents/footer/footer";
 import RegistrationForm from "../../components/Forms/RegistrationForm";
@@ -7,14 +7,18 @@ import Container from "react-bootstrap/Container";
 import "./registrationPage.css";
 import DevBtn from "../../components/commonComponents/devButton/devButton";
 import { propTypes } from "react-bootstrap/esm/Image";
+import userContext from "../../utilities/userContext";
 
 function RegistrationPage() {
+  const contextUser = useContext(userContext);
   const [users, setUser] = useState({
-    firstName: "",
-    lastName: "",
+    first_name: "",
+    last_name: "",
     gender: "",
-    birthdate: "",
-    phoneNumber: "",
+    date_of_birth: "",
+    phone: "",
+    role: "member",
+    email: contextUser.email,
   });
 
   const userInfo = (event) => {
@@ -24,11 +28,27 @@ function RegistrationPage() {
       [name]: value,
     });
   };
-  console.log(users);
+  // console.log(users);
 
-  // const handleRegistrationSubmit = (event) => {
-  //   console.log("clicked");
-  // };
+  const handleRegistrationSubmit = (event) => {
+    console.log("clicked");
+    console.log(users);
+
+    fetch("/api/register", {
+      method: "POST", // or 'PUT'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(users),
+    })
+      .then((response) => response.json())
+      .then((users) => {
+        console.log("Success:", users);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
 
   return (
     <>
@@ -39,7 +59,11 @@ function RegistrationPage() {
         <Card>
           <RegistrationForm userInfo={(e) => userInfo(e)}></RegistrationForm>
         </Card>
-        <DevBtn className="signupBtn" styleClass="btn-red">
+        <DevBtn
+          className="signupBtn"
+          styleClass="btn-red"
+          onClick={handleRegistrationSubmit}
+        >
           Sign Up
         </DevBtn>
       </Container>
