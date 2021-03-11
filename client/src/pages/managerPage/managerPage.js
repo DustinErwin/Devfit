@@ -50,16 +50,15 @@ function ManagerPage() {
       },
     })
       .then((res) => res.json())
-      .then((trainersArray) => {
-        console.log(trainersArray, "trainersArray");
-        setAllTrainers(trainersArray)
+      .then((trainerArray) => {
+        setAllTrainers(trainerArray);
       });
   }
 
-  //once user is grabbed from context, fetch all trainers. 
+  //fetch an Array of all trainers
   useEffect(() => {
-  fetchallTrainers()
-  }, [user._id]);
+    fetchallTrainers();
+  }, []);
 
   return (
     <>
@@ -67,7 +66,7 @@ function ManagerPage() {
       <AuthenticationButton />
       <Container>This Wrapper the two boxes for Managers.</Container>
       <UserInfoBox
-        colLeft={<LeftColumn />}
+        colLeft={<LeftColumn allTrainers={allTrainers} />}
         colRight={<RightColumn />}
       ></UserInfoBox>
       <Container>
