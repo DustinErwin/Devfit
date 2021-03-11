@@ -193,7 +193,6 @@ module.exports = (app) => {
     const newEmployee = new db.Employee({
       first_name: req.body.first_name,
       last_name: req.body.last_name,
-      password: req.body.password,
       gender: req.body.gender,
       email: req.body.email,
       phone: req.body.phone,

@@ -15,9 +15,9 @@ Manager Page
 Hire new Trainer: 
 1. Change Hire Trainer to Add Trainer --
 2. Create toggleRightColumn State --
-2b. Create Ternary 
-3. Hire Trainer onClick creates new Card with Form  
-4. Add Hire Trainer Button 
+2b. Create Ternary --
+3. Hire Trainer onClick creates new Card with Form  --
+4. Add Hire Trainer Button
 5.  Hire Trainer Buttons onClick grabs form data and sends it to handleHire Trainer function on manager
 6. handleHire sends fetch and updates page 
 
@@ -38,10 +38,29 @@ Schedule
 
 function ManagerPage() {
   const [allTrainers, setAllTrainers] = useState([]); //holds an array of all trainers for the manager
-  const [viewedTrainer, setViewedTrainer] = useState('hi'); //holds the info used to view a single trainer in right Col
-  const [toggleRightCol, setToggleRightCol] = useState("addTrainer")
+  const [viewedTrainer, setViewedTrainer] = useState("hi"); //holds the info used to view a single trainer in right Col
+  const [toggleRightCol, setToggleRightCol] = useState("addTrainer"); //toggles the right column between trainer info and add trainer
+  const [trainerHire, setTrainerHire] = useState({
+    firstName: "",
+    lastName: "",
+    gender: "M",
+    email: "",
+    phone: "",
+  });
 
   const user = useContext(UserContext);
+
+  //sets info from trainer hire form to state
+  const hireTrainerInfo = (e) => {
+    const { name, value } = e.target;
+    setTrainerHire({
+      ...trainerHire,
+      [name]: value,
+    });
+  };
+
+
+
 
   //fetch an Array of all trainers
   useEffect(() => {
@@ -60,32 +79,41 @@ function ManagerPage() {
       .then((res) => res.json())
       .then((trainerArray) => {
         setAllTrainers(trainerArray);
-      });
+      })
   }
 
+
   //fetch post request to hire a new trainer
-  function hireNewTrainer(trainerInfo) {
+  function handleHireNewTrainer() {
+    const dataObject = {
+      first_name: trainerHire.firstName,
+      last_name: trainerHire.lastName, 
+      gender: trainerHire.gender, 
+      phone: trainerHire.phone, 
+      email: trainerHire.email,
+      role: "employee"
+    }
+    console.log(dataObject)
     fetch("/api/manager/addEmployee", {
       method: "POST",
-      body: JSON.stringify(/* trainer data here*/),
+      body: JSON.stringify(dataObject),
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
     })
       .then((res) => res.json())
-      .then((trainerArray) => {
-        setAllTrainers(trainerArray);
-      });
+      .then(() => {
+        // fetchallTrainers()
+      }).catch(error => {throw(error)})
   }
-
 
   //Delete request to terminate employee
   function handleTerminateEmployee() {
     fetch(`/api/manager/deleteTrainer/` + `id`, {
       method: "DELETE",
     })
-      .then((res) => res.text()) 
+      .then((res) => res.text())
       .then((res) => console.log(res, "terminated"));
   }
 
@@ -96,12 +124,13 @@ function ManagerPage() {
     const chosenTrainer = allTrainers.filter((item) => {
       return item._id === chosenTrainerId;
     });
-    setViewedTrainer(chosenTrainer)
-    setToggleRightCol("viewTrainer")
+    setViewedTrainer(chosenTrainer);
+    setToggleRightCol("viewTrainer");
   }
 
-  function handleHireTrainer() {
-   setToggleRightCol("addTrainer")
+  //Add Trainer on click toggles right col to add trainer state
+  function toggleAddTrainer() {
+    setToggleRightCol("addTrainer");
   }
 
   return (
@@ -112,12 +141,18 @@ function ManagerPage() {
           colLeft={
             <LeftColumn
               allTrainers={allTrainers}
-              handleHireTrainer={() => handleHireTrainer()}
-              handleViewedTrainer={(e) => handleViewedTrainer(e)
-              }
+              handleViewedTrainer={(e) => handleViewedTrainer(e)}
+              toggleAddTrainer={() => toggleAddTrainer()}
             />
           }
-          colRight={<RightColumn viewedTrainer={viewedTrainer} toggleRightCol={toggleRightCol} />}
+          colRight={
+            <RightColumn
+              viewedTrainer={viewedTrainer}
+              toggleRightCol={toggleRightCol}
+              handleHireNewTrainer={() => handleHireNewTrainer()}
+              hireTrainerInfo={(e) => hireTrainerInfo(e)}
+            />
+          }
         ></UserInfoBox>
       </Container>
       <Container>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import DevBtn from "../../commonComponents/devButton/devButton";
 import "./styles.css";
 import tConvert from "../../../utilities/convertTime";
@@ -10,7 +10,7 @@ import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup"
 
 function InfoBoxRightColumn(props) {
-  console.log(props);
+
   return (
     <>
       {" "}
@@ -22,14 +22,15 @@ function InfoBoxRightColumn(props) {
           <Card.Body>
             
             <Card.Text>
-              <ListGroup className=" hire-trainer-form ">
+              <ListGroup className=" hire-trainer-form">
                 <Form.Group>
-                  <ListGroup.Item>
+                  <ListGroup.Item className="rounded-top">
                   <Form.Label>First Name</Form.Label>
                     <Form.Control
                       type="text"
                       placeholder="First Name"
-                      // onChange={(e) => setFitclassNameName(e.target.value)}
+                      onChange={(e) => props.hireTrainerInfo(e)}
+                      name="firstName"
                     />
                   </ListGroup.Item>
                   <ListGroup.Item>
@@ -37,14 +38,16 @@ function InfoBoxRightColumn(props) {
                     <Form.Control
                       type="text"
                       placeholder="Last Name"
-                      // onChange={(e) => setFitclassNameName(e.target.value)}
+                      onChange={(e) => props.hireTrainerInfo(e)}
+                      name="lastName"
                     />
                   </ListGroup.Item>
                   <ListGroup.Item >
                   <Form.Label>Gender</Form.Label>
                     <Form.Control
                       as="select"
-                      // onChange={(e) => setWeekday(e.target.value)}
+                      onChange={(e) => props.hireTrainerInfo(e)}
+                      name="gender"
                     >
                       <option>M</option>
                       <option>F</option>
@@ -55,20 +58,25 @@ function InfoBoxRightColumn(props) {
             <Form.Control
               type="email"
               placeholder="Email"
-              // onChange={(e) => setFitclassNameName(e.target.value)}
+              onChange={(e) => props.hireTrainerInfo(e)}
+              name="email"
             />
                   </ListGroup.Item>
-                  <ListGroup.Item className="trainerPhone rounded-bottom">
+                  <ListGroup.Item className="trainerPhone rounded-bottom pb-3">
                   <Form.Label>Phone Number</Form.Label>
             <Form.Control
               type="text"
               placeholder="Phone Number"
-              // onChange={(e) => setFitClassName(e.target.value)}
+              onChange={(e) => props.hireTrainerInfo(e)}
+              name="phone"
             />
                   </ListGroup.Item>
                 </Form.Group>
               </ListGroup>
             </Card.Text>
+            <div className="text-center">
+            <DevBtn styleClass="btn-dark" onClick={props.handleHireNewTrainer}>Hire Trainer</DevBtn>
+            </div>
           </Card.Body>
         </Card>
       ) : (
