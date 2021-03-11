@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Header from "../../components/commonComponents/header/header";
 import Footer from "../../components/commonComponents/footer/footer";
 import Row from "react-bootstrap/Row";
@@ -7,6 +7,7 @@ import AuthenticationButton from "../../components/authenticationButton";
 import UserInfoBox from "../../components/commonComponents/userInfoBox/userInfoBox.js";
 import LeftColumn from "../../components/managerComponents/managerInfoBoxColumns/mInfoBoxLeftCol";
 import RightColumn from "../../components/managerComponents/managerInfoBoxColumns/mInfoBoxRightCol";
+import UserContext from "../../utilities/userContext";
 
 /*
 Top Area: 
@@ -36,6 +37,8 @@ Schedule
 
 function ManagerPage() {
   const [allTrainers, setAllTrainers] = useState([]); //holds an array of all trainers for the manager
+
+  const user = useContext(UserContext);
 
   //fetch grabs all trainers and sets them to the allTrainers array
   function fetchallTrainers() {
