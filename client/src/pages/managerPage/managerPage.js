@@ -104,7 +104,7 @@ function ManagerPage() {
     })
       .then((res) => res.json())
       .then(() => {
-        // fetchallTrainers()
+        fetchallTrainers()
       }).catch(error => {throw(error)})
   }
 
