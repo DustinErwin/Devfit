@@ -8,11 +8,11 @@ import UserContext from "../../utilities/userContext";
 
 export default function RegistrationForm(props) {
   const [users, setUser] = useState({
-    firstName: "",
-    lastName: "",
+    first_name: "",
+    last_name: "",
     gender: "",
-    birthdate: "",
-    phoneNumber: "",
+    date_of_birth: "",
+    phone: "",
   });
 
   return (
@@ -42,7 +42,7 @@ export default function RegistrationForm(props) {
                 <Form.Control
                   placeholder="First name"
                   onChange={(event) => props.userInfo(event)}
-                  name="firstName"
+                  name="first_name"
                 />
               </Form.Group>
             </Col>
@@ -52,7 +52,7 @@ export default function RegistrationForm(props) {
                 <Form.Control
                   placeholder="Last name"
                   onChange={(event) => props.userInfo(event)}
-                  name="lastName"
+                  name="last_name"
                 />
               </Form.Group>
             </Col>
@@ -79,7 +79,7 @@ export default function RegistrationForm(props) {
                   type="date"
                   placeholder="Birthdate (yyyy-dd-mm)"
                   onChange={(event) => props.userInfo(event)}
-                  name="birthdate"
+                  name="date_of_birth"
                 ></Form.Control>
               </Form.Group>
             </Col>
@@ -95,7 +95,7 @@ export default function RegistrationForm(props) {
                   placeholder="Phone Number"
                   pattern="[0-9]{10}"
                   onChange={(event) => props.userInfo(event)}
-                  name="phoneNumber"
+                  name="phone"
                 ></Form.Control>
               </Form.Group>
             </Col>
