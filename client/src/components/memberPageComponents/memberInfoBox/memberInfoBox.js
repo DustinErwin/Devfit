@@ -24,7 +24,7 @@ function MemberInfoBox(props) {
       <div className="classes-taken">
         {props.classesJoined.map((unit) => {
           return (
-            <p>
+            <p key={unit.id}>
               {unit.class_name} at {convertTime(unit.start_time)} on {unit.day}
             </p>
           );

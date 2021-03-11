@@ -115,12 +115,27 @@ module.exports = (app) => {
 
   //API to add member into chosen class -- Requires body with class id as id and member id as memberid
   app.post("/api/member/addToClass", (req, res) => {
-    db.Class.findOne({ _id: req.body.id }).then((selectedClass) => {
-      const classUpdate = addToClass(selectedClass, req.body.memberid);
-      db.Class.updateOne({ _id: req.body.id }, { $set: classUpdate })
-        .then(() => res.send("Success!"))
-        .catch((err) => res.json(err));
-    });
+    db.Class.findOne({ _id: req.body.id })
+      .then((selectedClass) => {
+        const classUpdate = addToClass(selectedClass, req.body.memberid);
+        db.Class.updateOne({ _id: req.body.id }, { $set: classUpdate })
+          .then(() => res.send("Success!"))
+          .catch((err) => res.json(err));
+      })
+      .catch((err) => res.json(err));
+  });
+
+  //POST api to allow member to remove themselves from a selected class
+  app.post("/api/member/removeFromClass", (req, res) => {
+    console.log(req.body);
+    db.Class.findOne({ _id: req.body.id })
+      .then((selectedClass) => {
+        const classUpdate = removeClassMember(selectedClass, req.body.memberid);
+        db.Class.updateOne({ _id: req.body.id }, { $set: classUpdate })
+          .then(() => res.send("Success!"))
+          .catch((err) => res.status(500).json(err));
+      })
+      .catch((err) => res.status(500).json(err));
   });
 
   // GET object to populate divs with class info

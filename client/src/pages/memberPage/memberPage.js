@@ -27,6 +27,7 @@ function MemberPage() {
       .then((res) => res.json())
       .then((res) => {
         const weekArray = [];
+        // eslint-disable-next-line
         weekLength.map((nothing, i) => {
           //Use date-fns to get classSchedule for the 7 days of the week
           const addDay = add(new Date(), {
@@ -64,17 +65,39 @@ function MemberPage() {
       });
   }
 
-  function addToClass(classid) {
-    fetch("/api/member/addToClass", {
+  function removeFromClass(classid) {
+    let data = { id: classid, memberid: user._id };
+    console.log("clicked", classid);
+    fetch("/api/member/removeFromClass", {
       method: "POST",
-      body: {
-        id: classid,
-        memberid: user._id,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
       },
+      body: JSON.stringify(data),
     })
       .then((res) => res.json())
-      .then((classJoined) => {
-        console.log(classJoined, "Class Joined");
+      .then(() => {
+        fecthJoinedClasses();
+        fetchScheduleData();
+      });
+  }
+
+  function addToClass(classid) {
+    let data = { id: classid, memberid: user._id };
+    console.log("clicked", classid);
+    fetch("/api/member/addToClass", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then(() => {
+        fecthJoinedClasses();
+        fetchScheduleData();
       });
   }
 
@@ -95,6 +118,7 @@ function MemberPage() {
   useEffect(() => {
     fecthJoinedClasses();
     fetchScheduleData();
+    // eslint-disable-next-line
   }, [user._id]);
 
   return (
@@ -113,6 +137,7 @@ function MemberPage() {
             classSchedule={classSchedule}
             fetchScheduleData={() => fetchScheduleData()}
             joinClass={(e) => addToClass(e)}
+            leaveClass={(e) => removeFromClass(e)}
           />
         </Row>
       </Container>

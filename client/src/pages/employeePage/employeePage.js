@@ -21,6 +21,7 @@ function EmployeePage() {
   const [userData, setUserData] = useState(""); //The uesr name and id
   const [userClasses, setUserClasses] = useState([]); //The classes the trainer is teaching in the left column info box
   const [classRoster, setClassRoster] = useState(""); //holds which members are in a particular class
+  // eslint-disable-next-line
   const [displayAddClass, setDisplayAddClass] = useState(true); // a toggle that switches between roster and add/class
   const [classSchedule, setClassSchedule] = useState([]); //all info for each class rendered in schedule
   const weekLength = [0, 1, 2, 3, 4, 5, 6];
@@ -37,6 +38,7 @@ function EmployeePage() {
       .then((res) => res.json())
       .then((res) => {
         const stateArray = [];
+        // eslint-disable-next-line
         weekLength.map((nothing, i) => {
           //Use date-fns to get classSchedule for the 7 days of the week
           const addDay = add(new Date(), {
@@ -75,6 +77,7 @@ function EmployeePage() {
   }
 
   //used on Roster btn click. Grabs current class roster and adds it to state so info can be displayed in card
+  // eslint-disable-next-line
   function fetchClassRoster(id) {
     fetch("/api/class/" + id + "/roster", {
       method: "GET",
@@ -117,6 +120,7 @@ function EmployeePage() {
   useEffect(() => {
     fetchScheduleData();
     fetchTrainerData();
+    // eslint-disable-next-line
   }, [user._id]);
 
   function handleRoster(e, id) {

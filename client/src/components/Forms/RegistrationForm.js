@@ -1,20 +1,10 @@
-import { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import "./registrationForm.css";
-import UserContext from "../../utilities/userContext";
 
 export default function RegistrationForm(props) {
-  const [users, setUser] = useState({
-    firstName: "",
-    lastName: "",
-    gender: "",
-    birthdate: "",
-    phoneNumber: "",
-  });
-
   return (
     <>
       <Container className="regForm background-white">

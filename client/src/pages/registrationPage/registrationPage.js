@@ -6,7 +6,6 @@ import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import "./registrationPage.css";
 import DevBtn from "../../components/commonComponents/devButton/devButton";
-import { propTypes } from "react-bootstrap/esm/Image";
 
 function RegistrationPage() {
   const [users, setUser] = useState({
