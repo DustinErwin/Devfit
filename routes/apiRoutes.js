@@ -194,7 +194,6 @@ module.exports = (app) => {
     const newEmployee = new db.Employee({
       first_name: req.body.first_name,
       last_name: req.body.last_name,
-      password: req.body.password,
       gender: req.body.gender,
       email: req.body.email,
       phone: req.body.phone,
@@ -208,7 +207,7 @@ module.exports = (app) => {
 
   // API that allows a manager to view all trainers
   app.get("/api/manager/trainers", (req, res) => {
-    db.Employee.find({ role: "Trainer" })
+    db.Employee.find({ role: "employee" })
       .then((trainers) => res.json(trainers))
       .catch((err) => res.status(500).json(err));
   });

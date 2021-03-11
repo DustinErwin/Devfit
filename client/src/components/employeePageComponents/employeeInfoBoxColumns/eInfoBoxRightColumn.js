@@ -11,7 +11,6 @@ function InfoBoxRightColumn(props) {
   const [weekday, setWeekday] = useState("Monday");
   const [classTime, setClassTime] = useState("06:00:00:00");
   const [maxSize, setMaxSize] = useState(10);
-  const [toggleAddClass, setToggleAddClass] = useState(true);
 
   // on Create Class click, create the new class, update the left col and schedule, then return to roster
   function handleClassCreation() {
@@ -34,25 +33,29 @@ function InfoBoxRightColumn(props) {
         props.fetchScheduleData();
         props.fetchTrainerData();
       });
-
-    setToggleAddClass(false);
   }
 
   //Ternery using toggleAddClass state in parent. Change Value in state to change right Col
-  return toggleAddClass === false ? (
+  return props.displayAddClass === "roster" ? (
     <Card className="view-roster mb-5 mt-5">
       <Card.Body>
         <Card.Title>Roster</Card.Title>
         <Card.Text>
           {/* receives an array of members as a prop and renders them as card text */}
-          {props.rosterList.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
+          {props.rosterList.map((item) =>
+            item.length === 0 ? (
+              <p>No one signed up yet!</p>
+            ) : (
+              <li className="list-item" key={item}>
+                {item}{" "}
+              </li>
+            )
+          )}
         </Card.Text>
       </Card.Body>
     </Card>
   ) : (
-    <Card className="add-class mb-5 mt-5">
+    <Card className="add-class mb-3 mt-3 pb-3">
       {" "}
       <Card.Header>Add Class</Card.Header>
       <Row>
@@ -106,25 +109,25 @@ function InfoBoxRightColumn(props) {
               as="select"
               onChange={(e) => setClassTime(e.target.value)}
             >
-              <option>06:00:00:00</option>
-              <option>07:00:00:00</option>
-              <option>08:00:00:00</option>
-              <option>09:00:00:00</option>
-              <option>10:00:00:00</option>
-              <option>11:00:00:00</option>
-              <option>12:00:00:00</option>
-              <option>13:00:00:00</option>
-              <option>14:00:00:00</option>
-              <option>15:00:00:00</option>
-              <option>16:00:00:00</option>
-              <option>17:00:00:00</option>
-              <option>18:00:00:00</option>
+              <option>06:00:00</option>
+              <option>07:00:00</option>
+              <option>08:00:00</option>
+              <option>09:00:00</option>
+              <option>10:00:00</option>
+              <option>11:00:00</option>
+              <option>12:00:00</option>
+              <option>13:00:00</option>
+              <option>14:00:00</option>
+              <option>15:00:00</option>
+              <option>16:00:00</option>
+              <option>17:00:00</option>
+              <option>18:00:00</option>
             </Form.Control>
             <br />
           </Form.Group>
         </Col>
       </Row>
-      <DevBtn styleClass="btn-red mb-3" onClick={handleClassCreation}>
+      <DevBtn styleClass="btn-red" onClick={handleClassCreation}>
         Create Class
       </DevBtn>
     </Card>
