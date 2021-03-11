@@ -6,7 +6,7 @@ import AuthenticationButton from "../../authenticationButton/logoutButton/logout
 
 function InfoBoxRightColumn(props) {
   return (
-  <h1>Test</h1>)
+  <h1 className="mb-4 mt-3">Test</h1>)
 }
 
 export default InfoBoxRightColumn;

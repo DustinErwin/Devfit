@@ -40,6 +40,12 @@ function ManagerPage() {
 
   const user = useContext(UserContext);
 
+   //fetch an Array of all trainers
+   useEffect(() => {
+    fetchallTrainers();
+  }, []);
+
+
   //fetch grabs all trainers and sets them to the allTrainers array
   function fetchallTrainers() {
     fetch("/api/manager/trainers", {
@@ -55,20 +61,23 @@ function ManagerPage() {
       });
   }
 
-  //fetch an Array of all trainers
-  useEffect(() => {
-    fetchallTrainers();
-  }, []);
+//Delete request to terminate employee 
+fetch( `/api/manager/deleteTrainer/` + `id`, {
+  method: 'DELETE',
+})
+.then(res => res.text()) // or res.json()
+.then(res => console.log(res, 'terminated'))
+ 
 
   return (
     <>
       <Header />
-      <AuthenticationButton />
-      <Container>This Wrapper the two boxes for Managers.</Container>
+      <Container>
       <UserInfoBox
         colLeft={<LeftColumn allTrainers={allTrainers} />}
         colRight={<RightColumn />}
       ></UserInfoBox>
+      </Container>
       <Container>
         <Row></Row>
       </Container>
