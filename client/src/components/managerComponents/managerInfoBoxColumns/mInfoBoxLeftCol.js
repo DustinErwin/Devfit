@@ -21,7 +21,7 @@ function InfoBoxLeftColumn(props) {
         );
       })}
        <div className="mt-3">
-       <DevBtn styleClass="btn-dark mr-3" onClick={props.handleHireTrainer}>Hire Trainer</DevBtn> <AuthenticationButton /> 
+       <DevBtn styleClass="btn-dark mr-3" onClick={props.handleHireTrainer}>Add Trainer</DevBtn> <AuthenticationButton /> 
         </div>
     </>
   );

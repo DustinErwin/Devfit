@@ -12,6 +12,15 @@ import UserContext from "../../utilities/userContext";
 Top Area: 
 Manager Page
 
+Hire new Trainer: 
+1. Change Hire Trainer to Add Trainer --
+2. Create toggleRightColumn State --
+2b. Create Ternary 
+3. Hire Trainer onClick creates new Card with Form  
+4. Add Hire Trainer Button 
+5.  Hire Trainer Buttons onClick grabs form data and sends it to handleHire Trainer function on manager
+6. handleHire sends fetch and updates page 
+
 
 Left Hand Column: 
 2. A Hire Traienr Button 
@@ -30,6 +39,7 @@ Schedule
 function ManagerPage() {
   const [allTrainers, setAllTrainers] = useState([]); //holds an array of all trainers for the manager
   const [viewedTrainer, setViewedTrainer] = useState('hi'); //holds the info used to view a single trainer in right Col
+  const [toggleRightCol, setToggleRightCol] = useState("addTrainer")
 
   const user = useContext(UserContext);
 
@@ -53,8 +63,25 @@ function ManagerPage() {
       });
   }
 
+  //fetch post request to hire a new trainer
+  function hireNewTrainer(trainerInfo) {
+    fetch("/api/manager/addEmployee", {
+      method: "POST",
+      body: JSON.stringify(/* trainer data here*/),
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((trainerArray) => {
+        setAllTrainers(trainerArray);
+      });
+  }
+
+
   //Delete request to terminate employee
-  function terminateEmployee() {
+  function handleTerminateEmployee() {
     fetch(`/api/manager/deleteTrainer/` + `id`, {
       method: "DELETE",
     })
@@ -70,10 +97,11 @@ function ManagerPage() {
       return item._id === chosenTrainerId;
     });
     setViewedTrainer(chosenTrainer)
+    setToggleRightCol("viewTrainer")
   }
 
   function handleHireTrainer() {
-    console.log('clicked')
+   setToggleRightCol("addTrainer")
   }
 
   return (
@@ -89,7 +117,7 @@ function ManagerPage() {
               }
             />
           }
-          colRight={<RightColumn viewedTrainer={viewedTrainer} />}
+          colRight={<RightColumn viewedTrainer={viewedTrainer} toggleRightCol={toggleRightCol} />}
         ></UserInfoBox>
       </Container>
       <Container>
