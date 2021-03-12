@@ -17,8 +17,8 @@ const Auth0ProviderWithHistory = ({ children }) => {
 
   return (
     <Auth0Provider
-      domain={domain}
-      clientId={clientId}
+      domain="dev-dustin-erwin.us.auth0.com"
+      clientId="k2k2ChfEp9RI1RsDXe0gu6e6tnQZVghd"
       redirectUri={window.location.origin}
       onRedirectCallback={onRedirectCallback}
     >
