@@ -1,6 +1,5 @@
 import React from "react";
 import { Row, Col, Container } from "react-bootstrap";
-import AuthenticationButton from "../../authenticationButton";
 import logoDark from "../../../assets/images/Color_Logo_dark_background.png";
 import "./styles.css";
 
@@ -26,7 +25,6 @@ function Header() {
           </h1>
         </Col>
       </Row>
-      <AuthenticationButton />
     </Container>
   );
 }

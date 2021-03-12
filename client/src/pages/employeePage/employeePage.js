@@ -9,10 +9,7 @@ import LeftColumn from "../../components/employeePageComponents/employeeInfoBoxC
 import add from "date-fns/add";
 import { format } from "date-fns";
 
-/*ToDO: 
- 
-4. Style Right Column Roster 
-*/
+
 
 function EmployeePage() {
   const user = useContext(UserContext);
@@ -152,7 +149,7 @@ function EmployeePage() {
         fetchScheduleData={() => fetchScheduleData()}
         fetchTrainerData={() => fetchTrainerData()}
       />
-      
+
       <Footer />
     </>
   );
