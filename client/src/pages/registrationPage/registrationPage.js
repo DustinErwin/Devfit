@@ -6,11 +6,8 @@ import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import "./registrationPage.css";
 import DevBtn from "../../components/commonComponents/devButton/devButton";
-<<<<<<< HEAD
 import { propTypes } from "react-bootstrap/esm/Image";
 import userContext from "../../utilities/userContext";
-=======
->>>>>>> debugging
 
 function RegistrationPage() {
   const contextUser = useContext(userContext);

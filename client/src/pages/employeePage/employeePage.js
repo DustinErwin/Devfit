@@ -19,12 +19,7 @@ function EmployeePage() {
   const [userData, setUserData] = useState(""); //The uesr name and id
   const [userClasses, setUserClasses] = useState([]); //The classes the trainer is teaching in the left column info box
   const [classRoster, setClassRoster] = useState(""); //holds which members are in a particular class
-<<<<<<< HEAD
   const [rightColDisplay, setRightColDisplay] = useState("addClass"); // a toggle that switches between roster and add/class
-=======
-  // eslint-disable-next-line
-  const [displayAddClass, setDisplayAddClass] = useState(true); // a toggle that switches between roster and add/class
->>>>>>> debugging
   const [classSchedule, setClassSchedule] = useState([]); //all info for each class rendered in schedule
   const weekLength = [0, 1, 2, 3, 4, 5, 6];
 
@@ -84,27 +79,6 @@ function EmployeePage() {
       });
   }
 
-<<<<<<< HEAD
-=======
-  //used on Roster btn click. Grabs current class roster and adds it to state so info can be displayed in card
-  // eslint-disable-next-line
-  function fetchClassRoster(id) {
-    fetch("/api/class/" + id + "/roster", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        let classArray = [...res];
-        classArray.pop();
-        setClassRoster(classArray);
-      });
-  }
-
->>>>>>> debugging
   //grabs userName and class schedule to populate schedule
   function fetchTrainerData() {
     fetch("/api/employee/" + user._id + "/schedule", {
@@ -128,20 +102,8 @@ function EmployeePage() {
       });
   }
 
-<<<<<<< HEAD
   function updateRoster(e) {
     const classId = e.target.id;
-=======
-  useEffect(() => {
-    fetchScheduleData();
-    fetchTrainerData();
-    // eslint-disable-next-line
-  }, [user._id]);
-
-  function handleRoster(e, id) {
-    const classId = id;
-    console.log(classId);
->>>>>>> debugging
     fetch(`/api/class/${classId}/roster`, {
       method: "GET",
       headers: {
