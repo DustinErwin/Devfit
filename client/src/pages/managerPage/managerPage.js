@@ -229,11 +229,25 @@ function ManagerPage() {
     })
       .then((res) => res.json())
       .then((roster) => {
-        roster.pop();
+        console.log(roster)
         setClassRoster(roster);
         handleShow();
       });
   }
+
+  function removeMember(e) {
+    console.log(e.target)
+    // const id = e.target.id;
+    // fetch("/api/manager/removeFromClass", {
+    //   method: "POST",
+    //   body: JSON.stringify(id),
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Accept: "application/json",
+    //   },
+    // });
+  }
+
   return (
     <>
       <Header />
@@ -267,7 +281,8 @@ function ManagerPage() {
           <Modal.Title>Roster</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {classRoster.map((item, i) => {
+
+          {classRoster.map((item, i, allItems) => {
             return (
               <Row>
                 <Col key={i} className="roster-item mb-3">
@@ -279,7 +294,13 @@ function ManagerPage() {
                 </Col>
                 <Col>
                   {" "}
-                  <DevBtn styleClass="btn-red roster-btn ">Remove</DevBtn>{" "}
+                  <DevBtn
+                    styleClass="btn-red roster-btn "
+                    onClick={(e) => removeMember(e)}
+                    id={allItems[allItems.length-1][i]}
+                  >
+                    Remove
+                  </DevBtn>{" "}
                 </Col>
               </Row>
             );
