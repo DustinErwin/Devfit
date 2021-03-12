@@ -152,6 +152,7 @@ function EmployeePage() {
         fetchScheduleData={() => fetchScheduleData()}
         fetchTrainerData={() => fetchTrainerData()}
       />
+      
       <Footer />
     </>
   );

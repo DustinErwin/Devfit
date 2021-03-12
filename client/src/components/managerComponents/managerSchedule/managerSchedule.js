@@ -6,9 +6,12 @@ import DevBtn from "../../commonComponents/devButton/devButton";
 import Col from "react-bootstrap/Col";
 import convertTime from "../../../utilities/convertTime";
 
+
+
 function managerSchedule(props) {
-    //declaring class schedule as an empty array avoids an error where the array doesn't exist yet. 
-    const classSchedule = props.classSchedule || []
+
+  //declaring class schedule as an empty array avoids an error where the array doesn't exist yet.
+  const classSchedule = props.classSchedule || [];
   return (
     <Container fluid>
       <Row>
@@ -41,7 +44,9 @@ function managerSchedule(props) {
                     </Col>
 
                     <Col className=" col-12 border-teal center-btn">
-                      <DevBtn styleClass="btn-dark">Roster</DevBtn>
+                      <DevBtn onClick={props.fetchClassRoster} styleClass="btn-red" id={singleClass.id}>
+                        Roster
+                      </DevBtn>
                     </Col>
                   </Row>
                 );
