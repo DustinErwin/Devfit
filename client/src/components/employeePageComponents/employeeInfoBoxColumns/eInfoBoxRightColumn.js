@@ -19,6 +19,7 @@ function InfoBoxRightColumn(props) {
       day: weekday,
       start_time: classTime,
       trainer_id: props.trainerId,
+      max_size: maxSize,
     };
 
     fetch("/api/employee/addClass", {
