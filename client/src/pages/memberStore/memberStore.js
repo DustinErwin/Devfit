@@ -19,7 +19,7 @@ function memberStore() {
         </Row>
       </Container>
 
-      <Store></Store>
+      {/* <Store></Store> */}
       <Footer />
     </>
   );
