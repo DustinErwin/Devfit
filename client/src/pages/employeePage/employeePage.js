@@ -70,7 +70,7 @@ function EmployeePage() {
           //add that object to state
           stateArray.push(dataObject);
         });
-
+           
         setClassSchedule(stateArray);
       });
   }

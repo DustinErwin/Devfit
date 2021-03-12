@@ -10,6 +10,7 @@ import "./styles.css";
 function EmployeeSchedule(props) {
   const userData = props.userData;
 
+
   //when delete btns are clicked, send a delete request, then fetchSchedule classSchedule, re-rendering page.
   function handleDelete(event) {
     const id = event.target.id;
@@ -36,6 +37,7 @@ function EmployeeSchedule(props) {
               key={day.date}
             >
               {day.classData.map((singleClass, i) => {
+
                 // Render Logic for button. If employee teaches class, then a delete btn appears to delete class
                 let employeesClass;
 
@@ -45,6 +47,7 @@ function EmployeeSchedule(props) {
 
                 //convert time stamp into readable time
                 const convertedTime = convertTime(singleClass.start_time);
+                
        
 
                 return (
