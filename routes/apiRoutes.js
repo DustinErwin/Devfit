@@ -127,7 +127,6 @@ module.exports = (app) => {
 
   //POST api to allow member to remove themselves from a selected class
   app.post("/api/member/removeFromClass", (req, res) => {
-    console.log(req.body);
     db.Class.findOne({ _id: req.body.id })
       .then((selectedClass) => {
         const classUpdate = removeClassMember(selectedClass, req.body.memberid);

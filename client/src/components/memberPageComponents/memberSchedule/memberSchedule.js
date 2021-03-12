@@ -6,6 +6,7 @@ import convertTime from "../../../utilities/convertTime";
 import DevBtn from "../../commonComponents/devButton/devButton";
 
 function MemberSchedule(props) {
+  const classesJoined = props.classesJoined || [];
   return (
     <Container fluid>
       <Row>
@@ -18,7 +19,7 @@ function MemberSchedule(props) {
             >
               {day.classData.map((singleClass) => {
                 let isJoined =
-                  props.classesJoined.filter(
+                  classesJoined.filter(
                     (unit) => unit.id === JSON.stringify(singleClass.id)
                   ).length > 0;
                 return (

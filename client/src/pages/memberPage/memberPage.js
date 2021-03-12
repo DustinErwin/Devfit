@@ -11,7 +11,7 @@ import UserContext from "../../utilities/userContext";
 
 function MemberPage() {
   const user = useContext(UserContext);
-  const [userClasses, setUserClasses] = useState([]); //The classes the trainer is teaching in the left column info box
+  const [userClasses, setUserClasses] = useState([]); //The classes the member is enrolled in the left column info box
   const [classSchedule, setClassSchedule] = useState([]); //all info for each class rendered in schedule
   const weekLength = [0, 1, 2, 3, 4, 5, 6];
 
@@ -66,8 +66,11 @@ function MemberPage() {
   }
 
   function removeFromClass(classid) {
+    let newJoinedClasses = userClasses.filter(
+      (unit) => unit.id !== JSON.stringify(classid)
+    );
+    setUserClasses(newJoinedClasses);
     let data = { id: classid, memberid: user._id };
-    console.log("clicked", classid);
     fetch("/api/member/removeFromClass", {
       method: "POST",
       headers: {
@@ -75,17 +78,18 @@ function MemberPage() {
         Accept: "application/json",
       },
       body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then(() => {
-        fecthJoinedClasses();
-        fetchScheduleData();
-      });
+    }).then((res) => res.json());
   }
 
   function addToClass(classid) {
+    let newJoinedClass = classSchedule.filter((unit) => unit.id === classid);
+    const joinedClassUnArray = newJoinedClass[0];
+    console.log(joinedClassUnArray);
+    let newClassArray = userClasses;
+    newClassArray.push(joinedClassUnArray);
+    setUserClasses(newClassArray);
     let data = { id: classid, memberid: user._id };
-    console.log("clicked", classid);
+
     fetch("/api/member/addToClass", {
       method: "POST",
       headers: {
@@ -93,12 +97,7 @@ function MemberPage() {
         Accept: "application/json",
       },
       body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then(() => {
-        fecthJoinedClasses();
-        fetchScheduleData();
-      });
+    }).then((res) => res.json());
   }
 
   function fecthJoinedClasses() {
@@ -119,7 +118,7 @@ function MemberPage() {
     fecthJoinedClasses();
     fetchScheduleData();
     // eslint-disable-next-line
-  }, [user._id]);
+  }, [user]);
 
   return (
     <>
