@@ -1,34 +1,18 @@
 import React from "react";
 import ScheduleColumn from "../../commonComponents/scheduleColumn/scheduleColumn";
-import Row from "react-bootstrap/Row"
-import Container from 'react-bootstrap/Container'
+import Row from "react-bootstrap/Row";
+import Container from "react-bootstrap/Container";
 import DevBtn from "../../commonComponents/devButton/devButton";
 import Col from "react-bootstrap/Col";
 import convertTime from "../../../utilities/convertTime";
-import "./styles.css";
 
-function EmployeeSchedule(props) {
-  const userData = props.userData;
-
-  //when delete btns are clicked, send a delete request, then fetchSchedule classSchedule, re-rendering page.
-  function handleDelete(event) {
-    const id = event.target.id;
-    fetch("/api/employee/removeClass/" + id, {
-      method: "DELETE",
-    })
-      .then((res) => res.text())
-      .then((res) => {
-        //update schedule
-        props.fetchScheduleData();
-        //update left column with what classes trainer is teacahing
-        props.fetchTrainerData();
-      });
-  }
-
+function managerSchedule(props) {
+    //declaring class schedule as an empty array avoids an error where the array doesn't exist yet. 
+    const classSchedule = props.classSchedule || []
   return (
     <Container fluid>
       <Row>
-        {props.classSchedule.map((day) => {
+        {classSchedule.map((day) => {
           return (
             <ScheduleColumn
               dayOfWeek={day.weekDay}
@@ -36,16 +20,8 @@ function EmployeeSchedule(props) {
               key={day.date}
             >
               {day.classData.map((singleClass, i) => {
-                // Render Logic for button. If employee teaches class, then a delete btn appears to delete class
-                let employeesClass;
-
-                userData.firstName === singleClass.trainer_name
-                  ? (employeesClass = true)
-                  : (employeesClass = false);
-
                 //convert time stamp into readable time
                 const convertedTime = convertTime(singleClass.start_time);
-       
 
                 return (
                   <Row
@@ -65,15 +41,7 @@ function EmployeeSchedule(props) {
                     </Col>
 
                     <Col className=" col-12 border-teal center-btn">
-                      {employeesClass && (
-                        <DevBtn
-                          styleClass="btn-red "
-                          onClick={handleDelete}
-                          id={singleClass.id}
-                        >
-                          Delete{" "}
-                        </DevBtn>
-                      )}
+                      <DevBtn styleClass="btn-dark">Roster</DevBtn>
                     </Col>
                   </Row>
                 );
@@ -86,4 +54,4 @@ function EmployeeSchedule(props) {
   );
 }
 
-export default EmployeeSchedule;
+export default managerSchedule;

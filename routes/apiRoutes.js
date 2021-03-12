@@ -52,13 +52,14 @@ module.exports = (app) => {
   // Need to work on the date of birth
   app.post("/api/register", (req, res) => {
     const newMember = new db.Member({
-      email: req.body.userName,
+      email: req.body.email,
       password: req.body.password,
       first_name: req.body.first_name,
       last_name: req.body.last_name,
-      date_of_birth: req.body.date_of_birth ? req.body.date_of_birth : null,
+      date_of_birth: req.body.date_of_birth ? new Date(req.body.date_of_birth) : null,
       gender: req.body.gender,
       phone: req.body.phone,
+      role: req.body.role
     }); // sends the member details as response
     newMember
       .save()
@@ -193,7 +194,6 @@ module.exports = (app) => {
     const newEmployee = new db.Employee({
       first_name: req.body.first_name,
       last_name: req.body.last_name,
-      password: req.body.password,
       gender: req.body.gender,
       email: req.body.email,
       phone: req.body.phone,
@@ -207,7 +207,7 @@ module.exports = (app) => {
 
   // API that allows a manager to view all trainers
   app.get("/api/manager/trainers", (req, res) => {
-    db.Employee.find({ role: "Trainer" })
+    db.Employee.find({ role: "employee" })
       .then((trainers) => res.json(trainers))
       .catch((err) => res.status(500).json(err));
   });

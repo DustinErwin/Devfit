@@ -1,0 +1,28 @@
+.trainer-wrapper {
+  display: flex;
+  justify-content: start;
+  margin-left: 30%;
+  font-size: larger;
+}
+
+.trainer-item {
+  list-style: none;
+}
+
+.trainer-info-card {
+  width: 80%;
+  background: #d22e33 !important;
+  color: black;
+}
+
+.trainer-info-title {
+  color: whitesmoke;
+}
+
+/*dropping bootstraps border. Created ul class to only target 
+this list and not accidentally affect other lists in app*/
+.hire-trainer-form .list-group-item {
+  border-bottom: none !important;
+}
+
+

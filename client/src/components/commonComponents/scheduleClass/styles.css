@@ -76,7 +76,7 @@ body {
   }
   
   .text-red {
-    color: #d22e33;
+    color: #d22e33 !important;
   }
   
   .font-large {
