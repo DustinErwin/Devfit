@@ -7,14 +7,6 @@ import "./registrationForm.css";
 import UserContext from "../../utilities/userContext";
 
 export default function RegistrationForm(props) {
-  const [users, setUser] = useState({
-    first_name: "",
-    last_name: "",
-    gender: "",
-    date_of_birth: "",
-    phone: "",
-  });
-
   return (
     <>
       <Container className="regForm background-white">
@@ -26,11 +18,7 @@ export default function RegistrationForm(props) {
                   Email
                 </Form.Label>
                 <Col sm="10">
-                  <Form.Control
-                    plaintext
-                    readOnly
-                    defaultValue="email@example.com"
-                  />
+                  <Form.Control plaintext readOnly value={props.user.email} />
                 </Col>
               </Form.Group>
             </Col>
@@ -64,6 +52,7 @@ export default function RegistrationForm(props) {
                 <Form.Control
                   as="select"
                   onClick={(event) => props.userInfo(event)}
+                  onKeyDown={(event) => props.userInfo(event)}
                   name="gender"
                 >
                   <option value="Male">Male</option>

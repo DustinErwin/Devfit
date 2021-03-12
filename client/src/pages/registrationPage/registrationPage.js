@@ -31,9 +31,6 @@ function RegistrationPage() {
   // console.log(users);
 
   const handleRegistrationSubmit = (event) => {
-    console.log("clicked");
-    console.log(users);
-
     fetch("/api/register", {
       method: "POST", // or 'PUT'
       headers: {
@@ -44,6 +41,7 @@ function RegistrationPage() {
       .then((response) => response.json())
       .then((users) => {
         console.log("Success:", users);
+        window.location.href = window.location.origin;
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -57,7 +55,10 @@ function RegistrationPage() {
         <h1>You're almost there! </h1>
         <h3>Enter your information to become a member!</h3>
         <Card>
-          <RegistrationForm userInfo={(e) => userInfo(e)}></RegistrationForm>
+          <RegistrationForm
+            userInfo={(e) => userInfo(e)}
+            user={users}
+          ></RegistrationForm>
         </Card>
         <DevBtn
           className="signupBtn"
