@@ -66,10 +66,6 @@ function MemberPage() {
   }
 
   function removeFromClass(classid) {
-    let newJoinedClasses = userClasses.filter(
-      (unit) => unit.id !== JSON.stringify(classid)
-    );
-    setUserClasses(newJoinedClasses);
     let data = { id: classid, memberid: user._id };
     fetch("/api/member/removeFromClass", {
       method: "POST",
@@ -82,12 +78,6 @@ function MemberPage() {
   }
 
   function addToClass(classid) {
-    let newJoinedClass = classSchedule.filter((unit) => unit.id === classid);
-    const joinedClassUnArray = newJoinedClass[0];
-    console.log(joinedClassUnArray);
-    let newClassArray = userClasses;
-    newClassArray.push(joinedClassUnArray);
-    setUserClasses(newClassArray);
     let data = { id: classid, memberid: user._id };
 
     fetch("/api/member/addToClass", {
@@ -97,7 +87,11 @@ function MemberPage() {
         Accept: "application/json",
       },
       body: JSON.stringify(data),
-    }).then((res) => res.json());
+    })
+      .then((res) => res.json())
+      .then(() => {
+        fecthJoinedClasses();
+      });
   }
 
   function fecthJoinedClasses() {
@@ -118,7 +112,7 @@ function MemberPage() {
     fecthJoinedClasses();
     fetchScheduleData();
     // eslint-disable-next-line
-  }, [user]);
+  }, [user, userClasses]);
 
   return (
     <>
