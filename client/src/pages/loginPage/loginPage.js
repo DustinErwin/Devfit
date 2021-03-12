@@ -62,11 +62,6 @@ function LoginPage() {
                 we've got you covered. <br />
                 Ready to become a member?
               </h2>
-              <DevBtn styleClass="btn-dark">
-                <Link className="text-white" to="/registration">
-                  Sign up
-                </Link>
-              </DevBtn>
               <AuthenticationButton />
             </Container>
           </Col>
