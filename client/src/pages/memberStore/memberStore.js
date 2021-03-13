@@ -31,26 +31,7 @@ function memberStore() {
 
         <Row>
           <Col xs={10}>
-            <Container className="border border-dark">
-              <Card className="my-3" border="danger" style={{ width: "18rem" }}>
-                <Card.Img variant="top" src={jumpRope} />
-                <Card.Body>
-                  <Card.Title>Jump Rope</Card.Title>
-                  <Card.Text>
-                    Tangle Free Jump Rope With Ball Bearings
-                  </Card.Text>
-                </Card.Body>
-                <ListGroup className="list-group-flush">
-                  <ListGroupItem>$20</ListGroupItem>
-                  <ListGroupItem>Quantity</ListGroupItem>
-                </ListGroup>
-                <Card.Body>
-                  <Card.Link href="#">
-                    <Button>Card Link</Button>
-                  </Card.Link>
-                </Card.Body>
-              </Card>
-            </Container>
+            <Store></Store>
           </Col>
           <Col xs={2}>
             <Container
@@ -81,7 +62,6 @@ function memberStore() {
         </Row>
       </Container>
 
-      <Store></Store>
       <Footer />
     </>
   );

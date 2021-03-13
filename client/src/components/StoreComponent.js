@@ -1,6 +1,13 @@
+import { Button } from "react-bootstrap";
+import { el } from "date-fns/locale";
 import React, { useState, useEffect, useContext } from "react";
+import { ListGroupItem } from "react-bootstrap";
+import { ListGroup } from "react-bootstrap";
+import { Card } from "react-bootstrap";
+import { Container } from "react-bootstrap";
+import jumpRope from "../assets/images/store/jumpRope.jpg";
 
-const Store = () => {
+const Store = (props) => {
   // const contextStoreItems = useContext(storeContext);
   const [cart, setCart] = useState([]);
   const [cartTotal, setCartTotal] = useState(0);
@@ -58,14 +65,7 @@ const Store = () => {
     hardCopy = hardCopy.filter((cartItem) => cartItem.id !== el.id);
     setCart(hardCopy);
   };
-  const listItems = productList.product.map((el) => (
-    <div key={el.id}>
-      {`${el.name}: $${el.price}`}
-      {/* Update input to add quantity */}
-      {/* Check if quantity is more than zero.  If at zero, say "Out of stock" */}
-      <input type="submit" value="add" onClick={() => addToCart(el)} />
-    </div>
-  ));
+
   const cartItems = cart.map((el) => (
     <div key={el.id}>
       {`${el.name}: $${el.price}`}
@@ -74,13 +74,33 @@ const Store = () => {
   ));
 
   return (
-    <div>
-      STORE
-      <div>{listItems}</div>
-      <div>CART</div>
-      <div>{cartItems}</div>
-      <div>Total: ${cartTotal}</div>
-    </div>
+    <>
+      <Container className="border border-dark storeContainer">
+        {productList.product.map((el) => (
+          <Card
+            key={el.id}
+            className="my-3"
+            border="danger"
+            style={{ width: "18rem" }}
+          >
+            <Card.Img variant="top" src={jumpRope} />
+            <Card.Body>
+              <Card.Title>{el.name}</Card.Title>
+              <Card.Text>{el.description}</Card.Text>
+            </Card.Body>
+            <ListGroup className="list-group-flush">
+              <ListGroupItem>${el.price}</ListGroupItem>
+              <ListGroupItem>Qty: {el.quantity}</ListGroupItem>
+            </ListGroup>
+            <Card.Body>
+              <Card.Link href="#">
+                <Button>Random Button TBD</Button>
+              </Card.Link>
+            </Card.Body>
+          </Card>
+        ))}
+      </Container>
+    </>
   );
 };
 
