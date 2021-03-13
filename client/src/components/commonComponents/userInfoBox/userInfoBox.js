@@ -10,7 +10,7 @@ import "./styles.css";
 
 function ContainerTest(props) {
   return (
-    <Container fluid="md">
+    <Container fluid="md larger-font">
       <Row className="layout">
         <Col
           xs={12}

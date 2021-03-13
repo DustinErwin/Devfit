@@ -5,6 +5,7 @@ import Container from "react-bootstrap/Container";
 import DevBtn from "../../commonComponents/devButton/devButton";
 import Col from "react-bootstrap/Col";
 import convertTime from "../../../utilities/convertTime";
+import "./styles.css"
 
 
 
@@ -13,7 +14,7 @@ function managerSchedule(props) {
   //declaring class schedule as an empty array avoids an error where the array doesn't exist yet.
   const classSchedule = props.classSchedule || [];
   return (
-    <Container fluid className="mt-md-5 mb-md-5">
+    <Container fluid className="mt-md-5 mb-md-5 larger-font">
       <Row className="white-background ml-md-5 mr-md-5">
         {classSchedule.map((day) => {
           return (
