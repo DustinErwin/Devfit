@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import Header from "../../components/commonComponents/header/header";
 import Footer from "../../components/commonComponents/footer/footer";
 import Row from "react-bootstrap/Row";
-import Container from "react-bootstrap/Container";
 import UserInfoBox from "../../components/commonComponents/userInfoBox/userInfoBox.js";
 import LeftColumn from "../../components/managerComponents/managerInfoBoxColumns/mInfoBoxLeftCol";
 import RightColumn from "../../components/managerComponents/managerInfoBoxColumns/mInfoBoxRightCol";
@@ -54,7 +53,7 @@ function ManagerPage() {
     phone: "",
   });
 
-  console.log(trainerHire)
+  console.log(trainerHire);
   //class Schedule Data
   const [classSchedule, setClassSchedule] = useState();
   const [classRoster, setClassRoster] = useState([]);
@@ -63,6 +62,7 @@ function ManagerPage() {
   useEffect(() => {
     fetchallTrainers();
     fetchScheduleData();
+    // eslint-disable-next-line
   }, [user]);
 
   //if i put this in fetchSchedule Data, it doesn't work. needs to be global. review this later.
@@ -181,6 +181,7 @@ function ManagerPage() {
       .then((res) => res.json())
       .then((res) => {
         const stateArray = [];
+        // eslint-disable-next-line
         weekLength.map((nothing, i) => {
           //Use date-fns to get classSchedule for the 7 days of the week
           const addDay = add(new Date(), {
@@ -230,14 +231,14 @@ function ManagerPage() {
     })
       .then((res) => res.json())
       .then((roster) => {
-        console.log(roster)
+        console.log(roster);
         setClassRoster(roster);
         handleShow();
       });
   }
 
   function removeMember(e) {
-    console.log(e.target)
+    console.log(e.target);
     // const id = e.target.id;
     // fetch("/api/manager/removeFromClass", {
     //   method: "POST",
@@ -252,25 +253,25 @@ function ManagerPage() {
   return (
     <>
       <Header />
-      
-        <UserInfoBox
-          colLeft={
-            <LeftColumn
-              allTrainers={allTrainers}
-              handleViewedTrainer={(e) => handleViewedTrainer(e)}
-              toggleAddTrainer={() => toggleAddTrainer()}
-            />
-          }
-          colRight={
-            <RightColumn
-              viewedTrainer={viewedTrainer}
-              toggleRightCol={toggleRightCol}
-              handleHireNewTrainer={() => handleHireNewTrainer()}
-              hireTrainerInfo={(e) => hireTrainerInfo(e)}
-              terminateTrainer={() => terminateTrainer()}
-            />
-          }
-        ></UserInfoBox>
+
+      <UserInfoBox
+        colLeft={
+          <LeftColumn
+            allTrainers={allTrainers}
+            handleViewedTrainer={(e) => handleViewedTrainer(e)}
+            toggleAddTrainer={() => toggleAddTrainer()}
+          />
+        }
+        colRight={
+          <RightColumn
+            viewedTrainer={viewedTrainer}
+            toggleRightCol={toggleRightCol}
+            handleHireNewTrainer={() => handleHireNewTrainer()}
+            hireTrainerInfo={(e) => hireTrainerInfo(e)}
+            terminateTrainer={() => terminateTrainer()}
+          />
+        }
+      ></UserInfoBox>
       <ManagerSchedule
         classSchedule={classSchedule}
         fetchClassRoster={fetchClassRoster}
@@ -281,7 +282,6 @@ function ManagerPage() {
           <Modal.Title>Roster</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-
           {classRoster.map((item, i, allItems) => {
             return (
               <Row>
@@ -297,7 +297,7 @@ function ManagerPage() {
                   <DevBtn
                     styleClass="btn-red roster-btn "
                     onClick={(e) => removeMember(e)}
-                    id={allItems[allItems.length-1][i]}
+                    id={allItems[allItems.length - 1][i]}
                   >
                     Remove
                   </DevBtn>{" "}
