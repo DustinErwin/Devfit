@@ -49,11 +49,12 @@ function ManagerPage() {
   const [trainerHire, setTrainerHire] = useState({
     firstName: "",
     lastName: "",
-    gender: "",
+    gender: "M",
     email: "",
     phone: "",
   });
 
+  console.log(trainerHire)
   //class Schedule Data
   const [classSchedule, setClassSchedule] = useState();
   const [classRoster, setClassRoster] = useState([]);
