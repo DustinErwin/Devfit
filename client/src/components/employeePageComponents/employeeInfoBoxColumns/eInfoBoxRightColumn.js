@@ -53,7 +53,7 @@ function InfoBoxRightColumn(props) {
 
   //Ternery using toggleAddClass state in parent. Change Value in state to change right Col
   return props.displayAddClass === "roster" ? (
-    <Card className="view-roster mb-5 mt-5">
+    <Card className="view-roster mb-3 mt-4">
       <Card.Body>
         <Card.Title>Roster</Card.Title>
         <Card.Text>
@@ -71,7 +71,7 @@ function InfoBoxRightColumn(props) {
       </Card.Body>
     </Card>
   ) : (
-    <Card className="add-class mb-3 mt-3 pb-3">
+    <Card className="add-class mb-3 mt-3 pb-3 pt-3">
       {" "}
      
       <Form noValidate validated={validated}>
@@ -136,7 +136,7 @@ function InfoBoxRightColumn(props) {
             </Form.Control>
           </Form.Group>
         </Form.Row>
-        <DevBtn styleClass="btn-red" onClick={handleSubmit}>Hire Employee</DevBtn>
+        <DevBtn styleClass="btn-red" onClick={handleSubmit}>Create Class</DevBtn>
       </Form>
       
     </Card>

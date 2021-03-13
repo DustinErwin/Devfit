@@ -15,13 +15,13 @@ function ContainerTest(props) {
         <Col
           xs={12}
           md={6}
-          className={"col-left pb-4 dev-rounded-left "  + " " + props.styleClass}
+          className={"col-left pb-4 dev-rounded-left  "}
         >
           {props.colLeft}
         </Col>
         <Col
           className={
-            "col-right pb-4 dev-rounded-right " + " " + props.styleClass
+            "col-right pb-4 dev-rounded-right "
           }
         >
           {props.colRight}

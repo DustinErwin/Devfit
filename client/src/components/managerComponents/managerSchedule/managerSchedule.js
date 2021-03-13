@@ -13,8 +13,8 @@ function managerSchedule(props) {
   //declaring class schedule as an empty array avoids an error where the array doesn't exist yet.
   const classSchedule = props.classSchedule || [];
   return (
-    <Container fluid>
-      <Row styleClass="white-background ml-5 mr-5">
+    <Container fluid className="mt-md-5 mb-md-5">
+      <Row className="white-background ml-md-5 mr-md-5">
         {classSchedule.map((day) => {
           return (
             <ScheduleColumn
@@ -27,11 +27,12 @@ function managerSchedule(props) {
                 const convertedTime = convertTime(singleClass.start_time);
 
                 return (
+                    <Container>
                   <Row
                     key={i}
-                    className="m-0 pb-3 pt-3 border-to-bottom-thin scheduleClass border-to-right"
+                    className="m-0 pb-3 pt-3 border-to-bottom-thin "
                   >
-                    <Col className=" col-12 border-teal pb-3 text-center ">
+                    <Col xs={12} className="  border-teal pb-3 text-center border-to-right">
                       <h4 className=" bold text-red">
                         {singleClass.class_name}{" "}
                       </h4>
@@ -43,12 +44,13 @@ function managerSchedule(props) {
                       </div>
                     </Col>
 
-                    <Col className=" col-12 border-teal center-btn">
+                    <Col xs={12} className=" border-teal center-btn border-to-right">
                       <DevBtn onClick={props.fetchClassRoster} styleClass="btn-red" id={singleClass.id}>
                         Roster
                       </DevBtn>
                     </Col>
                   </Row>
+                  </Container>
                 );
               })}
             </ScheduleColumn>

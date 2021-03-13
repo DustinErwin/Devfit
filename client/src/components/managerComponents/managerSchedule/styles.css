@@ -17,3 +17,9 @@
  .center-btn{
    text-align:center
  }
+
+ .flex-style{
+     display:flex;
+     align-items: center;
+     flex-direction: row;
+ }

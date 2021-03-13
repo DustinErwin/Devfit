@@ -1,6 +1,6 @@
 .view-roster {
     background: #d22e33 !important;
-    width: 70%; 
+    width: 80%; 
     text-align: center;
     }
 
@@ -19,4 +19,6 @@
 .list-item{
     list-style: none;
 }
+
+
 
