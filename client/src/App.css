@@ -1,0 +1,14 @@
+body {
+    background: whitesmoke; 
+}
+
+
+/* For places we want true white background */
+.white-background {
+    background: white !important
+}
+
+/* slightly larger font for schedules and infoboxes */
+.larger-font {
+    font-size: 1.3em !important;
+ }

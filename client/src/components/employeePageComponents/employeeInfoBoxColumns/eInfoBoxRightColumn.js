@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Card from "react-bootstrap/Card";
 import "./styles.css";
 import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
 import DevBtn from "../../commonComponents/devButton/devButton";
 
@@ -11,6 +10,7 @@ function InfoBoxRightColumn(props) {
   const [weekday, setWeekday] = useState("Monday");
   const [classTime, setClassTime] = useState("06:00:00:00");
   const [maxSize, setMaxSize] = useState(10);
+  const [validated, setValidated] = useState(false);
 
   // on Create Class click, create the new class, update the left col and schedule, then return to roster
   function handleClassCreation() {
@@ -36,9 +36,21 @@ function InfoBoxRightColumn(props) {
       });
   }
 
+  //Bootstrap validation
+
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    handleClassCreation();
+    setValidated(true);
+  };
+
   //Ternery using toggleAddClass state in parent. Change Value in state to change right Col
   return props.displayAddClass === "roster" ? (
-    <Card className="view-roster mb-5 mt-5">
+    <Card className="view-roster mb-3 mt-4">
       <Card.Body>
         <Card.Title>Roster</Card.Title>
         <Card.Text>
@@ -56,24 +68,30 @@ function InfoBoxRightColumn(props) {
       </Card.Body>
     </Card>
   ) : (
-    <Card className="add-class mb-3 mt-3 pb-3">
+    <Card className="add-class mb-3 mt-3 pb-3 pt-3">
       {" "}
-      <Card.Header>Add Class</Card.Header>
-      <Row>
-        <Col className="col-6">
-          <Form.Group>
-            <p>Class Name</p>
+      <Form noValidate validated={validated}>
+        <Form.Row>
+          <Form.Group as={Col} md="6" controlId="validationCustom01">
+            <Form.Label>Class Name</Form.Label>
             <Form.Control
+              required
               type="text"
-              placeholder="Class Name"
               onChange={(e) => setFitClassName(e.target.value)}
             />
-            <br />
-            <p>WeekDay</p>
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">
+              Please enter a Class Name
+            </Form.Control.Feedback>
+          </Form.Group>
+          <Form.Group as={Col} md="6" controlId="validationCustom02">
+            <Form.Label>Weekday</Form.Label>
             <Form.Control
+              required
               as="select"
               onChange={(e) => setWeekday(e.target.value)}
             >
+              {" "}
               <option>Monday</option>
               <option>Tuesday</option>
               <option>Wednesday</option>
@@ -82,16 +100,17 @@ function InfoBoxRightColumn(props) {
               <option>Saturday</option>
               <option>Sunday</option>
             </Form.Control>
-            <br />
           </Form.Group>
-        </Col>
-        <Col className="col-6">
-          <Form.Group>
-            <p>Max Class Size</p>
+        </Form.Row>
+        <Form.Row>
+          <Form.Group as={Col} md="6" controlId="validationCustom02">
+            <Form.Label>Max Class Size</Form.Label>
             <Form.Control
+              required
               as="select"
               onChange={(e) => setMaxSize(e.target.value)}
             >
+              {" "}
               <option>10</option>
               <option>11</option>
               <option>12</option>
@@ -104,9 +123,11 @@ function InfoBoxRightColumn(props) {
               <option>19</option>
               <option>20</option>
             </Form.Control>
-            <br />
-            <p>Class Start Time</p>
+          </Form.Group>
+          <Form.Group as={Col} md="6" controlId="validationCustom02">
+            <Form.Label>Class Start Time</Form.Label>
             <Form.Control
+              required
               as="select"
               onChange={(e) => setClassTime(e.target.value)}
             >
@@ -124,13 +145,12 @@ function InfoBoxRightColumn(props) {
               <option>17:00:00</option>
               <option>18:00:00</option>
             </Form.Control>
-            <br />
           </Form.Group>
-        </Col>
-      </Row>
-      <DevBtn styleClass="btn-red" onClick={handleClassCreation}>
-        Create Class
-      </DevBtn>
+        </Form.Row>
+        <DevBtn styleClass="btn-red" onClick={handleSubmit}>
+          Create Class
+        </DevBtn>
+      </Form>
     </Card>
   );
 }

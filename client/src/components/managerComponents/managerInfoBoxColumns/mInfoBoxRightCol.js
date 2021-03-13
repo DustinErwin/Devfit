@@ -4,8 +4,24 @@ import "./styles.css";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 
 function InfoBoxRightColumn(props) {
+  const [validated, setValidated] = useState(false);
+
+  //Bootstrap validation
+
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    props.handleHireNewTrainer();
+    setValidated(true);
+  };
+
   return (
     <>
       {" "}
@@ -15,27 +31,60 @@ function InfoBoxRightColumn(props) {
             Hire New Trainer
           </Card.Title>
           <Card.Body>
-            <ListGroup className=" hire-trainer-form">
-              <Form.Group>
-                <ListGroup.Item className="rounded-top">
+            <Form
+              noValidate
+              validated={validated}
+              className="white-background rounded p-3"
+            >
+              <Form.Row>
+                <Form.Group as={Col} md="6" controlId="validationCustom01">
                   <Form.Label>First Name</Form.Label>
                   <Form.Control
+                    required
                     type="text"
                     placeholder="First Name"
                     onChange={(e) => props.hireTrainerInfo(e)}
                     name="firstName"
                   />
-                </ListGroup.Item>
-                <ListGroup.Item>
+                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                  <Form.Control.Feedback type="invalid">
+                    Please enter a First Name
+                  </Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group as={Col} md="6" controlId="validationCustom02">
                   <Form.Label>Last Name</Form.Label>
                   <Form.Control
+                    required
                     type="text"
                     placeholder="Last Name"
                     onChange={(e) => props.hireTrainerInfo(e)}
                     name="lastName"
                   />
-                </ListGroup.Item>
-                <ListGroup.Item>
+                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                  <Form.Control.Feedback type="invalid">
+                    Please enter a Last Name
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </Form.Row>
+
+              <Form.Row>
+                <Form.Group as={Col} md="6" controlId="validationCustom01">
+                  <Form.Label>Phone</Form.Label>
+                  <Form.Control
+                    required
+                    type="text"
+                    placeholder="phone"
+                    onChange={(e) => props.hireTrainerInfo(e)}
+                    name="phone"
+                    // pattern : https://stackoverflow.com/questions/19445408/how-to-restrict-user-to-type-10-digit-numbers-in-input-element
+                    pattern="[1-9]{1}[0-9]{9}"
+                  />
+                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                  <Form.Control.Feedback type="invalid">
+                    Please enter a 10 digit number
+                  </Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group as={Col} md="6" controlId="validationCustom03">
                   <Form.Label>Gender</Form.Label>
                   <Form.Control
                     as="select"
@@ -44,36 +93,34 @@ function InfoBoxRightColumn(props) {
                   >
                     <option>M</option>
                     <option>F</option>
+                    <option>Other</option>
                   </Form.Control>
-                </ListGroup.Item>
-                <ListGroup.Item>
+                </Form.Group>
+              </Form.Row>
+              <Form.Row>
+                <Form.Group as={Col} md="12" controlId="validationCustom03">
                   <Form.Label>Email</Form.Label>
                   <Form.Control
+                    required
                     type="email"
                     placeholder="Email"
                     onChange={(e) => props.hireTrainerInfo(e)}
                     name="email"
+                    //regex from https://stackoverflow.com/questions/742451/what-is-the-simplest-regular-expression-to-validate-emails-to-not-accept-them-bl/742455
+                    pattern="(?!.*\.\.)(^[^\.][^@\s]+@[^@\s]+\.[^@\s\.]+$)"
                   />
-                </ListGroup.Item>
-                <ListGroup.Item className="trainerPhone rounded-bottom pb-3">
-                  <Form.Label>Phone Number</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Phone Number"
-                    onChange={(e) => props.hireTrainerInfo(e)}
-                    name="phone"
-                  />
-                </ListGroup.Item>
-              </Form.Group>
-            </ListGroup>
-            <div className="text-center">
-              <DevBtn
-                styleClass="btn-dark"
-                onClick={props.handleHireNewTrainer}
-              >
+                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                  <Form.Control.Feedback type="invalid">
+                    Please enter a valid email address
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </Form.Row>
+            </Form>
+            <Row className="d-flex justify-content-center mt-3">
+              <DevBtn styleClass="btn-dark" onClick={handleSubmit}>
                 Hire Trainer
               </DevBtn>
-            </div>
+            </Row>
           </Card.Body>
         </Card>
       ) : (

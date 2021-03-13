@@ -1,7 +1,7 @@
 import React from "react";
 import ScheduleColumn from "../../commonComponents/scheduleColumn/scheduleColumn";
-import Row from "react-bootstrap/Row"
-import Container from 'react-bootstrap/Container'
+import Row from "react-bootstrap/Row";
+import Container from "react-bootstrap/Container";
 import DevBtn from "../../commonComponents/devButton/devButton";
 import Col from "react-bootstrap/Col";
 import convertTime from "../../../utilities/convertTime";
@@ -26,14 +26,15 @@ function EmployeeSchedule(props) {
   }
 
   return (
-    <Container fluid>
-      <Row>
+    <Container fluid className="mt-md-5 mb-md-5">
+      <Row className="white-background ml-md-5 mr-md-5">
         {props.classSchedule.map((day) => {
           return (
             <ScheduleColumn
               dayOfWeek={day.weekDay}
               todaysDate={day.date}
               key={day.date}
+              styleName="pb-5 pt-5"
             >
               {day.classData.map((singleClass, i) => {
                 // Render Logic for button. If employee teaches class, then a delete btn appears to delete class
@@ -45,14 +46,13 @@ function EmployeeSchedule(props) {
 
                 //convert time stamp into readable time
                 const convertedTime = convertTime(singleClass.start_time);
-       
 
                 return (
                   <Row
                     key={i}
-                    className="m-0 pb-3 pt-3 border-to-bottom-thin scheduleClass border-to-right"
+                    className="m-0 pb-3 pt-3 border-to-bottom-thin scheduleClass "
                   >
-                    <Col className=" col-12 border-teal pb-3 text-center ">
+                    <Col xs={12} className="border-teal pb-3 text-center border-to-right">
                       <h4 className=" bold text-red">
                         {singleClass.class_name}{" "}
                       </h4>
@@ -64,7 +64,7 @@ function EmployeeSchedule(props) {
                       </div>
                     </Col>
 
-                    <Col className=" col-12 border-teal center-btn">
+                    <Col xs={12} className="border-teal center-btn border-to-right ">
                       {employeesClass && (
                         <DevBtn
                           styleClass="btn-red "
