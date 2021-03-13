@@ -27,8 +27,8 @@ function EmployeeSchedule(props) {
   }
 
   return (
-    <Container fluid>
-      <Row>
+    <Container fluid >
+      <Row className="white-background ml-5 mr-5">
         {props.classSchedule.map((day) => {
           return (
             <ScheduleColumn

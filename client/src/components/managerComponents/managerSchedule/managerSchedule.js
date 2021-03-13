@@ -14,7 +14,7 @@ function managerSchedule(props) {
   const classSchedule = props.classSchedule || [];
   return (
     <Container fluid>
-      <Row>
+      <Row styleClass="white-background ml-5 mr-5">
         {classSchedule.map((day) => {
           return (
             <ScheduleColumn

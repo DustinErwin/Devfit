@@ -11,6 +11,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import LoginPage from "./pages/loginPage/loginPage";
 import "./App.css"
 
+
 function App() {
   const [userInfo, setUserInfo] = useState({
     _id: "",

@@ -1,5 +1,9 @@
-/* All pages have whitesmloke background as default. Looks better */
-
 body {
-    background: whitesmoke
+    background: whitesmoke; 
+}
+
+
+/* For places we want true white background */
+.white-background {
+    background: white !important
 }
