@@ -74,7 +74,10 @@ function MemberPage() {
         Accept: "application/json",
       },
       body: JSON.stringify(data),
-    }).then((res) => res.json());
+    }).then((res) => {
+      res.json();
+      fecthJoinedClasses();
+    });
   }
 
   function addToClass(classid) {
@@ -112,7 +115,7 @@ function MemberPage() {
     fecthJoinedClasses();
     fetchScheduleData();
     // eslint-disable-next-line
-  }, [user, userClasses]);
+  }, [user]);
 
   return (
     <>
