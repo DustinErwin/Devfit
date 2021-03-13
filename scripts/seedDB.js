@@ -145,7 +145,7 @@ const ProductSeed = [
     description: "Tangle Free Jump Rope With Ball Bearings",
     price: 20,
     quantity: 100,
-    image_path: "jumpRope.jpg",
+    image_path: "jumpRope",
   },
   {
     _id: product2_id,
