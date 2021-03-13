@@ -6,27 +6,36 @@ import Container from "react-bootstrap/Container";
 import UserInfoBox from "../../components/commonComponents/userInfoBox/userInfoBox.js";
 import LeftColumn from "../../components/managerComponents/managerInfoBoxColumns/mInfoBoxLeftCol";
 import RightColumn from "../../components/managerComponents/managerInfoBoxColumns/mInfoBoxRightCol";
-import ManagerSchedule from "../../components/managerComponents/managerSchedule/managerSchedule"
+import ManagerSchedule from "../../components/managerComponents/managerSchedule/managerSchedule";
 import UserContext from "../../utilities/userContext";
 import add from "date-fns/add";
 import { format } from "date-fns";
+import Modal from "react-bootstrap/Modal";
+import DevBtn from "../../components/commonComponents/devButton/devButton";
+import Col from "react-bootstrap/Col";
+import "./styles.css";
 
 /*
 Top Area: 
 Manager Page
 
 
-Right Hand Column: 
-3. Test that deleting a trainer also deletes their classes. 
-
-Schedule 
-1. Scheule pulls all classes 
-2. Each class has a render button 
-3. render button opens a modal  */
+4. ability toadd and remove members in modal 
+4.1 check that times are tConverted in manager
+5. make schedule background white on all three pages.
+6. fix styling for schedule classes 
+7. make all pages responsive
+8. verification of forms, employee, manager, member
+9. Clean up code  */
 
 function ManagerPage() {
-  //grab user from context 
+  //grab user from context
   const user = useContext(UserContext);
+  //Modal states
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   //all existing trainers
   const [allTrainers, setAllTrainers] = useState([]);
 
@@ -40,13 +49,15 @@ function ManagerPage() {
   const [trainerHire, setTrainerHire] = useState({
     firstName: "",
     lastName: "",
-    gender: "",
+    gender: "M",
     email: "",
     phone: "",
   });
 
-  //class Schedule Data 
-  const [classSchedule, setClassSchedule] = useState()
+  console.log(trainerHire)
+  //class Schedule Data
+  const [classSchedule, setClassSchedule] = useState();
+  const [classRoster, setClassRoster] = useState([]);
 
   //on page load...
   useEffect(() => {
@@ -54,8 +65,8 @@ function ManagerPage() {
     fetchScheduleData();
   }, [user]);
 
-  //if i put this in fetchSchedule Data, it doesn't work. needs to be global. review this later. 
-  const weekLength = [1,2,3,4,5,6,7]
+  //if i put this in fetchSchedule Data, it doesn't work. needs to be global. review this later.
+  const weekLength = [1, 2, 3, 4, 5, 6, 7];
 
   //fetch all trainers and set them to the allTrainers state
   function fetchallTrainers() {
@@ -110,7 +121,6 @@ function ManagerPage() {
       email: trainerHire.email,
       role: "employee",
     };
-    console.log(dataObject);
     fetch("/api/manager/addEmployee", {
       method: "POST",
       body: JSON.stringify(dataObject),
@@ -159,64 +169,90 @@ function ManagerPage() {
 
   /*---------------------------------------- Schedule Functions--------------------------------------------- */
 
- //fetches all the information needed to render a schedule and stores it in state.
- function fetchScheduleData() {
+  //fetches all the information needed to render a schedule and stores it in state.
+  function fetchScheduleData() {
+    fetch("/api/employee/6047aab647549b4658f9e131/classes", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        const stateArray = [];
+        weekLength.map((nothing, i) => {
+          //Use date-fns to get classSchedule for the 7 days of the week
+          const addDay = add(new Date(), {
+            years: 0,
+            months: 0,
+            weeks: 0,
+            days: i,
+            hours: 0,
+            minutes: 0,
+            seconds: 0,
+          });
 
- fetch("/api/employee/6047aab647549b4658f9e131/classes", {
-   method: "GET",
-   headers: {
-     "Content-Type": "application/json",
-     Accept: "application/json",
-   },
- })
-   .then((res) => res.json())
-   .then((res) => {
-    console.log(res)
-     const stateArray = [];
-     weekLength.map((nothing, i) => {
-       //Use date-fns to get classSchedule for the 7 days of the week
-       const addDay = add(new Date(), {
-         years: 0,
-         months: 0,
-         weeks: 0,
-         days: i,
-         hours: 0,
-         minutes: 0,
-         seconds: 0,
-       });
+          //the date written as Jan 23rd
+          const calendarDate = format(addDay, "LLL, do");
+          //day of week written as "Monday"
+          const dayOfWeek = format(addDay, "EEEE");
 
-       //the date written as Jan 23rd
-       const calendarDate = format(addDay, "LLL, do");
-       //day of week written as "Monday"
-       const dayOfWeek = format(addDay, "EEEE");
+          //Filter the fetch request to only grab classes on the current day weeklength.map is iterating through
+          const filteredData = res.filter((r) => {
+            return r.day === dayOfWeek;
+          });
 
-       //Filter the fetch request to only grab classes on the current day weeklength.map is iterating through
-       const filteredData = res.filter((r) => {
-         return r.day === dayOfWeek;
-       });
+          //create an object to store both the fns date classSchedule and the current day
+          const dataObject = {
+            date: calendarDate,
+            weekDay: dayOfWeek,
+            classData: filteredData,
+          };
 
-       //create an object to store both the fns date classSchedule and the current day
-       const dataObject = {
-         date: calendarDate,
-         weekDay: dayOfWeek,
-         classData: filteredData,
-       };
+          //add that object to state
+          stateArray.push(dataObject);
+        });
 
-       //add that object to state
-       stateArray.push(dataObject);
-     });
-     
-     setClassSchedule(stateArray);
-   });
+        setClassSchedule(stateArray);
+      });
+  }
 
-   console.log(classSchedule, 'class schedule')
-}
+  //fetch classes roster then pop up a modal
+  function fetchClassRoster(e) {
+    const id = e.target.id;
+    fetch(`/api/class/${id}/roster`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((roster) => {
+        console.log(roster)
+        setClassRoster(roster);
+        handleShow();
+      });
+  }
 
+  function removeMember(e) {
+    console.log(e.target)
+    // const id = e.target.id;
+    // fetch("/api/manager/removeFromClass", {
+    //   method: "POST",
+    //   body: JSON.stringify(id),
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Accept: "application/json",
+    //   },
+    // });
+  }
 
   return (
     <>
       <Header />
-      <Container>
+      
         <UserInfoBox
           colLeft={
             <LeftColumn
@@ -235,8 +271,48 @@ function ManagerPage() {
             />
           }
         ></UserInfoBox>
-      </Container>
-       <ManagerSchedule classSchedule={classSchedule} />
+      <ManagerSchedule
+        classSchedule={classSchedule}
+        fetchClassRoster={fetchClassRoster}
+      />
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Roster</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+
+          {classRoster.map((item, i, allItems) => {
+            return (
+              <Row>
+                <Col key={i} className="roster-item mb-3">
+                  {" "}
+                  <span role="img" aria-label="Boxing Glove">
+                    🥊
+                  </span>{" "}
+                  {item}
+                </Col>
+                <Col>
+                  {" "}
+                  <DevBtn
+                    styleClass="btn-red roster-btn "
+                    onClick={(e) => removeMember(e)}
+                    id={allItems[allItems.length-1][i]}
+                  >
+                    Remove
+                  </DevBtn>{" "}
+                </Col>
+              </Row>
+            );
+          })}
+        </Modal.Body>
+        <Modal.Footer>
+          <DevBtn styleClass="btn-red" onClick={handleClose}>
+            Close
+          </DevBtn>
+        </Modal.Footer>
+      </Modal>
+
       <Footer />
     </>
   );
