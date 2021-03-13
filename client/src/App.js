@@ -36,7 +36,7 @@ function App() {
       fetch(`/api/user/${email}`)
         .then((response) => response.json())
         .then((currentUser) => {
-          if (currentUser.role) {
+          if (currentUser) {
             setUserInfo({
               ...userInfo,
               _id: currentUser._id,

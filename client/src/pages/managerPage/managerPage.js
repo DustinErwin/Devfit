@@ -49,15 +49,17 @@ function ManagerPage() {
   const [trainerHire, setTrainerHire] = useState({
     firstName: "",
     lastName: "",
-    gender: "M",
+    gender: "",
     email: "",
     phone: "",
   });
 
-  console.log(trainerHire)
   //class Schedule Data
   const [classSchedule, setClassSchedule] = useState();
-  const [classRoster, setClassRoster] = useState([]);
+  const [classRoster, setClassRoster] = useState({
+    memberRoster: ["placeholder"],
+    classId: ["placeholder"],
+  });
 
   //on page load...
   useEffect(() => {
@@ -219,9 +221,9 @@ function ManagerPage() {
   }
 
   //fetch classes roster then pop up a modal
-  function fetchClassRoster(e) {
-    const id = e.target.id;
-    fetch(`/api/class/${id}/roster`, {
+  function fetchClassRoster() {
+
+    fetch(`/api/class/${classRoster.classId}/roster`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -230,29 +232,37 @@ function ManagerPage() {
     })
       .then((res) => res.json())
       .then((roster) => {
-        console.log(roster)
-        setClassRoster(roster);
+        const rosterObject = {
+          memberRoster: roster,
+          classId: classRoster.classId,
+        };
+        console.log("rosterObject", rosterObject);
+        setClassRoster(rosterObject);
         handleShow();
       });
   }
 
   function removeMember(e) {
-    console.log(e.target)
-    // const id = e.target.id;
-    // fetch("/api/manager/removeFromClass", {
-    //   method: "POST",
-    //   body: JSON.stringify(id),
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Accept: "application/json",
-    //   },
-    // });
+    const idObject = { memberid: e.target.id,
+    id: classRoster.classId };
+ 
+
+    fetch("/api/manager/removeFromClass", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(idObject),
+    }).then(() => {
+      fetchClassRoster()
+    });
   }
 
   return (
     <>
       <Header />
-      
+      <Container>
         <UserInfoBox
           colLeft={
             <LeftColumn
@@ -271,6 +281,7 @@ function ManagerPage() {
             />
           }
         ></UserInfoBox>
+      </Container>
       <ManagerSchedule
         classSchedule={classSchedule}
         fetchClassRoster={fetchClassRoster}
@@ -281,8 +292,8 @@ function ManagerPage() {
           <Modal.Title>Roster</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-
-          {classRoster.map((item, i, allItems) => {
+          {classRoster.memberRoster.map((item, i) => {
+            console.log(item);
             return (
               <Row>
                 <Col key={i} className="roster-item mb-3">
@@ -290,14 +301,15 @@ function ManagerPage() {
                   <span role="img" aria-label="Boxing Glove">
                     🥊
                   </span>{" "}
-                  {item}
+                  {item[0]}
                 </Col>
                 <Col>
                   {" "}
                   <DevBtn
                     styleClass="btn-red roster-btn "
                     onClick={(e) => removeMember(e)}
-                    id={allItems[allItems.length-1][i]}
+                    id={item[1]}
+                    id2={classRoster.classId}
                   >
                     Remove
                   </DevBtn>{" "}

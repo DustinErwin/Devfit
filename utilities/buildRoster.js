@@ -3,15 +3,13 @@ module.exports = function (members, selectedClass) {
   const classRoster = [];
   const currentRosterIds = selectedClass.roster;
   members.forEach((member) => {
- 
     const isMember = currentRosterIds.includes(`${member._id}`);
 
     if (isMember) {
-      const memberInfo = `${member.first_name} ${member.last_name} ${member._id}`;
+      const memberName = `${member.first_name} ${member.last_name}`;
 
-      classRoster.push(memberInfo);
+      classRoster.push([memberName, member._id]);
     }
   });
-
   return classRoster;
 };
