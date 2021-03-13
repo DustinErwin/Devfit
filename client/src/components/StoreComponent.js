@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 
 const Store = () => {
   // const contextStoreItems = useContext(storeContext);
@@ -49,6 +49,7 @@ const Store = () => {
 
   useEffect(() => {
     total();
+    // eslint-disable-next-line
   }, [cart]);
 
   const total = () => {
