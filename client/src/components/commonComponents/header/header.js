@@ -5,7 +5,7 @@ import "./styles.css";
 
 function Header() {
   return (
-    <Container fluid className="header-background mb-5 ">
+    <Container fluid className="header-background mb-0 mb-md-5 ">
       <Row className="align-items-center">
         <Col>
           <h1 className="large-screen-text small-screen-text xsmall-screen-no-text text-right">

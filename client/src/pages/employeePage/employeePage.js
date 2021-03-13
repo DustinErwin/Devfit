@@ -125,7 +125,7 @@ function EmployeePage() {
       <Header />
       <UserInfoBox
         colLeft={
-          <LeftColumn
+          <LeftColumn 
             firstName={user.firstName}
             numClassesTaught={userData.numClassesTaught}
             userClasses={userClasses}
