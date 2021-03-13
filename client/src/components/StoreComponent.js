@@ -6,7 +6,6 @@ import { ListGroup } from "react-bootstrap";
 import { Card } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 import jumpRope from "../assets/images/store/jumpRope.jpg";
-import React, { useState, useEffect } from "react";
 
 const Store = (props) => {
   // const contextStoreItems = useContext(storeContext);
