@@ -41,6 +41,7 @@ function EmployeePage() {
       .then((res) => res.json())
       .then((res) => {
         const stateArray = [];
+        // eslint-disable-next-line
         weekLength.map((nothing, i) => {
           //Use date-fns to get classSchedule for the 7 days of the week
           const addDay = add(new Date(), {
