@@ -17,3 +17,7 @@
  .center-btn{
    text-align:center
  }
+
+ .larger-font {
+    font-size: 1.3em !important;
+ }

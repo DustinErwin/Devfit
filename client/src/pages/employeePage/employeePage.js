@@ -9,11 +9,6 @@ import LeftColumn from "../../components/employeePageComponents/employeeInfoBoxC
 import add from "date-fns/add";
 import { format } from "date-fns";
 
-/*ToDO: 
- 
-4. Style Right Column Roster 
-*/
-
 function EmployeePage() {
   const user = useContext(UserContext);
   const [userData, setUserData] = useState(""); //The uesr name and id
@@ -27,6 +22,7 @@ function EmployeePage() {
   useEffect(() => {
     fetchScheduleData();
     fetchTrainerData();
+    // eslint-disable-next-line
   }, [user._id]);
 
   //fetches all the information needed to render a schedule and stores it in state.
@@ -153,6 +149,7 @@ function EmployeePage() {
         fetchScheduleData={() => fetchScheduleData()}
         fetchTrainerData={() => fetchTrainerData()}
       />
+
       <Footer />
     </>
   );

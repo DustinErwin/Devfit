@@ -11,8 +11,6 @@ import girlFeet from "../../assets/images/girlfeetwaterbottle.jpg";
 import gymCoronavirus from "../../assets/images/gym-coronavirus.jpg";
 import bench from "../../assets/images/bench.jpg";
 import equipmentRoom from "../../assets/images/equipmentroom.jpg";
-import DevBtn from "../../components/commonComponents/devButton/devButton";
-import { Link } from "react-router-dom";
 
 function LoginPage() {
   return (

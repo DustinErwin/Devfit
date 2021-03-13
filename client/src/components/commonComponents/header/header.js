@@ -1,12 +1,11 @@
 import React from "react";
 import { Row, Col, Container } from "react-bootstrap";
-import AuthenticationButton from "../../authenticationButton";
 import logoDark from "../../../assets/images/Color_Logo_dark_background.png";
 import "./styles.css";
 
 function Header() {
   return (
-    <Container fluid className="header-background mb-5 ">
+    <Container fluid className="header-background mb-0 mb-md-5 ">
       <Row className="align-items-center">
         <Col>
           <h1 className="large-screen-text small-screen-text xsmall-screen-no-text text-right">
@@ -26,7 +25,6 @@ function Header() {
           </h1>
         </Col>
       </Row>
-      <AuthenticationButton />
     </Container>
   );
 }

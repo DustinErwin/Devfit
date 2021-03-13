@@ -12,4 +12,15 @@
   }
   
  
+/* Rounded Corners on md screen when colums are side by side, but not on small screen when one on top of other */
+ @media screen and (min-width: 768px) {
+  .dev-rounded-left {
+    border-radius: 5px 0px 0px 5px  ;
+  
+   }
+  
+   .dev-rounded-right {
+     border-radius: 0px 5px 5px 0px;
+   }
+}
 
