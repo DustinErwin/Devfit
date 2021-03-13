@@ -1,3 +1,4 @@
+
 import React from "react";
 
 //changes timestamp to readable time.
@@ -5,6 +6,7 @@ import React from "react";
 function convertTime(time) {
   //Ethan: Added this slice here to make the database timestamp match the input needed for this function
   time = time.slice(0, -3);
+
 
   // Check correct time format and split into components
   time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [

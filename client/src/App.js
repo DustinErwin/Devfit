@@ -35,7 +35,7 @@ function App() {
       fetch(`/api/user/${email}`)
         .then((response) => response.json())
         .then((currentUser) => {
-          if (currentUser) {
+          if (currentUser.role) {
             setUserInfo({
               ...userInfo,
               _id: currentUser._id,
@@ -48,7 +48,6 @@ function App() {
             });
             setUserRole(<Redirect to={`/${currentUser.role}`} />);
           } else {
-            setUserInfo({...userInfo, email: email})
             setUserRole(<Redirect to={`/registration`} />);
           }
         });

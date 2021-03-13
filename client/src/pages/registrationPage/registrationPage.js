@@ -6,11 +6,10 @@ import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import "./registrationPage.css";
 import DevBtn from "../../components/commonComponents/devButton/devButton";
-import { propTypes } from "react-bootstrap/esm/Image";
-import userContext from "../../utilities/userContext";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function RegistrationPage() {
-  const contextUser = useContext(userContext);
+  const { user } = useAuth0();
   const [users, setUser] = useState({
     first_name: "",
     last_name: "",
@@ -18,7 +17,7 @@ function RegistrationPage() {
     date_of_birth: "",
     phone: "",
     role: "member",
-    email: contextUser.email,
+    email: user.email,
   });
 
   const userInfo = (event) => {
