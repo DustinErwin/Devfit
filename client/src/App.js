@@ -26,6 +26,7 @@ function App() {
   const [userRole, setUserRole] = useState(null);
   const { isAuthenticated } = useAuth0();
   const { user } = useAuth0();
+  console.log(user)
 
   useEffect(() => {
     console.log("isAuthenticated?", isAuthenticated);
@@ -35,7 +36,7 @@ function App() {
       fetch(`/api/user/${email}`)
         .then((response) => response.json())
         .then((currentUser) => {
-          if (currentUser) {
+          if (currentUser.role) {
             setUserInfo({
               ...userInfo,
               _id: currentUser._id,
@@ -48,7 +49,6 @@ function App() {
             });
             setUserRole(<Redirect to={`/${currentUser.role}`} />);
           } else {
-            setUserInfo({...userInfo, email: email})
             setUserRole(<Redirect to={`/registration`} />);
           }
         });
