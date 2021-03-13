@@ -1,12 +1,12 @@
-import { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import "./registrationForm.css";
-import UserContext from "../../utilities/userContext";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function RegistrationForm(props) {
+  const { user } = useAuth0();
   return (
     <>
       <Container className="regForm background-white">
@@ -18,7 +18,7 @@ export default function RegistrationForm(props) {
                   Email
                 </Form.Label>
                 <Col sm="10">
-                  <Form.Control plaintext readOnly value={props.user.email} />
+                  <Form.Control plaintext readOnly value={user.email} />
                 </Col>
               </Form.Group>
             </Col>
