@@ -57,10 +57,12 @@ module.exports = (app) => {
       password: req.body.password,
       first_name: req.body.first_name,
       last_name: req.body.last_name,
-      date_of_birth: req.body.date_of_birth ? new Date(req.body.date_of_birth) : null,
+      date_of_birth: req.body.date_of_birth
+        ? new Date(req.body.date_of_birth)
+        : null,
       gender: req.body.gender,
       phone: req.body.phone,
-      role: req.body.role
+      role: req.body.role,
     }); // sends the member details as response
     newMember
       .save()
@@ -120,7 +122,7 @@ module.exports = (app) => {
       .then((selectedClass) => {
         const classUpdate = addToClass(selectedClass, req.body.memberid);
         db.Class.updateOne({ _id: req.body.id }, { $set: classUpdate })
-          .then(() => res.send("Success!"))
+          .then((res) => res.status(200).json(res))
           .catch((err) => res.json(err));
       })
       .catch((err) => res.json(err));
@@ -132,7 +134,7 @@ module.exports = (app) => {
       .then((selectedClass) => {
         const classUpdate = removeClassMember(selectedClass, req.body.memberid);
         db.Class.updateOne({ _id: req.body.id }, { $set: classUpdate })
-          .then(() => res.send("Success!"))
+          .then((res) => res.status(200).send(res))
           .catch((err) => res.status(500).json(err));
       })
       .catch((err) => res.status(500).json(err));
