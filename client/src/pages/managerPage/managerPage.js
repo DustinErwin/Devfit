@@ -17,11 +17,21 @@ import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import "./styles.css";
 
+/* TODO 
+1. Finish ability to add member by text 
+2. Try to add autofill 
+3. Try to replace addMember State with refHook 
+4. Pull Moday to it's own component 
+5. add ability for manager to create class 
+6. Add Ability for manager to delete class 
+
+*/
+
 
 
 function ManagerPage() {
   //grab user from context
-  const user = useContext(UserContext);
+  const user = useContext(UserContext) || [];
   //Modal states
   const [show, setShow] = useState(false);
 
@@ -49,19 +59,41 @@ function ManagerPage() {
   const [addMember, setAddMember] = useState("");
   //class Schedule Data
   const [classSchedule, setClassSchedule] = useState();
+
+
   const [classRoster, setClassRoster] = useState({
-    memberRoster: ["placeholder"],
-    classId: ["placeholder"],
+    classId: "",
+    memberRoster: []
   });
-  const inputRef=useRef() 
+
+  const [allMembers, setAllMembers] = useState({
+  })
+
 
   //on page load...
   useEffect(() => {
     fetchallTrainers();
     fetchScheduleData();
+    fetchAllMembers();
     // eslint-disable-next-line
   }, [user]);
 
+  //grabs a list of all members for input options options
+  function fetchAllMembers(){
+ 
+      fetch("/api/manager/memberList", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((res) => {
+         setAllMembers(res)
+        });
+    }
+  
   //if i put this in fetchSchedule Data, it doesn't work. needs to be global. review this later.
   const weekLength = [1, 2, 3, 4, 5, 6, 7];
 
@@ -168,7 +200,7 @@ function ManagerPage() {
 
   //fetches all the information needed to render a schedule and stores it in state.
   function fetchScheduleData() {
-    fetch("/api/employee/6047aab647549b4658f9e131/classes", {
+    fetch(`/api/employee/604e1eaf43670c6c98a2a3db/classes`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -219,6 +251,7 @@ function ManagerPage() {
   //fetch classes roster then pop up a modal
   function fetchClassRoster(e) {
     const id = e.target.id;
+   
     fetch(`/api/class/${id}/roster`, {
       method: "GET",
       headers: {
@@ -228,12 +261,13 @@ function ManagerPage() {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log('roster', res)
-        const rosterObject = {
-          memberRoster: res,
-          classId: classRoster.classId,
-        };
-        setClassRoster(rosterObject);
+     
+       const memberRoster = res
+
+
+       setClassRoster({memberRoster: memberRoster, classId: id})
+      
+  
         handleShow();
       });
   }
@@ -255,10 +289,27 @@ function ManagerPage() {
 
 //manager adds member in roster modal
   function handleAddMember(e) {
-    const member = addMember
-    const classId = classRoster.classId
+ 
+    const memberObject = {
+     memberid : addMember,
+      id: classRoster.classId
+    }
 
+    console.log(memberObject)
+
+    fetch("/api/manager/addToClass", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept" : "application/json",
+      },
+      body: JSON.stringify(memberObject),
+    }).then((req, res) => {
+    
+    })
+  
   }
+
   return (
     <>
       <Header />
