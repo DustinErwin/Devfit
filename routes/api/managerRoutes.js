@@ -32,7 +32,11 @@ router.route("/trainers").get((req, res) => {
 // DELETE API that allows a manager to delete a trainer
 router.route("/deleteTrainer/:id").delete((req, res) => {
   db.Employee.remove({ _id: req.params.id })
-  .then(() => res.send("Success!"))
+  .then(() => {
+    db.Class.remove({trainer_id: req.params.id})
+    .then(() => res.send("Success!"))
+    .catch((err) => res.status(500).json(err));
+  })
   .catch((err) => res.status(500).json(err));
 });
 
