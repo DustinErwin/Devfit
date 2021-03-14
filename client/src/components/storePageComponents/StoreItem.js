@@ -46,7 +46,11 @@ function StoreItem(props) {
         <br />
         <br />
         <Card.Link>
-          <Button type="button" onClick={addToCartHandler}>
+          <Button
+            className="addToCartBtn"
+            type="button"
+            onClick={addToCartHandler}
+          >
             Add To Cart
           </Button>
         </Card.Link>

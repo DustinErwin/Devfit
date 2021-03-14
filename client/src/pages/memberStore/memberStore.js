@@ -59,7 +59,7 @@ function MemberStore() {
             <Container className="storeCart d-flex justify-content-center">
               <Card className="border border-danger">
                 <Cart3 className="align-self-center" size={96}></Cart3>
-                <h3>Your Cart</h3>
+                <h3 className="mt-4">Your Cart</h3>
                 <Card.Body>
                   <Cart cartItems={cart} />
                 </Card.Body>
