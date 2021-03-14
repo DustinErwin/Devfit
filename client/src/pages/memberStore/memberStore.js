@@ -40,6 +40,11 @@ function MemberStore() {
       });
   }, []);
 
+  const handleUpdateQuantity = (productId, newQuantity) => {
+    const updatedCart = cart.map(item => (item.product_id === productId ? { ...item, quantity: newQuantity } : item));
+    setCart(updatedCart);
+  }
+
   //shop code credit:  https://dev.to/papasanto/build-a-react-hooks-shopping-cart-with-usestate-and-useeffect-39hk
   return (
     <>
@@ -56,7 +61,7 @@ function MemberStore() {
 
         <Row>
           <Col xs={8}>
-            <Store productList={productList}></Store>
+            <Store productList={productList} cartHandler={handleUpdateQuantity}></Store>
           </Col>
           <Col xs={4}>
             {/* <Row className="storeCart d-flex justify-content-center" style={{ width: "18rem" }}>

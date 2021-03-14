@@ -13,7 +13,7 @@ const Store = (props) => {
   // const [cart, setCart] = useState([]);
   // const [cartTotal, setCartTotal] = useState(0);
 //  const [productList, setProductList] = useState({ product: [] });
-  const {productList} = props;
+  const {productList, cartHandler} = props;
 
   // useEffect(() => {
   //   const products = fetch("/api/store/productList");
@@ -79,7 +79,7 @@ const Store = (props) => {
   return (
       <Container className="border border-dark storeContainer">
         {productList.product.map((el) => (
-          <StoreItem el={el} key={el._id} />
+          <StoreItem el={el} key={el._id} clickHandler={cartHandler} />
           // <Card
           //   key={el.id}
           //   className="my-3"

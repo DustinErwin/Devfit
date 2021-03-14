@@ -6,9 +6,14 @@ function StoreItem(props) {
     const [ selectedQuantity, updateSelectedQuantity] = useState(0);
     const handleInputChange = (event) => {
         const {value} = event.target;
-        updateSelectedQuantity(value);
+        const numValue = (Number(value) < 0) ? 0 : ((Number(value) > el.quantity) ? el.quantity: Number(value));
+        updateSelectedQuantity(numValue);
     }
-    const {el} = props;
+    const addToCartHandler = (event) => {
+      event.preventDefault();
+      clickHandler(el._id, selectedQuantity);
+    }
+    const {el, clickHandler} = props;
     return (
         <Card
         className="my-3 mx-3"
@@ -31,7 +36,7 @@ function StoreItem(props) {
             <br/>
             <br/>
           <Card.Link href="#">
-            <Button>Add To Cart</Button>
+            <Button type="button" onClick={addToCartHandler}>Add To Cart</Button>
           </Card.Link>
         </Card.Body>
       </Card>

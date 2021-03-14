@@ -3,7 +3,7 @@ import {Table} from 'react-bootstrap';
 import CartItem from './CartItem';
 function Cart(props) {
     const {cartItems} = props;
-    const cartData = cartItems.filter(item => item.quantity === 0);
+    const cartData = cartItems.filter(item => item.quantity > 0);
     const cartTotal = cartItems.reduce((accumulator, item) => accumulator + (item.price * item.quantity), 0);
     return (
         <Table responsive>
