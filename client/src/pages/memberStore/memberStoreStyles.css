@@ -3,3 +3,9 @@
   font-weight: bold;
   font-family: verdana, sans-serif;
 }
+
+.storeContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
