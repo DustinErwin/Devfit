@@ -12,46 +12,46 @@ module.exports = (app) => {
   //LOGIN PAGE API
 
   // POST "api/login" authenticates the member login credentials in the database, and responds with the member id
-  app.post("/api/login", (req, res) => {
-    // Find if there is a matching member
-    db.Member.findOne({
-      email: req.body.username,
-      password: req.body.password,
-    }).then((userMember) => {
-      if (!userMember) {
-        // No matching member found. Lets see if we have a matching Employee instead.
-        db.Employee.findOne({
-          email: req.body.username,
-          password: req.body.password,
-        }).then((employee) => {
-          if (!employee) {
-            res.status(401).json({ error: "Invalid login. Please try again" });
-          } else {
-            employee.is_logged_in = true;
-            employee.save().then((updatedEmployee) => {
-              res.json({
-                id: updatedEmployee._id,
-                userName: updatedEmployee.first_name,
-                role: updatedEmployee.role,
-              });
-            });
-          }
-        });
-      } else {
-        console.log("Found Member ", userMember);
-        userMember.is_logged_in = true;
-        userMember.save().then((updatedMember) => {
-          res.json({ id: updatedMember._id });
-        });
-      }
-    });
-  });
+  // app.post("/api/login", (req, res) => {
+  //   // Find if there is a matching member
+  //   db.Member.findOne({
+  //     email: req.body.username,
+  //     password: req.body.password,
+  //   }).then((userMember) => {
+  //     if (!userMember) {
+  //       // No matching member found. Lets see if we have a matching Employee instead.
+  //       db.Employee.findOne({
+  //         email: req.body.username,
+  //         password: req.body.password,
+  //       }).then((employee) => {
+  //         if (!employee) {
+  //           res.status(401).json({ error: "Invalid login. Please try again" });
+  //         } else {
+  //           employee.is_logged_in = true;
+  //           employee.save().then((updatedEmployee) => {
+  //             res.json({
+  //               id: updatedEmployee._id,
+  //               userName: updatedEmployee.first_name,
+  //               role: updatedEmployee.role,
+  //             });
+  //           });
+  //         }
+  //       });
+  //     } else {
+  //       console.log("Found Member ", userMember);
+  //       userMember.is_logged_in = true;
+  //       userMember.save().then((updatedMember) => {
+  //         res.json({ id: updatedMember._id });
+  //       });
+  //     }
+  //   });
+  // });
 
   // REGISTER PAGE API
 
   // POST API and query to insert the new member registration record in the member table in the database
   // Need to work on the date of birth
-  app.post("/api/register", (req, res) => {
+  app.post("/api/user/register", (req, res) => {
     const newMember = new db.Member({
       email: req.body.email,
       password: req.body.password,
@@ -89,7 +89,7 @@ module.exports = (app) => {
       .catch((err) => res.json(err));
   });
 
-  app.get("/api/classes", function (req, res) {
+  app.get("/api/class/classes", function (req, res) {
     db.Class.find({})
       .sort({ start_time: 1 })
       .then((classes) => {

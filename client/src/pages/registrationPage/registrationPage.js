@@ -33,7 +33,7 @@ function RegistrationPage() {
     console.log("clicked");
     console.log(users);
 
-    fetch("/api/register", {
+    fetch("/api/user/register", {
       method: "POST", // or 'PUT'
       headers: {
         "Content-Type": "application/json",
@@ -43,6 +43,7 @@ function RegistrationPage() {
       .then((response) => response.json())
       .then((users) => {
         console.log("Success:", users);
+        window.location.href = window.location.origin;
       })
       .catch((error) => {
         console.error("Error:", error);

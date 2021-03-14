@@ -17,7 +17,7 @@ function MemberPage() {
 
   //fetches all the information needed to render a schedule and stores it in state.
   function fetchScheduleData() {
-    fetch("/api/classes", {
+    fetch("/api/class/classes", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
