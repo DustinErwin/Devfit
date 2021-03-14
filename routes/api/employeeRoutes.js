@@ -5,19 +5,30 @@ const getEmployeeClassBundle = require("../../utilities/employeeClassBundle");
 
 // API for adding a class
 router.route("/addClass").post((req, res) => {
-  const newClass = {
-    class_name: req.body.class_name,
+  db.Class.findOne({
+    trainer_id: req.body.trainer_id, 
     day: req.body.day,
-    start_time: req.body.start_time,
-    current_size: 0,
-    max_size: req.body.max_size,
-    trainer_id: db.ObjectId(req.body.trainer_id),
-    roster: [],
-  };
-
-  db.Class.create(newClass)
-    .then((dbClass) => res.send(dbClass))
-    .catch((err) => res.status(500).json(err));
+    start_time: req.body.start_time
+  })
+   .then((foundRecord)=> {
+     if(foundRecord){
+       res.status(500).json({err: "There is already an existing class at this time"});
+     } else {
+      const newClass = {
+        class_name: req.body.class_name,
+        day: req.body.day,
+        start_time: req.body.start_time,
+        current_size: 0,
+        max_size: req.body.max_size,
+        trainer_id: db.ObjectId(req.body.trainer_id),
+        roster: [],
+      };
+      db.Class.create(newClass)
+      .then((dbClass) => res.send(dbClass))
+      .catch((err) => res.status(500).json(err));
+     }
+   })
+   .catch((err) => res.status(500).json(err));
 });
 
 //API to remove class
