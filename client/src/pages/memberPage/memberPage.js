@@ -90,11 +90,9 @@ function MemberPage() {
         Accept: "application/json",
       },
       body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then(() => {
-        fecthJoinedClasses();
-      });
+    }).then(() => {
+      fecthJoinedClasses();
+    });
   }
 
   function fecthJoinedClasses() {
