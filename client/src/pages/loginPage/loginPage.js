@@ -7,10 +7,10 @@ import Container from "react-bootstrap/Container";
 import AdCarousel from "../../components/loginPageComponents/AdCarousel";
 import AuthenticationButton from "../../components/authenticationButton";
 import "./styles.css";
-import girlFeet from "../../assets/images/girlfeetwaterbottle.jpg";
-import gymCoronavirus from "../../assets/images/gym-coronavirus.jpg";
-import bench from "../../assets/images/bench.jpg";
-import equipmentRoom from "../../assets/images/equipmentroom.jpg";
+import girlFeet from "../../images/girlfeetwaterbottle.jpg";
+import gymCoronavirus from "../../images/gym-coronavirus.jpg";
+import bench from "../../images/bench.jpg";
+import equipmentRoom from "../../images/equipmentroom.jpg";
 
 function LoginPage() {
   return (

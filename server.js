@@ -4,7 +4,8 @@ const mongoose = require("mongoose");
 
 const PORT = process.env.PORT || 3001;
 const app = express();
-//const apiRoutes = require("./routes/apiRoutes");
+//const routes = require("./routes");
+const apiRoutes = require("./routes/apiRoutes");
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
@@ -14,7 +15,8 @@ app.use(express.json());
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
-
+console.log(process.env.MONGODB_URI);
+console.log(encodeURI(process.env.MONGODB_URI));
 // Connect to the Mongo DB
 mongoose.connect(
   process.env.MONGODB_URI || "mongodb://localhost/gymManagementSystem",
@@ -28,6 +30,8 @@ mongoose.connect(
 
 // Use apiRoutes
 require("./routes/apiRoutes.js")(app);
+// Add routes, both API and view
+//app.use(routes);
 
 // Send every request to the React app
 // Define any API routes before this runs
