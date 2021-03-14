@@ -43,7 +43,7 @@ function App() {
               email: currentUser.email,
               firstName: currentUser.first_name,
               lastName: currentUser.last_name,
-              fullName: `${currentUser.fisrt_name} ${currentUser.last_name}`,
+              fullName: `${currentUser.first_name} ${currentUser.last_name}`,
               role: currentUser.role,
               gender: currentUser.gender,
             });
@@ -67,6 +67,7 @@ function App() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
+ 
 
   return (
     <UserContext.Provider value={userInfo}>

@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import Header from "../../components/commonComponents/header/header";
 import Footer from "../../components/commonComponents/footer/footer";
 import Row from "react-bootstrap/Row";
-import Container from "react-bootstrap/Container";
 import UserInfoBox from "../../components/commonComponents/userInfoBox/userInfoBox.js";
 import LeftColumn from "../../components/managerComponents/managerInfoBoxColumns/mInfoBoxLeftCol";
 import RightColumn from "../../components/managerComponents/managerInfoBoxColumns/mInfoBoxRightCol";
+import Container from "react-bootstrap/Container";
 import ManagerSchedule from "../../components/managerComponents/managerSchedule/managerSchedule";
 import UserContext from "../../utilities/userContext";
 import add from "date-fns/add";
@@ -13,20 +13,11 @@ import { format } from "date-fns";
 import Modal from "react-bootstrap/Modal";
 import DevBtn from "../../components/commonComponents/devButton/devButton";
 import Col from "react-bootstrap/Col";
+import InputGroup from "react-bootstrap/InputGroup";
+import FormControl from "react-bootstrap/FormControl";
 import "./styles.css";
 
-/*
-Top Area: 
-Manager Page
 
-
-4. ability toadd and remove members in modal 
-4.1 check that times are tConverted in manager
-5. make schedule background white on all three pages.
-6. fix styling for schedule classes 
-7. make all pages responsive
-8. verification of forms, employee, manager, member
-9. Clean up code  */
 
 function ManagerPage() {
   //grab user from context
@@ -54,17 +45,21 @@ function ManagerPage() {
     phone: "",
   });
 
+  //holding place to add member to roster
+  const [addMember, setAddMember] = useState("");
   //class Schedule Data
   const [classSchedule, setClassSchedule] = useState();
   const [classRoster, setClassRoster] = useState({
     memberRoster: ["placeholder"],
     classId: ["placeholder"],
   });
+  const inputRef=useRef() 
 
   //on page load...
   useEffect(() => {
     fetchallTrainers();
     fetchScheduleData();
+    // eslint-disable-next-line
   }, [user]);
 
   //if i put this in fetchSchedule Data, it doesn't work. needs to be global. review this later.
@@ -183,6 +178,7 @@ function ManagerPage() {
       .then((res) => res.json())
       .then((res) => {
         const stateArray = [];
+        // eslint-disable-next-line
         weekLength.map((nothing, i) => {
           //Use date-fns to get classSchedule for the 7 days of the week
           const addDay = add(new Date(), {
@@ -221,9 +217,9 @@ function ManagerPage() {
   }
 
   //fetch classes roster then pop up a modal
-  function fetchClassRoster() {
-
-    fetch(`/api/class/${classRoster.classId}/roster`, {
+  function fetchClassRoster(e) {
+    const id = e.target.id;
+    fetch(`/api/class/${id}/roster`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -231,21 +227,19 @@ function ManagerPage() {
       },
     })
       .then((res) => res.json())
-      .then((roster) => {
+      .then((res) => {
+        console.log('roster', res)
         const rosterObject = {
-          memberRoster: roster,
+          memberRoster: res,
           classId: classRoster.classId,
         };
-        console.log("rosterObject", rosterObject);
         setClassRoster(rosterObject);
         handleShow();
       });
   }
 
   function removeMember(e) {
-    const idObject = { memberid: e.target.id,
-    id: classRoster.classId };
- 
+    const idObject = { memberid: e.target.id, id: classRoster.classId };
 
     fetch("/api/manager/removeFromClass", {
       method: "POST",
@@ -255,10 +249,16 @@ function ManagerPage() {
       },
       body: JSON.stringify(idObject),
     }).then(() => {
-      fetchClassRoster()
+      fetchClassRoster(e);
     });
   }
 
+//manager adds member in roster modal
+  function handleAddMember(e) {
+    const member = addMember
+    const classId = classRoster.classId
+
+  }
   return (
     <>
       <Header />
@@ -293,7 +293,7 @@ function ManagerPage() {
         </Modal.Header>
         <Modal.Body>
           {classRoster.memberRoster.map((item, i) => {
-            console.log(item);
+      
             return (
               <Row>
                 <Col key={i} className="roster-item mb-3">
@@ -309,7 +309,6 @@ function ManagerPage() {
                     styleClass="btn-red roster-btn "
                     onClick={(e) => removeMember(e)}
                     id={item[1]}
-                    id2={classRoster.classId}
                   >
                     Remove
                   </DevBtn>{" "}
@@ -317,6 +316,23 @@ function ManagerPage() {
               </Row>
             );
           })}
+          <Row>
+            <Col xs={8}>
+              <InputGroup className="mb-3">
+                <InputGroup.Prepend></InputGroup.Prepend>
+                <FormControl
+                  aria-label="Default"
+                  aria-describedby="inputGroup-sizing-default"
+                  onChange={(e) => setAddMember(e.target.value)}
+                />
+              </InputGroup>
+            </Col>
+            <Col>
+              <DevBtn styleClass="btn-red" onClick={handleAddMember}>
+                Add Member
+              </DevBtn>
+            </Col>
+          </Row>
         </Modal.Body>
         <Modal.Footer>
           <DevBtn styleClass="btn-red" onClick={handleClose}>

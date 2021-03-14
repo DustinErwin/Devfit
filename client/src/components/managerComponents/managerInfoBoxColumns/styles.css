@@ -1,6 +1,6 @@
 .trainer-wrapper {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   margin-left: 30%;
   font-size: larger;
 }

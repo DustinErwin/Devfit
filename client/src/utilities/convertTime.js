@@ -1,5 +1,3 @@
-import React from "react";
-
 //changes timestamp to readable time.
 //https://stackoverflow.com/questions/13898423/javascript-convert-24-hour-time-of-day-string-to-12-hour-time-with-am-pm-and-no
 function convertTime(time) {

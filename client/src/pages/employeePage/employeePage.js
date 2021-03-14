@@ -9,9 +9,6 @@ import LeftColumn from "../../components/employeePageComponents/employeeInfoBoxC
 import add from "date-fns/add";
 import { format } from "date-fns";
 
-
-
-
 function EmployeePage() {
   const user = useContext(UserContext);
   const [userData, setUserData] = useState(""); //The uesr name and id
@@ -25,6 +22,7 @@ function EmployeePage() {
   useEffect(() => {
     fetchScheduleData();
     fetchTrainerData();
+    // eslint-disable-next-line
   }, [user._id]);
 
   //fetches all the information needed to render a schedule and stores it in state.
@@ -72,7 +70,7 @@ function EmployeePage() {
           //add that object to state
           stateArray.push(dataObject);
         });
-           
+
         setClassSchedule(stateArray);
       });
   }
@@ -127,7 +125,7 @@ function EmployeePage() {
       <Header />
       <UserInfoBox
         colLeft={
-          <LeftColumn 
+          <LeftColumn
             firstName={user.firstName}
             numClassesTaught={userData.numClassesTaught}
             userClasses={userClasses}

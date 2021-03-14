@@ -45,6 +45,7 @@ function InfoBoxRightColumn(props) {
                     placeholder="First Name"
                     onChange={(e) => props.hireTrainerInfo(e)}
                     name="firstName"
+                    
                   />
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                   <Form.Control.Feedback type="invalid">
@@ -68,7 +69,7 @@ function InfoBoxRightColumn(props) {
               </Form.Row>
 
               <Form.Row>
-                <Form.Group as={Col} md="6" controlId="validationCustom01">
+                <Form.Group as={Col} md="6" controlId="validationCustom03">
                   <Form.Label>Phone</Form.Label>
                   <Form.Control
                     required
@@ -84,7 +85,7 @@ function InfoBoxRightColumn(props) {
                     Please enter a 10 digit number
                   </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group as={Col} md="6" controlId="validationCustom03">
+                <Form.Group as={Col} md="6" controlId="validationCustom04">
                   <Form.Label>Gender</Form.Label>
                   <Form.Control
                     as="select"
@@ -98,7 +99,7 @@ function InfoBoxRightColumn(props) {
                 </Form.Group>
               </Form.Row>
               <Form.Row>
-                <Form.Group as={Col} md="12" controlId="validationCustom03">
+                <Form.Group as={Col} md="12" controlId="validationCustom05">
                   <Form.Label>Email</Form.Label>
                   <Form.Control
                     required
