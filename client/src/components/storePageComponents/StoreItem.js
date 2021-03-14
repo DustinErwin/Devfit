@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Card, Button, ListGroup, ListGroupItem } from "react-bootstrap";
-import jumpRope from "../../assets/images/store/jumpRope.jpg";
+import jumpRope from "../../images/store/jumpRope.jpg";
 
 function StoreItem(props) {
     const [ selectedQuantity, updateSelectedQuantity] = useState(0);
