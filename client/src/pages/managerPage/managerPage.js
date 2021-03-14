@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Header from "../../components/commonComponents/header/header";
 import Footer from "../../components/commonComponents/footer/footer";
 import Row from "react-bootstrap/Row";
@@ -10,40 +10,19 @@ import ManagerSchedule from "../../components/managerComponents/managerSchedule/
 import UserContext from "../../utilities/userContext";
 import add from "date-fns/add";
 import { format } from "date-fns";
-import Modal from "react-bootstrap/Modal";
-import DevBtn from "../../components/commonComponents/devButton/devButton";
-import Col from "react-bootstrap/Col";
-import InputGroup from "react-bootstrap/InputGroup";
-import FormControl from "react-bootstrap/FormControl";
 import "./styles.css";
-
-/* TODO 
-1. Finish ability to add member by text 
-2. Try to add autofill 
-3. Try to replace addMember State with refHook 
-4. Pull Moday to it's own component 
-5. add ability for manager to create class 
-6. Add Ability for manager to delete class 
-
-*/
 
 function ManagerPage() {
   //grab user from context
   const user = useContext(UserContext) || [];
-  //Modal states
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   //all existing trainers
   const [allTrainers, setAllTrainers] = useState([]);
-
   //holds info for a single trainer to display in trainer information
-  const [viewedTrainer, setViewedTrainer] = useState("placeHolder");
-
+  const [viewedTrainer, setViewedTrainer] = useState("");
+  //holds info for a single class to display roster information
+  const [viewedClass, setViewedClass] = useState("");
   //toggles the right column between trainer info and add trainer
   const [toggleRightCol, setToggleRightCol] = useState("");
-
   //holds all info from add-trainer form
   const [trainerHire, setTrainerHire] = useState({
     firstName: "",
@@ -52,18 +31,19 @@ function ManagerPage() {
     email: "",
     phone: "",
   });
-
   //holding place to add member to roster
   const [addMember, setAddMember] = useState("");
   //class Schedule Data
-  const [classSchedule, setClassSchedule] = useState();
+  const [classSchedule, setClassSchedule] = useState([]);
 
-  const [classRoster, setClassRoster] = useState({
-    classId: "",
-    memberRoster: [],
-  });
+  const [classRoster, setClassRoster] = useState([]);
 
-  const [allMembers, setAllMembers] = useState({});
+  const [allMembers, setAllMembers] = useState([]);
+
+  //Modal states
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   //on page load...
   useEffect(() => {
@@ -243,10 +223,9 @@ function ManagerPage() {
   }
 
   //fetch classes roster then pop up a modal
-  function fetchClassRoster(e) {
-    const id = e.target.id;
-
-    fetch(`/api/class/${id}/roster`, {
+  function fetchClassRoster(id) {
+    const classId = id;
+    fetch(`/api/class/${classId}/roster`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -255,16 +234,15 @@ function ManagerPage() {
     })
       .then((res) => res.json())
       .then((res) => {
+        console.log(res);
         const memberRoster = res;
 
-        setClassRoster({ memberRoster: memberRoster, classId: id });
-
-        handleShow();
+        setClassRoster(memberRoster);
       });
   }
 
   function removeMember(e) {
-    const idObject = { memberid: e.target.id, id: classRoster.classId };
+    const idObject = { memberid: e.target.id, id: viewedClass };
 
     fetch("/api/manager/removeFromClass", {
       method: "POST",
@@ -274,15 +252,22 @@ function ManagerPage() {
       },
       body: JSON.stringify(idObject),
     }).then(() => {
-      fetchClassRoster(e);
+      fetchClassRoster(viewedClass);
     });
   }
 
   //manager adds member in roster modal
   function handleAddMember(e) {
+    //check all members against the member typed into input box, and return chosen member without an array
+    const filteredMember = allMembers
+      .filter((item) => {
+        return addMember === item.fullName;
+      })
+      .pop();
+
     const memberObject = {
-      memberid: addMember,
-      id: classRoster.classId,
+      memberid: filteredMember.id,
+      id: viewedClass,
     };
 
     fetch("/api/manager/addToClass", {
@@ -292,12 +277,23 @@ function ManagerPage() {
         Accept: "application/json",
       },
       body: JSON.stringify(memberObject),
-    }).then((req, res) => {});
+    }).then((req, res) => {
+      fetchClassRoster(viewedClass);
+    });
+  }
+
+  function handleRosterClick(e) {
+    setViewedClass(e.target.id);
+    //passing in the id directly because setViewedClass updates too slowly
+    fetchClassRoster(e.target.id);
+
+    handleShow();
   }
 
   return (
     <>
       <Header />
+
       <Container>
         <UserInfoBox
           colLeft={
@@ -321,66 +317,15 @@ function ManagerPage() {
       <ManagerSchedule
         classSchedule={classSchedule}
         fetchClassRoster={fetchClassRoster}
+        handleRosterClick={(e) => handleRosterClick(e)}
+        classRoster={classRoster}
+        setAddMember={setAddMember}
+        allMembers={allMembers}
+        handleAddMember={() => handleAddMember()}
+        show={show}
+        handleClose={handleClose}
+        removeMember={(e) => removeMember(e)}
       />
-
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Roster</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {classRoster.memberRoster.map((item, i) => {
-            return (
-              <Row>
-                <Col key={i} className="roster-item mb-3">
-                  {" "}
-                  <span role="img" aria-label="Boxing Glove">
-                    🥊
-                  </span>{" "}
-                  {item[0]}
-                </Col>
-                <Col>
-                  {" "}
-                  <DevBtn
-                    styleClass="btn-red roster-btn "
-                    onClick={(e) => removeMember(e)}
-                    id={item[1]}
-                  >
-                    Remove
-                  </DevBtn>{" "}
-                </Col>
-              </Row>
-            );
-          })}
-          <Row>
-            <Col xs={8}>
-              <InputGroup className="mb-3">
-          
-                <FormControl
-                  aria-label="Default"
-                  aria-describedby="inputGroup-sizing-default"
-                  onChange={(e) => setAddMember(e.target.value)}
-                  list="memberList"
-                ></FormControl>
-                <datalist id="memberList">
-                 {allMembers.map((item) =>  {
-                   return <option id={item.id}>{item.fullName}</option>
-                 })}
-                </datalist>
-              </InputGroup>
-            </Col>
-            <Col>
-              <DevBtn styleClass="btn-red" onClick={handleAddMember}>
-                Add Member
-              </DevBtn>
-            </Col>
-          </Row>
-        </Modal.Body>
-        <Modal.Footer>
-          <DevBtn styleClass="btn-red" onClick={handleClose}>
-            Close
-          </DevBtn>
-        </Modal.Footer>
-      </Modal>
 
       <Footer />
     </>

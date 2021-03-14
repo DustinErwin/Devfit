@@ -13,6 +13,7 @@ function DevBtn(props) {
       className={"button align-self-center " + props.styleClass}
       id={props.id}
       onClick={props.onClick}
+      ref={props.devRef}
     >
       {props.children}
     </BootstrapButton>
