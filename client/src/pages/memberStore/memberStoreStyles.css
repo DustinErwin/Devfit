@@ -9,3 +9,9 @@
   flex-direction: row;
   flex-wrap: wrap;
 }
+
+.storeCart {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+}
