@@ -26,19 +26,20 @@ router.route("/addToClass").post((req, res) => {
   .then((selectedClass) => {
     const classUpdate = addToClass(selectedClass, req.body.memberid);
     db.Class.updateOne({ _id: req.body.id }, { $set: classUpdate })
-      .then((res) => res.status(200).json(res))
-      .catch((err) => res.json(err));
+      .then((updatedClass) => res.status(200).json(updatedClass))
+      .catch((err) => res.status(500).json(err));
   })
-  .catch((err) => res.json(err));
+  .catch((err) => res.status(500).json(err));
 });
 
 // POST api to allow member to remove themselves from a selected class
 router.route("/removeFromClass").post((req, res) => {
   db.Class.findOne({ _id: req.body.id })
   .then((selectedClass) => {
+    console.log("selectedClass -> ", selectedClass);
     const classUpdate = removeClassMember(selectedClass, req.body.memberid);
     db.Class.updateOne({ _id: req.body.id }, { $set: classUpdate })
-      .then((res) => res.status(200).send(res))
+      .then((updatedClass) => res.status(200).send(updatedClass))
       .catch((err) => res.status(500).json(err));
   })
   .catch((err) => res.status(500).json(err));
