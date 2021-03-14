@@ -122,7 +122,7 @@ module.exports = (app) => {
       .then((selectedClass) => {
         const classUpdate = addToClass(selectedClass, req.body.memberid);
         db.Class.updateOne({ _id: req.body.id }, { $set: classUpdate })
-          .then((res) => res.status(200).json(res))
+          .then((res) => res.send())
           .catch((err) => res.json(err));
       })
       .catch((err) => res.json(err));
@@ -134,7 +134,7 @@ module.exports = (app) => {
       .then((selectedClass) => {
         const classUpdate = removeClassMember(selectedClass, req.body.memberid);
         db.Class.updateOne({ _id: req.body.id }, { $set: classUpdate })
-          .then((res) => res.status(200).send(res))
+          .then(() => res.send())
           .catch((err) => res.status(500).json(err));
       })
       .catch((err) => res.status(500).json(err));

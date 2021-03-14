@@ -138,45 +138,47 @@ const ProductSeed = [
   {
     _id: product1_id,
     name: "Barbell standard weight lifting plate, 2.5lbs",
-    description: 'These 1" weight plates come with openings in the plates making them easier and safer to grip. Customize your workout by adding or removing weights from your bar or dumbbell handle (sold separately). Whether you are using an adjustable dumbbell, barbell, or trap bar, these weights can be loaded onto any standard bar with a 1-inch sleeve diameter. These weights feature a machined center hole to easily slide onto bars. The baked enamel finish offers a durable, long-lasting coating to prevent rust and damage. The 3-hole grip design allows for easy handling when loading or unloading weights. Add these grip plates to your home gym and use them for cardiovascular fitness or strength training! Each weight is sold individually, so recommended to purchase in pairs.',
+    description:
+      'These 1" weight plates come with openings in the plates making them easier and safer to grip. Customize your workout by adding or removing weights from your bar or dumbbell handle (sold separately). Whether you are using an adjustable dumbbell, barbell, or trap bar, these weights can be loaded onto any standard bar with a 1-inch sleeve diameter. These weights feature a machined center hole to easily slide onto bars. The baked enamel finish offers a durable, long-lasting coating to prevent rust and damage. The 3-hole grip design allows for easy handling when loading or unloading weights. Add these grip plates to your home gym and use them for cardiovascular fitness or strength training! Each weight is sold individually, so recommended to purchase in pairs.',
     price: 10,
     quantity: 60,
-    image_path: "Barbell_weights_2.5lbs.jpeg"
+    image_path: "Barbell_weights_2.5lbs.jpeg",
   },
   {
     _id: product2_id,
     name: "Barbell standard weight lifting plate, 5lbs",
-    description: 'These weights feature a machined center hole to easily slide onto bars. The baked enamel finish offers a durable, long-lasting coating to prevent rust and damage. The 3-hole grip design allows for easy handling when loading or unloading weights. Add these grip plates to your home gym and use them for cardiovascular fitness or strength training! Each weight is sold individually, so recommended to purchase in pairs.',
+    description:
+      "These weights feature a machined center hole to easily slide onto bars. The baked enamel finish offers a durable, long-lasting coating to prevent rust and damage. The 3-hole grip design allows for easy handling when loading or unloading weights. Add these grip plates to your home gym and use them for cardiovascular fitness or strength training! Each weight is sold individually, so recommended to purchase in pairs.",
     price: 30,
     quantity: 100,
-    image_path: "Barbell_weights_5lbs.jpeg"
-  }
+    image_path: "Barbell_weights_5lbs.jpeg",
+  },
 ];
 
-const OrderDetailsSeed1= [
+const OrderDetailsSeed1 = [
   {
     product_id: product1_id,
     price: 10,
-    quantity: 2
+    quantity: 2,
   },
   {
     product_id: product2_id,
     price: 30,
-    quantity: 4
-  }
+    quantity: 4,
+  },
 ];
 
-const OrderDetailsSeed2= [
+const OrderDetailsSeed2 = [
   {
     product_id: product1_id,
     price: 10,
-    quantity: 3
+    quantity: 3,
   },
   {
     product_id: product2_id,
     price: 30,
-    quantity: 6
-  }
+    quantity: 6,
+  },
 ];
 const OrderSeed = [
   {
@@ -184,16 +186,16 @@ const OrderSeed = [
     purchased_items: OrderDetailsSeed1,
     order_date: new Date(),
     total_cost: 140,
-    purchase_method: "credit_card"
+    purchase_method: "credit_card",
   },
   {
     member_id: member3_id,
     purchased_items: OrderDetailsSeed2,
     order_date: new Date(),
     total_cost: 210,
-    purchase_method: "debit_card"
-  }
-]
+    purchase_method: "debit_card",
+  },
+];
 
 db.Member.remove({})
   .then(() => db.Member.collection.insertMany(memberSeed))
@@ -222,7 +224,6 @@ db.Class.remove({})
     console.error("Class " + err);
   });
 
-  
 db.Product.remove({})
   .then(() => db.Product.collection.insertMany(ProductSeed))
   .then((data) => {

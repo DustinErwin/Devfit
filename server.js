@@ -14,8 +14,7 @@ app.use(express.json());
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
-console.log(process.env.MONGODB_URI);
-console.log(encodeURI(process.env.MONGODB_URI));
+
 // Connect to the Mongo DB
 mongoose.connect(
   process.env.MONGODB_URI || "mongodb://localhost/gymManagementSystem",
