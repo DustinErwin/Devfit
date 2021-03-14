@@ -27,8 +27,6 @@ import "./styles.css";
 
 */
 
-
-
 function ManagerPage() {
   //grab user from context
   const user = useContext(UserContext) || [];
@@ -60,15 +58,12 @@ function ManagerPage() {
   //class Schedule Data
   const [classSchedule, setClassSchedule] = useState();
 
-
   const [classRoster, setClassRoster] = useState({
     classId: "",
-    memberRoster: []
+    memberRoster: [],
   });
 
-  const [allMembers, setAllMembers] = useState({
-  })
-
+  const [allMembers, setAllMembers] = useState({});
 
   //on page load...
   useEffect(() => {
@@ -79,21 +74,20 @@ function ManagerPage() {
   }, [user]);
 
   //grabs a list of all members for input options options
-  function fetchAllMembers(){
- 
-      fetch("/api/manager/memberList", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      })
-        .then((res) => res.json())
-        .then((res) => {
-         setAllMembers(res)
-        });
-    }
-  
+  function fetchAllMembers() {
+    fetch("/api/manager/memberList", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setAllMembers(res);
+      });
+  }
+
   //if i put this in fetchSchedule Data, it doesn't work. needs to be global. review this later.
   const weekLength = [1, 2, 3, 4, 5, 6, 7];
 
@@ -251,7 +245,7 @@ function ManagerPage() {
   //fetch classes roster then pop up a modal
   function fetchClassRoster(e) {
     const id = e.target.id;
-   
+
     fetch(`/api/class/${id}/roster`, {
       method: "GET",
       headers: {
@@ -261,13 +255,10 @@ function ManagerPage() {
     })
       .then((res) => res.json())
       .then((res) => {
-     
-       const memberRoster = res
+        const memberRoster = res;
 
+        setClassRoster({ memberRoster: memberRoster, classId: id });
 
-       setClassRoster({memberRoster: memberRoster, classId: id})
-      
-  
         handleShow();
       });
   }
@@ -287,27 +278,21 @@ function ManagerPage() {
     });
   }
 
-//manager adds member in roster modal
+  //manager adds member in roster modal
   function handleAddMember(e) {
- 
     const memberObject = {
-     memberid : addMember,
-      id: classRoster.classId
-    }
-
-    console.log(memberObject)
+      memberid: addMember,
+      id: classRoster.classId,
+    };
 
     fetch("/api/manager/addToClass", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Accept" : "application/json",
+        Accept: "application/json",
       },
       body: JSON.stringify(memberObject),
-    }).then((req, res) => {
-    
-    })
-  
+    }).then((req, res) => {});
   }
 
   return (
@@ -344,7 +329,6 @@ function ManagerPage() {
         </Modal.Header>
         <Modal.Body>
           {classRoster.memberRoster.map((item, i) => {
-      
             return (
               <Row>
                 <Col key={i} className="roster-item mb-3">
@@ -370,12 +354,18 @@ function ManagerPage() {
           <Row>
             <Col xs={8}>
               <InputGroup className="mb-3">
-                <InputGroup.Prepend></InputGroup.Prepend>
+          
                 <FormControl
                   aria-label="Default"
                   aria-describedby="inputGroup-sizing-default"
                   onChange={(e) => setAddMember(e.target.value)}
-                />
+                  list="memberList"
+                ></FormControl>
+                <datalist id="memberList">
+                 {allMembers.map((item) =>  {
+                   return <option id={item.id}>{item.fullName}</option>
+                 })}
+                </datalist>
               </InputGroup>
             </Col>
             <Col>
