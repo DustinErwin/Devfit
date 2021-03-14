@@ -10,8 +10,8 @@ import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import ListGroupItem from "react-bootstrap/ListGroupItem";
 import Button from "react-bootstrap/Button";
-import jumpRope from "../../assets/images/store/jumpRope.jpg";
-// import storeHeadingPhoto from "../../assets/images/store/storeHeadingPhoto.jpg";
+import jumpRope from "../../images/store/jumpRope.jpg";
+// import storeHeadingPhoto from "../../images/store/storeHeadingPhoto.jpg";
 import { Cart3 } from "react-bootstrap-icons";
 
 function memberStore() {

@@ -5,7 +5,7 @@ import { ListGroupItem } from "react-bootstrap";
 import { ListGroup } from "react-bootstrap";
 import { Card } from "react-bootstrap";
 import { Container } from "react-bootstrap";
-import jumpRope from "../assets/images/store/jumpRope.jpg";
+import jumpRope from "../images/store/jumpRope.jpg";
 
 const Store = (props) => {
   // const contextStoreItems = useContext(storeContext);
@@ -24,8 +24,7 @@ const Store = (props) => {
       );
   }, []);
   console.log(productList);
-  //fetch to get product list from API - useEffect to come up on page load
-  //map out items to individual item cards
+
   //post items in cart to API to get total on backend
   //Display total on front end.
 
