@@ -7,7 +7,9 @@ import RightColumn from "../../components/managerComponents/managerInfoBoxColumn
 import Container from "react-bootstrap/Container";
 import ManagerSchedule from "../../components/managerComponents/managerSchedule/managerSchedule";
 import UserContext from "../../utilities/userContext";
-import {testGetAllMembers} from "../../utilities/API.js"
+import { getMembersApi } from "../../utilities/API.js";
+import { getTrainersApi } from "../../utilities/API.js";
+import { postTrainerApi } from "../../utilities/API.js";
 import add from "date-fns/add";
 import { format } from "date-fns";
 import "./styles.css";
@@ -18,11 +20,7 @@ fetch roster in a use effect that updates every time roster changes
 2. look closely at condensing states 
 3. rename things to follow better patterns, especially handle clicks, etc.*/
 
-
-
 function ManagerPage() {
-
-
   //grab user from context
   const user = useContext(UserContext) || [];
   //all existing members
@@ -81,30 +79,20 @@ function ManagerPage() {
     getAllMembers();
   }, [user]);
 
-
-  async function getAllMembers  (){
-    const membersArray = await testGetAllMembers() 
-    setAllMembers(membersArray) }
- 
-  
+  //get all members, then set them to AllMembersState
+  const getAllMembers = async () => {
+    const membersArray = await getMembersApi();
+    setAllMembers(membersArray);
+  };
 
   //get all trainers and set them to the allTrainers state
-  function getAllTrainers() {
-    fetch("/api/manager/trainers", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
-      .then((trainerArray) => trainerArray.json())
-      .then((trainerArray) => {
-        setAllTrainers(trainerArray);
-      });
-  }
+  const getAllTrainers = async () => {
+    const trainers = await getTrainersApi();
+    setAllTrainers(trainers);
+  };
 
   //on View button click, set Chosen Trainer to  viewTrainer state
-  function trainerSelect(trainersViewBtn) {
+  const trainerSelect = (trainersViewBtn) => {
     const chosenTrainerId = trainersViewBtn.target.id;
 
     //search this trainers id against all trainers to get all
@@ -116,7 +104,7 @@ function ManagerPage() {
 
     setSelectedTrainer(chosenTrainerNoArray);
     setToggleRightCol("viewTrainer");
-  }
+  };
 
   //on click, change right column to add-trainer render
   function toggleAddTrainer() {
@@ -133,7 +121,7 @@ function ManagerPage() {
   };
 
   //post request to hire a new trainer
-  function handleHireNewTrainer() {
+  const handleHireNewTrainer = async () => {
     const dataObject = {
       first_name: trainerHire.firstName,
       last_name: trainerHire.lastName,
@@ -142,29 +130,19 @@ function ManagerPage() {
       email: trainerHire.email,
       role: "employee",
     };
-    fetch("/api/manager/addEmployee", {
-      method: "POST",
-      body: JSON.stringify(dataObject),
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then(() => {
-        getAllTrainers();
-        setSelectedTrainer({
-          firstName: "",
-          lastName: "",
-          gender: "M",
-          email: "",
-          phone: "",
-        });
-      })
-      .catch((error) => {
-        throw error;
-      });
-  }
+
+    await postTrainerApi(dataObject);
+
+    getAllTrainers();
+
+    setSelectedTrainer({
+      firstName: "",
+      lastName: "",
+      gender: "M",
+      email: "",
+      phone: "",
+    });
+  };
 
   //Delete request to terminate employee
   function terminateTrainer() {

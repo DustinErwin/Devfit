@@ -1,7 +1,5 @@
-//grabs a list of all members for input options
-
-
-export const testGetAllMembers = () => {
+//gets all members
+export const getMembersApi = () => {
     const result = fetch("/api/manager/memberList", {
       method: "GET",
       headers: {
@@ -9,8 +7,37 @@ export const testGetAllMembers = () => {
         Accept: "application/json",
       },
     })
-      .then((memberArray) => memberArray.json())
+      .then((members) => members.json())
    
       return result 
   }
+
+//gets all trainers
+  export const getTrainersApi = () => {
+      const result = fetch("/api/manager/trainers", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }).then((trainers) => trainers.json())
+
+        return result
+  }
+
+
+//Post New Employee 
+
+export const postTrainerApi = (dataObject) => {
+    fetch("/api/manager/addEmployee", {
+        method: "POST",
+        body: JSON.stringify(dataObject),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      })
+        .then((res) => res.json())
+
+}
 
