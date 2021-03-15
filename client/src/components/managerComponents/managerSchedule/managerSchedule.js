@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import ScheduleColumn from "../../commonComponents/scheduleColumn/scheduleColumn";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
@@ -12,13 +12,11 @@ import FormControl from "react-bootstrap/FormControl";
 
 function ManagerSchedule(props) {
 
-  //declaring class schedule as an empty array avoids an error where the array doesn't exist yet.
-  const classSchedule = props.classSchedule;
   return (
     <>
       <Container fluid className="mt-md-5 mb-md-5 larger-font">
         <Row className="white-background ml-md-5 mr-md-5">
-          {classSchedule.map((day) => {
+          {props.classSchedule.map((day) => {
             return (
               <ScheduleColumn
                 dayOfWeek={day.weekDay}
@@ -103,7 +101,7 @@ function ManagerSchedule(props) {
                   <FormControl
                     aria-label="Default"
                     aria-describedby="inputGroup-sizing-default"
-                    onChange={(e) => props.setAddMember(e.target.value)}
+                    onChange={(e) => props.setSelectedMember(e.target.value)}
                     list="memberList"
                   ></FormControl>
                   <datalist id="memberList">

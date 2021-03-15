@@ -45,7 +45,6 @@ function InfoBoxRightColumn(props) {
                     placeholder="First Name"
                     onChange={(e) => props.hireTrainerInfo(e)}
                     name="firstName"
-                    
                   />
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                   <Form.Control.Feedback type="invalid">
@@ -133,23 +132,25 @@ function InfoBoxRightColumn(props) {
             <ListGroup className="list-group list-group-flush text-start rounded">
               <ListGroup.Item className="list-group-item trainerFirstName">
                 First Name:{" "}
-                <span className="ml-1">{props.viewedTrainer.first_name}</span>{" "}
+                <span className="ml-1">{props.selectedTrainer.first_name}</span>{" "}
               </ListGroup.Item>
               <ListGroup.Item className="list-group-item trainerLastName">
                 Last Name:{" "}
-                <span className="ml-1">{props.viewedTrainer.last_name}</span>{" "}
+                <span className="ml-1">{props.selectedTrainer.last_name}</span>{" "}
               </ListGroup.Item>
               <ListGroup.Item className="list-group-item trainerGender">
                 Gender:
-                <span className="ml-1">{props.viewedTrainer.gender}</span>{" "}
+                <span className="ml-1">
+                  {props.selectedTrainer.gender}
+                </span>{" "}
               </ListGroup.Item>
               <ListGroup.Item className="list-group-item trainerEmail">
                 Email Address:{" "}
-                <span className="ml-1">{props.viewedTrainer.email}</span>
+                <span className="ml-1">{props.selectedTrainer.email}</span>
               </ListGroup.Item>
               <ListGroup.Item className="list-group-item trainerPhone">
                 Phone Number:
-                <span className="ml-1">{props.viewedTrainer.phone} </span>
+                <span className="ml-1">{props.selectedTrainer.phone} </span>
               </ListGroup.Item>
             </ListGroup>
 
