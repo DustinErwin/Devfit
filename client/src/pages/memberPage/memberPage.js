@@ -8,8 +8,13 @@ import Container from "react-bootstrap/Container";
 import MemberSchedule from "../../components/memberPageComponents/memberSchedule/memberSchedule";
 import { add, format } from "date-fns";
 import UserContext from "../../utilities/userContext";
+import DevBtn from "../../components/commonComponents/devButton/devButton";
+import IsShoppingContext from "../../utilities/isShoppingContext";
+import { Redirect } from "react-router";
 
 function MemberPage() {
+  const { setIsShopping } = useContext(IsShoppingContext);
+  const [sendShop, setSendShop] = useState();
   const user = useContext(UserContext);
   const [userClasses, setUserClasses] = useState([]); //The classes the member is enrolled in the left column info box
   const [classSchedule, setClassSchedule] = useState([]); //all info for each class rendered in schedule
@@ -74,8 +79,7 @@ function MemberPage() {
         Accept: "application/json",
       },
       body: JSON.stringify(data),
-    }).then((res) => {
-      res.json();
+    }).then(() => {
       fecthJoinedClasses();
     });
   }
@@ -90,21 +94,13 @@ function MemberPage() {
         Accept: "application/json",
       },
       body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then(() => {
-        fecthJoinedClasses();
-      });
+    }).then(() => {
+      fecthJoinedClasses();
+    });
   }
 
   function fecthJoinedClasses() {
-    fetch(`/api/member/${user._id}/classes`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
+    fetch(`/api/member/${user._id}/classes`, {})
       .then((res) => res.json())
       .then((classesJoined) => {
         setUserClasses([...classesJoined]);
@@ -121,6 +117,15 @@ function MemberPage() {
     <>
       <Header />
       <Container>
+        <DevBtn
+          onClick={() => {
+            setIsShopping(true);
+            setSendShop(<Redirect to={`/member-store`} />);
+          }}
+        >
+          Shop
+        </DevBtn>
+        {sendShop ? sendShop : null}
         <Row>
           <MemberInfoBox classesJoined={userClasses} />
           <MeetYourTrainerBox />

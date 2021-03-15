@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Header from "../../components/commonComponents/header/header";
 import Footer from "../../components/commonComponents/footer/footer";
 import Store from "../../components/storePageComponents/StoreComponent";
@@ -9,12 +9,18 @@ import "./memberStoreStyles.css";
 import Card from "react-bootstrap/Card";
 import { Cart3 } from "react-bootstrap-icons";
 import Cart from "../../components/storePageComponents/Cart";
+import IsShoppingContext from "../../utilities/isShoppingContext";
+import DevBtn from "../../components/commonComponents/devButton/devButton";
+import { Redirect } from "react-router";
 
 function MemberStore() {
+  const [sendClasses, setSendClasses] = useState();
+  const { setIsShopping } = useContext(IsShoppingContext);
   const [productList, setProductList] = useState({ product: [] });
   const [cart, setCart] = useState([]);
 
   useEffect(() => {
+    setIsShopping(true);
     const products = fetch("/api/store/productList");
     products
       .then((response) => response.json())
@@ -48,6 +54,15 @@ function MemberStore() {
       <Header />
       <Container fluid className="memberStore text-center">
         <h1 className="text-red mb-5">Dev Fit Member Store</h1>
+        <DevBtn
+          onClick={() => {
+            setIsShopping(false);
+            setSendClasses(<Redirect to={`/member`} />);
+          }}
+        >
+          Classes
+        </DevBtn>
+        {sendClasses ? sendClasses : null}
         <Row>
           <Col xs={8}>
             <Store
