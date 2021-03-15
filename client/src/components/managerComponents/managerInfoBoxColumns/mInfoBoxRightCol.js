@@ -43,8 +43,9 @@ function InfoBoxRightColumn(props) {
                     required
                     type="text"
                     placeholder="First Name"
-                    onChange={(e) => props.hireTrainerInfo(e)}
+                    onChange={(e) => props.updateTrainerInfo(e)}
                     name="firstName"
+                    
                   />
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                   <Form.Control.Feedback type="invalid">
@@ -57,7 +58,7 @@ function InfoBoxRightColumn(props) {
                     required
                     type="text"
                     placeholder="Last Name"
-                    onChange={(e) => props.hireTrainerInfo(e)}
+                    onChange={(e) => props.updateTrainerInfo(e)}
                     name="lastName"
                   />
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -74,7 +75,7 @@ function InfoBoxRightColumn(props) {
                     required
                     type="text"
                     placeholder="phone"
-                    onChange={(e) => props.hireTrainerInfo(e)}
+                    onChange={(e) => props.updateTrainerInfo(e)}
                     name="phone"
                     // pattern : https://stackoverflow.com/questions/19445408/how-to-restrict-user-to-type-10-digit-numbers-in-input-element
                     pattern="[1-9]{1}[0-9]{9}"
@@ -88,7 +89,7 @@ function InfoBoxRightColumn(props) {
                   <Form.Label>Gender</Form.Label>
                   <Form.Control
                     as="select"
-                    onChange={(e) => props.hireTrainerInfo(e)}
+                    onChange={(e) => props.updateTrainerInfo(e)}
                     name="gender"
                   >
                     <option>M</option>
@@ -104,7 +105,7 @@ function InfoBoxRightColumn(props) {
                     required
                     type="email"
                     placeholder="Email"
-                    onChange={(e) => props.hireTrainerInfo(e)}
+                    onChange={(e) => props.updateTrainerInfo(e)}
                     name="email"
                     //regex from https://stackoverflow.com/questions/742451/what-is-the-simplest-regular-expression-to-validate-emails-to-not-accept-them-bl/742455
                     pattern="(?!.*\.\.)(^[^\.][^@\s]+@[^@\s]+\.[^@\s\.]+$)"
@@ -140,9 +141,7 @@ function InfoBoxRightColumn(props) {
               </ListGroup.Item>
               <ListGroup.Item className="list-group-item trainerGender">
                 Gender:
-                <span className="ml-1">
-                  {props.selectedTrainer.gender}
-                </span>{" "}
+                <span className="ml-1">{props.selectedTrainer.gender}</span>{" "}
               </ListGroup.Item>
               <ListGroup.Item className="list-group-item trainerEmail">
                 Email Address:{" "}

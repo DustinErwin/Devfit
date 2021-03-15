@@ -10,6 +10,7 @@ import UserContext from "../../utilities/userContext";
 import { getMembersApi } from "../../utilities/API.js";
 import { getTrainersApi } from "../../utilities/API.js";
 import { postTrainerApi } from "../../utilities/API.js";
+import { terminateTrainerApi } from "../../utilities/API.js";
 import add from "date-fns/add";
 import { format } from "date-fns";
 import "./styles.css";
@@ -21,7 +22,7 @@ fetch roster in a use effect that updates every time roster changes
 3. rename things to follow better patterns, especially handle clicks, etc.*/
 
 function ManagerPage() {
-  //grab user from context
+  //grab user from context, allow empty array before data arrives
   const user = useContext(UserContext) || [];
   //all existing members
   const [allMembers, setAllMembers] = useState([{ id: "", fullName: "" }]);
@@ -41,7 +42,6 @@ function ManagerPage() {
     gender: "",
     email: "",
     phone: "",
-    gender: "", 
   });
   //holds the input value in the Roster page to add Member
   const [selectedMember, setSelectedMember] = useState("");
@@ -106,13 +106,15 @@ function ManagerPage() {
   }
 
   //sets info from trainer hire form to state
-  const hireTrainerInfo = (e) => {
+  const updateTrainerInfo = (e) => {
     const { name, value } = e.target;
     setSelectedTrainer({
       ...selectedTrainer,
       [name]: value,
     });
   };
+
+
 
   //post request to hire a new trainer
   const handleHireNewTrainer = async () => {
@@ -126,39 +128,19 @@ function ManagerPage() {
     };
     //add Trainer in DB
     await postTrainerApi(dataObject);
-    //pull new traines to page
+    //update page with trainers
     getAllTrainers();
-    
-    setSelectedTrainer({
-      firstName: "",
-      lastName: "",
-      gender: "M",
-      email: "",
-      phone: "",
-    });
+    //reset selected trainer for data integrity
+    setSelectedTrainer({});
   };
 
   //Delete request to terminate employee
-  function terminateTrainer() {
-    const id = selectedTrainer._id;
-    fetch(`/api/manager/deleteTrainer/` + id, {
-      method: "DELETE",
-    })
-      .then((res) => res.text())
-      .then((res) => {
-        getAllTrainers();
-        setSelectedTrainer({
-          firstName: "",
-          lastName: "",
-          gender: "M",
-          email: "",
-          phone: "",
-        });
-      })
-      .catch((error) => {
-        throw error;
-      });
-  }
+  const terminateTrainer = async () => {
+    
+    await terminateTrainerApi(selectedTrainer.id) 
+    getAllTrainers();
+    setSelectedTrainer({});
+  };
 
   /*---------------------------------------- Schedule Functions--------------------------------------------- */
 
@@ -296,7 +278,7 @@ function ManagerPage() {
               selectedTrainer={selectedTrainer}
               toggleRightCol={toggleRightCol}
               handleHireNewTrainer={() => handleHireNewTrainer()}
-              hireTrainerInfo={(e) => hireTrainerInfo(e)}
+              updateTrainerInfo={(e) => updateTrainerInfo(e)}
               terminateTrainer={() => terminateTrainer()}
             />
           }
