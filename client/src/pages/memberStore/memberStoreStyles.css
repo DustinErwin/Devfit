@@ -9,3 +9,22 @@
   flex-direction: row;
   flex-wrap: wrap;
 }
+
+.storeCart {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+}
+
+.addToCartBtn {
+  background-color: #d22e33 !important;
+  border: none !important;
+  color: whitesmoke;
+}
+
+.cartBtn {
+  background: rgb(49, 49, 49) !important;
+  border: none !important;
+  color: whitesmoke;
+
+}
