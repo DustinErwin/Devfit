@@ -7,11 +7,11 @@ const LogoutButton = () => {
   return (
     <BootstrapButton
       className="btn-dark"
-      onClick={() =>
+      onClick={() => {
         logout({
           returnTo: window.location.origin,
-        })
-      }
+        });
+      }}
     >
       Log Out
     </BootstrapButton>

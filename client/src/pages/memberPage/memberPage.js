@@ -8,13 +8,16 @@ import Container from "react-bootstrap/Container";
 import MemberSchedule from "../../components/memberPageComponents/memberSchedule/memberSchedule";
 import { add, format } from "date-fns";
 import UserContext from "../../utilities/userContext";
+import DevBtn from "../../components/commonComponents/devButton/devButton";
+import IsShoppingContext from "../../utilities/isShoppingContext";
+import { Redirect } from "react-router";
 
 function MemberPage() {
+  const { isShopping, setIsShopping } = useContext(IsShoppingContext);
   const user = useContext(UserContext);
   const [userClasses, setUserClasses] = useState([]); //The classes the member is enrolled in the left column info box
   const [classSchedule, setClassSchedule] = useState([]); //all info for each class rendered in schedule
   const weekLength = [0, 1, 2, 3, 4, 5, 6];
-  user.isShopping = false;
 
   //fetches all the information needed to render a schedule and stores it in state.
   function fetchScheduleData() {
@@ -119,6 +122,15 @@ function MemberPage() {
     <>
       <Header />
       <Container>
+        <DevBtn
+          onClick={() => {
+            setIsShopping(true);
+            console.log(isShopping);
+            return <Redirect to={`/member-store`} />;
+          }}
+        >
+          Shop
+        </DevBtn>
         <Row>
           <MemberInfoBox classesJoined={userClasses} />
           <MeetYourTrainerBox />

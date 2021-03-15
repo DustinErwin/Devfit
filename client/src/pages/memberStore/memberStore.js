@@ -9,16 +9,16 @@ import "./memberStoreStyles.css";
 import Card from "react-bootstrap/Card";
 import { Cart3 } from "react-bootstrap-icons";
 import Cart from "../../components/storePageComponents/Cart";
-import UserContext from "../../utilities/userContext";
-import { useAuth0 } from "@auth0/auth0-react";
+
+import IsShoppingContext from "../../utilities/isShoppingContext";
 
 function MemberStore() {
-  const user = useContext(UserContext);
+  const { isShopping, setIsShopping } = useContext(IsShoppingContext);
   const [productList, setProductList] = useState({ product: [] });
   const [cart, setCart] = useState([]);
 
   useEffect(() => {
-    user.isShopping = true;
+    setIsShopping(true);
     const products = fetch("/api/store/productList");
     products
       .then((response) => response.json())

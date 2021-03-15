@@ -9,7 +9,6 @@ const UserContext = React.createContext({
   fullName: "",
   role: "",
   gender: "",
-  isShopping: false,
 });
 
 export default UserContext;
