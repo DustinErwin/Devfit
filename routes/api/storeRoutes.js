@@ -6,8 +6,8 @@ const db = require("../../models");
 // GET API that gets the list of all products
 router.route("/productList").get((req, res) => {
   db.Product.find({})
-  .then((products) => res.json(products))
-  .catch((err) => res.status(500).json(err));
+    .then((products) => res.json(products))
+    .catch((err) => res.status(500).json(err));
 });
 
 router.route("/order").post((req, res) => {
