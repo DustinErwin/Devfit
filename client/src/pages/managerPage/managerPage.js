@@ -29,25 +29,19 @@ function ManagerPage() {
   const [allTrainers, setAllTrainers] = useState([
     { _id: "", email: "", first_name: "", last_name: "", gender: "" },
   ]);
-  //holds info for a single trainer
-  const [selectedTrainer, setSelectedTrainer] = useState({
-    _id: "",
-    email: "",
-    first_name: "",
-    last_name: "",
-    gender: "",
-  });
+
   //holds info for a single class
   const [selectedClass, setselectedClass] = useState("id");
   //toggles the right column between "addTrainer" and "trainerInfo"
   const [toggleRightCol, setToggleRightCol] = useState("addTrainer");
   //holds all info from add-trainer form
-  const [trainerHire, setTrainerHire] = useState({
+  const [selectedTrainer, setSelectedTrainer] = useState({
     firstName: "",
     lastName: "",
     gender: "",
     email: "",
     phone: "",
+    gender: "", 
   });
   //holds the input value in the Roster page to add Member
   const [selectedMember, setSelectedMember] = useState("");
@@ -114,8 +108,8 @@ function ManagerPage() {
   //sets info from trainer hire form to state
   const hireTrainerInfo = (e) => {
     const { name, value } = e.target;
-    setTrainerHire({
-      ...trainerHire,
+    setSelectedTrainer({
+      ...selectedTrainer,
       [name]: value,
     });
   };
@@ -123,18 +117,18 @@ function ManagerPage() {
   //post request to hire a new trainer
   const handleHireNewTrainer = async () => {
     const dataObject = {
-      first_name: trainerHire.firstName,
-      last_name: trainerHire.lastName,
-      gender: trainerHire.gender,
-      phone: trainerHire.phone,
-      email: trainerHire.email,
+      first_name: selectedTrainer.firstName,
+      last_name: selectedTrainer.lastName,
+      gender: selectedTrainer.gender,
+      phone: selectedTrainer.phone,
+      email: selectedTrainer.email,
       role: "employee",
     };
-
+    //add Trainer in DB
     await postTrainerApi(dataObject);
-
+    //pull new traines to page
     getAllTrainers();
-
+    
     setSelectedTrainer({
       firstName: "",
       lastName: "",
