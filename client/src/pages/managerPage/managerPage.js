@@ -54,12 +54,12 @@ function ManagerPage() {
   useEffect(() => {
     fetchallTrainers();
     fetchScheduleData();
-    fetchAllMembers();
+    getAllMembers();
     // eslint-disable-next-line
   }, [user]);
 
-  //grabs a list of all members for input options options
-  function fetchAllMembers() {
+  //grabs a list of all members for input options 
+  function getAllMembers() {
     fetch("/api/manager/memberList", {
       method: "GET",
       headers: {

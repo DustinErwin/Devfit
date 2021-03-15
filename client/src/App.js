@@ -48,7 +48,7 @@ function App() {
             });
             setUserRole(<Redirect to={`/${currentUser.role}`} />);
           } else {
-            setUserRole(<Redirect to={`/registration`} />);
+            setUserRole(<Redirect to={`/manager`} />); //originally on /registration, but i changed it to the page i want to be on (EBW)
           }
         });
     } else if (!isAuthenticated) {
