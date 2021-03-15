@@ -11,6 +11,7 @@ import girlFeet from "../../images/girlfeetwaterbottle.jpg";
 import gymCoronavirus from "../../images/gym-coronavirus.jpg";
 import bench from "../../images/bench.jpg";
 import equipmentRoom from "../../images/equipmentroom.jpg";
+import SignUpButton from "../../components/signupButton/signupButton";
 
 function LoginPage() {
   return (
@@ -62,7 +63,7 @@ function LoginPage() {
                 we've got you covered. <br />
                 Ready to become a member?
               </h2>
-              <AuthenticationButton />
+              <SignUpButton />
             </Container>
           </Col>
           <Col className="align-self-stretch background-dark">

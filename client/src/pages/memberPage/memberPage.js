@@ -13,7 +13,8 @@ import IsShoppingContext from "../../utilities/isShoppingContext";
 import { Redirect } from "react-router";
 
 function MemberPage() {
-  const { isShopping, setIsShopping } = useContext(IsShoppingContext);
+  const { setIsShopping } = useContext(IsShoppingContext);
+  const [sendShop, setSendShop] = useState();
   const user = useContext(UserContext);
   const [userClasses, setUserClasses] = useState([]); //The classes the member is enrolled in the left column info box
   const [classSchedule, setClassSchedule] = useState([]); //all info for each class rendered in schedule
@@ -99,13 +100,7 @@ function MemberPage() {
   }
 
   function fecthJoinedClasses() {
-    fetch(`/api/member/${user._id}/classes`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
+    fetch(`/api/member/${user._id}/classes`, {})
       .then((res) => res.json())
       .then((classesJoined) => {
         setUserClasses([...classesJoined]);
@@ -125,12 +120,12 @@ function MemberPage() {
         <DevBtn
           onClick={() => {
             setIsShopping(true);
-            console.log(isShopping);
-            return <Redirect to={`/member-store`} />;
+            setSendShop(<Redirect to={`/member-store`} />);
           }}
         >
           Shop
         </DevBtn>
+        {sendShop ? sendShop : null}
         <Row>
           <MemberInfoBox classesJoined={userClasses} />
           <MeetYourTrainerBox />
