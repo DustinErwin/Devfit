@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import Header from "../../components/commonComponents/header/header";
 import Footer from "../../components/commonComponents/footer/footer";
-import Row from "react-bootstrap/Row";
 import UserInfoBox from "../../components/commonComponents/userInfoBox/userInfoBox.js";
 import LeftColumn from "../../components/managerComponents/managerInfoBoxColumns/mInfoBoxLeftCol";
 import RightColumn from "../../components/managerComponents/managerInfoBoxColumns/mInfoBoxRightCol";
@@ -11,6 +10,12 @@ import UserContext from "../../utilities/userContext";
 import add from "date-fns/add";
 import { format } from "date-fns";
 import "./styles.css";
+
+/* TODO
+1. slots left updates on add and remove. consider use effect every time roster changes also consider 
+fetch roster in a use effect that updates every time roster changes 
+2. look closely at condensing states 
+3. rename things to follow better patterns, especially handle clicks, etc.*/
 
 function ManagerPage() {
   //grab user from context
@@ -234,7 +239,7 @@ function ManagerPage() {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
+
         const memberRoster = res;
 
         setClassRoster(memberRoster);
