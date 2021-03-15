@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Header from "../../components/commonComponents/header/header";
 import Footer from "../../components/commonComponents/footer/footer";
 import Store from "../../components/storePageComponents/StoreComponent";
@@ -9,12 +9,16 @@ import "./memberStoreStyles.css";
 import Card from "react-bootstrap/Card";
 import { Cart3 } from "react-bootstrap-icons";
 import Cart from "../../components/storePageComponents/Cart";
+import UserContext from "../../utilities/userContext";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function MemberStore() {
+  const user = useContext(UserContext);
   const [productList, setProductList] = useState({ product: [] });
   const [cart, setCart] = useState([]);
 
   useEffect(() => {
+    user.isShopping = true;
     const products = fetch("/api/store/productList");
     products
       .then((response) => response.json())

@@ -20,6 +20,7 @@ function App() {
     fullName: "",
     role: "",
     gender: "",
+    isShopping: false,
   });
 
   const [userRole, setUserRole] = useState(null);
@@ -28,7 +29,7 @@ function App() {
 
   useEffect(() => {
     console.log("isAuthenticated?", isAuthenticated);
-    if (isAuthenticated) {
+    if (!userInfo.isShopping && isAuthenticated) {
       const { email } = user;
 
       fetch(`/api/user/${email}`)
@@ -44,6 +45,7 @@ function App() {
               fullName: `${currentUser.first_name} ${currentUser.last_name}`,
               role: currentUser.role,
               gender: currentUser.gender,
+              isShopping: false,
             });
             setUserRole(<Redirect to={`/${currentUser.role}`} />);
           } else {
@@ -60,11 +62,12 @@ function App() {
         fullName: "",
         role: "",
         gender: "",
+        isShopping: false,
       });
       setUserRole(null);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuthenticated]);
+  }, [user]);
 
   return (
     <UserContext.Provider value={userInfo}>

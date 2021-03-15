@@ -14,6 +14,7 @@ function MemberPage() {
   const [userClasses, setUserClasses] = useState([]); //The classes the member is enrolled in the left column info box
   const [classSchedule, setClassSchedule] = useState([]); //all info for each class rendered in schedule
   const weekLength = [0, 1, 2, 3, 4, 5, 6];
+  user.isShopping = false;
 
   //fetches all the information needed to render a schedule and stores it in state.
   function fetchScheduleData() {
