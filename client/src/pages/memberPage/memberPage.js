@@ -118,12 +118,13 @@ function MemberPage() {
       <Header />
       <Container>
         <DevBtn
+          styleClass="btn-red mb-3"
           onClick={() => {
             setIsShopping(true);
             setSendShop(<Redirect to={`/member-store`} />);
           }}
         >
-          Shop
+          Member Store
         </DevBtn>
         {sendShop ? sendShop : null}
         <Row>

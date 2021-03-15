@@ -12,6 +12,7 @@ import Cart from "../../components/storePageComponents/Cart";
 import IsShoppingContext from "../../utilities/isShoppingContext";
 import DevBtn from "../../components/commonComponents/devButton/devButton";
 import { Redirect } from "react-router";
+import "../../components/commonComponents/devButton/styles.css";
 
 function MemberStore() {
   const [sendClasses, setSendClasses] = useState();
@@ -53,15 +54,21 @@ function MemberStore() {
     <>
       <Header />
       <Container fluid className="memberStore text-center">
-        <h1 className="text-red mb-5">Dev Fit Member Store</h1>
-        <DevBtn
-          onClick={() => {
-            setIsShopping(false);
-            setSendClasses(<Redirect to={`/member`} />);
-          }}
-        >
-          Classes
-        </DevBtn>
+        <Row>
+          <DevBtn
+            styleClass="btn-red ml-5"
+            onClick={() => {
+              setIsShopping(false);
+              setSendClasses(<Redirect to={`/member`} />);
+            }}
+          >
+            Back to Classes
+          </DevBtn>
+        </Row>
+        <h1 className="text-red mb-5 align-self-center">
+          Dev Fit Member Store
+        </h1>
+
         {sendClasses ? sendClasses : null}
         <Row>
           <Col xs={8}>

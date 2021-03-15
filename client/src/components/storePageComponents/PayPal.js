@@ -24,6 +24,8 @@ export default function PayPal() {
         },
         onApprove: async (data, actions) => {
           const order = await actions.order.capture();
+          //Add modal to say "Thank you for your order."
+          //Clear screen (so that paypal button doesn't duplicate afterward)
           console.log(order);
         },
         onError: (err) => {

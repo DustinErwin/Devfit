@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import CartItem from "./CartItem";
 import PayPal from "./PayPal";
+import DevBtn from "../commonComponents/devButton/devButton";
 
 function Cart(props) {
   const { cartItems } = props;
@@ -37,21 +38,21 @@ function Cart(props) {
         </tr>
         <tr>
           <td colSpan="4" className="text-right">
-            <Button className="cartBtn" type="button" value="Checkout">
+            <DevBtn styleClass="btn-dark" type="button" value="Checkout">
               Checkout
-            </Button>
+            </DevBtn>
 
             {checkout ? (
               <PayPal />
             ) : (
-              <Button
-                className="paypal-button"
+              <DevBtn
+                styleClass="btn-dark"
                 onClick={() => {
                   setCheckOut(true);
                 }}
               >
                 Paypal Checkout
-              </Button>
+              </DevBtn>
             )}
           </td>
         </tr>
