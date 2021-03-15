@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import CartItem from "./CartItem";
-// import "../commonComponents/devButton/devButton";
-// import DevBtn from "../commonComponents/devButton/devButton";
+import PayPal from "./PayPal";
 
 function Cart(props) {
   const { cartItems } = props;
@@ -11,6 +10,9 @@ function Cart(props) {
     (accumulator, item) => accumulator + item.price * item.quantity,
     0
   );
+
+  const [checkout, setCheckOut] = useState(false);
+
   return (
     <Table responsive>
       <thead>
@@ -38,6 +40,19 @@ function Cart(props) {
             <Button className="cartBtn" type="button" value="Checkout">
               Checkout
             </Button>
+
+            {checkout ? (
+              <PayPal />
+            ) : (
+              <Button
+                className="paypal-button"
+                onClick={() => {
+                  setCheckOut(true);
+                }}
+              >
+                Paypal Checkout
+              </Button>
+            )}
           </td>
         </tr>
       </tfoot>

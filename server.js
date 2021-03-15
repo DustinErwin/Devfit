@@ -41,5 +41,3 @@ app.get("*", function (req, res) {
 app.listen(PORT, function () {
   console.log(`🌎 ==> API server now on port ${PORT}!`);
 });
-
-// app.use("/uploads", express.static("uploads"));

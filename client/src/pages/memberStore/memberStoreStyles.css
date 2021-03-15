@@ -11,7 +11,8 @@
 }
 
 .storeCart {
-    position: -webkit-sticky; /* Safari */
+/* Source: https://www.w3schools.com/css/css_positioning.asp */
+  position: -webkit-sticky; /* Safari */
     position: sticky;
     top: 0;
 }
