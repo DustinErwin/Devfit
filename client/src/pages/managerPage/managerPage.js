@@ -228,7 +228,7 @@ function ManagerPage() {
     <>
       <Header />
 
-      <Container>
+   
         <UserInfoBox
           colLeft={
             <LeftColumn
@@ -247,7 +247,7 @@ function ManagerPage() {
             />
           }
         ></UserInfoBox>
-      </Container>
+  
       <ManagerSchedule
         classSchedule={classSchedule}
         fetchClassRoster={fetchClassRoster}
