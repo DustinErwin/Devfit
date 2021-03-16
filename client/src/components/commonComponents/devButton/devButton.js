@@ -11,7 +11,7 @@ function DevBtn(props) {
   return (
     <BootstrapButton
       className={"button align-self-center " + props.styleClass } id={props.id}
-      onClick={props.onClick}
+      onClick={props.onClick} disabled={props.disableBtn}
     >
       {props.children}
     </BootstrapButton>
