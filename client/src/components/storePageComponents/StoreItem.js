@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Card, Button, ListGroup, ListGroupItem } from "react-bootstrap";
+import { Card, ListGroup, ListGroupItem } from "react-bootstrap";
 import jumpRope from "../../images/store/jumpRope.jpg";
+import DevBtn from "../../components/commonComponents/devButton/devButton";
 
 function StoreItem(props) {
   const [selectedQuantity, updateSelectedQuantity] = useState(0);
@@ -46,13 +47,9 @@ function StoreItem(props) {
         <br />
         <br />
         <Card.Link>
-          <Button
-            className="addToCartBtn"
-            type="button"
-            onClick={addToCartHandler}
-          >
+          <DevBtn styleClass="btn-red" type="button" onClick={addToCartHandler}>
             Add To Cart
-          </Button>
+          </DevBtn>
         </Card.Link>
       </Card.Body>
     </Card>

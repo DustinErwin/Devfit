@@ -171,7 +171,7 @@ function ManagerPage() {
 
   //fetches all the information needed to render a schedule and stores it in state.
   function fetchScheduleData() {
-    fetch("/api/employee/6047aab647549b4658f9e131/classes", {
+    fetch(`/api/employee/${user._id}/classes`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
