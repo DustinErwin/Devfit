@@ -12,7 +12,7 @@ function MemberInfoBox(props) {
   const classAmount = classesJoined.length;
   return (
     <Col className="red-box col-12 col-md-6 text-center mb-5 mb-md-0 pb-5 ">
-      <h2 className="mt-5 mb-5">Hi, {user.firstName}</h2>
+      <h2 className="mt-4 mb-4">Hi, {user.firstName}</h2>
       <p>
         Your are currently signed up for
         <span className="number-of-classes-taken">

@@ -4,6 +4,7 @@ import ScheduleColumn from "../../commonComponents/scheduleColumn/scheduleColumn
 import { Row, Container } from "react-bootstrap/";
 import convertTime from "../../../utilities/convertTime";
 import DevBtn from "../../commonComponents/devButton/devButton";
+import "./memberSchedule.css"
 
 function MemberSchedule(props) {
   const classesJoined = props.classesJoined || [];
