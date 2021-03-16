@@ -1,0 +1,22 @@
+  /*for schedule column borders. */
+  .border-to-right {
+    border-right: 1px solid #1783ee;
+  }
+  
+  .border-to-bottom {
+    border-bottom: 2px solid;
+    border-color: #1783ee;
+  }
+  
+  .border-to-bottom-thin {
+    border-bottom: 1px solid;
+    border-color: #1783ee;
+  }
+  
+ .center-btn{
+   text-align:center
+ }
+
+ body {
+   background: white 
+ }

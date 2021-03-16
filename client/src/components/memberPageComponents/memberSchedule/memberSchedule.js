@@ -4,12 +4,13 @@ import ScheduleColumn from "../../commonComponents/scheduleColumn/scheduleColumn
 import { Row, Container } from "react-bootstrap/";
 import convertTime from "../../../utilities/convertTime";
 import DevBtn from "../../commonComponents/devButton/devButton";
+import "./memberSchedule.css"
 
 function MemberSchedule(props) {
   const classesJoined = props.classesJoined || [];
   return (
-    <Container fluid>
-      <Row>
+    <Container fluid className="mt-md-5 mb-md-5 larger-font">
+      <Row className="white-background ml-md-5 mr-md-5">
         {props.classSchedule.map((day) => {
           return (
             <ScheduleColumn

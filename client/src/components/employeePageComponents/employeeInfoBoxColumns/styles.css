@@ -1,24 +1,62 @@
 .view-roster {
-    background: #d22e33 !important;
-    width: 80%; 
-    text-align: center;
-    }
+  background: #d22e33 !important;
+  width: 80%;
+  text-align: center;
+}
 
 .add-class {
-    color:black; 
-    text-align: center !important;
-    width: 100% !important;
-    padding-left: 1em !important;
-    padding-right: 1em !important;
+  color: black;
+  text-align: center !important;
+  width: 100% !important;
+  padding-left: 1em !important;
+  padding-right: 1em !important;
+}
+
+.roster-card {
+  color: black;
+  text-align: center !important;
+  width: 50% !important;
+  padding-left: 1em !important;
+  padding-right: 1em !important;
 }
 
 .text-red {
-    color:#d22e33 
+  color: #d22e33;
 }
 
-.list-item{
-    list-style: none;
+.list-item {
+  list-style: none;
+}
+
+@media only screen and (max-width: 767px) {
+  .right-col-card {
+    width: 100%;
+    background: #d22e33 !important;
+    color: black;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .right-col-card {
+    width: 80%;
+    background: #d22e33 !important;
+    color: black;
+  }
+}
+
+.add-class-title {
+  color: whitesmoke;
 }
 
 
+.roster-col {
+    display:flex;
+justify-content: center;
 
+}
+
+.class-text-col {
+    display:flex; 
+    justify-content: flex-start;
+
+}
