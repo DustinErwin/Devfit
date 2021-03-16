@@ -11,14 +11,13 @@ import { getMembersApi } from "../../utilities/API.js";
 import { getTrainersApi } from "../../utilities/API.js";
 import { postTrainerApi } from "../../utilities/API.js";
 import { terminateTrainerApi } from "../../utilities/API.js";
-import { renderScheduleApi} from "../../utilities/API.js";
-import { fetchClassRosterApi} from "../../utilities/API.js"
-import { removeMemberApi} from "../../utilities/API.js"
-import { addToClassApi} from "../../utilities/API.js"
+import { renderScheduleApi } from "../../utilities/API.js";
+import { fetchClassRosterApi } from "../../utilities/API.js";
+import { removeMemberApi } from "../../utilities/API.js";
+import { addToClassApi } from "../../utilities/API.js";
 import add from "date-fns/add";
 import { format } from "date-fns";
 import "./styles.css";
-
 
 function ManagerPage() {
   //grab user from context, allow empty array before data arrives
@@ -29,7 +28,6 @@ function ManagerPage() {
   const [allTrainers, setAllTrainers] = useState([
     { _id: "", email: "", first_name: "", last_name: "", gender: "" },
   ]);
-
   //holds info for a single class
   const [selectedClass, setselectedClass] = useState("id");
   //toggles the right column between "addTrainer" and "trainerInfo"
@@ -43,7 +41,6 @@ function ManagerPage() {
     phone: "",
     id: "",
   });
-
   //sets info from trainer hire form to state
   const updateTrainerInfo = (e) => {
     const { name, value } = e.target;
@@ -51,11 +48,7 @@ function ManagerPage() {
       ...selectedTrainer,
       [name]: value,
     });
-
   };
-
-
-
   //holds the input value in the Roster page to add Member
   const [selectedMember, setSelectedMember] = useState("");
   //class Schedule data
@@ -82,9 +75,14 @@ function ManagerPage() {
   //on page load after manger's id and info appears
   useEffect(() => {
     getAllTrainers();
-    renderSchedule()
+    renderSchedule();
     getAllMembers();
   }, [user._id]);
+
+  //whenver the class Roster updates, update schedule to reflect spots left change
+  useEffect(() => {
+    renderSchedule()
+  },[classRoster])
 
   //get all members, then set them to AllMembersState
   const getAllMembers = async () => {
@@ -143,68 +141,65 @@ function ManagerPage() {
     setSelectedTrainer({});
   };
 
-  
-
   /*---------------------------------------- Schedule Functions--------------------------------------------- */
   //get schedule data then render schedule
- const renderSchedule = async () => {
-  const scheduleData = await renderScheduleApi(user._id)
+  const renderSchedule = async () => {
+    const scheduleData = await renderScheduleApi(user._id);
 
-   const stateArray = [];
-        // eslint-disable-next-line
-        [1, 2, 3, 4, 5, 6, 7].map((nothing, i) => {
-          //Use date-fns to get classSchedule for the 7 days of the week
-          const addDay = add(new Date(), {
-            years: 0,
-            months: 0,
-            weeks: 0,
-            days: i,
-            hours: 0,
-            minutes: 0,
-            seconds: 0,
-          });
+    const stateArray = [];
+    // eslint-disable-next-line
+    [1, 2, 3, 4, 5, 6, 7].map((nothing, i) => {
+      //Use date-fns to get classSchedule for the 7 days of the week
+      const addDay = add(new Date(), {
+        years: 0,
+        months: 0,
+        weeks: 0,
+        days: i,
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+      });
 
-          //the date written as Jan 23rd
-          const calendarDate = format(addDay, "LLL, do");
-          //day of week written as "Monday"
-          const dayOfWeek = format(addDay, "EEEE");
+      //the date written as Jan 23rd
+      const calendarDate = format(addDay, "LLL, do");
+      //day of week written as "Monday"
+      const dayOfWeek = format(addDay, "EEEE");
 
-          //Filter the fetch request to only grab classes on the current day weeklength.map is iterating through
-          const filteredData = scheduleData.filter((r) => {
-            return r.day === dayOfWeek;
-          });
+      //Filter the fetch request to only grab classes on the current day weeklength.map is iterating through
+      const filteredData = scheduleData.filter((r) => {
+        return r.day === dayOfWeek;
+      });
 
-          //create an object to store both the fns date classSchedule and the current day
-          const dataObject = {
-            date: calendarDate,
-            weekDay: dayOfWeek,
-            classData: filteredData,
-          };
+      //create an object to store both the fns date classSchedule and the current day
+      const dataObject = {
+        date: calendarDate,
+        weekDay: dayOfWeek,
+        classData: filteredData,
+      };
 
-          //add that object to state
-          stateArray.push(dataObject);
-        });
+      //add that object to state
+      stateArray.push(dataObject);
+    });
 
-        setClassSchedule(stateArray);
- }
-        
+    setClassSchedule(stateArray);
+  };
+
   //fetch classes roster then pop up a modal
- const fetchClassRoster = async(classId) => {
-   const classRoster = await fetchClassRosterApi(classId)
-        setClassRoster(classRoster);
-  }
+  const fetchClassRoster = async (classId) => {
+    const classRoster = await fetchClassRosterApi(classId);
+    setClassRoster(classRoster);
+  };
 
   //Remove member from class
-  const removeMember = async(e) => {
+  const removeMember = async (e) => {
     const idObject = { memberid: e.target.id, id: selectedClass };
-    await removeMemberApi(idObject)
-      fetchClassRoster(selectedClass);
-    
-  }
+    await removeMemberApi(idObject);
+    fetchClassRoster(selectedClass);
+  };
 
   //manager adds member in roster modal
-  const addMemberToClass = async() => {
-    //check all members against the member typed into input box, and return chosen member 
+  const addMemberToClass = async () => {
+    //check all members against the member typed into input box, and return chosen member
     const filteredMember = allMembers
       .filter((item) => {
         return selectedMember === item.fullName;
@@ -216,11 +211,10 @@ function ManagerPage() {
       id: selectedClass,
     };
 
-    await addToClassApi(objectId)
-   
-      fetchClassRoster(selectedClass);
-  
-  }
+    await addToClassApi(objectId);
+
+    fetchClassRoster(selectedClass);
+  };
 
   function handleRosterClick(e) {
     setselectedClass(e.target.id);
