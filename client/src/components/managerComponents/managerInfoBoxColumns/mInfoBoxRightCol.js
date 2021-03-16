@@ -21,6 +21,7 @@ function InfoBoxRightColumn(props) {
     props.handleHireNewTrainer();
     setValidated(true);
   };
+  
 
   return (
     <>

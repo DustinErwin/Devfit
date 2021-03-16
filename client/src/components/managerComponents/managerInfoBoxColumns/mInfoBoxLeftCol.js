@@ -5,6 +5,7 @@ import AuthenticationButton from "../../authenticationButton/logoutButton/logout
 
 
 function InfoBoxLeftColumn(props) {
+  console.log(props)
   return (
     <>
       <h2 className="mb-4 mt-4">Trainers</h2>
@@ -13,7 +14,7 @@ function InfoBoxLeftColumn(props) {
           <div className="trainer-wrapper" key={i}>
             <li className="list-item mb-3 ">
               {" "}
-              <DevBtn id={item._id} styleClass="btn-dark mr-4" onClick={props.trainerSelect}>View</DevBtn>{" "}
+              <DevBtn id={item._id} styleClass="btn-dark mr-4" onClick={(e) =>props.trainerSelect(e)}>View</DevBtn>{" "}
               {`${item.first_name}  ${item.last_name}`}{" "} 
             </li>
           </div>    

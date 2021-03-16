@@ -39,10 +39,23 @@ function ManagerPage() {
   const [selectedTrainer, setSelectedTrainer] = useState({
     firstName: "",
     lastName: "",
-    gender: "",
+    gender: "M",
     email: "",
     phone: "",
+    id: "",
   });
+
+  //sets info from trainer hire form to state
+  const updateTrainerInfo = (e) => {
+    const { name, value } = e.target;
+    setSelectedTrainer({
+      ...selectedTrainer,
+      [name]: value,
+    });
+
+  };
+
+
   //holds the input value in the Roster page to add Member
   const [selectedMember, setSelectedMember] = useState("");
   //class Schedule data
@@ -86,17 +99,16 @@ function ManagerPage() {
   };
 
   //on View button click, set Chosen Trainer to  viewTrainer state
-  const trainerSelect = (trainersViewBtn) => {
-    const chosenTrainerId = trainersViewBtn.target.id;
+  const trainerSelect = (e) => {
+    const chosenTrainerId = e.target.id;
 
     //search this trainers id against all trainers to get all
     const chosenTrainer = allTrainers.filter((item) => {
       return item._id === chosenTrainerId;
     });
-    // remove the arary from filter return
-    const chosenTrainerNoArray = chosenTrainer[0];
 
-    setSelectedTrainer(chosenTrainerNoArray);
+    setSelectedTrainer(chosenTrainer[0]);
+
     setToggleRightCol("viewTrainer");
   };
 
@@ -105,23 +117,12 @@ function ManagerPage() {
     setToggleRightCol("addTrainer");
   }
 
-  //sets info from trainer hire form to state
-  const updateTrainerInfo = (e) => {
-    const { name, value } = e.target;
-    setSelectedTrainer({
-      ...selectedTrainer,
-      [name]: value,
-    });
-  };
-
-
-
   //post request to hire a new trainer
   const handleHireNewTrainer = async () => {
     const dataObject = {
       first_name: selectedTrainer.firstName,
       last_name: selectedTrainer.lastName,
-      gender: selectedTrainer.gender,
+      gender: selectedTrainer.gender || "M",
       phone: selectedTrainer.phone,
       email: selectedTrainer.email,
       role: "employee",
@@ -136,11 +137,13 @@ function ManagerPage() {
 
   //Delete request to terminate employee
   const terminateTrainer = async () => {
-    
-    await terminateTrainerApi(selectedTrainer.id) 
+    console.log("terminate", selectedTrainer);
+    await terminateTrainerApi(selectedTrainer._id);
     getAllTrainers();
     setSelectedTrainer({});
   };
+
+  
 
   /*---------------------------------------- Schedule Functions--------------------------------------------- */
 
