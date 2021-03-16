@@ -4,6 +4,7 @@ import jumpRope from "../../images/store/jumpRope.jpg";
 import DevBtn from "../../components/commonComponents/devButton/devButton";
 
 function StoreItem(props) {
+  const images = require.context("../../images/store", true);
   const [selectedQuantity, updateSelectedQuantity] = useState(0);
   const handleInputChange = (event) => {
     const { value } = event.target;
@@ -22,7 +23,7 @@ function StoreItem(props) {
   const { el, clickHandler } = props;
   return (
     <Card className="my-3 mx-auto" border="danger" style={{ width: "18rem" }}>
-      <Card.Img variant="top" src={jumpRope} />
+      <Card.Img variant="top" src={images(`./${el.image_path}`).default} />
       <Card.Body>
         <Card.Title>{el.name}</Card.Title>
         <Card.Text>{el.description}</Card.Text>
