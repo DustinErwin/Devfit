@@ -3,7 +3,8 @@ import DevBtn from "../../commonComponents/devButton/devButton";
 import "./styles.css";
 import tConvert from "../../../utilities/convertTime";
 import AuthenticationButton from "../../authenticationButton/logoutButton/logoutButton";
-
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col"
 function InfoBoxLeftColumn(props) {
   return (
     <div className="left-column ">
@@ -12,33 +13,32 @@ function InfoBoxLeftColumn(props) {
         You are currently teaching {props.numClassesTaught}{" "}
         {props.numClassesTaught === 1 ? "class" : "classes"} this week!
       </p>
+      <Row>
       {props.userClasses.map((singleClass) => {
         const convertedTime = tConvert(singleClass.start_time);
 
         return (
           <>
-            <div
-              className="trainers-class mb-3"
+            <Col xs="12"
+              className=" mb-4 col1"
               key={singleClass.start_time + singleClass.day}
             >
-              <p className="mr-3 trainer-class-p">
-                - {singleClass.day}, {singleClass.class_name}, at{" "}
-                {convertedTime} -{" "}
-                <span>
-                  {" "}
-                  <DevBtn
-                    styleClass="btn-dark"
-                    id={singleClass.id}
-                    onClick={props.updateRoster}
-                  >
-                    Roster
-                  </DevBtn>{" "}
-                </span>
+              <DevBtn
+                styleClass="btn-dark"
+                id={singleClass.id}
+                onClick={props.updateRoster}
+              >
+                Roster
+              </DevBtn>{" "}
+              <p className="ml-3  ">
+                {singleClass.day}, {singleClass.class_name}, at {convertedTime}{" "}
+                <span> </span>
               </p>{" "}
-            </div>
+            </Col>
           </>
         );
       })}
+      </Row>
       <div>
         <DevBtn styleClass="btn-dark mr-3" onClick={props.toggleAddClass}>
           Add Class
