@@ -107,10 +107,10 @@ function EmployeePage() {
         Accept: "application/json",
       },
     })
-      .then((res) => res.json())
-      .then((res) => {
-        const roster = res.shift();
-        setClassRoster([roster]);
+      .then((currentRoster) => currentRoster.json())
+      .then((currentRoster) => {
+        console.log(currentRoster)
+        setClassRoster(currentRoster);
         setRightColDisplay("roster");
       });
   }
