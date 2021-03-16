@@ -13,7 +13,7 @@ function InfoBoxLeftColumn(props) {
           <div className="trainer-wrapper" key={i}>
             <li className="list-item mb-3 ">
               {" "}
-              <DevBtn id={item._id} styleClass="btn-dark mr-4" onClick={props.handleViewedTrainer}>View</DevBtn>{" "}
+              <DevBtn id={item._id} styleClass="btn-dark mr-4" onClick={(e) =>props.trainerSelect(e)}>View</DevBtn>{" "}
               {`${item.first_name}  ${item.last_name}`}{" "} 
             </li>
           </div>    
