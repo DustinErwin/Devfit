@@ -3,20 +3,13 @@ import Header from "../../components/commonComponents/header/header";
 import Footer from "../../components/commonComponents/footer/footer";
 import MemberInfoBox from "../../components/memberPageComponents/memberInfoBox/memberInfoBox";
 import MeetYourTrainerBox from "../../components/memberPageComponents/meetYourTrainerBox/TrainerCarousel";
-import Row from "react-bootstrap/Row";
-import Container from "react-bootstrap/Container";
 import MemberSchedule from "../../components/memberPageComponents/memberSchedule/memberSchedule";
 import { add, format } from "date-fns";
 import UserContext from "../../utilities/userContext";
-import DevBtn from "../../components/commonComponents/devButton/devButton";
-import IsShoppingContext from "../../utilities/isShoppingContext";
-import { Redirect } from "react-router";
-import UserInfoBox from "../../components/commonComponents/userInfoBox/userInfoBox"
 
+import UserInfoBox from "../../components/commonComponents/userInfoBox/userInfoBox";
 
 function MemberPage() {
-  const { setIsShopping } = useContext(IsShoppingContext);
-  const [sendShop, setSendShop] = useState();
   const user = useContext(UserContext);
   const [userClasses, setUserClasses] = useState([]); //The classes the member is enrolled in the left column info box
   const [classSchedule, setClassSchedule] = useState([]); //all info for each class rendered in schedule
@@ -118,29 +111,10 @@ function MemberPage() {
   return (
     <>
       <Header />
-
-        <DevBtn
-          styleClass="btn-red mb-3"
-          onClick={() => {
-            setIsShopping(true);
-            setSendShop(<Redirect to={`/member-store`} />);
-          }}
-        >
-          Member Store
-        </DevBtn>
-        {sendShop ? sendShop : null}
-        <UserInfoBox
-        colLeft={
-          <MemberInfoBox classesJoined={userClasses}/>
-        }
-        colRight={
-          <MeetYourTrainerBox />
-               }
+      <UserInfoBox
+        colLeft={<MemberInfoBox classesJoined={userClasses} />}
+        colRight={<MeetYourTrainerBox />}
       ></UserInfoBox>
- 
-    
-        
-      
 
       <MemberSchedule
         classesJoined={userClasses}
