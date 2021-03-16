@@ -135,7 +135,7 @@ function EmployeePage() {
         }
         colRight={
           <RightColumn
-            rosterList={classRoster || []}
+            rosterList={classRoster}
             displayAddClass={rightColDisplay}
             trainerId={user._id}
             fetchScheduleData={() => fetchScheduleData()}

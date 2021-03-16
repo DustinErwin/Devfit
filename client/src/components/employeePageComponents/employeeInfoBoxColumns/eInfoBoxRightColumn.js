@@ -47,22 +47,21 @@ function InfoBoxRightColumn(props) {
     handleClassCreation();
     setValidated(true);
   };
-
+  const rosterList = props.rosterList || []
   //Ternery using toggleAddClass state in parent. Change Value in state to change right Col
   return props.displayAddClass === "roster" ? (
     <Card className="view-roster mb-3 mt-4">
       <Card.Body>
         <Card.Title>Roster</Card.Title>
         <Card.Text>
-          {/* receives an array of members as a prop and renders them as card text */}
-          {props.rosterList.map((item) =>
-            item.length === 0 ? (
-              <p>No one signed up yet!</p>
-            ) : (
+          { rosterList[0] === undefined ? (
+            <p>No one signed up yet!</p>
+          ) : (
+            props.rosterList.map((item) => (
               <li className="list-item" key={item}>
                 {item}{" "}
               </li>
-            )
+            ))
           )}
         </Card.Text>
       </Card.Body>
