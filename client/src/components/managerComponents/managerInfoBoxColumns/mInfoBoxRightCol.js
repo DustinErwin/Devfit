@@ -21,12 +21,13 @@ function InfoBoxRightColumn(props) {
     props.handleHireNewTrainer();
     setValidated(true);
   };
+  
 
   return (
     <>
       {" "}
       {props.toggleRightCol === "addTrainer" ? (
-        <Card className="trainer-info-card mt-4">
+        <Card className="trainer-info-card mt-4 hire-trainer-card">
           <Card.Title className=" trainer-info-title text-center mt-3">
             Hire New Trainer
           </Card.Title>
@@ -43,8 +44,9 @@ function InfoBoxRightColumn(props) {
                     required
                     type="text"
                     placeholder="First Name"
-                    onChange={(e) => props.hireTrainerInfo(e)}
+                    onChange={(e) => props.updateTrainerInfo(e)}
                     name="firstName"
+                    
                   />
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                   <Form.Control.Feedback type="invalid">
@@ -57,7 +59,7 @@ function InfoBoxRightColumn(props) {
                     required
                     type="text"
                     placeholder="Last Name"
-                    onChange={(e) => props.hireTrainerInfo(e)}
+                    onChange={(e) => props.updateTrainerInfo(e)}
                     name="lastName"
                   />
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -68,13 +70,13 @@ function InfoBoxRightColumn(props) {
               </Form.Row>
 
               <Form.Row>
-                <Form.Group as={Col} md="6" controlId="validationCustom01">
+                <Form.Group as={Col} md="6" controlId="validationCustom03">
                   <Form.Label>Phone</Form.Label>
                   <Form.Control
                     required
                     type="text"
                     placeholder="phone"
-                    onChange={(e) => props.hireTrainerInfo(e)}
+                    onChange={(e) => props.updateTrainerInfo(e)}
                     name="phone"
                     // pattern : https://stackoverflow.com/questions/19445408/how-to-restrict-user-to-type-10-digit-numbers-in-input-element
                     pattern="[1-9]{1}[0-9]{9}"
@@ -84,11 +86,11 @@ function InfoBoxRightColumn(props) {
                     Please enter a 10 digit number
                   </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group as={Col} md="6" controlId="validationCustom03">
+                <Form.Group as={Col} md="6" controlId="validationCustom04">
                   <Form.Label>Gender</Form.Label>
                   <Form.Control
                     as="select"
-                    onChange={(e) => props.hireTrainerInfo(e)}
+                    onChange={(e) => props.updateTrainerInfo(e)}
                     name="gender"
                   >
                     <option>M</option>
@@ -98,13 +100,13 @@ function InfoBoxRightColumn(props) {
                 </Form.Group>
               </Form.Row>
               <Form.Row>
-                <Form.Group as={Col} md="12" controlId="validationCustom03">
+                <Form.Group as={Col} md="12" controlId="validationCustom05">
                   <Form.Label>Email</Form.Label>
                   <Form.Control
                     required
                     type="email"
                     placeholder="Email"
-                    onChange={(e) => props.hireTrainerInfo(e)}
+                    onChange={(e) => props.updateTrainerInfo(e)}
                     name="email"
                     //regex from https://stackoverflow.com/questions/742451/what-is-the-simplest-regular-expression-to-validate-emails-to-not-accept-them-bl/742455
                     pattern="(?!.*\.\.)(^[^\.][^@\s]+@[^@\s]+\.[^@\s\.]+$)"
@@ -132,23 +134,23 @@ function InfoBoxRightColumn(props) {
             <ListGroup className="list-group list-group-flush text-start rounded">
               <ListGroup.Item className="list-group-item trainerFirstName">
                 First Name:{" "}
-                <span className="ml-1">{props.viewedTrainer.first_name}</span>{" "}
+                <span className="ml-1">{props.selectedTrainer.first_name}</span>{" "}
               </ListGroup.Item>
               <ListGroup.Item className="list-group-item trainerLastName">
                 Last Name:{" "}
-                <span className="ml-1">{props.viewedTrainer.last_name}</span>{" "}
+                <span className="ml-1">{props.selectedTrainer.last_name}</span>{" "}
               </ListGroup.Item>
               <ListGroup.Item className="list-group-item trainerGender">
                 Gender:
-                <span className="ml-1">{props.viewedTrainer.gender}</span>{" "}
+                <span className="ml-1">{props.selectedTrainer.gender}</span>{" "}
               </ListGroup.Item>
               <ListGroup.Item className="list-group-item trainerEmail">
                 Email Address:{" "}
-                <span className="ml-1">{props.viewedTrainer.email}</span>
+                <span className="ml-1">{props.selectedTrainer.email}</span>
               </ListGroup.Item>
               <ListGroup.Item className="list-group-item trainerPhone">
                 Phone Number:
-                <span className="ml-1">{props.viewedTrainer.phone} </span>
+                <span className="ml-1">{props.selectedTrainer.phone} </span>
               </ListGroup.Item>
             </ListGroup>
 
