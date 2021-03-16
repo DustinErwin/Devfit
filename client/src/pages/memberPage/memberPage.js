@@ -132,8 +132,7 @@ function MemberPage() {
           <MeetYourTrainerBox />
         </Row>
       </Container>
-      <Container>
-        <Row>
+      
           <MemberSchedule
             classesJoined={userClasses}
             classSchedule={classSchedule}
@@ -141,8 +140,7 @@ function MemberPage() {
             joinClass={(e) => addToClass(e)}
             leaveClass={(e) => removeFromClass(e)}
           />
-        </Row>
-      </Container>
+       
 
       <Footer />
     </>
