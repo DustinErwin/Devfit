@@ -11,19 +11,18 @@ import { getMembersApi } from "../../utilities/API.js";
 import { getTrainersApi } from "../../utilities/API.js";
 import { postTrainerApi } from "../../utilities/API.js";
 import { terminateTrainerApi } from "../../utilities/API.js";
+import { renderScheduleApi} from "../../utilities/API.js";
+import { fetchClassRosterApi} from "../../utilities/API.js"
+import { removeMemberApi} from "../../utilities/API.js"
+import { addToClassApi} from "../../utilities/API.js"
 import add from "date-fns/add";
 import { format } from "date-fns";
 import "./styles.css";
 
-/* TODO
-1. slots left updates on add and remove. consider use effect every time roster changes also consider 
-fetch roster in a use effect that updates every time roster changes 
-2. look closely at condensing states 
-3. rename things to follow better patterns, especially handle clicks, etc.*/
 
 function ManagerPage() {
   //grab user from context, allow empty array before data arrives
-  const user = useContext(UserContext) || [];
+  const user = useContext(UserContext);
   //all existing members
   const [allMembers, setAllMembers] = useState([{ id: "", fullName: "" }]);
   //all existing trainers
@@ -56,6 +55,7 @@ function ManagerPage() {
   };
 
 
+
   //holds the input value in the Roster page to add Member
   const [selectedMember, setSelectedMember] = useState("");
   //class Schedule data
@@ -82,9 +82,9 @@ function ManagerPage() {
   //on page load after manger's id and info appears
   useEffect(() => {
     getAllTrainers();
-    getScheduleData();
+    renderSchedule()
     getAllMembers();
-  }, [user]);
+  }, [user._id]);
 
   //get all members, then set them to AllMembersState
   const getAllMembers = async () => {
@@ -146,19 +146,11 @@ function ManagerPage() {
   
 
   /*---------------------------------------- Schedule Functions--------------------------------------------- */
+  //get schedule data then render schedule
+ const renderSchedule = async () => {
+  const scheduleData = await renderScheduleApi(user._id)
 
-  //fetches all the information needed to render a schedule and stores it in state.
-  function getScheduleData() {
-    fetch(`/api/employee/604e1eaf43670c6c98a2a3db/classes`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        const stateArray = [];
+   const stateArray = [];
         // eslint-disable-next-line
         [1, 2, 3, 4, 5, 6, 7].map((nothing, i) => {
           //Use date-fns to get classSchedule for the 7 days of the week
@@ -178,7 +170,7 @@ function ManagerPage() {
           const dayOfWeek = format(addDay, "EEEE");
 
           //Filter the fetch request to only grab classes on the current day weeklength.map is iterating through
-          const filteredData = res.filter((r) => {
+          const filteredData = scheduleData.filter((r) => {
             return r.day === dayOfWeek;
           });
 
@@ -194,65 +186,40 @@ function ManagerPage() {
         });
 
         setClassSchedule(stateArray);
-      });
-  }
-
+ }
+        
   //fetch classes roster then pop up a modal
-  function fetchClassRoster(classId) {
-    fetch(`/api/class/${classId}/roster`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        const memberRoster = res;
-
-        setClassRoster(memberRoster);
-      });
+ const fetchClassRoster = async(classId) => {
+   const classRoster = await fetchClassRosterApi(classId)
+        setClassRoster(classRoster);
   }
 
-  function removeMember(e) {
+  //Remove member from class
+  const removeMember = async(e) => {
     const idObject = { memberid: e.target.id, id: selectedClass };
-
-    fetch("/api/manager/removeFromClass", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify(idObject),
-    }).then(() => {
+    await removeMemberApi(idObject)
       fetchClassRoster(selectedClass);
-    });
+    
   }
 
   //manager adds member in roster modal
-  function handleAddMember(e) {
-    //check all members against the member typed into input box, and return chosen member without an array
+  const addMemberToClass = async() => {
+    //check all members against the member typed into input box, and return chosen member 
     const filteredMember = allMembers
       .filter((item) => {
         return selectedMember === item.fullName;
       })
       .pop();
 
-    const memberObject = {
+    const objectId = {
       memberid: filteredMember.id,
       id: selectedClass,
     };
 
-    fetch("/api/manager/addToClass", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify(memberObject),
-    }).then((req, res) => {
+    await addToClassApi(objectId)
+   
       fetchClassRoster(selectedClass);
-    });
+  
   }
 
   function handleRosterClick(e) {
@@ -294,7 +261,7 @@ function ManagerPage() {
         classRoster={classRoster}
         setSelectedMember={setSelectedMember}
         allMembers={allMembers}
-        handleAddMember={() => handleAddMember()}
+        addMemberToClass={() => addMemberToClass()}
         show={show}
         handleClose={handleClose}
         removeMember={(e) => removeMember(e)}

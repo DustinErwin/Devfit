@@ -5,7 +5,6 @@ import AuthenticationButton from "../../authenticationButton/logoutButton/logout
 
 
 function InfoBoxLeftColumn(props) {
-  console.log(props)
   return (
     <>
       <h2 className="mb-4 mt-4">Trainers</h2>

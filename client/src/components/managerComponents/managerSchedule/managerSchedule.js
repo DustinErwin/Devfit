@@ -112,7 +112,7 @@ function ManagerSchedule(props) {
                 </InputGroup>
               </Col>
               <Col>
-                <DevBtn styleClass="btn-red" onClick={props.handleAddMember}>
+                <DevBtn styleClass="btn-red" onClick={props.addMemberToClass}>
                   Add Member
                 </DevBtn>
               </Col>
