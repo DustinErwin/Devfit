@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Card, ListGroup, ListGroupItem } from "react-bootstrap";
-import jumpRope from "../../images/store/jumpRope.jpg";
 import DevBtn from "../../components/commonComponents/devButton/devButton";
 
 function StoreItem(props) {
