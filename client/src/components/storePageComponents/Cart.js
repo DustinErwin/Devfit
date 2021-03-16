@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Table } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import CartItem from "./CartItem";
 import PayPal from "./PayPal";
 import DevBtn from "../commonComponents/devButton/devButton";
