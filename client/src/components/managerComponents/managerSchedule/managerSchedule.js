@@ -28,7 +28,7 @@ function ManagerSchedule(props) {
                   const convertedTime = convertTime(singleClass.start_time);
 
                   return (
-                    <Container key={i}>
+                    <Container key={i} className="p-0">
                       <Row className="m-0 pb-3 pt-3 border-to-bottom-thin ">
                         <Col
                           xs={12}
