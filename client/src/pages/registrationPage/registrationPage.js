@@ -27,14 +27,13 @@ function RegistrationPage() {
       [name]: value,
     });
   };
-  // console.log(users);
 
   const handleRegistrationSubmit = (event) => {
     console.log("clicked");
     console.log(users);
 
     fetch("/api/user/register", {
-      method: "POST", // or 'PUT'
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
