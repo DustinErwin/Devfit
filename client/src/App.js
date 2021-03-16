@@ -10,8 +10,11 @@ import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import LoginPage from "./pages/loginPage/loginPage";
 import "./App.css";
+import IsShoppingContext from "./utilities/isShoppingContext";
 
 function App() {
+  const [isShopping, setIsShopping] = useState();
+  const value = { isShopping, setIsShopping };
   const [userInfo, setUserInfo] = useState({
     _id: "",
     email: "",
@@ -29,7 +32,7 @@ function App() {
 
   useEffect(() => {
     console.log("isAuthenticated?", isAuthenticated);
-    if (isAuthenticated) {
+    if (!isShopping && isAuthenticated) {
       const { email } = user;
 
       fetch(`/api/user/${email}`)
@@ -65,19 +68,21 @@ function App() {
       setUserRole(null);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuthenticated]);
- 
+  }, [user]);
 
   return (
     <UserContext.Provider value={userInfo}>
       <div className="App">
         <Switch>
           <Route path="/" component={LoginPage} exact />
-          <Route path="/member" component={MemberPage} />
+          <IsShoppingContext.Provider value={value}>
+            <Route path="/member" component={MemberPage} />
+            <Route path="/member-store" component={MemberStore} />
+          </IsShoppingContext.Provider>
           <Route path="/employee" component={EmployeePage} />
           <Route path="/manager" component={ManagerPage} />
           <Route path="/registration" component={RegistrationPage} />
-          <Route path="/member-store" component={MemberStore} />
+
           {userRole ? userRole : null}
         </Switch>
       </div>
