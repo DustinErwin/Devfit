@@ -4,11 +4,6 @@
   list-style: none;
 }
 
-.trainer-info-card {
-  width: 80%;
-  background: #d22e33 !important;
-  color: black;
-}
 
 .trainer-info-title {
   color: whitesmoke;
@@ -39,5 +34,23 @@ this list and not accidentally affect other lists in app*/
   }
 }
 
+
+
+
+@media only screen and (max-width: 767px) {
+  .trainer-info-card {
+    width: 100%;
+    background: #d22e33 !important;
+    color: black;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .trainer-info-card {
+    width: 80%;
+    background: #d22e33 !important;
+    color: black;
+  }
+}
 
 
