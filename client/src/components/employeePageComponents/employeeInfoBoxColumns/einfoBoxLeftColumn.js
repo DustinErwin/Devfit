@@ -4,7 +4,7 @@ import "./styles.css";
 import tConvert from "../../../utilities/convertTime";
 import AuthenticationButton from "../../authenticationButton/logoutButton/logoutButton";
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col"
+import Col from "react-bootstrap/Col";
 function InfoBoxLeftColumn(props) {
   return (
     <div className="left-column ">
@@ -14,30 +14,29 @@ function InfoBoxLeftColumn(props) {
         {props.numClassesTaught === 1 ? "class" : "classes"} this week!
       </p>
       <Row>
-      {props.userClasses.map((singleClass) => {
-        const convertedTime = tConvert(singleClass.start_time);
+        {props.userClasses.map((singleClass, i) => {
+          const convertedTime = tConvert(singleClass.start_time);
 
-        return (
-          <>
-            <Col xs="12"
-              className=" mb-4 col1"
-              key={singleClass.start_time + singleClass.day}
-            >
-              <DevBtn
-                styleClass="btn-dark"
-                id={singleClass.id}
-                onClick={props.updateRoster}
-              >
-                Roster
-              </DevBtn>{" "}
-              <p className="ml-3  ">
-                {singleClass.day}, {singleClass.class_name}, at {convertedTime}{" "}
-                <span> </span>
-              </p>{" "}
-            </Col>
-          </>
-        );
-      })}
+          return (
+            <>
+              <Col xs="3" className=" mb-4 roster-col" key={i}>
+                <DevBtn
+                  styleClass="btn-dark"
+                  id={singleClass.id}
+                  onClick={props.updateRoster}
+                >
+                  Roster
+                </DevBtn>{" "}
+              </Col>
+              <Col xs="9" className= "class-text-col">
+                <p className=" ">
+                  {singleClass.day}, {singleClass.class_name}, at{" "}
+                  {convertedTime} <span> </span>
+                </p>{" "}
+              </Col>
+            </>
+          );
+        })}
       </Row>
       <div>
         <DevBtn styleClass="btn-dark mr-3" onClick={props.toggleAddClass}>

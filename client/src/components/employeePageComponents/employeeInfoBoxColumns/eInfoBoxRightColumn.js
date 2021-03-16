@@ -5,7 +5,7 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import DevBtn from "../../commonComponents/devButton/devButton";
 import Row from "react-bootstrap/Row";
-import Container from "react-bootstrap/Container";
+
 
 function InfoBoxRightColumn(props) {
   const [fitClassName, setFitClassName] = useState("");
@@ -161,11 +161,11 @@ function InfoBoxRightColumn(props) {
           </Form.Group>
         </Form.Row>
       </Form>
-      <Row className="d-flex justify-content-center mt-3">
-        <DevBtn styleClass="btn-dark" onClick={handleSubmit}>
+      <div className="d-flex justify-content-center mt-3">
+       <DevBtn styleClass="btn-dark" onClick={handleSubmit}>
           Create Class
-        </DevBtn>
-      </Row>
+        </DevBtn>  
+      </div>
     </Card>
   );
 }
