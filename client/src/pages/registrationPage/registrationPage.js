@@ -50,7 +50,7 @@ function RegistrationPage() {
   return (
     <>
       <Header />
-      <Container className="regPage">
+      <Container className="regPage" >
         <h1>You're almost there! </h1>
         <h3>Enter your information to become a member!</h3>
         <Card>
