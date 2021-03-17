@@ -11,6 +11,8 @@ import UserContext from "../../utilities/userContext";
 import DevBtn from "../../components/commonComponents/devButton/devButton";
 import IsShoppingContext from "../../utilities/isShoppingContext";
 import { Redirect } from "react-router";
+import UserInfoBox from "../../components/commonComponents/userInfoBox/userInfoBox"
+
 
 function MemberPage() {
   const { setIsShopping } = useContext(IsShoppingContext);
@@ -116,7 +118,7 @@ function MemberPage() {
   return (
     <>
       <Header />
-      <Container>
+
         <DevBtn
           styleClass="btn-red mb-3"
           onClick={() => {
@@ -127,22 +129,26 @@ function MemberPage() {
           Member Store
         </DevBtn>
         {sendShop ? sendShop : null}
-        <Row>
-          <MemberInfoBox classesJoined={userClasses} />
+        <UserInfoBox
+        colLeft={
+          <MemberInfoBox classesJoined={userClasses}/>
+        }
+        colRight={
           <MeetYourTrainerBox />
-        </Row>
-      </Container>
-      <Container>
-        <Row>
-          <MemberSchedule
-            classesJoined={userClasses}
-            classSchedule={classSchedule}
-            fetchScheduleData={() => fetchScheduleData()}
-            joinClass={(e) => addToClass(e)}
-            leaveClass={(e) => removeFromClass(e)}
-          />
-        </Row>
-      </Container>
+               }
+      ></UserInfoBox>
+ 
+    
+        
+      
+
+      <MemberSchedule
+        classesJoined={userClasses}
+        classSchedule={classSchedule}
+        fetchScheduleData={() => fetchScheduleData()}
+        joinClass={(e) => addToClass(e)}
+        leaveClass={(e) => removeFromClass(e)}
+      />
 
       <Footer />
     </>

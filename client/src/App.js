@@ -28,6 +28,7 @@ function App() {
   const [userRole, setUserRole] = useState(null);
   const { isAuthenticated } = useAuth0();
   const { user } = useAuth0();
+  console.log(user)
 
   useEffect(() => {
     console.log("isAuthenticated?", isAuthenticated);

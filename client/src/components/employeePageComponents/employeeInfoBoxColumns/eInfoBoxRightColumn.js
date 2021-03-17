@@ -4,6 +4,8 @@ import "./styles.css";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import DevBtn from "../../commonComponents/devButton/devButton";
+import Row from "react-bootstrap/Row";
+
 
 function InfoBoxRightColumn(props) {
   const [fitClassName, setFitClassName] = useState("");
@@ -47,30 +49,40 @@ function InfoBoxRightColumn(props) {
     handleClassCreation();
     setValidated(true);
   };
-
+  const rosterList = props.rosterList || [];
   //Ternery using toggleAddClass state in parent. Change Value in state to change right Col
   return props.displayAddClass === "roster" ? (
-    <Card className="view-roster mb-3 mt-4">
+    <Card className=" mb-3 mt-4 right-col-card">
+      <Card.Title className=" add-class-title text-center mt-4">
+      <h3>Roster</h3> 
+      </Card.Title>
       <Card.Body>
-        <Card.Title>Roster</Card.Title>
-        <Card.Text>
-          {/* receives an array of members as a prop and renders them as card text */}
-          {props.rosterList.map((item) =>
-            item.length === 0 ? (
-              <p>No one signed up yet!</p>
+        <Form className="white-background rounded p-3">
+        
+          <Card.Text>
+            {rosterList[0] === undefined ? (
+              <p className="text-center">No one signed up yet!</p>
             ) : (
-              <li className="list-item" key={item}>
-                {item}{" "}
-              </li>
-            )
-          )}
-        </Card.Text>
+              props.rosterList.map((item, i) => (
+                <li className="list-item" key={item}>
+                  {i+1}. {item[0]}{" "}
+                </li>
+              ))
+            )}
+          </Card.Text>
+        </Form>
       </Card.Body>
     </Card>
   ) : (
-    <Card className="add-class mb-3 mt-3 pb-3 pt-3">
-      {" "}
-      <Form noValidate validated={validated}>
+    <Card className="right-col-card mb-3 mt-3 pb-3 pt-3">
+      <Card.Title className=" add-class-title text-center mt-3 mb-4">
+        <h3>Add Class</h3>
+      </Card.Title>
+      <Form
+        noValidate
+        validated={validated}
+        className="white-background rounded p-3 ml-3 mr-3"
+      >
         <Form.Row>
           <Form.Group as={Col} md="6" controlId="validationCustom01">
             <Form.Label>Class Name</Form.Label>
@@ -79,11 +91,12 @@ function InfoBoxRightColumn(props) {
               type="text"
               onChange={(e) => setFitClassName(e.target.value)}
             />
-            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-            <Form.Control.Feedback type="invalid">
-              Please enter a Class Name
-            </Form.Control.Feedback>
+         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                  <Form.Control.Feedback type="invalid">
+                    Please enter a Class Name
+                  </Form.Control.Feedback>
           </Form.Group>
+          
           <Form.Group as={Col} md="6" controlId="validationCustom02">
             <Form.Label>Weekday</Form.Label>
             <Form.Control
@@ -103,7 +116,7 @@ function InfoBoxRightColumn(props) {
           </Form.Group>
         </Form.Row>
         <Form.Row>
-          <Form.Group as={Col} md="6" controlId="validationCustom02">
+          <Form.Group as={Col} md="6" controlId="validationCustom03">
             <Form.Label>Max Class Size</Form.Label>
             <Form.Control
               required
@@ -124,7 +137,7 @@ function InfoBoxRightColumn(props) {
               <option>20</option>
             </Form.Control>
           </Form.Group>
-          <Form.Group as={Col} md="6" controlId="validationCustom02">
+          <Form.Group as={Col} md="6" controlId="validationCustom04">
             <Form.Label>Class Start Time</Form.Label>
             <Form.Control
               required
@@ -147,10 +160,12 @@ function InfoBoxRightColumn(props) {
             </Form.Control>
           </Form.Group>
         </Form.Row>
-        <DevBtn styleClass="btn-red" onClick={handleSubmit}>
-          Create Class
-        </DevBtn>
       </Form>
+      <div className="d-flex justify-content-center mt-3">
+       <DevBtn styleClass="btn-dark" onClick={handleSubmit}>
+          Create Class
+        </DevBtn>  
+      </div>
     </Card>
   );
 }

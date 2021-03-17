@@ -11,14 +11,12 @@
   .border-to-bottom-thin {
     border-bottom: 1px solid;
     border-color: #1783ee;
-
   }
   
  .center-btn{
    text-align:center
  }
 
- .larger-font {
-    font-size: 1.3em !important;
+ body {
+   background: white 
  }
-

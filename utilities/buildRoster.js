@@ -8,9 +8,8 @@ module.exports = function (members, selectedClass) {
     if (isMember) {
       const memberName = `${member.first_name} ${member.last_name}`;
 
-      classRoster.push(memberName);
+      classRoster.push([memberName, member._id]);
     }
   });
-  classRoster.push(currentRosterIds);
   return classRoster;
 };

@@ -1,317 +1,265 @@
 import React, { useState, useEffect, useContext } from "react";
 import Header from "../../components/commonComponents/header/header";
 import Footer from "../../components/commonComponents/footer/footer";
-import Row from "react-bootstrap/Row";
 import UserInfoBox from "../../components/commonComponents/userInfoBox/userInfoBox.js";
 import LeftColumn from "../../components/managerComponents/managerInfoBoxColumns/mInfoBoxLeftCol";
 import RightColumn from "../../components/managerComponents/managerInfoBoxColumns/mInfoBoxRightCol";
+import Container from "react-bootstrap/Container";
 import ManagerSchedule from "../../components/managerComponents/managerSchedule/managerSchedule";
 import UserContext from "../../utilities/userContext";
+import { getMembersApi } from "../../utilities/API.js";
+import { getTrainersApi } from "../../utilities/API.js";
+import { postTrainerApi } from "../../utilities/API.js";
+import { terminateTrainerApi } from "../../utilities/API.js";
+import { renderScheduleApi } from "../../utilities/API.js";
+import { fetchClassRosterApi } from "../../utilities/API.js";
+import { removeMemberApi } from "../../utilities/API.js";
+import { addToClassApi } from "../../utilities/API.js";
 import add from "date-fns/add";
 import { format } from "date-fns";
-import Modal from "react-bootstrap/Modal";
-import DevBtn from "../../components/commonComponents/devButton/devButton";
-import Col from "react-bootstrap/Col";
 import "./styles.css";
 
-/*
-Top Area: 
-Manager Page
-
-
-4. ability toadd and remove members in modal 
-4.1 check that times are tConverted in manager
-5. make schedule background white on all three pages.
-6. fix styling for schedule classes 
-7. make all pages responsive
-8. verification of forms, employee, manager, member
-9. Clean up code  */
-
 function ManagerPage() {
-  //grab user from context
+  //grab user from context, allow empty array before data arrives
   const user = useContext(UserContext);
-  //Modal states
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  //all existing members
+  const [allMembers, setAllMembers] = useState([{ id: "", fullName: "" }]);
   //all existing trainers
-  const [allTrainers, setAllTrainers] = useState([]);
-
-  //holds info for a single trainer to display in trainer information
-  const [viewedTrainer, setViewedTrainer] = useState("placeHolder");
-
-  //toggles the right column between trainer info and add trainer
-  const [toggleRightCol, setToggleRightCol] = useState("");
-
+  const [allTrainers, setAllTrainers] = useState([
+    { _id: "", email: "", first_name: "", last_name: "", gender: "" },
+  ]);
+  //holds info for a single class
+  const [selectedClass, setselectedClass] = useState("id");
+  //toggles the right column between "addTrainer" and "trainerInfo"
+  const [toggleRightCol, setToggleRightCol] = useState("addTrainer");
   //holds all info from add-trainer form
-  const [trainerHire, setTrainerHire] = useState({
+  const [selectedTrainer, setSelectedTrainer] = useState({
     firstName: "",
     lastName: "",
     gender: "M",
     email: "",
     phone: "",
+    id: "",
   });
+  //sets info from trainer hire form to state
+  const updateTrainerInfo = (e) => {
+    const { name, value } = e.target;
+    setSelectedTrainer({
+      ...selectedTrainer,
+      [name]: value,
+    });
+  };
+  //holds the input value in the Roster page to add Member
+  const [selectedMember, setSelectedMember] = useState("");
+  //class Schedule data
+  const [classSchedule, setClassSchedule] = useState([]);
+  //class roster for a specific class
+  const [classRoster, setClassRoster] = useState([
+    {
+      class_name: "",
+      current_size: "",
+      day: "",
+      id: "",
+      max_size: "",
+      start_time: "",
+      trainer_id: "",
+      trainer_name: "",
+    },
+  ]);
 
-  console.log(trainerHire);
-  //class Schedule Data
-  const [classSchedule, setClassSchedule] = useState();
-  const [classRoster, setClassRoster] = useState([]);
+  //Modal states
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
-  //on page load...
+  //on page load after manger's id and info appears
   useEffect(() => {
-    fetchallTrainers();
-    fetchScheduleData();
-    // eslint-disable-next-line
-  }, [user]);
+    getAllTrainers();
+    renderSchedule();
+    getAllMembers();
+  }, [user._id]);
 
-  //if i put this in fetchSchedule Data, it doesn't work. needs to be global. review this later.
-  const weekLength = [1, 2, 3, 4, 5, 6, 7];
+  //whenver the class Roster updates, update schedule to reflect spots left change
+  useEffect(() => {
+    renderSchedule()
+  },[classRoster])
 
-  //fetch all trainers and set them to the allTrainers state
-  function fetchallTrainers() {
-    fetch("/api/manager/trainers", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((trainerArray) => {
-        setAllTrainers(trainerArray);
-      });
-  }
+  //get all members, then set them to AllMembersState
+  const getAllMembers = async () => {
+    const membersArray = await getMembersApi();
+    setAllMembers(membersArray);
+  };
+
+  //get all trainers and set them to the allTrainers state
+  const getAllTrainers = async () => {
+    const trainers = await getTrainersApi();
+    setAllTrainers(trainers);
+  };
 
   //on View button click, set Chosen Trainer to  viewTrainer state
-  function handleViewedTrainer(e) {
+  const trainerSelect = (e) => {
     const chosenTrainerId = e.target.id;
 
+    //search this trainers id against all trainers to get all
     const chosenTrainer = allTrainers.filter((item) => {
       return item._id === chosenTrainerId;
     });
 
-    const chosenTrainerNoArray = chosenTrainer[0];
+    setSelectedTrainer(chosenTrainer[0]);
 
-    setViewedTrainer(chosenTrainerNoArray);
     setToggleRightCol("viewTrainer");
-  }
+  };
 
   //on click, change right column to add-trainer render
   function toggleAddTrainer() {
     setToggleRightCol("addTrainer");
   }
 
-  //sets info from trainer hire form to state
-  const hireTrainerInfo = (e) => {
-    const { name, value } = e.target;
-    setTrainerHire({
-      ...trainerHire,
-      [name]: value,
-    });
-  };
-
   //post request to hire a new trainer
-  function handleHireNewTrainer() {
+  const handleHireNewTrainer = async () => {
     const dataObject = {
-      first_name: trainerHire.firstName,
-      last_name: trainerHire.lastName,
-      gender: trainerHire.gender,
-      phone: trainerHire.phone,
-      email: trainerHire.email,
+      first_name: selectedTrainer.firstName,
+      last_name: selectedTrainer.lastName,
+      gender: selectedTrainer.gender || "M",
+      phone: selectedTrainer.phone,
+      email: selectedTrainer.email,
       role: "employee",
     };
-    fetch("/api/manager/addEmployee", {
-      method: "POST",
-      body: JSON.stringify(dataObject),
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then(() => {
-        fetchallTrainers();
-        setViewedTrainer({
-          firstName: "",
-          lastName: "",
-          gender: "M",
-          email: "",
-          phone: "",
-        });
-      })
-      .catch((error) => {
-        throw error;
-      });
-  }
+    //add Trainer in DB
+    await postTrainerApi(dataObject);
+    //update page with trainers
+    getAllTrainers();
+    //reset selected trainer for data integrity
+    setSelectedTrainer({});
+  };
 
   //Delete request to terminate employee
-  function terminateTrainer() {
-    const id = viewedTrainer._id;
-    fetch(`/api/manager/deleteTrainer/` + id, {
-      method: "DELETE",
-    })
-      .then((res) => res.text())
-      .then((res) => {
-        fetchallTrainers();
-        setViewedTrainer({
-          firstName: "",
-          lastName: "",
-          gender: "M",
-          email: "",
-          phone: "",
-        });
-      })
-      .catch((error) => {
-        throw error;
-      });
-  }
+  const terminateTrainer = async () => {
+    console.log("terminate", selectedTrainer);
+    await terminateTrainerApi(selectedTrainer._id);
+    getAllTrainers();
+    setSelectedTrainer({});
+  };
 
   /*---------------------------------------- Schedule Functions--------------------------------------------- */
+  //get schedule data then render schedule
+  const renderSchedule = async () => {
+    const scheduleData = await renderScheduleApi(user._id);
 
-  //fetches all the information needed to render a schedule and stores it in state.
-  function fetchScheduleData() {
-    fetch(`/api/employee/${user._id}/classes`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        const stateArray = [];
-        // eslint-disable-next-line
-        weekLength.map((nothing, i) => {
-          //Use date-fns to get classSchedule for the 7 days of the week
-          const addDay = add(new Date(), {
-            years: 0,
-            months: 0,
-            weeks: 0,
-            days: i,
-            hours: 0,
-            minutes: 0,
-            seconds: 0,
-          });
-
-          //the date written as Jan 23rd
-          const calendarDate = format(addDay, "LLL, do");
-          //day of week written as "Monday"
-          const dayOfWeek = format(addDay, "EEEE");
-
-          //Filter the fetch request to only grab classes on the current day weeklength.map is iterating through
-          const filteredData = res.filter((r) => {
-            return r.day === dayOfWeek;
-          });
-
-          //create an object to store both the fns date classSchedule and the current day
-          const dataObject = {
-            date: calendarDate,
-            weekDay: dayOfWeek,
-            classData: filteredData,
-          };
-
-          //add that object to state
-          stateArray.push(dataObject);
-        });
-
-        setClassSchedule(stateArray);
+    const stateArray = [];
+    // eslint-disable-next-line
+    [1, 2, 3, 4, 5, 6, 7].map((nothing, i) => {
+      //Use date-fns to get classSchedule for the 7 days of the week
+      const addDay = add(new Date(), {
+        years: 0,
+        months: 0,
+        weeks: 0,
+        days: i,
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
       });
-  }
+
+      //the date written as Jan 23rd
+      const calendarDate = format(addDay, "LLL, do");
+      //day of week written as "Monday"
+      const dayOfWeek = format(addDay, "EEEE");
+
+      //Filter the fetch request to only grab classes on the current day weeklength.map is iterating through
+      const filteredData = scheduleData.filter((r) => {
+        return r.day === dayOfWeek;
+      });
+
+      //create an object to store both the fns date classSchedule and the current day
+      const dataObject = {
+        date: calendarDate,
+        weekDay: dayOfWeek,
+        classData: filteredData,
+      };
+
+      //add that object to state
+      stateArray.push(dataObject);
+    });
+
+    setClassSchedule(stateArray);
+  };
 
   //fetch classes roster then pop up a modal
-  function fetchClassRoster(e) {
-    const id = e.target.id;
-    fetch(`/api/class/${id}/roster`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((roster) => {
-        console.log(roster);
-        setClassRoster(roster);
-        handleShow();
-      });
-  }
+  const fetchClassRoster = async (classId) => {
+    const classRoster = await fetchClassRosterApi(classId);
+    setClassRoster(classRoster);
+  };
 
-  function removeMember(e) {
-    console.log(e.target);
-    // const id = e.target.id;
-    // fetch("/api/manager/removeFromClass", {
-    //   method: "POST",
-    //   body: JSON.stringify(id),
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Accept: "application/json",
-    //   },
-    // });
+  //Remove member from class
+  const removeMember = async (e) => {
+    const idObject = { memberid: e.target.id, id: selectedClass };
+    await removeMemberApi(idObject);
+    fetchClassRoster(selectedClass);
+  };
+
+  //manager adds member in roster modal
+  const addMemberToClass = async () => {
+    //check all members against the member typed into input box, and return chosen member
+    const filteredMember = allMembers
+      .filter((item) => {
+        return selectedMember === item.fullName;
+      })
+      .pop();
+
+    const objectId = {
+      memberid: filteredMember.id,
+      id: selectedClass,
+    };
+
+    await addToClassApi(objectId);
+
+    fetchClassRoster(selectedClass);
+  };
+
+  function handleRosterClick(e) {
+    setselectedClass(e.target.id);
+    //passing in the id directly because setselectedClass updates too slowly
+    fetchClassRoster(e.target.id);
+
+    handleShow();
   }
 
   return (
     <>
       <Header />
 
-      <UserInfoBox
-        colLeft={
-          <LeftColumn
-            allTrainers={allTrainers}
-            handleViewedTrainer={(e) => handleViewedTrainer(e)}
-            toggleAddTrainer={() => toggleAddTrainer()}
-          />
-        }
-        colRight={
-          <RightColumn
-            viewedTrainer={viewedTrainer}
-            toggleRightCol={toggleRightCol}
-            handleHireNewTrainer={() => handleHireNewTrainer()}
-            hireTrainerInfo={(e) => hireTrainerInfo(e)}
-            terminateTrainer={() => terminateTrainer()}
-          />
-        }
-      ></UserInfoBox>
+   
+        <UserInfoBox
+          colLeft={
+            <LeftColumn
+              allTrainers={allTrainers}
+              trainerSelect={(e) => trainerSelect(e)}
+              toggleAddTrainer={() => toggleAddTrainer()}
+            />
+          }
+          colRight={
+            <RightColumn
+              selectedTrainer={selectedTrainer}
+              toggleRightCol={toggleRightCol}
+              handleHireNewTrainer={() => handleHireNewTrainer()}
+              updateTrainerInfo={(e) => updateTrainerInfo(e)}
+              terminateTrainer={() => terminateTrainer()}
+            />
+          }
+        ></UserInfoBox>
+  
       <ManagerSchedule
         classSchedule={classSchedule}
         fetchClassRoster={fetchClassRoster}
+        handleRosterClick={(e) => handleRosterClick(e)}
+        classRoster={classRoster}
+        setSelectedMember={setSelectedMember}
+        allMembers={allMembers}
+        addMemberToClass={() => addMemberToClass()}
+        show={show}
+        handleClose={handleClose}
+        removeMember={(e) => removeMember(e)}
       />
-
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Roster</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {classRoster.map((item, i, allItems) => {
-            return (
-              <Row>
-                <Col key={i} className="roster-item mb-3">
-                  {" "}
-                  <span role="img" aria-label="Boxing Glove">
-                    🥊
-                  </span>{" "}
-                  {item}
-                </Col>
-                <Col>
-                  {" "}
-                  <DevBtn
-                    styleClass="btn-red roster-btn "
-                    onClick={(e) => removeMember(e)}
-                    id={allItems[allItems.length - 1][i]}
-                  >
-                    Remove
-                  </DevBtn>{" "}
-                </Col>
-              </Row>
-            );
-          })}
-        </Modal.Body>
-        <Modal.Footer>
-          <DevBtn styleClass="btn-red" onClick={handleClose}>
-            Close
-          </DevBtn>
-        </Modal.Footer>
-      </Modal>
 
       <Footer />
     </>

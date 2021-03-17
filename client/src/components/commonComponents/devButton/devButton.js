@@ -10,8 +10,11 @@ import { Button as BootstrapButton } from "react-bootstrap";
 function DevBtn(props) {
   return (
     <BootstrapButton
-      className={"button align-self-center " + props.styleClass } id={props.id}
-      onClick={props.onClick} disabled={props.disableBtn}
+      className={"button align-self-center " + props.styleClass}
+      id={props.id}
+      onClick={props.onClick}
+      disabled={props.disableBtn}
+      ref={props.devRef}
     >
       {props.children}
     </BootstrapButton>

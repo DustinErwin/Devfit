@@ -1,5 +1,8 @@
 import React, { useRef, useEffect, useState, useContext } from "react";
 import UserContext from "../../utilities/userContext";
+import Modal from "react-bootstrap/Modal";
+import DevBtn from "../commonComponents/devButton/devButton";
+import { Redirect } from "react-router";
 
 // PayPal button code credit: https://www.youtube.com/watch?v=IXxEdhA7fig
 
@@ -8,7 +11,8 @@ export default function PayPal(props) {
   const [paid, setPaid] = useState(false);
   const [orderId, setOrderId]= useState("");
   const paypal = useRef();
-
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
   useEffect(() => {
     const {total, items} = props;
     const itemArray = [];
@@ -84,6 +88,17 @@ export default function PayPal(props) {
   return (
     <div>
       <div ref={paypal}></div>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Order Processed!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Thank you for your order!</Modal.Body>
+        <Modal.Footer>
+          <DevBtn styleClass="btn-red" onClick={handleClose}>
+            Close
+          </DevBtn>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

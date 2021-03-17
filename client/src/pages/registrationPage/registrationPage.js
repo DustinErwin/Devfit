@@ -10,6 +10,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 function RegistrationPage() {
   const { user } = useAuth0();
+  
   const [users, setUser] = useState({
     first_name: "",
     last_name: "",
