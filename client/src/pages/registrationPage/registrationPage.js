@@ -48,18 +48,18 @@ function RegistrationPage() {
   };
 
   return (
-    <>
+    <div>
       <Header />
-      <Container className="regPage" >
-        <h1>You're almost there! </h1>
-        <h3>Enter your information to become a member!</h3>
+      <Container  >
+        <h1 className="text-center">Welcome to <span class="txt-red">Dev Fitness</span> </h1>
+        <h3 className="text-center">Enter your information to become a member.</h3>
         <Card>
           <RegistrationForm  handleRegistrationSubmit={() => handleRegistrationSubmit()} userInfo={(e) => userInfo(e)}></RegistrationForm>
         </Card>
       </Container>
 
       <Footer />
-    </>
+    </div>
   );
 }
 

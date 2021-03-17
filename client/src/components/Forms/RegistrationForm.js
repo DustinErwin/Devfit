@@ -26,7 +26,7 @@ export default function RegistrationForm(props) {
 
   return (
     <>
-      <Container className="regForm background-white">
+      <Container className="regForm background-white larger-font">
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
           <Row>
             <Col>
@@ -128,7 +128,7 @@ export default function RegistrationForm(props) {
               </Form.Group>
             </Col>
           </Row>
-          <DevBtn styleClass="btn-red mb-3" styleType="submit">
+          <DevBtn styleClass="btn-red mb-4 mt-3" styleType="submit">
             Sign Up
           </DevBtn>
         </Form>

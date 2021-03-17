@@ -1,8 +1,4 @@
-.regPage h1,
-.regPage h3 {
+.txt-red {
   color: #d22e33;
 }
 
-.regPage {
-  min-height: 71vh;
-}
