@@ -4,7 +4,6 @@ import Footer from "../../components/commonComponents/footer/footer";
 import UserInfoBox from "../../components/commonComponents/userInfoBox/userInfoBox.js";
 import LeftColumn from "../../components/managerComponents/managerInfoBoxColumns/mInfoBoxLeftCol";
 import RightColumn from "../../components/managerComponents/managerInfoBoxColumns/mInfoBoxRightCol";
-import Container from "react-bootstrap/Container";
 import ManagerSchedule from "../../components/managerComponents/managerSchedule/managerSchedule";
 import UserContext from "../../utilities/userContext";
 import { getMembersApi } from "../../utilities/API.js";

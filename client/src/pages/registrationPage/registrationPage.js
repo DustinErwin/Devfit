@@ -5,7 +5,6 @@ import RegistrationForm from "../../components/Forms/RegistrationForm";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import "./registrationPage.css";
-import DevBtn from "../../components/commonComponents/devButton/devButton";
 import { useAuth0 } from "@auth0/auth0-react";
 
 function RegistrationPage() {
@@ -29,9 +28,7 @@ function RegistrationPage() {
     });
   };
 
-  const handleRegistrationSubmit = (event) => {
-    console.log("clicked");
-    console.log(users);
+  const handleRegistrationSubmit = () => {
 
     fetch("/api/user/register", {
       method: "POST",
@@ -57,15 +54,8 @@ function RegistrationPage() {
         <h1>You're almost there! </h1>
         <h3>Enter your information to become a member!</h3>
         <Card>
-          <RegistrationForm userInfo={(e) => userInfo(e)}></RegistrationForm>
+          <RegistrationForm  handleRegistrationSubmit={() => handleRegistrationSubmit()} userInfo={(e) => userInfo(e)}></RegistrationForm>
         </Card>
-        <DevBtn
-          className="signupBtn"
-          styleClass="btn-red"
-          onClick={handleRegistrationSubmit}
-        >
-          Sign Up
-        </DevBtn>
       </Container>
 
       <Footer />

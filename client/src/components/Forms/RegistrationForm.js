@@ -4,13 +4,33 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import "./registrationForm.css";
 import { useAuth0 } from "@auth0/auth0-react";
+import DevBtn from "../../components/commonComponents/devButton/devButton";
+import React, {useState} from "react"
 
 export default function RegistrationForm(props) {
+  const [validated, setValidated] = useState(false);
   const { user } = useAuth0();
+
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+      setValidated(false)
+     
+    }
+
+    setValidated(true);
+    props.handleRegistrationSubmit()
+  };
+
   return (
     <>
       <Container className="regForm background-white">
-        <Form>
+      <Form
+              noValidate
+              validated={validated}
+            >
           <Row>
             <Col>
               <Form.Group as={Row} controlId="formPlaintextEmail">
@@ -28,10 +48,16 @@ export default function RegistrationForm(props) {
               <Form.Group controlId="formBasicEmail">
                 <Form.Label>First Name*</Form.Label>
                 <Form.Control
+                required 
                   placeholder="First name"
                   onChange={(event) => props.userInfo(event)}
                   name="first_name"
+                  type="text"
                 />
+                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                  <Form.Control.Feedback type="invalid">
+                    Please enter a First Name
+                  </Form.Control.Feedback>
               </Form.Group>
             </Col>
             <Col>
@@ -41,6 +67,7 @@ export default function RegistrationForm(props) {
                   placeholder="Last name"
                   onChange={(event) => props.userInfo(event)}
                   name="last_name"
+                  type="text"
                 />
               </Form.Group>
             </Col>
@@ -89,6 +116,13 @@ export default function RegistrationForm(props) {
               </Form.Group>
             </Col>
           </Row>
+          <DevBtn
+          className="signupBtn"
+          styleClass="btn-red"
+          onClick={handleSubmit}
+        >
+          Sign Up
+        </DevBtn>
         </Form>
       </Container>
     </>
