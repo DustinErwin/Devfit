@@ -6,7 +6,6 @@ import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import "./registrationPage.css";
 import { useAuth0 } from "@auth0/auth0-react";
-import AuthenticationButton from "../../components/authenticationButton";
 
 function RegistrationPage() {
   const { user } = useAuth0();

@@ -7,8 +7,6 @@ import RightColumn from "../../components/managerComponents/managerInfoBoxColumn
 import ManagerSchedule from "../../components/managerComponents/managerSchedule/managerSchedule";
 import {renderSchedule} from "../../utilities/renderSchedule"
 import UserContext from "../../utilities/userContext";
-import add from "date-fns/add";
-import { format } from "date-fns";
 import "./styles.css";
 import {
   getMembersApi,
@@ -77,16 +75,16 @@ function ManagerPage() {
   //on page load after manger's id and info appears
   useEffect(() => {
     getAllTrainers();
-    test();
+    getScheduleData();
     getAllMembers();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user._id]);
 
-  // //whenver the class Roster updates, update schedule to reflect spots left change
-  // useEffect(() => {
-  //   renderSchedule();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [classRoster]);
+  //whenver the class Roster updates, update schedule to reflect spots left change
+  useEffect(() => {
+    getScheduleData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [classRoster]);
 
   //get all members, then set them to AllMembersState
   const getAllMembers = async () => {
@@ -147,7 +145,7 @@ function ManagerPage() {
 
   /*---------------------------------------- Schedule Functions--------------------------------------------- */
   //get schedule data then render schedule
-  const test = async () => {
+  const getScheduleData = async () => {
     const scheduleData = await renderScheduleApi(user._id);
     const stateArray = await renderSchedule(scheduleData);
 
