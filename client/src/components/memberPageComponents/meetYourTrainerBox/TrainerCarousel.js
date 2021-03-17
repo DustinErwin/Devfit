@@ -9,7 +9,7 @@ import trainerFelicia from "../../../images/trainer_felicia.jpg";
 //TODO: Basic Framework Created. Still need to add Api Call and show classes signed up for.
 function MeetYourTrainerBox() {
   return (
-    <Col className="col-12 col-md-6 text-center meet-your-trainer-box">
+    <Col className="text-center meet-your-trainer-box ">
       <h2 className="div text-red my-3">Meet Your Trainers!</h2>
       <Carousel className="trainerCarousel" indicators={false}>
         <Carousel.Item>

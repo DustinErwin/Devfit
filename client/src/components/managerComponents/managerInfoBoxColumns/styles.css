@@ -15,25 +15,18 @@ this list and not accidentally affect other lists in app*/
   border-bottom: none !important;
 }
 
-@media only screen and (max-width: 990px) {
-  .trainer-wrapper {
-    display: flex;
-    justify-content: flex-start;
-    margin-left: 10%;
-    font-size: larger;
-  }
+
+.view-col {
+  display:flex;
+justify-content: flex-end;
+
 }
 
+.trainer-col {
+  display:flex; 
+  justify-content: flex-start;
 
-@media only screen and (min-width: 991px) {
-  .trainer-wrapper {
-    display: flex;
-    justify-content: flex-start;
-    margin-left: 30%;
-    font-size: larger;
-  }
 }
-
 
 
 

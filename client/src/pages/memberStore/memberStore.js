@@ -13,12 +13,14 @@ import IsShoppingContext from "../../utilities/isShoppingContext";
 import DevBtn from "../../components/commonComponents/devButton/devButton";
 import { Redirect } from "react-router";
 import "../../components/commonComponents/devButton/styles.css";
+import StoreContext from "../../utilities/storeContext";
 
 function MemberStore() {
   const [sendClasses, setSendClasses] = useState();
   const { setIsShopping } = useContext(IsShoppingContext);
   const [productList, setProductList] = useState({ product: [] });
   const [cart, setCart] = useState([]);
+  const [checkoutClicked, setCheckoutClicked] = useState(false);
 
   useEffect(() => {
     setIsShopping(true);
@@ -49,6 +51,11 @@ function MemberStore() {
     setCart(updatedCart);
   };
 
+  const onCheckoutClicked = () => {
+    console.log("onCheckoutClicked!!!");
+    setCheckoutClicked(true);
+  }
+
   //shop code adapted from:  https://dev.to/papasanto/build-a-react-hooks-shopping-cart-with-usestate-and-useeffect-39hk
   return (
     <>
@@ -66,6 +73,7 @@ function MemberStore() {
         </DevBtn>
 
         {sendClasses ? sendClasses : null}
+        <StoreContext.Provider value={{checkout:checkoutClicked, setCheckOut: onCheckoutClicked}}>
         <Row>
           <Col xs={12} sm={12} md={6} lg={8}>
             <Store
@@ -85,6 +93,7 @@ function MemberStore() {
             </Container>
           </Col>
         </Row>
+        </StoreContext.Provider>
       </Container>
       <Footer />
     </>

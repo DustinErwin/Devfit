@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { Table } from "react-bootstrap";
 import CartItem from "./CartItem";
 import PayPal from "./PayPal";
 import DevBtn from "../commonComponents/devButton/devButton";
+import StoreContext from "../../utilities/storeContext";
 
 function Cart(props) {
   const { cartItems } = props;
@@ -12,7 +13,7 @@ function Cart(props) {
     0
   );
 
-  const [checkout, setCheckOut] = useState(false);
+  const {checkout, setCheckOut} = useContext(StoreContext);
 
   return (
     <Table responsive>
@@ -39,15 +40,16 @@ function Cart(props) {
         <tr>
           <td colSpan="4" className="text-right">
             {checkout ? (
-              <PayPal />
+              <PayPal total={cartTotal} items={cartData} />
             ) : (
               <DevBtn
                 styleClass="btn-dark"
                 onClick={() => {
-                  setCheckOut(true);
+                  setCheckOut();
                 }}
+                disableBtn={cartTotal === 0}
               >
-                Paypal Checkout
+                Checkout
               </DevBtn>
             )}
           </td>

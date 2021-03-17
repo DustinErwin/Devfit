@@ -29,7 +29,7 @@ function InfoBoxRightColumn(props) {
       {props.toggleRightCol === "addTrainer" ? (
         <Card className="trainer-info-card mt-4 hire-trainer-card">
           <Card.Title className=" trainer-info-title text-center mt-3">
-            Hire New Trainer
+            <h3>Hire New Trainer</h3>
           </Card.Title>
           <Card.Body>
             <Form
@@ -128,7 +128,7 @@ function InfoBoxRightColumn(props) {
       ) : (
         <Card className="trainer-info-card mt-4">
           <Card.Title className=" trainer-info-title text-center mt-3">
-            Trainer Information
+            <h3>Trainer Information</h3>
           </Card.Title>
           <Card.Body>
             <ListGroup className="list-group list-group-flush text-start rounded">

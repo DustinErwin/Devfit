@@ -11,14 +11,14 @@ function MemberInfoBox(props) {
   const classesJoined = props.classesJoined || [];
   const classAmount = classesJoined.length;
   return (
-    <Col className="red-box col-12 col-md-6 text-center mb-5 mb-md-0 pb-5 ">
-      <h2 className="mt-5 mb-5">Hi, {user.firstName}</h2>
+    <Col className=" ">
+      <h2 className="mt-4 mb-4">Hi, {user.firstName}</h2>
       <p>
-        Your are currently signed up for
+        You are signed up for
         <span className="number-of-classes-taken">
           <b></b>
         </span>{" "}
-        <span className="sentence-text-classes">{classAmount}</span> class(es)
+        <span className="sentence-text-classes">{classAmount}</span> {classAmount === 1 ? "class " : "classes "}
         this week.
       </p>
       <div className="classes-taken">

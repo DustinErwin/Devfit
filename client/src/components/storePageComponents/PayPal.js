@@ -1,22 +1,35 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState, useContext } from "react";
+import UserContext from "../../utilities/userContext";
 import Modal from "react-bootstrap/Modal";
 import DevBtn from "../commonComponents/devButton/devButton";
 import { Redirect } from "react-router";
 
 // PayPal button code credit: https://www.youtube.com/watch?v=IXxEdhA7fig
 
-export default function PayPal() {
-  //order complete modal variable(s)
+export default function PayPal(props) {
   const [sendClasses, setSendClasses] = useState();
+  const userInfo = useContext(UserContext);
+  const [orderId, setOrderId] = useState("");
+  const paypal = useRef();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  //Paypal button variable(s)
-  const paypal = useRef();
 
   useEffect(() => {
+    const { total, items } = props;
+    const itemArray = [];
+    items.forEach((orderItem) => {
+      const item = {};
+      item.name = orderItem.product_name;
+      item.quantity = orderItem.quantity;
+      item.unit_amount = { currency_code: "USD", value: orderItem.price };
+      item.sku = orderItem.product_id;
+      console.log("item => ", item);
+      itemArray.push(item);
+    });
     window.paypal
       .Buttons({
         createOrder: (data, actions, err) => {
+          //console.log("createOrder data-> ", data, " actions-> ", actions, " err-> ", err);
           return actions.order.create({
             intent: "CAPTURE",
             purchase_units: [
@@ -24,8 +37,15 @@ export default function PayPal() {
                 description: "Item being purchased",
                 amount: {
                   currency_code: "USD",
-                  value: 100.0,
+                  value: total,
+                  breakdown: {
+                    item_total: {
+                      currency_code: "USD",
+                      value: total,
+                    },
+                  },
                 },
+                items: itemArray,
               },
             ],
           });
@@ -35,11 +55,31 @@ export default function PayPal() {
           const order = await actions.order.capture().then(function (details) {
             setShow(true);
           });
+          setOrderId(order.id);
 
           console.log(order);
+
+          let orderdata = {
+            member_id: userInfo._id,
+            order_details: [...items],
+            purchase_method: "Paypal",
+          };
+          console.log("orderdata", orderdata);
+          fetch("/api/store/order", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify(orderdata),
+          })
+            .then((resp) => {
+              console.log("Saved the Order to the DB", resp);
+            })
+            .catch((err) => console.log("Error saving the order ", err));
         },
         onError: (err) => {
-          console.log(err);
+          console.log("onError err-> ", err);
         },
       })
       .render(paypal.current);
@@ -52,7 +92,9 @@ export default function PayPal() {
         <Modal.Header closeButton>
           <Modal.Title>Order Processed!</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Thank you for your order!</Modal.Body>
+        <Modal.Body>
+          Thank you for your order! Your order id is {orderId}
+        </Modal.Body>
         <Modal.Footer>
           <DevBtn
             styleClass="btn-red"

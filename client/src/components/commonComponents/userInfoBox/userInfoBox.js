@@ -10,18 +10,18 @@ import "./styles.css";
 
 function ContainerTest(props) {
   return (
-    <Container fluid="md larger-font">
+    <Container fluid="md ">
       <Row className="layout">
         <Col
           xs={12}
           md={6}
-          className={"col-left pb-4 dev-rounded-left"}
+          className={"col-left pb-4 dev-rounded-left larger-font"}
         >
           {props.colLeft}
         </Col>
         <Col
           className={
-            "col-right pb-4 dev-rounded-right pl-0 pr-0 "
+            "col-right pb-4 dev-rounded-right pl-0 pr-0  "
           }
         >
           {props.colRight}
