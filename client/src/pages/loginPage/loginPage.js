@@ -19,7 +19,33 @@ function LoginPage() {
       <Header />
       <Container className="loginPage">
         <Row>
-          <Col className="align-self-stretch background-dark">
+          <Col
+            xs={12}
+            sm={12}
+            md={6}
+            lg={6}
+            className="order-sm-1 order-md-12 align-self-stretch justify-content-center text-center background-red"
+          >
+            <Container className="my-5 py-4">
+              <h3 className="text-white">
+                "Master your mindset <br />
+                and <br />
+                you'll master your body."
+              </h3>
+              <p className="text-white mb-5">-GYMQUOTES.CO</p>
+              <h4 className="py-3 text-white">Already a Member?</h4>
+              <AuthenticationButton />
+              <br />
+              <br />
+            </Container>
+          </Col>
+          <Col
+            xs={12}
+            sm={12}
+            md={6}
+            lg={6}
+            className="order-sm-12 order-md-1 align-self-stretch background-dark"
+          >
             <Container className="my-5 py-3">
               <Container className="text-center">
                 <h1 className="text-red">Refactor your body!</h1>
@@ -40,23 +66,15 @@ function LoginPage() {
               </Container>
             </Container>
           </Col>
-          <Col className="align-self-stretch justify-content-center text-center background-red">
-            <Container className="my-5 py-4">
-              <h3 className="text-white">
-                "Master your mindset <br />
-                and <br />
-                you'll master your body."
-              </h3>
-              <p className="text-white mb-5">-GYMQUOTES.CO</p>
-              <h4 className="py-3 text-white">Already a Member?</h4>
-              <AuthenticationButton />
-              <br />
-              <br />
-            </Container>
-          </Col>
         </Row>
         <Row className=" align-items-center justify-content-center text-center">
-          <Col className="align-self-stretch background-red">
+          <Col
+            xs={12}
+            sm={12}
+            md={6}
+            lg={6}
+            className="order-sm-1 align-self-stretch background-red"
+          >
             <Container className="my-5 py-3">
               <h2 className="py-5 text-white">
                 Whatever your fitness needs, <br />
@@ -66,7 +84,13 @@ function LoginPage() {
               <SignUpButton />
             </Container>
           </Col>
-          <Col className="align-self-stretch background-dark">
+          <Col
+            xs={12}
+            sm={12}
+            md={6}
+            lg={6}
+            className="order-sm-12 align-self-stretch background-dark"
+          >
             <Container className="my-5 py-3">
               <Container className="text-center">
                 <h1 className="text-red">Increase Your Stamina!</h1>

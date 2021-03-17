@@ -28,12 +28,25 @@ function App() {
     gender: "",
   });
 
+<<<<<<< HEAD
   const valueShop = { isShopping, setIsShopping };
   const valueLogged = { userLogged, setUserLogged };
 
   useEffect(() => {
     if (isAuthenticated) {
       fetch(`/api/user/${user.email}`)
+=======
+  const [userRole, setUserRole] = useState(null);
+  const { isAuthenticated } = useAuth0();
+  const { user } = useAuth0();
+  console.log(user);
+
+  useEffect(() => {
+    if (!isShopping && isAuthenticated) {
+      const { email } = user;
+
+      fetch(`/api/user/${email}`)
+>>>>>>> master
         .then((response) => response.json())
         .then((currentUser) => {
           setUserInfo({
