@@ -7,20 +7,21 @@ import { Redirect } from "react-router";
 // PayPal button code credit: https://www.youtube.com/watch?v=IXxEdhA7fig
 
 export default function PayPal(props) {
+  const [sendClasses, setSendClasses] = useState();
   const userInfo = useContext(UserContext);
-  const [paid, setPaid] = useState(false);
-  const [orderId, setOrderId]= useState("");
+  const [orderId, setOrderId] = useState("");
   const paypal = useRef();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
+
   useEffect(() => {
-    const {total, items} = props;
+    const { total, items } = props;
     const itemArray = [];
-    items.forEach(orderItem => {
+    items.forEach((orderItem) => {
       const item = {};
       item.name = orderItem.product_name;
       item.quantity = orderItem.quantity;
-      item.unit_amount = {currency_code: "USD", value: orderItem.price};
+      item.unit_amount = { currency_code: "USD", value: orderItem.price };
       item.sku = orderItem.product_id;
       console.log("item => ", item);
       itemArray.push(item);
@@ -40,25 +41,29 @@ export default function PayPal(props) {
                   breakdown: {
                     item_total: {
                       currency_code: "USD",
-                      value: total
-                    }
-                  }
+                      value: total,
+                    },
+                  },
                 },
                 items: itemArray,
               },
             ],
           });
         },
+        //On order approval, return to store page, and show modal
         onApprove: async (data, actions) => {
-          //console.log("onApprove data-> ", data, " actions-> ", actions);
-          const order = await actions.order.capture();
-          //Add modal to say "Thank you for your order."
-          //Clear screen (so that paypal button doesn't duplicate afterward)
-          alert(order.id);
-          setPaid(true);
+          const order = await actions.order.capture().then(function (details) {
+            setShow(true);
+          });
           setOrderId(order.id);
 
-          let orderdata = { member_id: userInfo._id, order_details: [...items], purchase_method: "Paypal" };
+          console.log(order);
+
+          let orderdata = {
+            member_id: userInfo._id,
+            order_details: [...items],
+            purchase_method: "Paypal",
+          };
           console.log("orderdata", orderdata);
           fetch("/api/store/order", {
             method: "POST",
@@ -67,10 +72,11 @@ export default function PayPal(props) {
               Accept: "application/json",
             },
             body: JSON.stringify(orderdata),
-          }).then((resp) => {
-            console.log("Saved the Order to the DB", resp);
-          }).catch(err => console.log("Error saving the order ", err));
-      
+          })
+            .then((resp) => {
+              console.log("Saved the Order to the DB", resp);
+            })
+            .catch((err) => console.log("Error saving the order ", err));
         },
         onError: (err) => {
           console.log("onError err-> ", err);
@@ -79,12 +85,6 @@ export default function PayPal(props) {
       .render(paypal.current);
   }, []);
 
-  if (paid) {
-    return (<div>
-      <h4>Created Order {orderId}</h4>
-    </div>);
-  }
-
   return (
     <div>
       <div ref={paypal}></div>
@@ -92,11 +92,20 @@ export default function PayPal(props) {
         <Modal.Header closeButton>
           <Modal.Title>Order Processed!</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Thank you for your order!</Modal.Body>
+        <Modal.Body>
+          Thank you for your order! Your order id is {orderId}
+        </Modal.Body>
         <Modal.Footer>
-          <DevBtn styleClass="btn-red" onClick={handleClose}>
+          <DevBtn
+            styleClass="btn-red"
+            onClick={() => {
+              handleClose();
+              setSendClasses(<Redirect to={`/member`} />);
+            }}
+          >
             Close
           </DevBtn>
+          {sendClasses ? sendClasses : null}
         </Modal.Footer>
       </Modal>
     </div>
