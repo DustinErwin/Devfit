@@ -4,8 +4,7 @@ import "./styles.css";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import DevBtn from "../../commonComponents/devButton/devButton";
-import Row from "react-bootstrap/Row";
-
+import { employeeAddClass } from "../../../utilities/employeeAPI/employeeAPI";
 
 function InfoBoxRightColumn(props) {
   const [fitClassName, setFitClassName] = useState("");
@@ -24,18 +23,10 @@ function InfoBoxRightColumn(props) {
       max_size: maxSize,
     };
 
-    fetch("/api/employee/addClass", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(classData),
-    })
-      .then((response) => response.text())
-      .then(() => {
-        props.fetchScheduleData();
-        props.fetchTrainerData();
-      });
+    employeeAddClass(classData).then(() => {
+      props.fetchScheduleData();
+      props.fetchTrainerData();
+    });
   }
 
   //Bootstrap validation
@@ -54,18 +45,17 @@ function InfoBoxRightColumn(props) {
   return props.displayAddClass === "roster" ? (
     <Card className=" mb-3 mt-4 right-col-card">
       <Card.Title className=" add-class-title text-center mt-4">
-      <h3>Roster</h3> 
+        <h3>Roster</h3>
       </Card.Title>
       <Card.Body>
         <Form className="white-background rounded p-3">
-        
           <Card.Text>
             {rosterList[0] === undefined ? (
               <p className="text-center">No one signed up yet!</p>
             ) : (
               props.rosterList.map((item, i) => (
                 <li className="list-item" key={item}>
-                  {i+1}. {item[0]}{" "}
+                  {i + 1}. {item[0]}{" "}
                 </li>
               ))
             )}
@@ -91,12 +81,12 @@ function InfoBoxRightColumn(props) {
               type="text"
               onChange={(e) => setFitClassName(e.target.value)}
             />
-         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                  <Form.Control.Feedback type="invalid">
-                    Please enter a Class Name
-                  </Form.Control.Feedback>
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">
+              Please enter a Class Name
+            </Form.Control.Feedback>
           </Form.Group>
-          
+
           <Form.Group as={Col} md="6" controlId="validationCustom02">
             <Form.Label>Weekday</Form.Label>
             <Form.Control
@@ -162,9 +152,9 @@ function InfoBoxRightColumn(props) {
         </Form.Row>
       </Form>
       <div className="d-flex justify-content-center mt-3">
-       <DevBtn styleClass="btn-dark" onClick={handleSubmit}>
+        <DevBtn styleClass="btn-dark" onClick={handleSubmit}>
           Create Class
-        </DevBtn>  
+        </DevBtn>
       </div>
     </Card>
   );

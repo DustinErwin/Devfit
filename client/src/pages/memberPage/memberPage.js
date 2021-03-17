@@ -96,7 +96,6 @@ function MemberPage() {
   return (
     <>
       <Header />
-
       <DevBtn
         styleClass="btn-red mb-3"
         onClick={() => {
@@ -111,7 +110,6 @@ function MemberPage() {
         colLeft={<MemberInfoBox classesJoined={userClasses} />}
         colRight={<MeetYourTrainerBox />}
       ></UserInfoBox>
-
       <MemberSchedule
         classesJoined={userClasses}
         classSchedule={classSchedule}
@@ -119,7 +117,6 @@ function MemberPage() {
         joinClass={(e) => addToClass(e)}
         leaveClass={(e) => removeFromClass(e)}
       />
-
       <Footer />
     </>
   );

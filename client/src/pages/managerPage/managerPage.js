@@ -6,17 +6,19 @@ import LeftColumn from "../../components/managerComponents/managerInfoBoxColumns
 import RightColumn from "../../components/managerComponents/managerInfoBoxColumns/mInfoBoxRightCol";
 import ManagerSchedule from "../../components/managerComponents/managerSchedule/managerSchedule";
 import UserContext from "../../utilities/userContext";
-import { getMembersApi } from "../../utilities/API.js";
-import { getTrainersApi } from "../../utilities/API.js";
-import { postTrainerApi } from "../../utilities/API.js";
-import { terminateTrainerApi } from "../../utilities/API.js";
-import { renderScheduleApi } from "../../utilities/API.js";
-import { fetchClassRosterApi } from "../../utilities/API.js";
-import { removeMemberApi } from "../../utilities/API.js";
-import { addToClassApi } from "../../utilities/API.js";
 import add from "date-fns/add";
 import { format } from "date-fns";
 import "./styles.css";
+import {
+  getMembersApi,
+  getTrainersApi,
+  postTrainerApi,
+  terminateTrainerApi,
+  renderScheduleApi,
+  fetchClassRosterApi,
+  removeMemberApi,
+  addToClassApi,
+} from "../../utilities/managerAPI/managerAPI.js";
 
 function ManagerPage() {
   //grab user from context, allow empty array before data arrives
