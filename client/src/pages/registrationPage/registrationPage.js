@@ -7,10 +7,11 @@ import Container from "react-bootstrap/Container";
 import "./registrationPage.css";
 import DevBtn from "../../components/commonComponents/devButton/devButton";
 import { useAuth0 } from "@auth0/auth0-react";
+import AuthenticationButton from "../../components/authenticationButton";
 
 function RegistrationPage() {
   const { user } = useAuth0();
-  
+
   const [users, setUser] = useState({
     first_name: "",
     last_name: "",
@@ -30,9 +31,6 @@ function RegistrationPage() {
   };
 
   const handleRegistrationSubmit = (event) => {
-    console.log("clicked");
-    console.log(users);
-
     fetch("/api/user/register", {
       method: "POST",
       headers: {
@@ -41,8 +39,7 @@ function RegistrationPage() {
       body: JSON.stringify(users),
     })
       .then((response) => response.json())
-      .then((users) => {
-        console.log("Success:", users);
+      .then(() => {
         window.location.href = window.location.origin;
       })
       .catch((error) => {
@@ -66,6 +63,7 @@ function RegistrationPage() {
         >
           Sign Up
         </DevBtn>
+        <AuthenticationButton />
       </Container>
 
       <Footer />
