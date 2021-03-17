@@ -31,17 +31,17 @@ export default function RegistrationForm(props) {
           <Row>
             <Col>
               <Form.Group as={Row} controlId="formPlaintextEmail">
-                <Form.Label column xs="1">
-                  Email
+                <Col xs={12} className="mt-3">
+                <Form.Label>
+                  Email:  {user.email}
                 </Form.Label>
-                <Col xs="11 ">
-                  <Form.Control plaintext readOnly value={user.email} />
                 </Col>
+               
               </Form.Group>
             </Col>
           </Row>
           <Row>
-            <Col>
+            <Col xs={12} md={6}>
               <Form.Group controlId="formBasicEmail">
                 <Form.Label>First Name</Form.Label>
                 <Form.Control
@@ -57,7 +57,7 @@ export default function RegistrationForm(props) {
                 </Form.Control.Feedback>
               </Form.Group>
             </Col>
-            <Col>
+            <Col xs={12} md={6}>
               <Form.Group controlId="formBasicPassword">
                 <Form.Label>Last Name</Form.Label>
                 <Form.Control
@@ -75,7 +75,7 @@ export default function RegistrationForm(props) {
             </Col>
           </Row>
           <Row>
-            <Col>
+            <Col  xs={12} md={6}>
               <Form.Group controlId="exampleForm.ControlSelect1">
                 <Form.Label>Gender</Form.Label>
                 <Form.Control
@@ -90,7 +90,7 @@ export default function RegistrationForm(props) {
                 </Form.Control>
               </Form.Group>
             </Col>
-            <Col>
+            <Col  xs={12} md={6}>
               <Form.Group controlId="formBirthdate">
                 <Form.Label>Birthdate</Form.Label>
                 <Form.Control
@@ -108,7 +108,7 @@ export default function RegistrationForm(props) {
             </Col>
           </Row>
           <Row>
-            <Col>
+            <Col  xs={12} md={6}>
               <Form.Group controlId="formPhoneNumber">
                 <Form.Label>Phone Number</Form.Label>
                 <Form.Control
