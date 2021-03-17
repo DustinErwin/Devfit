@@ -42,14 +42,12 @@ function InfoBoxRightColumn(props) {
   const handleSubmit = (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
-      console.log("false");
+      event.stopPropagation();
       event.preventDefault();
-
-      return false;
+setValidated(true)
+      return false
     }
-    console.log("true");
-    event.preventDefault();
-    event.stopPropagation();
+
     handleClassCreation();
     setValidated(true);
   };

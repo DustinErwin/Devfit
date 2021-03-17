@@ -11,26 +11,28 @@ export default function RegistrationForm(props) {
   const [validated, setValidated] = useState(false);
   const { user } = useAuth0();
 
+
   const handleSubmit = (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
-      event.preventDefault();
       event.stopPropagation();
-      setValidated(false)
-     
+      event.preventDefault();
+setValidated(true)
+      return false
     }
 
-    setValidated(true);
     props.handleRegistrationSubmit()
+    setValidated(true);
   };
 
   return (
     <>
       <Container className="regForm background-white">
       <Form
-              noValidate
-              validated={validated}
-            >
+        noValidate
+        validated={validated}
+        onSubmit={handleSubmit}
+      >
           <Row>
             <Col>
               <Form.Group as={Row} controlId="formPlaintextEmail">
@@ -64,11 +66,16 @@ export default function RegistrationForm(props) {
               <Form.Group controlId="formBasicPassword">
                 <Form.Label>Last Name*</Form.Label>
                 <Form.Control
+                required
                   placeholder="Last name"
                   onChange={(event) => props.userInfo(event)}
                   name="last_name"
                   type="text"
                 />
+                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                  <Form.Control.Feedback type="invalid">
+                    Please enter a Last Name
+                  </Form.Control.Feedback>
               </Form.Group>
             </Col>
           </Row>
@@ -92,11 +99,16 @@ export default function RegistrationForm(props) {
               <Form.Group controlId="formBirthdate">
                 <Form.Label>Birthdate</Form.Label>
                 <Form.Control
+                required
                   type="date"
                   placeholder="Birthdate (yyyy-dd-mm)"
                   onChange={(event) => props.userInfo(event)}
                   name="date_of_birth"
                 ></Form.Control>
+                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                  <Form.Control.Feedback type="invalid">
+                    Please enter a Date Of Birth
+                  </Form.Control.Feedback>
               </Form.Group>
             </Col>
           </Row>
@@ -108,21 +120,27 @@ export default function RegistrationForm(props) {
                   please)
                 </Form.Label>
                 <Form.Control
+                required
                   placeholder="Phone Number"
                   pattern="[0-9]{10}"
                   onChange={(event) => props.userInfo(event)}
                   name="phone"
                 ></Form.Control>
+                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                  <Form.Control.Feedback type="invalid">
+                    Please enter a First Name
+                  </Form.Control.Feedback>
               </Form.Group>
             </Col>
           </Row>
           <DevBtn
           className="signupBtn"
           styleClass="btn-red"
-          onClick={handleSubmit}
+          styleType="submit"
         >
           Sign Up
         </DevBtn>
+        
         </Form>
       </Container>
     </>
