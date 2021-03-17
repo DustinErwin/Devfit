@@ -38,10 +38,6 @@ function Cart(props) {
         </tr>
         <tr>
           <td colSpan="4" className="text-right">
-            <DevBtn styleClass="btn-dark" type="button" value="Checkout">
-              Checkout
-            </DevBtn>
-
             {checkout ? (
               <PayPal />
             ) : (
