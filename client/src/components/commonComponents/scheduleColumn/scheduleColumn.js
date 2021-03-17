@@ -6,7 +6,7 @@ function ScheduleColumn(props) {
 
   return (
     <>
-      <Col xs={12} sm={6} md className="pt-2 pb-5 pt-3">
+      <Col xs={12} md={6} lg  className="pt-2 pb-5 pt-3">
         <div className="schedule-column">
           <h3> {props.dayOfWeek} </h3>
           <p className=" pb-2">{props.todaysDate}</p>

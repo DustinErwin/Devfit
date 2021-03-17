@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import ScheduleColumn from "../../commonComponents/scheduleColumn/scheduleColumn";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
@@ -12,11 +12,13 @@ import FormControl from "react-bootstrap/FormControl";
 
 function ManagerSchedule(props) {
 
+  //declaring class schedule as an empty array avoids an error where the array doesn't exist yet.
+  const classSchedule = props.classSchedule;
   return (
     <>
       <Container fluid className="mt-md-5 mb-md-5 larger-font">
         <Row className="white-background ml-md-5 mr-md-5">
-          {props.classSchedule.map((day) => {
+          {classSchedule.map((day) => {
             return (
               <ScheduleColumn
                 dayOfWeek={day.weekDay}
@@ -28,7 +30,7 @@ function ManagerSchedule(props) {
                   const convertedTime = convertTime(singleClass.start_time);
 
                   return (
-                    <Container key={i} className="p-0">
+                    <Container key={i}>
                       <Row className="m-0 pb-3 pt-3 border-to-bottom-thin ">
                         <Col
                           xs={12}
@@ -74,8 +76,8 @@ function ManagerSchedule(props) {
           <Modal.Body>
             {props.classRoster.map((item, i) => {
               return (
-                <Row>
-                  <Col key={i} className="roster-item mb-3">
+                <Row key={i}>
+                  <Col  className="roster-item mb-3">
                     {" "}
                     <span role="img" aria-label="Boxing Glove">
                       🥊
@@ -101,18 +103,18 @@ function ManagerSchedule(props) {
                   <FormControl
                     aria-label="Default"
                     aria-describedby="inputGroup-sizing-default"
-                    onChange={(e) => props.setSelectedMember(e.target.value)}
+                    onChange={(e) => props.setAddMember(e.target.value)}
                     list="memberList"
                   ></FormControl>
                   <datalist id="memberList">
-                    {props.allMembers.map((item) => {
-                      return <option>{item.fullName}</option>;
+                    {props.allMembers.map((item, i) => {
+                      return <option key={i}>{item.fullName}</option>;
                     })}
                   </datalist>
                 </InputGroup>
               </Col>
               <Col>
-                <DevBtn styleClass="btn-red" onClick={props.addMemberToClass}>
+                <DevBtn styleClass="btn-red" onClick={props.handleAddMember}>
                   Add Member
                 </DevBtn>
               </Col>

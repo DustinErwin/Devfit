@@ -12,9 +12,10 @@ function InfoBoxLeftColumn(props) {
         <Col xs="12" className="mb-4 mt-4">
           <h3>Trainers</h3>
         </Col>
+        </Row>
         {props.allTrainers.map((item, i) => {
           return (
-            <>
+            <Row key={i}>
               <Col xs="5" key={i} className="view-col mb-3">
                 {" "}
                 <DevBtn
@@ -29,10 +30,10 @@ function InfoBoxLeftColumn(props) {
               <Col xs="7" className="trainer-col">
                 {`${item.first_name}  ${item.last_name}`}{" "}
               </Col>
-            </>
+            </Row>
           );
         })}
-      </Row>
+      
       <Row className="mt-3 flex justify-content-center">
         <DevBtn styleClass="btn-dark mr-3" onClick={props.toggleAddTrainer}>
           Add Trainer

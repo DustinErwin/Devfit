@@ -12,3 +12,7 @@ body {
 .larger-font {
     font-size: 1.3em !important;
  }
+
+ .min-page-height {
+     min-height: 100vh;
+ }

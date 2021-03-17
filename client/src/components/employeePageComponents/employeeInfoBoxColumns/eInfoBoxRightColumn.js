@@ -34,9 +34,12 @@ function InfoBoxRightColumn(props) {
   const handleSubmit = (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
-      event.preventDefault();
       event.stopPropagation();
+      event.preventDefault();
+setValidated(true)
+      return false
     }
+
     handleClassCreation();
     setValidated(true);
   };
@@ -72,6 +75,7 @@ function InfoBoxRightColumn(props) {
         noValidate
         validated={validated}
         className="white-background rounded p-3 ml-3 mr-3"
+        onSubmit={handleSubmit}
       >
         <Form.Row>
           <Form.Group as={Col} md="6" controlId="validationCustom01">
@@ -150,12 +154,12 @@ function InfoBoxRightColumn(props) {
             </Form.Control>
           </Form.Group>
         </Form.Row>
+        <div className="d-flex justify-content-center mt-3">
+          <DevBtn styleType="submit" styleClass="btn-dark">
+            Create Class
+          </DevBtn>
+        </div>
       </Form>
-      <div className="d-flex justify-content-center mt-3">
-        <DevBtn styleClass="btn-dark" onClick={handleSubmit}>
-          Create Class
-        </DevBtn>
-      </div>
     </Card>
   );
 }

@@ -5,10 +5,9 @@ import MemberInfoBox from "../../components/memberPageComponents/memberInfoBox/m
 import MeetYourTrainerBox from "../../components/memberPageComponents/meetYourTrainerBox/TrainerCarousel";
 import MemberSchedule from "../../components/memberPageComponents/memberSchedule/memberSchedule";
 import UserContext from "../../utilities/userContext";
-import DevBtn from "../../components/commonComponents/devButton/devButton";
-import IsShoppingContext from "../../utilities/isShoppingContext";
-import { Redirect } from "react-router";
+
 import UserInfoBox from "../../components/commonComponents/userInfoBox/userInfoBox";
+
 import {
   addMemberToClass,
   getScheduleData,
@@ -18,8 +17,6 @@ import {
 import { renderSchedule } from "../../utilities/renderSchedule";
 
 function MemberPage() {
-  const { setIsShopping } = useContext(IsShoppingContext);
-  const [sendShop, setSendShop] = useState();
   const user = useContext(UserContext);
   const [userClasses, setUserClasses] = useState([]); //The classes the member is enrolled in the left column info box
   const [classSchedule, setClassSchedule] = useState([]); //all info for each class rendered in schedule
@@ -32,6 +29,19 @@ function MemberPage() {
       setClassSchedule(weekArray);
     });
   }
+
+   //whenver the class Roster updates, update schedule to reflect spots left change
+   useEffect(() => {
+    fetchScheduleData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userClasses]);
+
+  useEffect(() => {
+    fecthJoinedClasses();
+    fetchScheduleData();
+    // eslint-disable-next-line
+  }, [user]);
+
 
   function removeFromClass(classid) {
     let data = { id: classid, memberid: user._id };
@@ -53,25 +63,11 @@ function MemberPage() {
     });
   }
 
-  useEffect(() => {
-    fecthJoinedClasses();
-    fetchScheduleData();
-    // eslint-disable-next-line
-  }, [user]);
+
 
   return (
     <>
       <Header />
-      <DevBtn
-        styleClass="btn-red mb-3"
-        onClick={() => {
-          setIsShopping(true);
-          setSendShop(<Redirect to={`/member-store`} />);
-        }}
-      >
-        Member Store
-      </DevBtn>
-      {sendShop ? sendShop : null}
       <UserInfoBox
         colLeft={<MemberInfoBox classesJoined={userClasses} />}
         colRight={<MeetYourTrainerBox />}

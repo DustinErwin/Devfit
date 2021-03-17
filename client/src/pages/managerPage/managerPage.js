@@ -5,9 +5,8 @@ import UserInfoBox from "../../components/commonComponents/userInfoBox/userInfoB
 import LeftColumn from "../../components/managerComponents/managerInfoBoxColumns/mInfoBoxLeftCol";
 import RightColumn from "../../components/managerComponents/managerInfoBoxColumns/mInfoBoxRightCol";
 import ManagerSchedule from "../../components/managerComponents/managerSchedule/managerSchedule";
+import {renderSchedule} from "../../utilities/renderSchedule"
 import UserContext from "../../utilities/userContext";
-import add from "date-fns/add";
-import { format } from "date-fns";
 import "./styles.css";
 import {
   getMembersApi,
@@ -76,14 +75,14 @@ function ManagerPage() {
   //on page load after manger's id and info appears
   useEffect(() => {
     getAllTrainers();
-    renderSchedule();
+    getScheduleData();
     getAllMembers();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user._id]);
 
   //whenver the class Roster updates, update schedule to reflect spots left change
   useEffect(() => {
-    renderSchedule();
+    getScheduleData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [classRoster]);
 
@@ -146,10 +145,9 @@ function ManagerPage() {
 
   /*---------------------------------------- Schedule Functions--------------------------------------------- */
   //get schedule data then render schedule
-  const renderSchedule = async () => {
+  const getScheduleData = async () => {
     const scheduleData = await renderScheduleApi(user._id);
-
-    const stateArray = renderSchedule(scheduleData);
+    const stateArray = await renderSchedule(scheduleData);
 
     setClassSchedule(stateArray);
   };
@@ -170,7 +168,13 @@ function ManagerPage() {
   //manager adds member in roster modal
   const addMemberToClass = async () => {
     //check all members against the member typed into input box, and return chosen member
-    const filteredMember = allMembers
+    const validateName = allMembers.some(item => item.fullName === selectedMember)
+    
+    if (!validateName){} 
+    else {
+
+
+const filteredMember = allMembers
       .filter((item) => {
         return selectedMember === item.fullName;
       })
@@ -184,6 +188,7 @@ function ManagerPage() {
     await addToClassApi(objectId);
 
     fetchClassRoster(selectedClass);
+  }
   };
 
   function handleRosterClick(e) {
@@ -192,6 +197,7 @@ function ManagerPage() {
     fetchClassRoster(e.target.id);
 
     handleShow();
+    console.log(classSchedule)
   }
 
   return (
@@ -216,7 +222,7 @@ function ManagerPage() {
           />
         }
       ></UserInfoBox>
-
+   
       <ManagerSchedule
         classSchedule={classSchedule}
         fetchClassRoster={fetchClassRoster}
