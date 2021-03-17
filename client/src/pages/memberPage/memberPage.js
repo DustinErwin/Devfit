@@ -30,6 +30,19 @@ function MemberPage() {
     });
   }
 
+   //whenver the class Roster updates, update schedule to reflect spots left change
+   useEffect(() => {
+    fetchScheduleData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userClasses]);
+
+  useEffect(() => {
+    fecthJoinedClasses();
+    fetchScheduleData();
+    // eslint-disable-next-line
+  }, [user]);
+
+
   function removeFromClass(classid) {
     let data = { id: classid, memberid: user._id };
     removeMemberFromClass(data).then(() => {
@@ -50,11 +63,7 @@ function MemberPage() {
     });
   }
 
-  useEffect(() => {
-    fecthJoinedClasses();
-    fetchScheduleData();
-    // eslint-disable-next-line
-  }, [user]);
+
 
   return (
     <>
