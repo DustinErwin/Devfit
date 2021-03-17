@@ -41,7 +41,7 @@ export const postTrainerApi = (dataObject) => {
 export const terminateTrainerApi = (trainerId) => {
   fetch(`/api/manager/deleteTrainer/` + trainerId, {
     method: "DELETE",
-  }).then((res) => res.json());
+  });
 };
 
 //take user_id to grab schedule

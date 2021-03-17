@@ -4,7 +4,6 @@ import Footer from "../../components/commonComponents/footer/footer";
 import UserInfoBox from "../../components/commonComponents/userInfoBox/userInfoBox.js";
 import LeftColumn from "../../components/managerComponents/managerInfoBoxColumns/mInfoBoxLeftCol";
 import RightColumn from "../../components/managerComponents/managerInfoBoxColumns/mInfoBoxRightCol";
-import Container from "react-bootstrap/Container";
 import ManagerSchedule from "../../components/managerComponents/managerSchedule/managerSchedule";
 import UserContext from "../../utilities/userContext";
 import { getMembersApi } from "../../utilities/API.js";
@@ -77,12 +76,14 @@ function ManagerPage() {
     getAllTrainers();
     renderSchedule();
     getAllMembers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user._id]);
 
   //whenver the class Roster updates, update schedule to reflect spots left change
   useEffect(() => {
-    renderSchedule()
-  },[classRoster])
+    renderSchedule();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [classRoster]);
 
   //get all members, then set them to AllMembersState
   const getAllMembers = async () => {
@@ -228,26 +229,25 @@ function ManagerPage() {
     <>
       <Header />
 
-   
-        <UserInfoBox
-          colLeft={
-            <LeftColumn
-              allTrainers={allTrainers}
-              trainerSelect={(e) => trainerSelect(e)}
-              toggleAddTrainer={() => toggleAddTrainer()}
-            />
-          }
-          colRight={
-            <RightColumn
-              selectedTrainer={selectedTrainer}
-              toggleRightCol={toggleRightCol}
-              handleHireNewTrainer={() => handleHireNewTrainer()}
-              updateTrainerInfo={(e) => updateTrainerInfo(e)}
-              terminateTrainer={() => terminateTrainer()}
-            />
-          }
-        ></UserInfoBox>
-  
+      <UserInfoBox
+        colLeft={
+          <LeftColumn
+            allTrainers={allTrainers}
+            trainerSelect={(e) => trainerSelect(e)}
+            toggleAddTrainer={() => toggleAddTrainer()}
+          />
+        }
+        colRight={
+          <RightColumn
+            selectedTrainer={selectedTrainer}
+            toggleRightCol={toggleRightCol}
+            handleHireNewTrainer={() => handleHireNewTrainer()}
+            updateTrainerInfo={(e) => updateTrainerInfo(e)}
+            terminateTrainer={() => terminateTrainer()}
+          />
+        }
+      ></UserInfoBox>
+
       <ManagerSchedule
         classSchedule={classSchedule}
         fetchClassRoster={fetchClassRoster}
