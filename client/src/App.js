@@ -13,8 +13,9 @@ import "./App.css";
 import IsShoppingContext from "./utilities/isShoppingContext";
 
 function App() {
+  const { isAuthenticated, user } = useAuth0();
   const [isShopping, setIsShopping] = useState();
-  const value = { isShopping, setIsShopping };
+  const [userRole, setUserRole] = useState(null);
   const [userInfo, setUserInfo] = useState({
     _id: "",
     email: "",
@@ -25,35 +26,35 @@ function App() {
     gender: "",
   });
 
-  const [userRole, setUserRole] = useState(null);
-  const { isAuthenticated } = useAuth0();
-  const { user } = useAuth0();
-  console.log(user)
+  const valueShop = { isShopping, setIsShopping };
 
   useEffect(() => {
-    console.log("isAuthenticated?", isAuthenticated);
-    if (!isShopping && isAuthenticated) {
-      const { email } = user;
-
-      fetch(`/api/user/${email}`)
+    if (isAuthenticated) {
+      fetch(`/api/user/${user.email}`)
         .then((response) => response.json())
         .then((currentUser) => {
-          if (currentUser) {
-            setUserInfo({
-              ...userInfo,
-              _id: currentUser._id,
-              email: currentUser.email,
-              firstName: currentUser.first_name,
-              lastName: currentUser.last_name,
-              fullName: `${currentUser.first_name} ${currentUser.last_name}`,
-              role: currentUser.role,
-              gender: currentUser.gender,
-            });
-            setUserRole(<Redirect to={`/${currentUser.role}`} />);
-          } else {
-            setUserRole(<Redirect to={`/registration`} />);
-          }
+          setUserInfo({
+            ...userInfo,
+            _id: currentUser._id,
+            email: currentUser.email,
+            firstName: currentUser.first_name,
+            lastName: currentUser.last_name,
+            fullName: `${currentUser.first_name} ${currentUser.last_name}`,
+            role: currentUser.role,
+            gender: currentUser.gender,
+          });
         });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated]);
+
+  useEffect(() => {
+    if (!isShopping && isAuthenticated) {
+      if (userInfo.role) {
+        setUserRole(<Redirect to={`/${userInfo.role}`} />);
+      } else {
+        setUserRole(<Redirect to={`/registration`} />);
+      }
     } else if (!isAuthenticated) {
       setUserInfo({
         ...userInfo,
@@ -68,21 +69,20 @@ function App() {
       setUserRole(null);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, [userInfo.role]);
 
   return (
     <UserContext.Provider value={userInfo}>
       <div className="App">
         <Switch>
           <Route path="/" component={LoginPage} exact />
-          <IsShoppingContext.Provider value={value}>
+          <IsShoppingContext.Provider value={valueShop}>
             <Route path="/member" component={MemberPage} />
             <Route path="/member-store" component={MemberStore} />
           </IsShoppingContext.Provider>
           <Route path="/employee" component={EmployeePage} />
           <Route path="/manager" component={ManagerPage} />
           <Route path="/registration" component={RegistrationPage} />
-
           {userRole ? userRole : null}
         </Switch>
       </div>

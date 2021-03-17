@@ -4,7 +4,7 @@ import "./styles.css";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import DevBtn from "../../commonComponents/devButton/devButton";
-
+import { employeeAddClass } from "../../../utilities/employeeAPI/employeeAPI";
 
 function InfoBoxRightColumn(props) {
   const [fitClassName, setFitClassName] = useState("");
@@ -23,18 +23,10 @@ function InfoBoxRightColumn(props) {
       max_size: maxSize,
     };
 
-    fetch("/api/employee/addClass", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(classData),
-    })
-      .then((response) => response.text())
-      .then(() => {
-        props.fetchScheduleData();
-        props.fetchTrainerData();
-      });
+    employeeAddClass(classData).then(() => {
+      props.fetchScheduleData();
+      props.fetchTrainerData();
+    });
   }
 
   //Bootstrap validation

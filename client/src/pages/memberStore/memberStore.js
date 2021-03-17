@@ -13,12 +13,14 @@ import IsShoppingContext from "../../utilities/isShoppingContext";
 import DevBtn from "../../components/commonComponents/devButton/devButton";
 import { Redirect } from "react-router";
 import "../../components/commonComponents/devButton/styles.css";
+import StoreContext from "../../utilities/storeContext";
 
 function MemberStore() {
   const [sendClasses, setSendClasses] = useState();
   const { setIsShopping } = useContext(IsShoppingContext);
   const [productList, setProductList] = useState({ product: [] });
   const [cart, setCart] = useState([]);
+  const [checkoutClicked, setCheckoutClicked] = useState(false);
 
   useEffect(() => {
     setIsShopping(true);
@@ -40,6 +42,7 @@ function MemberStore() {
         });
         setCart(initialCartArray);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleUpdateQuantity = (productId, newQuantity) => {
@@ -49,35 +52,37 @@ function MemberStore() {
     setCart(updatedCart);
   };
 
+  const onCheckoutClicked = () => {
+    console.log("onCheckoutClicked!!!");
+    setCheckoutClicked(true);
+  }
+
   //shop code adapted from:  https://dev.to/papasanto/build-a-react-hooks-shopping-cart-with-usestate-and-useeffect-39hk
   return (
     <>
       <Header />
       <Container fluid className="memberStore text-center">
-        <Row>
-          <DevBtn
-            styleClass="btn-red ml-5"
-            onClick={() => {
-              setIsShopping(false);
-              setSendClasses(<Redirect to={`/member`} />);
-            }}
-          >
-            Back to Classes
-          </DevBtn>
-        </Row>
-        <h1 className="text-red mb-5 align-self-center">
-          Dev Fit Member Store
-        </h1>
+        <h1 className="text-red align-self-center">Dev Fit Member Store</h1>
+        <DevBtn
+          styleClass="btn-red mb-3"
+          onClick={() => {
+            setIsShopping(false);
+            setSendClasses(<Redirect to={`/member`} />);
+          }}
+        >
+          Back to Classes
+        </DevBtn>
 
         {sendClasses ? sendClasses : null}
+        <StoreContext.Provider value={{checkout:checkoutClicked, setCheckOut: onCheckoutClicked}}>
         <Row>
-          <Col xs={8}>
+          <Col xs={12} sm={12} md={6} lg={8}>
             <Store
               productList={productList}
               cartHandler={handleUpdateQuantity}
             ></Store>
           </Col>
-          <Col xs={4}>
+          <Col xs={12} sm={12} md={6} lg={4}>
             <Container className="storeCart d-flex justify-content-center">
               <Card className="border border-danger">
                 <Cart3 className="align-self-center" size={96}></Cart3>
@@ -89,6 +94,7 @@ function MemberStore() {
             </Container>
           </Col>
         </Row>
+        </StoreContext.Provider>
       </Container>
       <Footer />
     </>

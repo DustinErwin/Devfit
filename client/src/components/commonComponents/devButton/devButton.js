@@ -13,6 +13,7 @@ function DevBtn(props) {
       className={"button align-self-center " + props.styleClass}
       id={props.id}
       onClick={props.onClick}
+      disabled={props.disableBtn}
       ref={props.devRef}
       type={props.styleType}
     >

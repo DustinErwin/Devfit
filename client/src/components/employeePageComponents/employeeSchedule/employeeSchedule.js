@@ -6,6 +6,7 @@ import DevBtn from "../../commonComponents/devButton/devButton";
 import Col from "react-bootstrap/Col";
 import convertTime from "../../../utilities/convertTime";
 import "./styles.css";
+import { employeeRemoveClass } from "../../../utilities/employeeAPI/employeeAPI";
 
 function EmployeeSchedule(props) {
   const userData = props.userData;
@@ -13,16 +14,12 @@ function EmployeeSchedule(props) {
   //when delete btns are clicked, send a delete request, then fetchSchedule classSchedule, re-rendering page.
   function handleDelete(event) {
     const id = event.target.id;
-    fetch("/api/employee/removeClass/" + id, {
-      method: "DELETE",
-    })
-      .then((res) => res.text())
-      .then((res) => {
-        //update schedule
-        props.fetchScheduleData();
-        //update left column with what classes trainer is teacahing
-        props.fetchTrainerData();
-      });
+    employeeRemoveClass(id).then(() => {
+      //update schedule
+      props.fetchScheduleData();
+      //update left column with what classes trainer is teacahing
+      props.fetchTrainerData();
+    });
   }
 
   return (
@@ -52,7 +49,10 @@ function EmployeeSchedule(props) {
                     key={i}
                     className="m-0 pb-3 pt-3 border-to-bottom-thin scheduleClass "
                   >
-                    <Col xs={12} className="border-teal pb-3 text-center border-to-right">
+                    <Col
+                      xs={12}
+                      className="border-teal pb-3 text-center border-to-right"
+                    >
                       <h4 className=" bold text-red">
                         {singleClass.class_name}{" "}
                       </h4>
@@ -64,7 +64,10 @@ function EmployeeSchedule(props) {
                       </div>
                     </Col>
 
-                    <Col xs={12} className="border-teal center-btn border-to-right ">
+                    <Col
+                      xs={12}
+                      className="border-teal center-btn border-to-right "
+                    >
                       {employeesClass && (
                         <DevBtn
                           styleClass="btn-red "
