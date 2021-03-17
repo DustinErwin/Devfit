@@ -48,10 +48,10 @@ function RegistrationPage() {
   };
 
   return (
-    <div>
+    <>
       <Header />
       <Container  >
-        <h1 className="text-center mt-3 mb-4">Welcome to <span class="txt-red no-wrap">Dev Fitness</span> </h1>
+        <h1 className="text-center  mb-4">Welcome to <span class="txt-red no-wrap">Dev Fitness</span> </h1>
         <h4 className="text-center">Enter your information to become a member!</h4>
         <Card>
           <RegistrationForm  handleRegistrationSubmit={() => handleRegistrationSubmit()} userInfo={(e) => userInfo(e)}></RegistrationForm>
@@ -59,7 +59,7 @@ function RegistrationPage() {
       </Container>
 
       <Footer />
-    </div>
+    </>
   );
 }
 

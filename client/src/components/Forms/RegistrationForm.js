@@ -118,7 +118,7 @@ export default function RegistrationForm(props) {
                   onChange={(event) => props.userInfo(event)}
                   name="phone"
                 ></Form.Control>
-                <Form.Text className="text-muted">
+                <Form.Text className="text-muted ml-1">
                   Enter 10 digit phone with no special characters
                 </Form.Text>
                 <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
