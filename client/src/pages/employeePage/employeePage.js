@@ -9,6 +9,7 @@ import LeftColumn from "../../components/employeePageComponents/employeeInfoBoxC
 import add from "date-fns/add";
 import { format } from "date-fns";
 
+
 function EmployeePage() {
   const user = useContext(UserContext);
   const [userData, setUserData] = useState(""); //The uesr name and id

@@ -4,7 +4,7 @@ import "./styles.css";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import DevBtn from "../../commonComponents/devButton/devButton";
-import Button from "react-bootstrap/button";
+
 
 function InfoBoxRightColumn(props) {
   const [fitClassName, setFitClassName] = useState("");

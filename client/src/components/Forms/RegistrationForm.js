@@ -6,6 +6,7 @@ import "./registrationForm.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import DevBtn from "../../components/commonComponents/devButton/devButton";
 import React, { useState } from "react";
+import AuthenticationButton from "../../components/authenticationButton/logoutButton/logoutButton";
 
 export default function RegistrationForm(props) {
   const [validated, setValidated] = useState(false);
@@ -26,7 +27,7 @@ export default function RegistrationForm(props) {
 
   return (
     <>
-      <Container className="regForm background-white larger-font">
+      <Container  className="regForm background-white larger-font">
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
           <Row>
             <Col>
@@ -128,11 +129,15 @@ export default function RegistrationForm(props) {
               </Form.Group>
             </Col>
           </Row>
-          <div className="text-center">
-          <DevBtn styleClass="btn-red mb-4 mt-3" styleType="submit">
+          <Row>
+            
+          <Col className="text-center mb-4 mt-3">
+          <DevBtn styleClass="btn-red mr-3" styleType="submit">
             Sign Up
           </DevBtn>
-          </div>
+          < AuthenticationButton />
+          </Col>
+          </Row> 
         </Form>
       </Container>
     </>
