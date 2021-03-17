@@ -40,6 +40,7 @@ function MemberStore() {
         });
         setCart(initialCartArray);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleUpdateQuantity = (productId, newQuantity) => {
