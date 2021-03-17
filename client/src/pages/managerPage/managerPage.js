@@ -137,7 +137,6 @@ function ManagerPage() {
 
   //Delete request to terminate employee
   const terminateTrainer = async () => {
-    console.log("terminate", selectedTrainer);
     await terminateTrainerApi(selectedTrainer._id);
     getAllTrainers();
     setSelectedTrainer({});
@@ -197,7 +196,6 @@ const filteredMember = allMembers
     fetchClassRoster(e.target.id);
 
     handleShow();
-    console.log(classSchedule)
   }
 
   return (
