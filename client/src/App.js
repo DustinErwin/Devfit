@@ -11,10 +11,10 @@ import { useAuth0 } from "@auth0/auth0-react";
 import LoginPage from "./pages/loginPage/loginPage";
 import "./App.css";
 import IsShoppingContext from "./utilities/isShoppingContext";
+import UserLogged from "./utilities/userLogged";
 
 function App() {
-  const { isAuthenticated } = useAuth0();
-  const { user } = useAuth0();
+  const { isAuthenticated, user } = useAuth0();
   const [userLogged, setUserLogged] = useState(false);
   const [isShopping, setIsShopping] = useState();
   const [userRole, setUserRole] = useState(null);
@@ -28,7 +28,8 @@ function App() {
     gender: "",
   });
 
-  const value = { isShopping, setIsShopping };
+  const valueShop = { isShopping, setIsShopping };
+  const valueLogged = { userLogged, setUserLogged };
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -45,15 +46,12 @@ function App() {
             role: currentUser.role,
             gender: currentUser.gender,
           });
-          setUserLogged(true);
         });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, [isAuthenticated]);
 
   useEffect(() => {
-    console.log(isAuthenticated, "Auth");
-    console.log(userInfo);
     if (!isShopping && isAuthenticated) {
       if (userInfo.role) {
         setUserRole(<Redirect to={`/${userInfo.role}`} />);
@@ -72,26 +70,27 @@ function App() {
         gender: "",
       });
       setUserRole(null);
-      setUserLogged(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userLogged]);
+  }, [userInfo.role]);
 
   return (
     <UserContext.Provider value={userInfo}>
-      <div className="App">
-        <Switch>
-          <Route path="/" component={LoginPage} exact />
-          <IsShoppingContext.Provider value={value}>
-            <Route path="/member" component={MemberPage} />
-            <Route path="/member-store" component={MemberStore} />
-          </IsShoppingContext.Provider>
-          <Route path="/employee" component={EmployeePage} />
-          <Route path="/manager" component={ManagerPage} />
-          <Route path="/registration" component={RegistrationPage} />
-          {userRole ? userRole : null}
-        </Switch>
-      </div>
+      <UserLogged.Provider value={valueLogged}>
+        <div className="App">
+          <Switch>
+            <Route path="/" component={LoginPage} exact />
+            <IsShoppingContext.Provider value={valueShop}>
+              <Route path="/member" component={MemberPage} />
+              <Route path="/member-store" component={MemberStore} />
+            </IsShoppingContext.Provider>
+            <Route path="/employee" component={EmployeePage} />
+            <Route path="/manager" component={ManagerPage} />
+            <Route path="/registration" component={RegistrationPage} />
+            {userRole ? userRole : null}
+          </Switch>
+        </div>
+      </UserLogged.Provider>
     </UserContext.Provider>
   );
 }
