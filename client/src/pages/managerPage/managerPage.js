@@ -5,6 +5,7 @@ import UserInfoBox from "../../components/commonComponents/userInfoBox/userInfoB
 import LeftColumn from "../../components/managerComponents/managerInfoBoxColumns/mInfoBoxLeftCol";
 import RightColumn from "../../components/managerComponents/managerInfoBoxColumns/mInfoBoxRightCol";
 import ManagerSchedule from "../../components/managerComponents/managerSchedule/managerSchedule";
+import {renderSchedule} from "../../utilities/renderSchedule"
 import UserContext from "../../utilities/userContext";
 import add from "date-fns/add";
 import { format } from "date-fns";
@@ -76,16 +77,16 @@ function ManagerPage() {
   //on page load after manger's id and info appears
   useEffect(() => {
     getAllTrainers();
-    renderSchedule();
+    test();
     getAllMembers();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user._id]);
 
-  //whenver the class Roster updates, update schedule to reflect spots left change
-  useEffect(() => {
-    renderSchedule();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [classRoster]);
+  // //whenver the class Roster updates, update schedule to reflect spots left change
+  // useEffect(() => {
+  //   renderSchedule();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [classRoster]);
 
   //get all members, then set them to AllMembersState
   const getAllMembers = async () => {
@@ -146,10 +147,9 @@ function ManagerPage() {
 
   /*---------------------------------------- Schedule Functions--------------------------------------------- */
   //get schedule data then render schedule
-  const renderSchedule = async () => {
+  const test = async () => {
     const scheduleData = await renderScheduleApi(user._id);
-
-    const stateArray = renderSchedule(scheduleData);
+    const stateArray = await renderSchedule(scheduleData);
 
     setClassSchedule(stateArray);
   };
@@ -199,7 +199,7 @@ const filteredMember = allMembers
     fetchClassRoster(e.target.id);
 
     handleShow();
-    
+    console.log(classSchedule)
   }
 
   return (
@@ -224,7 +224,7 @@ const filteredMember = allMembers
           />
         }
       ></UserInfoBox>
-
+   
       <ManagerSchedule
         classSchedule={classSchedule}
         fetchClassRoster={fetchClassRoster}
