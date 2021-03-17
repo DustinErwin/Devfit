@@ -128,9 +128,11 @@ export default function RegistrationForm(props) {
               </Form.Group>
             </Col>
           </Row>
+          <div className="text-center">
           <DevBtn styleClass="btn-red mb-4 mt-3" styleType="submit">
             Sign Up
           </DevBtn>
+          </div>
         </Form>
       </Container>
     </>

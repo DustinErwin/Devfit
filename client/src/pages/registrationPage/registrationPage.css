@@ -2,3 +2,8 @@
   color: #d22e33;
 }
 
+
+/* Dev Fitness always stays on the same line  */
+.no-wrap {
+  white-space: nowrap;
+}
