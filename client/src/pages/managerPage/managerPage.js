@@ -200,7 +200,13 @@ function ManagerPage() {
   //manager adds member in roster modal
   const addMemberToClass = async () => {
     //check all members against the member typed into input box, and return chosen member
-    const filteredMember = allMembers
+    const validateName = allMembers.some(item => item.fullName === selectedMember)
+    
+    if (!validateName){} 
+    else {
+
+
+const filteredMember = allMembers
       .filter((item) => {
         return selectedMember === item.fullName;
       })
@@ -214,6 +220,7 @@ function ManagerPage() {
     await addToClassApi(objectId);
 
     fetchClassRoster(selectedClass);
+  }
   };
 
   function handleRosterClick(e) {
@@ -222,6 +229,7 @@ function ManagerPage() {
     fetchClassRoster(e.target.id);
 
     handleShow();
+    
   }
 
   return (
