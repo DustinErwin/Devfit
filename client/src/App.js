@@ -11,11 +11,9 @@ import { useAuth0 } from "@auth0/auth0-react";
 import LoginPage from "./pages/loginPage/loginPage";
 import "./App.css";
 import IsShoppingContext from "./utilities/isShoppingContext";
-import UserLogged from "./utilities/userLogged";
 
 function App() {
   const { isAuthenticated, user } = useAuth0();
-  const [userLogged, setUserLogged] = useState(false);
   const [isShopping, setIsShopping] = useState();
   const [userRole, setUserRole] = useState(null);
   const [userInfo, setUserInfo] = useState({
@@ -28,25 +26,11 @@ function App() {
     gender: "",
   });
 
-<<<<<<< HEAD
   const valueShop = { isShopping, setIsShopping };
-  const valueLogged = { userLogged, setUserLogged };
 
   useEffect(() => {
     if (isAuthenticated) {
       fetch(`/api/user/${user.email}`)
-=======
-  const [userRole, setUserRole] = useState(null);
-  const { isAuthenticated } = useAuth0();
-  const { user } = useAuth0();
-  console.log(user);
-
-  useEffect(() => {
-    if (!isShopping && isAuthenticated) {
-      const { email } = user;
-
-      fetch(`/api/user/${email}`)
->>>>>>> master
         .then((response) => response.json())
         .then((currentUser) => {
           setUserInfo({
@@ -89,21 +73,19 @@ function App() {
 
   return (
     <UserContext.Provider value={userInfo}>
-      <UserLogged.Provider value={valueLogged}>
-        <div className="App">
-          <Switch>
-            <Route path="/" component={LoginPage} exact />
-            <IsShoppingContext.Provider value={valueShop}>
-              <Route path="/member" component={MemberPage} />
-              <Route path="/member-store" component={MemberStore} />
-            </IsShoppingContext.Provider>
-            <Route path="/employee" component={EmployeePage} />
-            <Route path="/manager" component={ManagerPage} />
-            <Route path="/registration" component={RegistrationPage} />
-            {userRole ? userRole : null}
-          </Switch>
-        </div>
-      </UserLogged.Provider>
+      <div className="App">
+        <Switch>
+          <Route path="/" component={LoginPage} exact />
+          <IsShoppingContext.Provider value={valueShop}>
+            <Route path="/member" component={MemberPage} />
+            <Route path="/member-store" component={MemberStore} />
+          </IsShoppingContext.Provider>
+          <Route path="/employee" component={EmployeePage} />
+          <Route path="/manager" component={ManagerPage} />
+          <Route path="/registration" component={RegistrationPage} />
+          {userRole ? userRole : null}
+        </Switch>
+      </div>
     </UserContext.Provider>
   );
 }
