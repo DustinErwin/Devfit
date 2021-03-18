@@ -29,6 +29,7 @@ function InfoBoxRightColumn(props) {
 
   return (
     <>
+    
       {" "}
       {props.toggleRightCol === "addTrainer" ? (
         <Card className="trainer-info-card mt-4 hire-trainer-card">
