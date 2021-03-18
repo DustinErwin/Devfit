@@ -35,14 +35,15 @@ function InfoBoxRightColumn(props) {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.stopPropagation();
-      event.preventDefault();
+      event.preventDefault()
       setValidated(true);
-      return false;
+      return false
+   
     }
+    // event.stopPropagation()
     event.preventDefault();
     handleClassCreation();
-    setValidated(true);
- 
+    setValidated(false);
   };
   const rosterList = props.rosterList || [];
   //Ternery using toggleAddClass state in parent. Change Value in state to change right Col
