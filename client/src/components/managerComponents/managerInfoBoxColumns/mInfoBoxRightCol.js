@@ -21,7 +21,6 @@ function InfoBoxRightColumn(props) {
       return false
    
     }
-    // event.stopPropagation()
     event.preventDefault();
     props.handleHireNewTrainer()
     setValidated(false);
