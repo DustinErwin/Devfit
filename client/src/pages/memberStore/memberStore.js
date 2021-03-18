@@ -85,7 +85,7 @@ function MemberStore() {
               ></Store>
             </Col>
             <Col xs={12} sm={12} md={6} lg={4}>
-              <Container className="storeCart d-flex justify-content-center">
+              <Container className="storeCart d-flex px-0 justify-content-center">
                 <Card className="border border-danger">
                   <Cart3 className="align-self-center" size={96}></Cart3>
                   <h3 className="mt-4">Your Cart</h3>
