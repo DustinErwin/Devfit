@@ -13,13 +13,13 @@ function InfoBoxLeftColumn(props) {
         You are currently teaching {props.numClassesTaught}{" "}
         {props.numClassesTaught === 1 ? "class" : "classes"} this week!
       </p>
-      <Row>
+    
         {props.userClasses.map((singleClass, i) => {
           const convertedTime = tConvert(singleClass.start_time);
 
           return (
-            <>
-              <Col xs="3" className=" mb-4 roster-col" key={i}>
+            <Row key={i}>
+              <Col xs="4" className=" mb-4 roster-col" key={i}>
                 <DevBtn
                   styleClass="btn-dark"
                   id={singleClass.id}
@@ -28,16 +28,16 @@ function InfoBoxLeftColumn(props) {
                   Roster
                 </DevBtn>{" "}
               </Col>
-              <Col xs="9" className= "class-text-col">
+              <Col xs="8" className= "class-text-col">
                 <p className=" ">
                   {singleClass.day}, {singleClass.class_name}, at{" "}
                   {convertedTime} <span> </span>
                 </p>{" "}
               </Col>
-            </>
+            </Row>
           );
         })}
-      </Row>
+    
       <div>
         <DevBtn styleClass="btn-dark mr-3" onClick={props.toggleAddClass}>
           Add Class
