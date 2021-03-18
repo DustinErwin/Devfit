@@ -2,7 +2,7 @@ import React from 'react';
 
 const StoreContext = React.createContext({
     checkout: false,
-    setCheckOut: () => {}
+    setCheckOut: (gotoCheckout) => {}
 })
 
 export default StoreContext;

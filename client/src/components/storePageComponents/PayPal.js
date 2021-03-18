@@ -3,12 +3,14 @@ import UserContext from "../../utilities/userContext";
 import Modal from "react-bootstrap/Modal";
 import DevBtn from "../commonComponents/devButton/devButton";
 import { Redirect } from "react-router";
+import StoreContext from "../../utilities/storeContext";
 
 // PayPal button code credit: https://www.youtube.com/watch?v=IXxEdhA7fig
 
 export default function PayPal(props) {
   const [sendClasses, setSendClasses] = useState();
   const userInfo = useContext(UserContext);
+  const {setCheckOut} = useContext(StoreContext);
   const [orderId, setOrderId] = useState("");
   const paypal = useRef();
   const [show, setShow] = useState(false);
@@ -80,6 +82,10 @@ export default function PayPal(props) {
         onError: (err) => {
           console.log("onError err-> ", err);
         },
+        onCancel: function (data) {
+          // Show a cancel page, or return to cart
+          setCheckOut(false);
+        }
       })
       .render(paypal.current);
   }, []);
