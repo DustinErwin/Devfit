@@ -8,7 +8,7 @@ const OrderDetailsSchema = new Schema({
     ref: "Product",
     required: true,
   },
-  name: {
+  product_name: {
     type: String,
     required: [true, "Product Name is required"],
   },
