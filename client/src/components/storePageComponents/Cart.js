@@ -13,7 +13,7 @@ function Cart(props) {
     0
   );
 
-  const {checkout, setCheckOut} = useContext(StoreContext);
+  const { checkout, setCheckOut } = useContext(StoreContext);
 
   return (
     <Table responsive>
@@ -22,7 +22,7 @@ function Cart(props) {
           <th className="text-left">Product</th>
           <th>Price</th>
           <th>Quantity</th>
-          <th>Total</th>
+          <th>Cost</th>
         </tr>
       </thead>
       <tbody>
@@ -35,22 +35,24 @@ function Cart(props) {
           <td className="text-left" colSpan="3">
             <b>Total</b>
           </td>
-          <td>{cartTotal}</td>
+          <td>${cartTotal}</td>
         </tr>
         <tr>
           <td colSpan="4" className="text-right">
             {checkout ? (
               <PayPal total={cartTotal} items={cartData} />
             ) : (
-              <DevBtn
-                styleClass="btn-dark"
-                onClick={() => {
-                  setCheckOut(true);
-                }}
-                disableBtn={cartTotal === 0}
-              >
-                Checkout
-              </DevBtn>
+              <div className="d-flex justify-content-center">
+                <DevBtn
+                  styleClass="btn-dark d-flex"
+                  onClick={() => {
+                    setCheckOut(true);
+                  }}
+                  disableBtn={cartTotal === 0}
+                >
+                  Checkout
+                </DevBtn>
+              </div>
             )}
           </td>
         </tr>

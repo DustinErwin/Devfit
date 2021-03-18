@@ -22,10 +22,14 @@ function StoreItem(props) {
   const { el, clickHandler } = props;
   return (
     <Card className="my-3 mx-auto" border="danger" style={{ width: "18rem" }}>
-      <Card.Img variant="top" src={images(`./${el.image_path}`).default} />
-      <Card.Body>
-        <Card.Title>{el.name}</Card.Title>
-        <Card.Text>{el.description}</Card.Text>
+      <Card.Body className="cartItem px-0 pt-0">
+        <Card.Img
+          className="pb-1"
+          variant="top"
+          src={images(`./${el.image_path}`).default}
+        />
+        <Card.Title className="px-1 pt-4">{el.name}</Card.Title>
+        <Card.Text className="mx-2">{el.description}</Card.Text>
       </Card.Body>
       <ListGroup className="list-group-flush">
         <ListGroupItem>${el.price}</ListGroupItem>

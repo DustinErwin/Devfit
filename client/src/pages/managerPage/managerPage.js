@@ -155,6 +155,7 @@ function ManagerPage() {
     await terminateTrainerApi(selectedTrainer._id);
     getAllTrainers();
     setSelectedTrainer({});
+    getScheduleData()
   };
 
   /*---------------------------------------- Schedule Functions--------------------------------------------- */
