@@ -5,12 +5,11 @@ import RegistrationForm from "../../components/Forms/RegistrationForm";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import "./registrationPage.css";
-import DevBtn from "../../components/commonComponents/devButton/devButton";
 import { useAuth0 } from "@auth0/auth0-react";
 
 function RegistrationPage() {
   const { user } = useAuth0();
-  
+
   const [users, setUser] = useState({
     first_name: "",
     last_name: "",
@@ -29,10 +28,7 @@ function RegistrationPage() {
     });
   };
 
-  const handleRegistrationSubmit = (event) => {
-    console.log("clicked");
-    console.log(users);
-
+  const handleRegistrationSubmit = () => {
     fetch("/api/user/register", {
       method: "POST",
       headers: {
@@ -41,8 +37,7 @@ function RegistrationPage() {
       body: JSON.stringify(users),
     })
       .then((response) => response.json())
-      .then((users) => {
-        console.log("Success:", users);
+      .then(() => {
         window.location.href = window.location.origin;
       })
       .catch((error) => {
@@ -53,19 +48,19 @@ function RegistrationPage() {
   return (
     <>
       <Header />
-      <Container className="regPage">
-        <h1>You're almost there! </h1>
-        <h3>Enter your information to become a member!</h3>
+      <Container fluid="lg" className=" p-0">
+        <h1 className="text-center  mb-4">
+          Welcome to <span class="txt-red no-wrap">Dev Fitness</span>{" "}
+        </h1>
+        <h4 className="text-center">
+          Enter your information to become a member!
+        </h4>
         <Card>
-          <RegistrationForm userInfo={(e) => userInfo(e)}></RegistrationForm>
+          <RegistrationForm
+            handleRegistrationSubmit={() => handleRegistrationSubmit()}
+            userInfo={(e) => userInfo(e)}
+          ></RegistrationForm>
         </Card>
-        <DevBtn
-          className="signupBtn"
-          styleClass="btn-red"
-          onClick={handleRegistrationSubmit}
-        >
-          Sign Up
-        </DevBtn>
       </Container>
 
       <Footer />

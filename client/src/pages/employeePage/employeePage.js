@@ -6,8 +6,13 @@ import UserInfoBox from "../../components/commonComponents/userInfoBox/userInfoB
 import UserContext from "../../utilities/userContext";
 import RightColumn from "../../components/employeePageComponents/employeeInfoBoxColumns/eInfoBoxRightColumn";
 import LeftColumn from "../../components/employeePageComponents/employeeInfoBoxColumns/einfoBoxLeftColumn";
-import add from "date-fns/add";
-import { format } from "date-fns";
+import { renderScheduleApi } from "../../utilities/managerAPI/managerAPI";
+import { renderSchedule } from "../../utilities/renderSchedule";
+import {
+  employeeTrainingSchedule,
+  updateClassRoster,
+} from "../../utilities/employeeAPI/employeeAPI";
+
 
 function EmployeePage() {
   const user = useContext(UserContext);
@@ -16,7 +21,6 @@ function EmployeePage() {
   const [classRoster, setClassRoster] = useState(""); //holds which members are in a particular class
   const [rightColDisplay, setRightColDisplay] = useState("addClass"); // a toggle that switches between roster and add/class
   const [classSchedule, setClassSchedule] = useState([]); //all info for each class rendered in schedule
-  const weekLength = [0, 1, 2, 3, 4, 5, 6];
 
   //update all dynamic info on the page once user info is grabbed from context
   useEffect(() => {
@@ -27,92 +31,35 @@ function EmployeePage() {
 
   //fetches all the information needed to render a schedule and stores it in state.
   function fetchScheduleData() {
-    fetch("/api/employee/" + user._id + "/classes", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        const stateArray = [];
-        // eslint-disable-next-line
-        weekLength.map((nothing, i) => {
-          //Use date-fns to get classSchedule for the 7 days of the week
-          const addDay = add(new Date(), {
-            years: 0,
-            months: 0,
-            weeks: 0,
-            days: i,
-            hours: 0,
-            minutes: 0,
-            seconds: 0,
-          });
+    renderScheduleApi(user._id).then((res) => {
+      const stateArray = renderSchedule(res);
 
-          //the date written as Jan 23rd
-          const calendarDate = format(addDay, "LLL, do");
-          //day of week written as "Monday"
-          const dayOfWeek = format(addDay, "EEEE");
-
-          //Filter the fetch request to only grab classes on the current day weeklength.map is iterating through
-          const filteredData = res.filter((r) => {
-            return r.day === dayOfWeek;
-          });
-
-          //create an object to store both the fns date classSchedule and the current day
-          const dataObject = {
-            date: calendarDate,
-            weekDay: dayOfWeek,
-            classData: filteredData,
-          };
-
-          //add that object to state
-          stateArray.push(dataObject);
-        });
-
-        setClassSchedule(stateArray);
-      });
+      setClassSchedule(stateArray);
+    });
   }
 
   //grabs userName and class schedule to populate schedule
   function fetchTrainerData() {
-    fetch("/api/employee/" + user._id + "/schedule", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        const classesTaught = res.length;
+    employeeTrainingSchedule(user._id).then((res) => {
+      const classesTaught = res.length;
 
-        const classesArray = [...res];
-        setUserClasses(classesArray);
+      const classesArray = [...res];
+      setUserClasses(classesArray);
 
-        setUserData({
-          firstName: user.firstName,
-          numClassesTaught: classesTaught,
-        });
+      setUserData({
+        firstName: user.firstName,
+        numClassesTaught: classesTaught,
       });
+    });
   }
 
   function updateRoster(e) {
     const classId = e.target.id;
-    fetch(`/api/class/${classId}/roster`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
-      .then((currentRoster) => currentRoster.json())
-      .then((currentRoster) => {
-        console.log(currentRoster)
-        setClassRoster(currentRoster);
-        setRightColDisplay("roster");
-      });
+    updateClassRoster(classId).then((currentRoster) => {
+      console.log(currentRoster);
+      setClassRoster(currentRoster);
+      setRightColDisplay("roster");
+    });
   }
 
   //updates right column to display the addClass form

@@ -4,49 +4,79 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import "./registrationForm.css";
 import { useAuth0 } from "@auth0/auth0-react";
+import DevBtn from "../../components/commonComponents/devButton/devButton";
+import React, { useState } from "react";
+import AuthenticationButton from "../../components/authenticationButton/logoutButton/logoutButton";
 
 export default function RegistrationForm(props) {
+  const [validated, setValidated] = useState(false);
   const { user } = useAuth0();
+
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.stopPropagation();
+      event.preventDefault();
+      setValidated(true);
+      return false;
+    }
+
+    props.handleRegistrationSubmit();
+    setValidated(true);
+  };
+
   return (
     <>
-      <Container className="regForm background-white">
-        <Form>
+      <Container  className="regForm background-white larger-font">
+        <Form noValidate validated={validated} onSubmit={handleSubmit}>
           <Row>
             <Col>
               <Form.Group as={Row} controlId="formPlaintextEmail">
-                <Form.Label column sm="2">
-                  Email
+                <Col xs={12} className="mt-3">
+                <Form.Label>
+                  Email:  {user.email}
                 </Form.Label>
-                <Col sm="10">
-                  <Form.Control plaintext readOnly value={user.email} />
                 </Col>
+               
               </Form.Group>
             </Col>
           </Row>
           <Row>
-            <Col>
+            <Col xs={12} md={6}>
               <Form.Group controlId="formBasicEmail">
-                <Form.Label>First Name*</Form.Label>
+                <Form.Label>First Name</Form.Label>
                 <Form.Control
+                  required
                   placeholder="First name"
                   onChange={(event) => props.userInfo(event)}
                   name="first_name"
+                  type="text"
                 />
+                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid">
+                  Please enter a First Name
+                </Form.Control.Feedback>
               </Form.Group>
             </Col>
-            <Col>
+            <Col xs={12} md={6}>
               <Form.Group controlId="formBasicPassword">
-                <Form.Label>Last Name*</Form.Label>
+                <Form.Label>Last Name</Form.Label>
                 <Form.Control
+                  required
                   placeholder="Last name"
                   onChange={(event) => props.userInfo(event)}
                   name="last_name"
+                  type="text"
                 />
+                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid">
+                  Please enter a Last Name
+                </Form.Control.Feedback>
               </Form.Group>
             </Col>
           </Row>
           <Row>
-            <Col>
+            <Col  xs={12} md={6}>
               <Form.Group controlId="exampleForm.ControlSelect1">
                 <Form.Label>Gender</Form.Label>
                 <Form.Control
@@ -61,34 +91,53 @@ export default function RegistrationForm(props) {
                 </Form.Control>
               </Form.Group>
             </Col>
-            <Col>
+            <Col  xs={12} md={6}>
               <Form.Group controlId="formBirthdate">
                 <Form.Label>Birthdate</Form.Label>
                 <Form.Control
+                  required
                   type="date"
                   placeholder="Birthdate (yyyy-dd-mm)"
                   onChange={(event) => props.userInfo(event)}
                   name="date_of_birth"
                 ></Form.Control>
+                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid">
+                  Please enter a Date Of Birth
+                </Form.Control.Feedback>
               </Form.Group>
             </Col>
           </Row>
           <Row>
-            <Col>
+            <Col  xs={12} md={6}>
               <Form.Group controlId="formPhoneNumber">
-                <Form.Label>
-                  Phone Number (ten digit number only, no parentheses / dashes
-                  please)
-                </Form.Label>
+                <Form.Label>Phone Number</Form.Label>
                 <Form.Control
+                  required
                   placeholder="Phone Number"
                   pattern="[0-9]{10}"
                   onChange={(event) => props.userInfo(event)}
                   name="phone"
                 ></Form.Control>
+                <Form.Text className="text-muted ml-1">
+                  Enter 10 digit phone with no special characters
+                </Form.Text>
+                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid">
+                  Please enter 10 numeric digits with no special characters
+                </Form.Control.Feedback>
               </Form.Group>
             </Col>
           </Row>
+          <Row>
+            
+          <Col className="text-center mb-4 mt-3">
+          <DevBtn styleClass="btn-red mr-3" styleType="submit">
+            Sign Up
+          </DevBtn>
+          < AuthenticationButton />
+          </Col>
+          </Row> 
         </Form>
       </Container>
     </>

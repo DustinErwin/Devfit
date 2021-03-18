@@ -15,6 +15,7 @@ function DevBtn(props) {
       onClick={props.onClick}
       disabled={props.disableBtn}
       ref={props.devRef}
+      type={props.styleType}
     >
       {props.children}
     </BootstrapButton>
