@@ -91,10 +91,11 @@ function LoginPage() {
             lg={6}
             className="order-sm-12 align-self-stretch background-dark"
           >
-            <Container className="my-5 py-3">
+            <Container className="my-5 py-3 align-middle">
               <Container className="text-center">
                 <h1 className="text-red">Increase Your Stamina!</h1>
                 <AdCarousel
+                  id="adCarouselStyle"
                   className="adCarousel"
                   // Image Credit:  https://www.seattletimes.com/nation-world/will-you-go-back-to-the-gym-when-coronavirus-shutdown-ends-heres-what-you-need-to-consider/
                   imgUrl1={bench}
