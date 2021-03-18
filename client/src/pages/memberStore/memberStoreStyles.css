@@ -11,10 +11,10 @@
 }
 
 .storeCart {
-/* Source: https://www.w3schools.com/css/css_positioning.asp */
+  /* Source: https://www.w3schools.com/css/css_positioning.asp */
   position: -webkit-sticky; /* Safari */
-    position: sticky;
-    top: 0;
+  position: sticky;
+  top: 0;
 }
 
 .addToCartBtn {
@@ -27,5 +27,15 @@
   background: rgb(49, 49, 49) !important;
   border: none !important;
   color: whitesmoke;
+}
 
+@media screen and (max-width: 765px) {
+  .storeCart {
+    padding-bottom: 10px;
+    padding-top: 10px;
+  }
+}
+
+.cartItem {
+  min-height: 473px !important;
 }

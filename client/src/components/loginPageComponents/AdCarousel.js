@@ -5,10 +5,10 @@ import "./adCarousel.css";
 export default function CarouselImageItem(props) {
   return (
     <>
-      <Carousel className="adCarousel">
+      <Carousel indicators={false} className="adCarousel">
         <Carousel.Item>
           <img
-            className="d-block w-100 center"
+            className=" d-block w-100 center"
             src={process.env.PUBLIC_URL + props.imgUrl1}
             alt={props.altText2}
           />
