@@ -20,10 +20,12 @@ export default function RegistrationForm(props) {
       setValidated(true);
       return false;
     }
-
+    event.preventDefault();
     props.handleRegistrationSubmit();
-    setValidated(true);
+    setValidated(false);
   };
+
+  
 
   return (
     <>
