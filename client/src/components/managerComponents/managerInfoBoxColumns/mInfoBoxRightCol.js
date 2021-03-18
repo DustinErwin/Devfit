@@ -20,8 +20,9 @@ function InfoBoxRightColumn(props) {
       setValidated(true);
       return false;
     }
+    event.stopPropagation()
     event.preventDefault();
-    props.handleHireNewTrainer();
+    props.handleHireNewTrainer()
     setValidated(true);
   };
 
@@ -49,6 +50,8 @@ function InfoBoxRightColumn(props) {
                     placeholder="First Name"
                     onChange={(e) => props.updateTrainerInfo(e)}
                     name="firstName"
+                    value={props.hireTrainerInput.firstName}
+              
                   />
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                   <Form.Control.Feedback type="invalid">
@@ -63,6 +66,7 @@ function InfoBoxRightColumn(props) {
                     placeholder="Last Name"
                     onChange={(e) => props.updateTrainerInfo(e)}
                     name="lastName"
+                    value={props.hireTrainerInput.lastName}
                   />
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                   <Form.Control.Feedback type="invalid">
@@ -80,6 +84,7 @@ function InfoBoxRightColumn(props) {
                     placeholder="phone"
                     onChange={(e) => props.updateTrainerInfo(e)}
                     name="phone"
+                    value={props.hireTrainerInput.phone}
                     // pattern : https://stackoverflow.com/questions/19445408/how-to-restrict-user-to-type-10-digit-numbers-in-input-element
                     pattern="[1-9]{1}[0-9]{9}"
                   />
@@ -94,6 +99,7 @@ function InfoBoxRightColumn(props) {
                     as="select"
                     onChange={(e) => props.updateTrainerInfo(e)}
                     name="gender"
+                    value={props.hireTrainerInput.gender}
                   >
                     <option>M</option>
                     <option>F</option>
@@ -110,6 +116,7 @@ function InfoBoxRightColumn(props) {
                     placeholder="Email"
                     onChange={(e) => props.updateTrainerInfo(e)}
                     name="email"
+                    value={props.hireTrainerInput.email}
                     //regex from https://stackoverflow.com/questions/742451/what-is-the-simplest-regular-expression-to-validate-emails-to-not-accept-them-bl/742455
                     pattern="(?!.*\.\.)(^[^\.][^@\s]+@[^@\s]+\.[^@\s\.]+$)"
                   />
