@@ -52,9 +52,9 @@ function MemberStore() {
     setCart(updatedCart);
   };
 
-  const onCheckoutClicked = () => {
+  const onCheckoutClicked = (gotoCheckout) => {
     console.log("onCheckoutClicked!!!");
-    setCheckoutClicked(true);
+    setCheckoutClicked(gotoCheckout);
   };
 
   //shop code adapted from:  https://dev.to/papasanto/build-a-react-hooks-shopping-cart-with-usestate-and-useeffect-39hk

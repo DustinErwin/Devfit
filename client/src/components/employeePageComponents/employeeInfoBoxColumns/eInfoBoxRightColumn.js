@@ -9,7 +9,7 @@ import { employeeAddClass } from "../../../utilities/employeeAPI/employeeAPI";
 function InfoBoxRightColumn(props) {
   const [fitClassName, setFitClassName] = useState("");
   const [weekday, setWeekday] = useState("Monday");
-  const [classTime, setClassTime] = useState("06:00:00:00");
+  const [classTime, setClassTime] = useState("06:00:00");
   const [maxSize, setMaxSize] = useState(10);
   const [validated, setValidated] = useState(false);
 
@@ -26,6 +26,11 @@ function InfoBoxRightColumn(props) {
     employeeAddClass(classData).then(() => {
       props.fetchScheduleData();
       props.fetchTrainerData();
+
+      setFitClassName("");
+      setWeekday("Monday");
+      setClassTime("06:00:00:00");
+      setMaxSize(10);
     });
   }
 
@@ -36,12 +41,13 @@ function InfoBoxRightColumn(props) {
     if (form.checkValidity() === false) {
       event.stopPropagation();
       event.preventDefault();
-setValidated(true)
-      return false
+      setValidated(true);
+      return false;
     }
-
+    // event.stopPropagation()
+    event.preventDefault();
     handleClassCreation();
-    setValidated(true);
+    setValidated(false);
   };
   const rosterList = props.rosterList || [];
   //Ternery using toggleAddClass state in parent. Change Value in state to change right Col
@@ -84,6 +90,7 @@ setValidated(true)
               required
               type="text"
               onChange={(e) => setFitClassName(e.target.value)}
+              value={fitClassName}
             />
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
             <Form.Control.Feedback type="invalid">
@@ -97,6 +104,7 @@ setValidated(true)
               required
               as="select"
               onChange={(e) => setWeekday(e.target.value)}
+              value={weekday}
             >
               {" "}
               <option>Monday</option>
@@ -116,6 +124,7 @@ setValidated(true)
               required
               as="select"
               onChange={(e) => setMaxSize(e.target.value)}
+              value={maxSize}
             >
               {" "}
               <option>10</option>
@@ -137,7 +146,8 @@ setValidated(true)
               required
               as="select"
               onChange={(e) => setClassTime(e.target.value)}
-            >
+              value={classTime}
+            >  {" "}
               <option>06:00:00</option>
               <option>07:00:00</option>
               <option>08:00:00</option>

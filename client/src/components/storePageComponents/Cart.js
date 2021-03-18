@@ -45,7 +45,7 @@ function Cart(props) {
               <DevBtn
                 styleClass="btn-dark"
                 onClick={() => {
-                  setCheckOut();
+                  setCheckOut(true);
                 }}
                 disableBtn={cartTotal === 0}
               >

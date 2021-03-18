@@ -33,17 +33,18 @@ function App() {
       fetch(`/api/user/${user.email}`)
         .then((response) => response.json())
         .then((currentUser) => {
-          console.log(currentUser);
-          setUserInfo({
-            ...userInfo,
-            _id: currentUser._id,
-            email: currentUser.email,
-            firstName: currentUser.first_name,
-            lastName: currentUser.last_name,
-            fullName: `${currentUser.first_name} ${currentUser.last_name}`,
-            role: currentUser.role,
-            gender: currentUser.gender,
-          });
+          if (currentUser) {
+            setUserInfo({
+              ...userInfo,
+              _id: currentUser._id,
+              email: currentUser.email,
+              firstName: currentUser.first_name,
+              lastName: currentUser.last_name,
+              fullName: `${currentUser.first_name} ${currentUser.last_name}`,
+              role: currentUser.role,
+              gender: currentUser.gender,
+            });
+          }
         });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

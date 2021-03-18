@@ -5,7 +5,7 @@ import UserInfoBox from "../../components/commonComponents/userInfoBox/userInfoB
 import LeftColumn from "../../components/managerComponents/managerInfoBoxColumns/mInfoBoxLeftCol";
 import RightColumn from "../../components/managerComponents/managerInfoBoxColumns/mInfoBoxRightCol";
 import ManagerSchedule from "../../components/managerComponents/managerSchedule/managerSchedule";
-import {renderSchedule} from "../../utilities/renderSchedule"
+import { renderSchedule } from "../../utilities/renderSchedule";
 import UserContext from "../../utilities/userContext";
 import "./styles.css";
 import {
@@ -41,14 +41,23 @@ function ManagerPage() {
     phone: "",
     id: "",
   });
+  const [hireTrainerInput, setHireTrainerInput] = useState({
+    firstName: "",
+    lastName: "",
+    gender: "",
+    email: "",
+    phone: "",
+  });
+
   //sets info from trainer hire form to state
   const updateTrainerInfo = (e) => {
     const { name, value } = e.target;
-    setSelectedTrainer({
-      ...selectedTrainer,
+    setHireTrainerInput({
+      ...hireTrainerInput,
       [name]: value,
     });
   };
+
   //holds the input value in the Roster page to add Member
   const [selectedMember, setSelectedMember] = useState("");
   //class Schedule data
@@ -119,12 +128,13 @@ function ManagerPage() {
 
   //post request to hire a new trainer
   const handleHireNewTrainer = async () => {
+    console.log(hireTrainerInput);
     const dataObject = {
-      first_name: selectedTrainer.firstName,
-      last_name: selectedTrainer.lastName,
-      gender: selectedTrainer.gender || "M",
-      phone: selectedTrainer.phone,
-      email: selectedTrainer.email,
+      first_name: hireTrainerInput.firstName,
+      last_name: hireTrainerInput.lastName,
+      gender: hireTrainerInput.gender || "M",
+      phone: hireTrainerInput.phone,
+      email: hireTrainerInput.email,
       role: "employee",
     };
     //add Trainer in DB
@@ -132,12 +142,17 @@ function ManagerPage() {
     //update page with trainers
     getAllTrainers();
     //reset selected trainer for data integrity
-    setSelectedTrainer({});
+    setHireTrainerInput({
+      firstName: "",
+      lastName: "",
+      gender: "",
+      email: "",
+      phone: "",
+    });
   };
 
   //Delete request to terminate employee
   const terminateTrainer = async () => {
-    console.log("terminate", selectedTrainer);
     await terminateTrainerApi(selectedTrainer._id);
     getAllTrainers();
     setSelectedTrainer({});
@@ -168,27 +183,27 @@ function ManagerPage() {
   //manager adds member in roster modal
   const addMemberToClass = async () => {
     //check all members against the member typed into input box, and return chosen member
-    const validateName = allMembers.some(item => item.fullName === selectedMember)
-    
-    if (!validateName){} 
-    else {
+    const validateName = allMembers.some(
+      (item) => item.fullName === selectedMember
+    );
 
+    if (!validateName) {
+    } else {
+      const filteredMember = allMembers
+        .filter((item) => {
+          return selectedMember === item.fullName;
+        })
+        .pop();
 
-const filteredMember = allMembers
-      .filter((item) => {
-        return selectedMember === item.fullName;
-      })
-      .pop();
+      const objectId = {
+        memberid: filteredMember.id,
+        id: selectedClass,
+      };
 
-    const objectId = {
-      memberid: filteredMember.id,
-      id: selectedClass,
-    };
+      await addToClassApi(objectId);
 
-    await addToClassApi(objectId);
-
-    fetchClassRoster(selectedClass);
-  }
+      fetchClassRoster(selectedClass);
+    }
   };
 
   function handleRosterClick(e) {
@@ -197,7 +212,6 @@ const filteredMember = allMembers
     fetchClassRoster(e.target.id);
 
     handleShow();
-    console.log(classSchedule)
   }
 
   return (
@@ -219,10 +233,12 @@ const filteredMember = allMembers
             handleHireNewTrainer={() => handleHireNewTrainer()}
             updateTrainerInfo={(e) => updateTrainerInfo(e)}
             terminateTrainer={() => terminateTrainer()}
+            hireTrainerInput={hireTrainerInput}
+            setHireTrainerInput={setHireTrainerInput}
           />
         }
       ></UserInfoBox>
-   
+
       <ManagerSchedule
         classSchedule={classSchedule}
         fetchClassRoster={fetchClassRoster}
@@ -230,7 +246,7 @@ const filteredMember = allMembers
         classRoster={classRoster}
         setSelectedMember={setSelectedMember}
         allMembers={allMembers}
-        addMemberToClass={() => addMemberToClass()}
+        addMemberToClass={(e) => addMemberToClass(e)}
         show={show}
         handleClose={handleClose}
         removeMember={(e) => removeMember(e)}

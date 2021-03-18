@@ -56,7 +56,6 @@ function EmployeePage() {
   function updateRoster(e) {
     const classId = e.target.id;
     updateClassRoster(classId).then((currentRoster) => {
-      console.log(currentRoster);
       setClassRoster(currentRoster);
       setRightColDisplay("roster");
     });
