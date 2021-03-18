@@ -20,24 +20,22 @@ export default function RegistrationForm(props) {
       setValidated(true);
       return false;
     }
-
+    event.preventDefault();
     props.handleRegistrationSubmit();
-    setValidated(true);
+    setValidated(false);
   };
 
   return (
     <>
-      <Container  className="regForm background-white larger-font">
+      <Container className="regForm background-white larger-font">
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
           <Row>
             <Col>
               <Form.Group as={Row} controlId="formPlaintextEmail">
                 <Col xs={12} className="mt-3">
-                <Form.Label>
-                  Email:  {user.email}
-                </Form.Label>
+                  <Form.Label>Email:</Form.Label>
+                  <Form.Control plaintext readOnly defaultValue={user.email} />
                 </Col>
-               
               </Form.Group>
             </Col>
           </Row>
@@ -76,7 +74,7 @@ export default function RegistrationForm(props) {
             </Col>
           </Row>
           <Row>
-            <Col  xs={12} md={6}>
+            <Col xs={12} md={6}>
               <Form.Group controlId="exampleForm.ControlSelect1">
                 <Form.Label>Gender</Form.Label>
                 <Form.Control
@@ -91,7 +89,7 @@ export default function RegistrationForm(props) {
                 </Form.Control>
               </Form.Group>
             </Col>
-            <Col  xs={12} md={6}>
+            <Col xs={12} md={6}>
               <Form.Group controlId="formBirthdate">
                 <Form.Label>Birthdate</Form.Label>
                 <Form.Control
@@ -109,7 +107,7 @@ export default function RegistrationForm(props) {
             </Col>
           </Row>
           <Row>
-            <Col  xs={12} md={6}>
+            <Col xs={12} md={6}>
               <Form.Group controlId="formPhoneNumber">
                 <Form.Label>Phone Number</Form.Label>
                 <Form.Control
@@ -130,14 +128,13 @@ export default function RegistrationForm(props) {
             </Col>
           </Row>
           <Row>
-            
-          <Col className="text-center mb-4 mt-3">
-          <DevBtn styleClass="btn-red mr-3" styleType="submit">
-            Sign Up
-          </DevBtn>
-          < AuthenticationButton />
-          </Col>
-          </Row> 
+            <Col className="text-center mb-4 mt-3">
+              <DevBtn styleClass="btn-red mr-3" styleType="submit">
+                Sign Up
+              </DevBtn>
+              <AuthenticationButton />
+            </Col>
+          </Row>
         </Form>
       </Container>
     </>
