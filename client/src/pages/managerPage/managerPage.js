@@ -5,7 +5,7 @@ import UserInfoBox from "../../components/commonComponents/userInfoBox/userInfoB
 import LeftColumn from "../../components/managerComponents/managerInfoBoxColumns/mInfoBoxLeftCol";
 import RightColumn from "../../components/managerComponents/managerInfoBoxColumns/mInfoBoxRightCol";
 import ManagerSchedule from "../../components/managerComponents/managerSchedule/managerSchedule";
-import {renderSchedule} from "../../utilities/renderSchedule"
+import { renderSchedule } from "../../utilities/renderSchedule";
 import UserContext from "../../utilities/userContext";
 import "./styles.css";
 import {
@@ -137,7 +137,6 @@ function ManagerPage() {
 
   //Delete request to terminate employee
   const terminateTrainer = async () => {
-    console.log("terminate", selectedTrainer);
     await terminateTrainerApi(selectedTrainer._id);
     getAllTrainers();
     setSelectedTrainer({});
@@ -168,27 +167,27 @@ function ManagerPage() {
   //manager adds member in roster modal
   const addMemberToClass = async () => {
     //check all members against the member typed into input box, and return chosen member
-    const validateName = allMembers.some(item => item.fullName === selectedMember)
-    
-    if (!validateName){} 
-    else {
+    const validateName = allMembers.some(
+      (item) => item.fullName === selectedMember
+    );
 
+    if (!validateName) {
+    } else {
+      const filteredMember = allMembers
+        .filter((item) => {
+          return selectedMember === item.fullName;
+        })
+        .pop();
 
-const filteredMember = allMembers
-      .filter((item) => {
-        return selectedMember === item.fullName;
-      })
-      .pop();
+      const objectId = {
+        memberid: filteredMember.id,
+        id: selectedClass,
+      };
 
-    const objectId = {
-      memberid: filteredMember.id,
-      id: selectedClass,
-    };
+      await addToClassApi(objectId);
 
-    await addToClassApi(objectId);
-
-    fetchClassRoster(selectedClass);
-  }
+      fetchClassRoster(selectedClass);
+    }
   };
 
   function handleRosterClick(e) {
@@ -197,7 +196,6 @@ const filteredMember = allMembers
     fetchClassRoster(e.target.id);
 
     handleShow();
-    console.log(classSchedule)
   }
 
   return (
@@ -222,7 +220,7 @@ const filteredMember = allMembers
           />
         }
       ></UserInfoBox>
-   
+
       <ManagerSchedule
         classSchedule={classSchedule}
         fetchClassRoster={fetchClassRoster}
@@ -230,7 +228,7 @@ const filteredMember = allMembers
         classRoster={classRoster}
         setSelectedMember={setSelectedMember}
         allMembers={allMembers}
-        addMemberToClass={() => addMemberToClass()}
+        addMemberToClass={(e) => addMemberToClass(e)}
         show={show}
         handleClose={handleClose}
         removeMember={(e) => removeMember(e)}

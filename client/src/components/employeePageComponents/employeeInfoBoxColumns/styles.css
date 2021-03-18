@@ -51,12 +51,11 @@
 
 .roster-col {
     display:flex;
-justify-content: center;
+justify-content: flex-end
 
 }
 
 .class-text-col {
     display:flex; 
-    justify-content: flex-start;
 
 }
