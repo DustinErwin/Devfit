@@ -11,7 +11,7 @@ import girlFeet from "../../images/girlfeetwaterbottle.jpg";
 import gymCoronavirus from "../../images/gym-coronavirus.jpg";
 import bench from "../../images/bench.jpg";
 import equipmentRoom from "../../images/equipmentroom.jpg";
-import SignUpButton from "../../components/signupButton/signupButton";
+import SignUpButton from "../../components/commonComponents/signupButton/signupButton";
 
 function LoginPage() {
   return (
