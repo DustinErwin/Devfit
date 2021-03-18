@@ -15,6 +15,10 @@ export default function PayPal(props) {
   const paypal = useRef();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
+  const onModalClose = ()=>{
+    handleClose();
+    setSendClasses(<Redirect to={`/member`} />)
+  }
 
   useEffect(() => {
     const { total, items } = props;
@@ -93,10 +97,7 @@ export default function PayPal(props) {
   return (
     <div>
       <div ref={paypal}></div>
-      <Modal show={show} onHide={()=>{
-        handleClose();
-        setSendClasses(<Redirect to={`/member`} />)
-      }}
+      <Modal show={show} onHide={onModalClose}
       >
         <Modal.Header closeButton>
           <Modal.Title>Order Processed!</Modal.Title>
@@ -107,10 +108,7 @@ export default function PayPal(props) {
         <Modal.Footer>
           <DevBtn
             styleClass="btn-red"
-            onClick={() => {
-              handleClose();
-              setSendClasses(<Redirect to={`/member`} />);
-            }}
+            onClick={onModalClose}
           >
             Close
           </DevBtn>
