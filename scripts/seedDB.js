@@ -195,11 +195,13 @@ const ProductSeed = [
 const OrderDetailsSeed1 = [
   {
     product_id: product1_id,
+    name: "Jump Rope",
     price: 10,
     quantity: 2,
   },
   {
     product_id: product2_id,
+    name: "25 lb Dumbbells",
     price: 30,
     quantity: 4,
   },
@@ -208,11 +210,13 @@ const OrderDetailsSeed1 = [
 const OrderDetailsSeed2 = [
   {
     product_id: product1_id,
+    name: "Jump Rope",
     price: 10,
     quantity: 3,
   },
   {
     product_id: product2_id,
+    name: "25 lb Dumbbells",
     price: 30,
     quantity: 6,
   },
