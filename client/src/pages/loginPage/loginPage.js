@@ -28,12 +28,12 @@ function LoginPage() {
           >
             <Container className="my-5 py-4">
               <h3 className="text-white">
-                "Master your mindset <br />
+                "Develop a Fitness Mindset <br />
                 and <br />
-                you'll master your body."
+                Become an Unstoppable Force."
               </h3>
-              <p className="text-white mb-5">-GYMQUOTES.CO</p>
-              <h4 className="py-3 text-white">Already a Member?</h4>
+              <p className="text-white mb-5">-Aarav Patel</p>
+              <h4 className="py-3 text-white">Already have an account?</h4>
               <AuthenticationButton />
               <br />
               <br />
@@ -79,8 +79,8 @@ function LoginPage() {
               <h2 className="py-5 text-white">
                 Whatever your fitness needs, <br />
                 we've got you covered. <br />
-                Ready to become a member?
               </h2>
+              <h4 className="py-3 text-white">Ready to become a member?</h4>
               <SignUpButton />
             </Container>
           </Col>
