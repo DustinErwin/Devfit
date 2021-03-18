@@ -15,13 +15,15 @@ function InfoBoxRightColumn(props) {
   const handleSubmit = (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
-      event.preventDefault();
       event.stopPropagation();
+      event.preventDefault();
+      setValidated(true);
+      return false;
     }
+    event.preventDefault();
     props.handleHireNewTrainer();
     setValidated(true);
   };
-  
 
   return (
     <>
@@ -36,6 +38,7 @@ function InfoBoxRightColumn(props) {
               noValidate
               validated={validated}
               className="white-background rounded p-3"
+              onSubmit={handleSubmit}
             >
               <Form.Row>
                 <Form.Group as={Col} md="6" controlId="validationCustom01">
@@ -46,7 +49,6 @@ function InfoBoxRightColumn(props) {
                     placeholder="First Name"
                     onChange={(e) => props.updateTrainerInfo(e)}
                     name="firstName"
-                    
                   />
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                   <Form.Control.Feedback type="invalid">
@@ -117,12 +119,13 @@ function InfoBoxRightColumn(props) {
                   </Form.Control.Feedback>
                 </Form.Group>
               </Form.Row>
+              <div className="d-flex justify-content-center mt-3">
+                <DevBtn styleClass="btn-dark" styleType="submit">
+                  Hire Trainer
+                </DevBtn>
+              </div>
             </Form>
-            <Row className="d-flex justify-content-center mt-3">
-              <DevBtn styleClass="btn-dark" onClick={handleSubmit}>
-                Hire Trainer
-              </DevBtn>
-            </Row>
+            <Row className="d-flex justify-content-center mt-3"></Row>
           </Card.Body>
         </Card>
       ) : (
@@ -142,7 +145,9 @@ function InfoBoxRightColumn(props) {
               </ListGroup.Item>
               <ListGroup.Item className="list-group-item trainerGender">
                 Gender:
-                <span className="ml-1">{props.selectedTrainer.gender}</span>{" "}
+                <span className="ml-1">
+                  {props.selectedTrainer.gender}
+                </span>{" "}
               </ListGroup.Item>
               <ListGroup.Item className="list-group-item trainerEmail">
                 Email Address:{" "}

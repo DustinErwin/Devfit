@@ -36,10 +36,10 @@ function InfoBoxRightColumn(props) {
     if (form.checkValidity() === false) {
       event.stopPropagation();
       event.preventDefault();
-setValidated(true)
-      return false
+      setValidated(true);
+      return false;
     }
-
+    event.preventDefault();
     handleClassCreation();
     setValidated(true);
   };
