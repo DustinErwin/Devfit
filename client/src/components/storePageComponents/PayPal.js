@@ -67,6 +67,7 @@ export default function PayPal(props) {
             member_id: userInfo._id,
             order_details: [...items],
             purchase_method: "Paypal",
+            payment_ref: order.id,
           };
           console.log("orderdata", orderdata);
           fetch("/api/store/order", {

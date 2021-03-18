@@ -11,21 +11,6 @@ router.route("/productList").get((req, res) => {
 });
 
 router.route("/order").post((req, res) => {
-  // Following object expected from front-end
-  // {
-  //   member_id:"",
-  //   order_details:[{
-  //     product_id:"",
-  //     price:,
-  //     quantity:
-  //   },{
-  //     product_id:"",
-  //     price:,
-  //     quantity:
-  //   }],
-  //   purchase_method:""
-  // }
-
   let totalCost = 0;
   const orderDetails = req.body.order_details;
   orderDetails.forEach((orderItem) => {
@@ -38,6 +23,7 @@ router.route("/order").post((req, res) => {
     order_date: Date.now(),
     total_cost: totalCost,
     purchase_method: req.body.purchase_method,
+    payment_ref: req.body.payment_ref,
   });
   order
     .save()

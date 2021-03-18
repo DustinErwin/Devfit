@@ -41,6 +41,10 @@ const OrderSchema = new Schema({
     type: String,
     required: [true, "Purchase method is required"],
   },
+  payment_ref:{
+    type: String,
+    required: [true, "Payment Reference is required"],
+  }
 });
 
 const Order = mongoose.model("Order", OrderSchema);
