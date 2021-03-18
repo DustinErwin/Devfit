@@ -71,7 +71,7 @@ function App() {
       setUserRole(null);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, [user, userInfo.role]);
 
   return (
     <UserContext.Provider value={userInfo}>
