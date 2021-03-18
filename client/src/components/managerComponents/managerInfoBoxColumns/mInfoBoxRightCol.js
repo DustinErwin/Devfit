@@ -16,14 +16,15 @@ function InfoBoxRightColumn(props) {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.stopPropagation();
-      event.preventDefault();
+      event.preventDefault()
       setValidated(true);
-      return false;
+      return false
+   
     }
-    event.stopPropagation()
+    // event.stopPropagation()
     event.preventDefault();
     props.handleHireNewTrainer()
-    setValidated(true);
+    setValidated(false);
   };
 
   return (
