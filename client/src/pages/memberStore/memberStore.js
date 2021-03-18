@@ -54,7 +54,7 @@ function MemberStore() {
   const onCheckoutClicked = () => {
     console.log("onCheckoutClicked!!!");
     setCheckoutClicked(true);
-  }
+  };
 
   //shop code adapted from:  https://dev.to/papasanto/build-a-react-hooks-shopping-cart-with-usestate-and-useeffect-39hk
   return (
@@ -73,26 +73,28 @@ function MemberStore() {
         </DevBtn>
 
         {sendClasses ? sendClasses : null}
-        <StoreContext.Provider value={{checkout:checkoutClicked, setCheckOut: onCheckoutClicked}}>
-        <Row>
-          <Col xs={12} sm={12} md={6} lg={8}>
-            <Store
-              productList={productList}
-              cartHandler={handleUpdateQuantity}
-            ></Store>
-          </Col>
-          <Col xs={12} sm={12} md={6} lg={4}>
-            <Container className="storeCart d-flex justify-content-center">
-              <Card className="border border-danger">
-                <Cart3 className="align-self-center" size={96}></Cart3>
-                <h3 className="mt-4">Your Cart</h3>
-                <Card.Body>
-                  <Cart cartItems={cart} />
-                </Card.Body>
-              </Card>
-            </Container>
-          </Col>
-        </Row>
+        <StoreContext.Provider
+          value={{ checkout: checkoutClicked, setCheckOut: onCheckoutClicked }}
+        >
+          <Row>
+            <Col xs={12} sm={12} md={6} lg={8}>
+              <Store
+                productList={productList}
+                cartHandler={handleUpdateQuantity}
+              ></Store>
+            </Col>
+            <Col xs={12} sm={12} md={6} lg={4}>
+              <Container className="storeCart d-flex justify-content-center">
+                <Card className="border border-danger">
+                  <Cart3 className="align-self-center" size={96}></Cart3>
+                  <h3 className="mt-4">Your Cart</h3>
+                  <Card.Body>
+                    <Cart cartItems={cart} />
+                  </Card.Body>
+                </Card>
+              </Container>
+            </Col>
+          </Row>
         </StoreContext.Provider>
       </Container>
       <Footer />
