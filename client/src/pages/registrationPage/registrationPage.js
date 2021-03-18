@@ -50,7 +50,7 @@ function RegistrationPage() {
       <Header />
       <Container fluid="lg" className=" p-0">
         <h1 className="text-center  mb-4">
-          Welcome to <span class="txt-red no-wrap">Dev Fitness</span>{" "}
+          Welcome to <span className="txt-red no-wrap">Dev Fitness</span>{" "}
         </h1>
         <h4 className="text-center">
           Enter your information to become a member!

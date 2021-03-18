@@ -25,6 +25,8 @@ export default function RegistrationForm(props) {
     setValidated(false);
   };
 
+  
+
   return (
     <>
       <Container className="regForm background-white larger-font">

@@ -128,7 +128,6 @@ function ManagerPage() {
 
   //post request to hire a new trainer
   const handleHireNewTrainer = async () => {
-    console.log(hireTrainerInput);
     const dataObject = {
       first_name: hireTrainerInput.firstName,
       last_name: hireTrainerInput.lastName,
