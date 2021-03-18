@@ -41,14 +41,23 @@ function ManagerPage() {
     phone: "",
     id: "",
   });
+  const [hireTrainerInput, setHireTrainerInput] = useState({
+    firstName: "",
+    lastName: "",
+    gender: "",
+    email: "",
+    phone: "",
+  });
+
   //sets info from trainer hire form to state
   const updateTrainerInfo = (e) => {
     const { name, value } = e.target;
-    setSelectedTrainer({
-      ...selectedTrainer,
+    setHireTrainerInput({
+      ...hireTrainerInput,
       [name]: value,
     });
   };
+
   //holds the input value in the Roster page to add Member
   const [selectedMember, setSelectedMember] = useState("");
   //class Schedule data
@@ -119,12 +128,13 @@ function ManagerPage() {
 
   //post request to hire a new trainer
   const handleHireNewTrainer = async () => {
+    console.log(hireTrainerInput);
     const dataObject = {
-      first_name: selectedTrainer.firstName,
-      last_name: selectedTrainer.lastName,
-      gender: selectedTrainer.gender || "M",
-      phone: selectedTrainer.phone,
-      email: selectedTrainer.email,
+      first_name: hireTrainerInput.firstName,
+      last_name: hireTrainerInput.lastName,
+      gender: hireTrainerInput.gender || "M",
+      phone: hireTrainerInput.phone,
+      email: hireTrainerInput.email,
       role: "employee",
     };
     //add Trainer in DB
@@ -132,7 +142,13 @@ function ManagerPage() {
     //update page with trainers
     getAllTrainers();
     //reset selected trainer for data integrity
-    setSelectedTrainer({});
+    setHireTrainerInput({
+      firstName: "",
+      lastName: "",
+      gender: "",
+      email: "",
+      phone: "",
+    });
   };
 
   //Delete request to terminate employee
@@ -217,6 +233,8 @@ function ManagerPage() {
             handleHireNewTrainer={() => handleHireNewTrainer()}
             updateTrainerInfo={(e) => updateTrainerInfo(e)}
             terminateTrainer={() => terminateTrainer()}
+            hireTrainerInput={hireTrainerInput}
+            setHireTrainerInput={setHireTrainerInput}
           />
         }
       ></UserInfoBox>
