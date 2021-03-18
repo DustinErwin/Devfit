@@ -33,6 +33,7 @@ function App() {
       fetch(`/api/user/${user.email}`)
         .then((response) => response.json())
         .then((currentUser) => {
+          console.log(currentUser);
           setUserInfo({
             ...userInfo,
             _id: currentUser._id,
