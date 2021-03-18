@@ -25,6 +25,7 @@ function ManagerSchedule(props) {
   const mobileWidth = window.matchMedia("(max-width: 1200px)");
 
   //from https://joshwcomeau.com/react/the-perils-of-rehydration/
+  
   function useWindowSize() {
     // Initialize state with undefined width/height so server and client renders match
     // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/

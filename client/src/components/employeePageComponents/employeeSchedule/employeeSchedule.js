@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ScheduleColumn from "../../commonComponents/scheduleColumn/scheduleColumn";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
@@ -7,9 +7,70 @@ import Col from "react-bootstrap/Col";
 import convertTime from "../../../utilities/convertTime";
 import "./styles.css";
 import { employeeRemoveClass } from "../../../utilities/employeeAPI/employeeAPI";
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
+import NavDropdown from "react-bootstrap/NavDropdown";
+import Dropdown from "react-bootstrap/Dropdown";
+import MobileSchedule from "../../commonComponents/mobileSchedule/mobileSchedule";
 
 function EmployeeSchedule(props) {
   const userData = props.userData;
+  const classSchedule = props.classSchedule;
+
+
+  //tracks whether mobile view schedule or desktop
+  const [mobile, setMobile] = useState(true);
+  //tracks which day user is viewing in mobile schedule
+  const [mobileDay, setMobileDay] = useState(0);
+
+  //The width where the schedule starts looking bad, so we switch to mobile schedule
+  const mobileWidth = window.matchMedia("(max-width: 1200px)");
+
+  //from https://joshwcomeau.com/react/the-perils-of-rehydration/
+
+  function useWindowSize() {
+    // Initialize state with undefined width/height so server and client renders match
+    // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+    const [windowSize, setWindowSize] = useState({
+      width: undefined,
+      height: undefined,
+    });
+
+    useEffect(() => {
+      // Handler to call on window resize
+      function handleResize() {
+        // Set window width/height to state
+        setWindowSize({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+      }
+
+      // Add event listener
+      window.addEventListener("resize", handleResize);
+
+      // Call handler right away so state gets updated with initial window size
+      handleResize();
+
+      // Remove event listener on cleanup
+      return () => window.removeEventListener("resize", handleResize);
+    }, []); // Empty array ensures that effect is only run on mount
+
+    return windowSize;
+  }
+
+  //set a variable to window Resize
+  const windowSizeChanges = useWindowSize();
+
+  //Every time the window resizes, check if it should switch to mobile
+  useEffect(() => {
+    if (mobileWidth.matches) {
+      setMobile(true);
+    } else {
+      setMobile(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [windowSizeChanges]);
 
   //when delete btns are clicked, send a delete request, then fetchSchedule classSchedule, re-rendering page.
   function handleDelete(event) {
@@ -23,7 +84,93 @@ function EmployeeSchedule(props) {
   }
 
   return (
+    <>
     <Container fluid className="mt-md-5 mb-md-5 larger-font">
+    {mobile ? (
+          <>
+            {classSchedule[0] && (
+              <>
+                <Row className="">
+                  <Col className=" larger-font pl-0 pr-0">
+                    <Navbar bg="light" className="p-0 mr-0 ml-0 ">
+                      <Nav className=" mobile-dropdown">
+                        <NavDropdown
+                          title="Weekday"
+                          id="basic-nav-dropdown"
+                          className="weekday-heading"
+                        >
+                          {[0, 1, 2, 3, 4, 5, 6].map((item, i) => {
+                            return (
+                              <div key={i}>
+                                <NavDropdown.Item
+                                  key={i}
+                                  onClick={(e) => setMobileDay(e.target.id)}
+                                  className="text-center full-width weekday-body"
+                                >
+                                  <h2 id={i} key={i}>
+                                    {classSchedule[i].weekDay}
+                                  </h2>
+                                </NavDropdown.Item>
+                                <Dropdown.Divider />
+                              </div>
+                            );
+                          })}
+                        </NavDropdown>
+                      </Nav>
+                    </Navbar>
+                  </Col>
+                </Row>
+                <Row className="white-background ml-md-5 mr-md-5">
+                  <MobileSchedule
+                    dayOfWeek={classSchedule[mobileDay].weekDay}
+                    todaysDate={classSchedule[mobileDay].date}
+                  >
+                    {classSchedule[mobileDay].classData.map(
+                      (singleClass, i) => {
+                        const convertedMobileTime = convertTime(
+                          singleClass.start_time
+                        );
+                        return (
+                          <Container key={i}>
+                            <Row className="m-0 pb-3 pt-3 border-to-bottom-thin ">
+                              <Col
+                                xs={12}
+                                className="  border-teal pb-3 text-center "
+                              >
+                                <h4 className=" bold text-red">
+                                  {singleClass.class_name}{" "}
+                                </h4>
+                                <div>{convertedMobileTime} </div>
+                                <div>{singleClass.trainer_name}</div>
+                                <div>
+                                  slots left{" "}
+                                  {singleClass.max_size -
+                                    singleClass.current_size}
+                                </div>
+                              </Col>
+
+                              <Col xs={12} className=" border-teal center-btn ">
+                              <DevBtn
+                          styleClass="btn-red "
+                          onClick={handleDelete}
+                          id={singleClass.id}
+                        >
+                          Delete{" "}
+                        </DevBtn>
+                              </Col>
+                            </Row>
+                          </Container>
+                        );
+                      }
+                    )}
+                  </MobileSchedule>
+                </Row>
+              </>
+            )}
+          </>
+        ) : (
+
+
       <Row className="white-background ml-md-5 mr-md-5">
         {props.classSchedule.map((day) => {
           return (
@@ -85,7 +232,9 @@ function EmployeeSchedule(props) {
           );
         })}
       </Row>
+        )}
     </Container>
+    </>
   );
 }
 
