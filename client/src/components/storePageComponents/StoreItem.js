@@ -33,12 +33,12 @@ function StoreItem(props) {
       </ListGroup>
       <Card.Body>
         <span>
-          Enter Quantity:{" "}
+          Enter Quantity :{" "}
           <input
             type="number"
             name="selectedQuantity"
             value={selectedQuantity}
-            className="w-50"
+            className="w-25"
             onChange={handleInputChange}
             min="0"
             max={el.quantity}
