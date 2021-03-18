@@ -52,9 +52,7 @@ export default function PayPal(props) {
         },
         //On order approval, return to store page, and show modal
         onApprove: async (data, actions) => {
-          const order = await actions.order.capture().then(function (details) {
-            setShow(true);
-          });
+          const order = await actions.order.capture();
           setOrderId(order.id);
 
           console.log(order);
@@ -75,6 +73,7 @@ export default function PayPal(props) {
           })
             .then((resp) => {
               console.log("Saved the Order to the DB", resp);
+              setShow(true);
             })
             .catch((err) => console.log("Error saving the order ", err));
         },
@@ -88,7 +87,11 @@ export default function PayPal(props) {
   return (
     <div>
       <div ref={paypal}></div>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={()=>{
+        handleClose();
+        setSendClasses(<Redirect to={`/member`} />)
+      }}
+      >
         <Modal.Header closeButton>
           <Modal.Title>Order Processed!</Modal.Title>
         </Modal.Header>
