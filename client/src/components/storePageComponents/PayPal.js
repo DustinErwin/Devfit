@@ -3,16 +3,22 @@ import UserContext from "../../utilities/userContext";
 import Modal from "react-bootstrap/Modal";
 import DevBtn from "../commonComponents/devButton/devButton";
 import { Redirect } from "react-router";
+import StoreContext from "../../utilities/storeContext";
 
 // PayPal button code credit: https://www.youtube.com/watch?v=IXxEdhA7fig
 
 export default function PayPal(props) {
   const [sendClasses, setSendClasses] = useState();
   const userInfo = useContext(UserContext);
+  const {setCheckOut} = useContext(StoreContext);
   const [orderId, setOrderId] = useState("");
   const paypal = useRef();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
+  const onModalClose = ()=>{
+    handleClose();
+    setSendClasses(<Redirect to={`/member`} />)
+  }
 
   useEffect(() => {
     const { total, items } = props;
@@ -52,9 +58,7 @@ export default function PayPal(props) {
         },
         //On order approval, return to store page, and show modal
         onApprove: async (data, actions) => {
-          const order = await actions.order.capture().then(function (details) {
-            setShow(true);
-          });
+          const order = await actions.order.capture();
           setOrderId(order.id);
 
           console.log(order);
@@ -75,12 +79,17 @@ export default function PayPal(props) {
           })
             .then((resp) => {
               console.log("Saved the Order to the DB", resp);
+              setShow(true);
             })
             .catch((err) => console.log("Error saving the order ", err));
         },
         onError: (err) => {
           console.log("onError err-> ", err);
         },
+        onCancel: function (data) {
+          // Show a cancel page, or return to cart
+          setCheckOut(false);
+        }
       })
       .render(paypal.current);
   }, []);
@@ -88,7 +97,8 @@ export default function PayPal(props) {
   return (
     <div>
       <div ref={paypal}></div>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={onModalClose}
+      >
         <Modal.Header closeButton>
           <Modal.Title>Order Processed!</Modal.Title>
         </Modal.Header>
@@ -98,10 +108,7 @@ export default function PayPal(props) {
         <Modal.Footer>
           <DevBtn
             styleClass="btn-red"
-            onClick={() => {
-              handleClose();
-              setSendClasses(<Redirect to={`/member`} />);
-            }}
+            onClick={onModalClose}
           >
             Close
           </DevBtn>
