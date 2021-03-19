@@ -6,6 +6,7 @@ import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import "./registrationPage.css";
 import { useAuth0 } from "@auth0/auth0-react";
+import { set } from "date-fns";
 
 function RegistrationPage() {
   const { user } = useAuth0();
