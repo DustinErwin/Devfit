@@ -19,21 +19,21 @@ This is a gym tracker app which allows clients to create accounts, log in with e
 
 ## Screenshots
 
-![HomePage](./src/images/screenshots/homePage.png)
+![HomePage](./client/src/images/screenshots/homePage.png)
 
-![RegistrationPage](./src/images/screenshots/registrationPage.png)
+![RegistrationPage](./client/src/images/screenshots/registrationPage.png)
 
-![MemberPage](./src/images/screenshots/memberPage.png)
+![MemberPage](./client/src/images/screenshots/memberPage.png)
 
-![TrainerPage](./src/images/screenshots/trainerPage.png)
+![TrainerPage](./client/src/images/screenshots/trainerPage.png)
 
-![ManagerPage](./src/images/screenshots/managerPage.png)
+![ManagerPage](./client/src/images/screenshots/managerPage.png)
 
-![AddToRoster](./src/images/screenshots/addToRoster.png)
+![AddToRoster](./client/src/images/screenshots/addToRoster.png)
 
-![TrainerInfo](./src/images/screenshots/trainerInfo.png)
+![TrainerInfo](./client/src/images/screenshots/trainerInfo.png)
 
-![StorePage](./src/images/screenshots/storePage.png)
+![StorePage](./client/src/images/screenshots/storePage.png)
 
 [(Back to Top)](#Description)
 
