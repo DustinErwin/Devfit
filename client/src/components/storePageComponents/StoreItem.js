@@ -33,7 +33,9 @@ function StoreItem(props) {
       </Card.Body>
       <ListGroup className="list-group-flush">
         <ListGroupItem>${el.price}</ListGroupItem>
-        <ListGroupItem>Qty: {el.quantity - selectedQuantity}</ListGroupItem>
+        <ListGroupItem>
+          Qty In Stock: {el.quantity - selectedQuantity}
+        </ListGroupItem>
       </ListGroup>
       <Card.Body>
         <span>

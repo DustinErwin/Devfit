@@ -2,55 +2,66 @@
 
 ## Description
 
-This is a gym tracker app which allows clients to create accounts, log in with existing accounts, see trainer information, and view and join classes. It also allows trainers to add or remove their own classes. Managers on this app are able to view a list of trainers employed by the gym, pull up an individual trainer's information, terminate a trainer's employment by removing that trainer from the database, or hire a new trainer by adding his/her information into the database. A manager can also view all classes available at the gym for the week, view class rosters, and add/remove members from class rosters.
+This is a gym tracker app which allows clients to create accounts, log in with existing accounts, see trainer information, view and join classes, and shop the Dev Fit store. It also allows trainers to add or remove their own classes. Managers on this app are able to view a list of trainers employed by the gym, pull up an individual trainer's information, terminate a trainer's employment by removing that trainer from the database, or hire a new trainer by adding his/her information into the database. A manager can also view all classes available at the gym for the week, view class rosters, and add/remove members from class rosters.
 
-## Screenshots
+## Deployed App
 
-![HomePage](./public/assets/images/screenshots/homePage.png)
-
-![RegistrationPage](./public/assets/images/screenshots/registrationPage.png)
-
-![ClientSchedulePage](./public/assets/images/screenshots/clientSchedulePage.png)
-
-![TrainerPage](./public/assets/images/screenshots/trainerPage.png)
-
-![ManagerPageView](./public/assets/images/screenshots/managerPageView.png)
-
-![ManagerPageHire](./public/assets/images/screenshots/managerPageHire.png)
-
-![ManagerPageAdd](./public/assets/images/screenshots/managerPageAdd.png)
+[Dev Fit App](https://dev-fit-gym-app.herokuapp.com/employee)
 
 ## Table of Contents
 
+- [Screenshots](#Screenshots)
 - [Technologies](#Technologies)
 - [Usage](#Usage)
 - [Installation](#Installation)
 - [Feedback](#Feedback)
-- [Challenges](#Challenges)
 - [Future Development](#Future_Development)
+
+## Screenshots
+
+![HomePage](./src/images/screenshots/homePage.png)
+
+![RegistrationPage](./src/images/screenshots/registrationPage.png)
+
+![MemberPage](./src/images/screenshots/memberPage.png)
+
+![TrainerPage](./src/images/screenshots/trainerPage.png)
+
+![ManagerPage](./src/images/screenshots/managerPage.png)
+
+![AddToRoster](./src/images/screenshots/addToRoster.png)
+
+![TrainerInfo](./src/images/screenshots/trainerInfo.png)
+
+![StorePage](./src/images/screenshots/storePage.png)
+
+[(Back to Top)](#Description)
 
 ## Technologies
 
+- React
 - node.js
-- mysql
-- sequelize
-- body-parser
-- dotenv
+- Auth0
 - express
 - jest
-- md5
-- mysql2
+- AtlasDB
+- MongoDb
+- Mongoose
 - nodemon
-- server
+- date-fns
+- Heroku
+- react-bootstrap
+- PayPal
 
 ## Usage
 
-1. Clients
+1. Members
    - Register for account from home page.
    - Log in with registered account from home page.
    - Join or drop classes.
    - View classes they've registered for.
    - View Gym's trainers.
+   - Shop at the Member Store.
 2. Trainers
    - Log in from home page.
    - Add Classes/classtimes for the week to be taught by that trainer.
@@ -64,61 +75,29 @@ This is a gym tracker app which allows clients to create accounts, log in with e
    - View all classes being offered by the gym for the week.
    - View class rosters.
    - Add members to roster or delete members from roster for each class (in case client needs help with this process for some reason).
+   - View Store Order History.
 
 ## Installation
 
-- Install [node.js](https://nodejs.org/en/download/)
-- Open server.js in node.js integrated terminal, and install dependencies with `npm install`
+- Deployed on Heroku
 
 ## Feedback
 
 Contact us with any feedback or questions through GitHub or by email.
 
-- [Dustin](https://github.com/DustinErwin) (Dustin's commits are registered as NewWorldCoder603.)
+- [Dustin](https://github.com/DustinErwin)
 - [Ethan](https://github.com/Ewager1)
 - [Jesal](https://github.com/JesalDM)
 - [Sarah](https://github.com/smanter82/)
 
-## Challenges
-
-- Keeping project scope small enough to meet the deadline
-- Organizing a large amount of API's.
-- Figuring out how MySQL joins would work with Sequelize
-- Rotating calendar logic based on current date.
-
 ## Future_Development
 
-- Expanding the rotating week to be a full calendar.
-- Adding a router controller
-- Adding user authorization
-- Improved user error handling
-- Membership pricing and records
+- Track sales data (Ex: How many people have been signed up, how many people have been called, how many calls have resulted in tours/memberships, etc.)
+- Track membership costs, gym’s income, employee costs (salaries, etc.)
+- Contact form
+- Upgrade, Downgrade, Cancel Membership
+- Trial Membership coupon codes
+- Manager can change class times, add / delete class
+- Trainer can change class times
 
-## Copyrights/Acknowledgements
-Copyright © 2011-2015, Paul Vorbach.
-Copyright © 2009, Jeff Mott.
-
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:
-
-* Redistributions of source code must retain the above copyright notice, this
-  list of conditions and the following disclaimer.
-* Redistributions in binary form must reproduce the above copyright notice, this
-  list of conditions and the following disclaimer in the documentation and/or
-  other materials provided with the distribution.
-* Neither the name Crypto-JS nor the names of its contributors may be used to
-  endorse or promote products derived from this software without specific prior
-  written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
-ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
-ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+[(Back to Top)](#Description)
