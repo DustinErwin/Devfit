@@ -47,8 +47,10 @@ function LoginPage() {
             className="order-sm-12 order-md-1 align-self-stretch background-dark"
           >
             <Container className="my-5 py-3">
-              <Container className="text-center">
-                <h1 className="text-red">Refactor your body!</h1>
+              <Container className="adCarouselContainer text-center">
+                <h1 className="carouselHeading text-red">
+                  Refactor your body!
+                </h1>
                 <AdCarousel
                   className="adCarousel"
                   //Image Credit:  https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.firstpost.com%2Fhealth%2Fcovid-19-precautions-should-you-be-heading-back-to-your-gym-now-that-it-will-be-allowed-to-reopen-8661361.html&psig=AOvVaw0u3LCRxcuz5rHgFpSVFb_Q&ust=1609792245944000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCJC0mczNgO4CFQAAAAAdAAAAABAO
@@ -60,7 +62,7 @@ function LoginPage() {
                   imgUrl2={gymCoronavirus}
                   altText2="Man picking up weight from weight rack"
                   carouselHeader2="Found your inner strength"
-                  carouselCaption2="but still discovering your outer
+                  carouselCaption2="but still seeking your outer
               strength?"
                 />
               </Container>
@@ -93,7 +95,9 @@ function LoginPage() {
           >
             <Container className="my-5 py-3 align-middle">
               <Container className="text-center">
-                <h1 className="text-red">Increase Your Stamina!</h1>
+                <h1 className="carouselHeading text-red">
+                  Increase Your Stamina!
+                </h1>
                 <AdCarousel
                   id="adCarouselStyle"
                   className="adCarousel"
