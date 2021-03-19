@@ -1,7 +1,7 @@
 import React from "react";
 import DevBtn from "../../commonComponents/devButton/devButton";
 import "./styles.css";
-import tConvert from "../../../utilities/convertTime";
+import tConvert from "../../../utilities/reusableFunctions/convertTime";
 import AuthenticationButton from "../../authenticationButton/logoutButton/logoutButton";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";

@@ -32,8 +32,8 @@ const ClassSchema = new Schema({
     trim: true,
     required: [true, "Max class size is required"],
     default: 10,
-    min: 6,
-    max: 16,
+    min: 10,
+    max: 20,
   },
   trainer_id: {
     type: Schema.Types.ObjectId,

@@ -2,18 +2,15 @@ import React, { useState, useEffect, useContext } from "react";
 import Header from "../../components/commonComponents/header/header";
 import Footer from "../../components/commonComponents/footer/footer";
 import Store from "../../components/storePageComponents/StoreComponent";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import {Container, Row, Col, Card} from "react-bootstrap";
 import "./memberStoreStyles.css";
-import Card from "react-bootstrap/Card";
 import { Cart3 } from "react-bootstrap-icons";
 import Cart from "../../components/storePageComponents/Cart";
-import IsShoppingContext from "../../utilities/isShoppingContext";
+import IsShoppingContext from "../../utilities/contexts/isShoppingContext";
 import DevBtn from "../../components/commonComponents/devButton/devButton";
 import { Redirect } from "react-router";
 import "../../components/commonComponents/devButton/styles.css";
-import StoreContext from "../../utilities/storeContext";
+import StoreContext from "../../utilities/contexts/storeContext";
 
 function MemberStore() {
   const [sendClasses, setSendClasses] = useState();

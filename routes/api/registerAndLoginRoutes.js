@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const db = require("../../models");
-
+const capitalize = require("../../utilities/capitalize");
 //LOGIN PAGE API
 
 // GET current user info
@@ -27,8 +27,8 @@ router.route("/register").post((req, res) => {
   const newMember = new db.Member({
     email: req.body.email,
     password: req.body.password,
-    first_name: req.body.first_name,
-    last_name: req.body.last_name,
+    first_name: capitalize(req.body.first_name),
+    last_name: capitalize(req.body.last_name),
     date_of_birth: req.body.date_of_birth
       ? new Date(req.body.date_of_birth)
       : null,
