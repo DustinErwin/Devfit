@@ -95,7 +95,7 @@ export const addToClassApi = (idObject) => {
 };
 
 //get the store orders
-export const getOrderHistoryApi = (classId) => {
+export const getOrderHistoryApi = () => {
   const result = fetch(`api/manager/orderhistory`, {
     method: "GET",
     headers: {

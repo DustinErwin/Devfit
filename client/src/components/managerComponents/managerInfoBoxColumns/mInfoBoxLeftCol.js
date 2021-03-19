@@ -1,19 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DevBtn from "../../commonComponents/devButton/devButton";
 import "./styles.css";
 import AuthenticationButton from "../../authenticationButton/logoutButton/logoutButton";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Modal from "react-bootstrap/Modal";
-import Table from "react-bootstrap/Table"
+import Table from "react-bootstrap/Table";
+import { getOrderHistoryApi } from "../../../utilities/managerAPI/managerAPI";
 
 function InfoBoxLeftColumn(props) {
+  const [orderHistory, setOrderHistory] = useState();
+
   //Modal states
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  
+  const getOrderHistory = async () => {
+    const orders = await getOrderHistoryApi();
+    setOrderHistory(orders);
+  };
+
+  useEffect(() => {
+    getOrderHistory();
+  }, []);
+  console.log(orderHistory);
   return (
     <>
       <Row>
@@ -55,40 +66,50 @@ function InfoBoxLeftColumn(props) {
         <AuthenticationButton />
       </Row>
       <div>
-      <Modal show={show} onHide={handleClose}>
+        <Modal className="orders-modal" show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Orders</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-          <Table striped bordered hover>
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Username</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td colSpan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</Table>
+            {orderHistory ? (
+              <>
+              {orderHistory.map((singleOrder) => {
+                 return ( <>
+                 <h3>
+                  {singleOrder.order_date} : {singleOrder.memberName}
+                </h3>
+                <Table  responsive hover>
+                  <thead>
+                    <tr>
+                      <th>Product</th>
+                      <th>Price</th>
+                      <th>Quantity</th>
+                      <th>Cost</th>
+               
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {singleOrder.purchased_items.map((item) => {
+                      return(<> <tr>
+                        <td>{item.name}</td>
+                        <td>${item.price}</td>
+                        <td>{item.quantity}</td>
+                        <td>${item.quantity * item.price}</td>
+                      </tr>
+                      </>)
+                    })}
+                    <tr>
+                    <td className="text-left" colSpan="3">
+            <b>Total</b>
+          </td>
+          <td><b>${singleOrder.total_cost}</b></td>
+                    </tr>
+                  </tbody>
+                </Table> </>)
+              })}
+                
+              </>
+            ) : null}
           </Modal.Body>
           <Modal.Footer>
             <DevBtn styleClass="btn-red" onClick={handleClose}>
