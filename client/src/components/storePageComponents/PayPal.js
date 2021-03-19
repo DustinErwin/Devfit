@@ -29,13 +29,11 @@ export default function PayPal(props) {
       item.quantity = orderItem.quantity;
       item.unit_amount = { currency_code: "USD", value: orderItem.price };
       item.sku = orderItem.product_id;
-      console.log("item => ", item);
       itemArray.push(item);
     });
     window.paypal
       .Buttons({
         createOrder: (data, actions, err) => {
-          //console.log("createOrder data-> ", data, " actions-> ", actions, " err-> ", err);
           return actions.order.create({
             intent: "CAPTURE",
             purchase_units: [
@@ -89,6 +87,7 @@ export default function PayPal(props) {
         },
       })
       .render(paypal.current);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
