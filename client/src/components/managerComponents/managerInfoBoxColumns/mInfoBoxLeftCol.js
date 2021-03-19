@@ -75,9 +75,9 @@ function InfoBoxLeftColumn(props) {
               <>
               {orderHistory.map((singleOrder) => {
                  return ( <>
-                 <h3>
-                  {singleOrder.order_date} : {singleOrder.memberName}
-                </h3>
+                 <h4>
+                  {singleOrder.order_date} - <span className="no-wrap">{singleOrder.memberName}</span>
+                </h4>
                 <Table  responsive hover>
                   <thead>
                     <tr>
