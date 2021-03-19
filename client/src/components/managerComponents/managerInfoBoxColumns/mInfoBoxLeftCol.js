@@ -24,7 +24,6 @@ function InfoBoxLeftColumn(props) {
   useEffect(() => {
     getOrderHistory();
   }, []);
-  console.log(orderHistory);
   return (
     <>
       <Row>
@@ -73,41 +72,51 @@ function InfoBoxLeftColumn(props) {
           <Modal.Body>
             {orderHistory ? (
               <>
-              {orderHistory.map((singleOrder) => {
-                 return ( <>
-                 <h4>
-                  {singleOrder.order_date} - <span className="no-wrap">{singleOrder.memberName}</span>
-                </h4>
-                <Table  responsive hover>
-                  <thead>
-                    <tr>
-                      <th>Product</th>
-                      <th>Price</th>
-                      <th>Quantity</th>
-                      <th>Cost</th>
-               
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {singleOrder.purchased_items.map((item) => {
-                      return(<> <tr>
-                        <td>{item.name}</td>
-                        <td>${item.price}</td>
-                        <td>{item.quantity}</td>
-                        <td>${item.quantity * item.price}</td>
-                      </tr>
-                      </>)
-                    })}
-                    <tr>
-                    <td className="text-left" colSpan="3">
-            <b>Total</b>
-          </td>
-          <td><b>${singleOrder.total_cost}</b></td>
-                    </tr>
-                  </tbody>
-                </Table> </>)
-              })}
-                
+                {orderHistory.map((singleOrder) => {
+                  return (
+                    <>
+                      <h4>
+                        {singleOrder.order_date} -{" "}
+                        <span className="no-wrap">
+                          {singleOrder.memberName}
+                        </span>
+                      </h4>
+                      <Table responsive hover>
+                        <thead>
+                          <tr>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Cost</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {singleOrder.purchased_items.map((item) => {
+                            return (
+                              <>
+                                {" "}
+                                <tr>
+                                  <td>{item.name}</td>
+                                  <td>${item.price}</td>
+                                  <td>{item.quantity}</td>
+                                  <td>${item.quantity * item.price}</td>
+                                </tr>
+                              </>
+                            );
+                          })}
+                          <tr>
+                            <td className="text-left" colSpan="3">
+                              <b>Total</b>
+                            </td>
+                            <td>
+                              <b>${singleOrder.total_cost}</b>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </Table>{" "}
+                    </>
+                  );
+                })}
               </>
             ) : null}
           </Modal.Body>

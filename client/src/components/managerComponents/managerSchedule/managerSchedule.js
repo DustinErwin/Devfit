@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import DevBtn from "../../commonComponents/devButton/devButton";
 import Col from "react-bootstrap/Col";
-import convertTime from "../../../utilities/convertTime";
+import convertTime from "../../../utilities/reusableFunctions/convertTime";
 import "./styles.css";
 import Modal from "react-bootstrap/Modal";
 import InputGroup from "react-bootstrap/InputGroup";

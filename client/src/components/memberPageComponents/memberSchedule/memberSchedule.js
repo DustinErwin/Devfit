@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ScheduleClass from "../../commonComponents/scheduleClass/scheduleClass";
 import ScheduleColumn from "../../commonComponents/scheduleColumn/scheduleColumn";
 import { Row, Container, Col } from "react-bootstrap/";
-import convertTime from "../../../utilities/convertTime";
+import convertTime from "../../../utilities/reusableFunctions/convertTime";
 import DevBtn from "../../commonComponents/devButton/devButton";
 import "./memberSchedule.css";
 import Navbar from "react-bootstrap/Navbar";
@@ -10,7 +10,7 @@ import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Dropdown from "react-bootstrap/Dropdown";
 import MobileSchedule from "../../commonComponents/mobileSchedule/mobileSchedule";
-import CheckWindowSize from "../../../utilities/checkWindowSize";
+import CheckWindowSize from "../../../utilities/reusableFunctions/checkWindowSize";
 
 function MemberSchedule(props) {
   const classesJoined = props.classesJoined || [];

@@ -1,9 +1,9 @@
 import React, { useRef, useEffect, useState, useContext } from "react";
-import UserContext from "../../utilities/userContext";
+import UserContext from "../../utilities/contexts/userContext";
 import Modal from "react-bootstrap/Modal";
 import DevBtn from "../commonComponents/devButton/devButton";
 import { Redirect } from "react-router";
-import StoreContext from "../../utilities/storeContext";
+import StoreContext from "../../utilities/contexts/storeContext";
 
 // PayPal button code credit: https://www.youtube.com/watch?v=IXxEdhA7fig
 
