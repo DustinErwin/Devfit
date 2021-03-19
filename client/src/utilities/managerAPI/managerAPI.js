@@ -27,7 +27,7 @@ export const getTrainersApi = () => {
 
 //Post New Employee
 export const postTrainerApi = (dataObject) => {
-  fetch("/api/manager/addEmployee", {
+  const result = fetch("/api/manager/addEmployee", {
     method: "POST",
     body: JSON.stringify(dataObject),
     headers: {
@@ -35,6 +35,7 @@ export const postTrainerApi = (dataObject) => {
       Accept: "application/json",
     },
   }).then((res) => res.json());
+  return result;
 };
 
 //Delete Employee from DB
