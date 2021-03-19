@@ -11,26 +11,14 @@ router.route("/productList").get((req, res) => {
 });
 
 router.route("/order").post((req, res) => {
-  // Following object expected from front-end
-  // {
-  //   member_id:"",
-  //   order_details:[{
-  //     product_id:"",
-  //     price:,
-  //     quantity:
-  //   },{
-  //     product_id:"",
-  //     price:,
-  //     quantity:
-  //   }],
-  //   purchase_method:""
-  // }
-
   let totalCost = 0;
   const orderDetails = req.body.order_details;
-  orderDetails.forEach((orderItem) => {
+  orderDetails.forEach(async (orderItem) => {
     const currentTotal = orderItem.price * orderItem.quantity;
     totalCost += currentTotal;
+    const product = await db.Product.findOne({_id: orderItem.product_id});
+    product.quantity -= orderItem.quantity;
+    const updatedProd = await product.save();
   });
   const order = new db.Order({
     member_id: db.ObjectId(req.body.member_id),
@@ -38,6 +26,7 @@ router.route("/order").post((req, res) => {
     order_date: Date.now(),
     total_cost: totalCost,
     purchase_method: req.body.purchase_method,
+    payment_ref: req.body.payment_ref,
   });
   order
     .save()

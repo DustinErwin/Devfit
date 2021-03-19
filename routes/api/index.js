@@ -1,3 +1,4 @@
+//Dependencies
 const router = require("express").Router();
 const employeeRoutes = require("./employeeRoutes");
 const managerRoutes = require("./managerRoutes");

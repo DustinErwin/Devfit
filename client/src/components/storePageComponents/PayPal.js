@@ -59,16 +59,12 @@ export default function PayPal(props) {
         //On order approval, return to store page, and show modal
         onApprove: async (data, actions) => {
           const order = await actions.order.capture();
-          setOrderId(order.id);
-
-          console.log(order);
-
-          let orderdata = {
+          const orderdata = {
             member_id: userInfo._id,
             order_details: [...items],
             purchase_method: "Paypal",
+            payment_ref: order.id,
           };
-          console.log("orderdata", orderdata);
           fetch("/api/store/order", {
             method: "POST",
             headers: {
@@ -77,8 +73,9 @@ export default function PayPal(props) {
             },
             body: JSON.stringify(orderdata),
           })
+            .then(resp => resp.json())
             .then((resp) => {
-              console.log("Saved the Order to the DB", resp);
+              setOrderId(resp._id);
               setShow(true);
             })
             .catch((err) => console.log("Error saving the order ", err));
@@ -96,14 +93,14 @@ export default function PayPal(props) {
 
   return (
     <div>
-      <div ref={paypal}></div>
+      {show ? <h3>Order Processed!</h3> : <div ref={paypal}></div>}
       <Modal show={show} onHide={onModalClose}
       >
         <Modal.Header closeButton>
           <Modal.Title>Order Processed!</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Thank you for your order! Your order id is {orderId}
+          Thank you for your order! Your Order Id is {orderId}
         </Modal.Body>
         <Modal.Footer>
           <DevBtn
