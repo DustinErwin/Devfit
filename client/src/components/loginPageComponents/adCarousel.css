@@ -10,7 +10,22 @@
 }
 
 @media screen and (max-width: 989px) {
+  .carouselHeading {
+    margin-top: 30%;
+  }
+  .adCarousel {
+    margin-top: 15%;
+  }
   .adCarouselImg {
     align-content: center;
+  }
+}
+
+@media screen and (max-width: 766px) {
+  .carouselHeading {
+    margin-top: 0;
+  }
+  .adCarousel {
+    margin-top: 0;
   }
 }
