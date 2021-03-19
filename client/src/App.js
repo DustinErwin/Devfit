@@ -68,10 +68,12 @@ function App() {
         role: "",
         gender: "",
       });
+      setUserRole(null);
+    } else {
       setUserRole(<Redirect to={`/`} />);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, userInfo.role]);
+  }, [user, userInfo.role, isAuthenticated]);
 
   return (
     <UserContext.Provider value={userInfo}>

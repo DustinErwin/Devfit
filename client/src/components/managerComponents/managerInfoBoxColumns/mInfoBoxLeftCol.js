@@ -7,6 +7,7 @@ import Col from "react-bootstrap/Col";
 import Modal from "react-bootstrap/Modal";
 import Table from "react-bootstrap/Table";
 import { getOrderHistoryApi } from "../../../utilities/managerAPI/managerAPI";
+import TableRow from "./orderTableRow";
 
 function InfoBoxLeftColumn(props) {
   const [orderHistory, setOrderHistory] = useState();
@@ -72,9 +73,9 @@ function InfoBoxLeftColumn(props) {
           <Modal.Body>
             {orderHistory ? (
               <>
-                {orderHistory.map((singleOrder) => {
+                {orderHistory.map((singleOrder, i) => {
                   return (
-                    <>
+                    <div key={i}>
                       <h4>
                         {singleOrder.order_date} -{" "}
                         <span className="no-wrap">
@@ -91,17 +92,15 @@ function InfoBoxLeftColumn(props) {
                           </tr>
                         </thead>
                         <tbody>
-                          {singleOrder.purchased_items.map((item) => {
+                          {singleOrder.purchased_items.map((item, i) => {
                             return (
-                              <>
-                                {" "}
-                                <tr>
-                                  <td>{item.name}</td>
-                                  <td>${item.price}</td>
-                                  <td>{item.quantity}</td>
-                                  <td>${item.quantity * item.price}</td>
-                                </tr>
-                              </>
+                              <TableRow
+                                key={i}
+                                name={item.name}
+                                price={item.price}
+                                quantity={item.quantity}
+                                total={item.quantity * item.price}
+                              />
                             );
                           })}
                           <tr>
@@ -114,7 +113,7 @@ function InfoBoxLeftColumn(props) {
                           </tr>
                         </tbody>
                       </Table>{" "}
-                    </>
+                    </div>
                   );
                 })}
               </>
