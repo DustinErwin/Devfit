@@ -1,4 +1,5 @@
 # Dev Fit Gym Logistical Tracker
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Description
 
@@ -6,7 +7,7 @@ This is a gym tracker app which allows clients to create accounts, log in with e
 
 ## Deployed App
 
-[Dev Fit App](https://dev-fit-gym-app.herokuapp.com/employee)
+[Dev Fit App](https://dev-fit-gym-app.herokuapp.com/)
 
 ## Table of Contents
 
@@ -43,7 +44,6 @@ This is a gym tracker app which allows clients to create accounts, log in with e
 - node.js
 - Auth0
 - express
-- jest
 - AtlasDB
 - MongoDb
 - Mongoose
