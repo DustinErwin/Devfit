@@ -2,9 +2,9 @@ import React from "react";
 import Col from "react-bootstrap/Col";
 import "./styles.css";
 import Carousel from "react-bootstrap/Carousel";
-import trainerAbeer from "../../../images/trainer_abeer.jpg";
-import trainerArav from "../../../images/trainer_arav.jpg";
-import trainerFelicia from "../../../images/trainer_felicia.jpg";
+import trainerAbeer from "../../../images/trainerProfiles/trainer_abeer.jpg";
+import trainerArav from "../../../images/trainerProfiles/trainer_arav.jpg";
+import trainerFelicia from "../../../images/trainerProfiles/trainer_felicia.jpg";
 
 //TODO: Basic Framework Created. Still need to add Api Call and show classes signed up for.
 function MeetYourTrainerBox() {

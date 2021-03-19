@@ -3,11 +3,11 @@ import Header from "../../components/commonComponents/header/header";
 import Footer from "../../components/commonComponents/footer/footer";
 import EmployeeSchedule from "../../components/employeePageComponents/employeeSchedule/employeeSchedule";
 import UserInfoBox from "../../components/commonComponents/userInfoBox/userInfoBox";
-import UserContext from "../../utilities/userContext";
+import UserContext from "../../utilities/contexts/userContext";
 import RightColumn from "../../components/employeePageComponents/employeeInfoBoxColumns/eInfoBoxRightColumn";
 import LeftColumn from "../../components/employeePageComponents/employeeInfoBoxColumns/einfoBoxLeftColumn";
 import { renderScheduleApi } from "../../utilities/managerAPI/managerAPI";
-import { renderSchedule } from "../../utilities/renderSchedule";
+import { renderSchedule } from "../../utilities/reusableFunctions/renderSchedule";
 import {
   employeeTrainingSchedule,
   updateClassRoster,

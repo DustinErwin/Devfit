@@ -4,7 +4,7 @@ import Footer from "../../components/commonComponents/footer/footer";
 import MemberInfoBox from "../../components/memberPageComponents/memberInfoBox/memberInfoBox";
 import MeetYourTrainerBox from "../../components/memberPageComponents/meetYourTrainerBox/TrainerCarousel";
 import MemberSchedule from "../../components/memberPageComponents/memberSchedule/memberSchedule";
-import UserContext from "../../utilities/userContext";
+import UserContext from "../../utilities/contexts/userContext";
 import UserInfoBox from "../../components/commonComponents/userInfoBox/userInfoBox";
 
 import {
@@ -13,7 +13,7 @@ import {
   memberJoinedClasses,
   removeMemberFromClass,
 } from "../../utilities/memberAPI/memberAPI";
-import { renderSchedule } from "../../utilities/renderSchedule";
+import { renderSchedule } from "../../utilities/reusableFunctions/renderSchedule";
 
 function MemberPage() {
   const user = useContext(UserContext);

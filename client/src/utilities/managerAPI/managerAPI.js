@@ -93,3 +93,15 @@ export const addToClassApi = (idObject) => {
   });
   return result;
 };
+
+//get the store orders
+export const getOrderHistoryApi = () => {
+  const result = fetch(`api/manager/orderhistory`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  }).then((res) => res.json());
+  return result;
+};

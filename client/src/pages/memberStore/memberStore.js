@@ -6,11 +6,11 @@ import {Container, Row, Col, Card} from "react-bootstrap";
 import "./memberStoreStyles.css";
 import { Cart3 } from "react-bootstrap-icons";
 import Cart from "../../components/storePageComponents/Cart";
-import IsShoppingContext from "../../utilities/isShoppingContext";
+import IsShoppingContext from "../../utilities/contexts/isShoppingContext";
 import DevBtn from "../../components/commonComponents/devButton/devButton";
 import { Redirect } from "react-router";
 import "../../components/commonComponents/devButton/styles.css";
-import StoreContext from "../../utilities/storeContext";
+import StoreContext from "../../utilities/contexts/storeContext";
 
 function MemberStore() {
   const [sendClasses, setSendClasses] = useState();
