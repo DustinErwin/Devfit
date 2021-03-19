@@ -7,7 +7,9 @@ import StoreContext from "../../utilities/storeContext";
 
 function Cart(props) {
   const { cartItems } = props;
+  // filters to show only those items in tha cart where quantity entered is > 0
   const cartData = cartItems.filter((item) => item.quantity > 0);
+  // calculates total of each product item in the cart
   const cartTotal = cartItems.reduce(
     (accumulator, item) => accumulator + item.price * item.quantity,
     0
@@ -16,6 +18,7 @@ function Cart(props) {
   const { checkout, setCheckOut } = useContext(StoreContext);
 
   return (
+    // renders a table 
     <Table responsive>
       <thead>
         <tr>
