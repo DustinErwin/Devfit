@@ -5,6 +5,7 @@ import AuthenticationButton from "../../authenticationButton/logoutButton/logout
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Modal from "react-bootstrap/Modal";
+import Table from "react-bootstrap/Table"
 
 function InfoBoxLeftColumn(props) {
   //Modal states
@@ -12,6 +13,7 @@ function InfoBoxLeftColumn(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  
   return (
     <>
       <Row>
@@ -58,7 +60,35 @@ function InfoBoxLeftColumn(props) {
             <Modal.Title>Orders</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-           
+          <Table striped bordered hover>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Username</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td colSpan="2">Larry the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</Table>
           </Modal.Body>
           <Modal.Footer>
             <DevBtn styleClass="btn-red" onClick={handleClose}>
