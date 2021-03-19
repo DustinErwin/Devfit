@@ -13,9 +13,12 @@ router.route("/productList").get((req, res) => {
 router.route("/order").post((req, res) => {
   let totalCost = 0;
   const orderDetails = req.body.order_details;
-  orderDetails.forEach((orderItem) => {
+  orderDetails.forEach(async (orderItem) => {
     const currentTotal = orderItem.price * orderItem.quantity;
     totalCost += currentTotal;
+    const product = await db.Product.findOne({_id: orderItem.product_id});
+    product.quantity -= orderItem.quantity;
+    const updatedProd = await product.save();
   });
   const order = new db.Order({
     member_id: db.ObjectId(req.body.member_id),
