@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import Header from "../../components/commonComponents/header/header";
 import Footer from "../../components/commonComponents/footer/footer";
-import RegistrationForm from "../../components/Forms/RegistrationForm";
+import RegistrationForm from "../../components/registrationPageComponents/RegistrationForm";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import "./registrationPage.css";
 import { useAuth0 } from "@auth0/auth0-react";
-import { set } from "date-fns";
 
 function RegistrationPage() {
   const { user } = useAuth0();
