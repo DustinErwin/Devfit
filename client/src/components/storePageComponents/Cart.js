@@ -3,7 +3,7 @@ import { Table } from "react-bootstrap";
 import CartItem from "./CartItem";
 import PayPal from "./PayPal";
 import DevBtn from "../commonComponents/devButton/devButton";
-import StoreContext from "../../utilities/storeContext";
+import StoreContext from "../../utilities/contexts/storeContext";
 
 function Cart(props) {
   const { cartItems } = props;

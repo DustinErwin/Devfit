@@ -5,8 +5,8 @@ import UserInfoBox from "../../components/commonComponents/userInfoBox/userInfoB
 import LeftColumn from "../../components/managerComponents/managerInfoBoxColumns/mInfoBoxLeftCol";
 import RightColumn from "../../components/managerComponents/managerInfoBoxColumns/mInfoBoxRightCol";
 import ManagerSchedule from "../../components/managerComponents/managerSchedule/managerSchedule";
-import { renderSchedule } from "../../utilities/renderSchedule";
-import UserContext from "../../utilities/userContext";
+import { renderSchedule } from "../../utilities/reusableFunctions/renderSchedule";
+import UserContext from "../../utilities/contexts/userContext";
 import "./styles.css";
 import {
   getMembersApi,

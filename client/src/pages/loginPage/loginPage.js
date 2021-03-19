@@ -7,10 +7,10 @@ import Container from "react-bootstrap/Container";
 import AdCarousel from "../../components/loginPageComponents/AdCarousel";
 import AuthenticationButton from "../../components/authenticationButton";
 import "./styles.css";
-import girlFeet from "../../images/girlfeetwaterbottle.jpg";
-import gymCoronavirus from "../../images/gym-coronavirus.jpg";
-import bench from "../../images/bench.jpg";
-import equipmentRoom from "../../images/equipmentroom.jpg";
+import girlFeet from "../../images/login/girlfeetwaterbottle.jpg";
+import gymCoronavirus from "../../images/login/gym-coronavirus.jpg";
+import bench from "../../images/login/bench.jpg";
+import equipmentRoom from "../../images/login/equipmentroom.jpg";
 import SignUpButton from "../../components/commonComponents/signupButton/signupButton";
 
 function LoginPage() {

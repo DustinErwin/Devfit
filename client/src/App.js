@@ -5,12 +5,12 @@ import RegistrationPage from "./pages/registrationPage/registrationPage";
 import MemberStore from "./pages/memberStore/memberStore";
 import { BrowserRouter as Switch, Redirect, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import UserContext from "./utilities/userContext";
+import UserContext from "./utilities/contexts/userContext";
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import LoginPage from "./pages/loginPage/loginPage";
 import "./App.css";
-import IsShoppingContext from "./utilities/isShoppingContext";
+import IsShoppingContext from "./utilities/contexts/isShoppingContext";
 
 function App() {
   const { isAuthenticated, user } = useAuth0();

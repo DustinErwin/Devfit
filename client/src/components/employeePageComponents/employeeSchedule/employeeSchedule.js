@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import DevBtn from "../../commonComponents/devButton/devButton";
 import Col from "react-bootstrap/Col";
-import convertTime from "../../../utilities/convertTime";
+import convertTime from "../../../utilities/reusableFunctions/convertTime";
 import "./styles.css";
 import { employeeRemoveClass } from "../../../utilities/employeeAPI/employeeAPI";
 import Navbar from "react-bootstrap/Navbar";
@@ -12,7 +12,7 @@ import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Dropdown from "react-bootstrap/Dropdown";
 import MobileSchedule from "../../commonComponents/mobileSchedule/mobileSchedule";
-import CheckWindowSize from "../../../utilities/checkWindowSize"
+import CheckWindowSize from "../../../utilities/reusableFunctions/checkWindowSize"
 
 function EmployeeSchedule(props) {
   const userData = props.userData;
