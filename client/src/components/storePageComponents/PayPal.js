@@ -10,15 +10,15 @@ import StoreContext from "../../utilities/contexts/storeContext";
 export default function PayPal(props) {
   const [sendClasses, setSendClasses] = useState();
   const userInfo = useContext(UserContext);
-  const {setCheckOut} = useContext(StoreContext);
+  const { setCheckOut } = useContext(StoreContext);
   const [orderId, setOrderId] = useState("");
   const paypal = useRef();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  const onModalClose = ()=>{
+  const onModalClose = () => {
     handleClose();
-    setSendClasses(<Redirect to={`/member`} />)
-  }
+    setSendClasses(<Redirect to={`/member`} />);
+  };
 
   useEffect(() => {
     const { total, items } = props;
@@ -73,7 +73,7 @@ export default function PayPal(props) {
             },
             body: JSON.stringify(orderdata),
           })
-            .then(resp => resp.json())
+            .then((resp) => resp.json())
             .then((resp) => {
               setOrderId(resp._id);
               setShow(true);
@@ -86,7 +86,7 @@ export default function PayPal(props) {
         onCancel: function (data) {
           // Show a cancel page, or return to cart
           setCheckOut(false);
-        }
+        },
       })
       .render(paypal.current);
   }, []);
@@ -94,8 +94,7 @@ export default function PayPal(props) {
   return (
     <div>
       {show ? <h3>Order Processed!</h3> : <div ref={paypal}></div>}
-      <Modal show={show} onHide={onModalClose}
-      >
+      <Modal show={show} onHide={onModalClose}>
         <Modal.Header closeButton>
           <Modal.Title>Order Processed!</Modal.Title>
         </Modal.Header>
@@ -103,10 +102,7 @@ export default function PayPal(props) {
           Thank you for your order! Your Order Id is {orderId}
         </Modal.Body>
         <Modal.Footer>
-          <DevBtn
-            styleClass="btn-red"
-            onClick={onModalClose}
-          >
+          <DevBtn styleClass="btn-red" onClick={onModalClose}>
             Close
           </DevBtn>
           {sendClasses ? sendClasses : null}

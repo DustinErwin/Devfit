@@ -28,3 +28,8 @@
     display: none;
   }
 }
+
+.headerTitle {
+  color: #d22e33;
+  opacity: 0.7;
+}
