@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import Header from "../../components/commonComponents/header/header";
 import Footer from "../../components/commonComponents/footer/footer";
 import Store from "../../components/storePageComponents/StoreComponent";
-import {Container, Row, Col, Card} from "react-bootstrap";
+import { Container, Row, Col, Card } from "react-bootstrap";
 import "./memberStoreStyles.css";
 import { Cart3 } from "react-bootstrap-icons";
 import Cart from "../../components/storePageComponents/Cart";
@@ -50,7 +50,6 @@ function MemberStore() {
   };
 
   const onCheckoutClicked = (gotoCheckout) => {
-    console.log("onCheckoutClicked!!!");
     setCheckoutClicked(gotoCheckout);
   };
 

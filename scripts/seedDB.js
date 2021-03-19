@@ -240,9 +240,7 @@ const OrderSeed = [
 
 db.Member.remove({})
   .then(() => db.Member.collection.insertMany(memberSeed))
-  .then((data) => {
-    console.log(data.result.n + " member records inserted!");
-  })
+  .then((data) => {})
   .catch((err) => {
     console.error("member " + err);
   });

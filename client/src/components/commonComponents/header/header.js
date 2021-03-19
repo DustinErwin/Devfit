@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col, Container } from "react-bootstrap";
-import logoDark from "../../../images/logos/Color_Logo_dark_background.png";
+import logoDark from "../../../images/logos/Color_LogoNoBg.png";
 import "./styles.css";
 
 function Header() {

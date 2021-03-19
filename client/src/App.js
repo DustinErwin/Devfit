@@ -68,7 +68,7 @@ function App() {
         role: "",
         gender: "",
       });
-      setUserRole(null);
+      setUserRole(<Redirect to={`/`} />);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, userInfo.role]);
