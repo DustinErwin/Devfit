@@ -5,7 +5,6 @@ import MemberInfoBox from "../../components/memberPageComponents/memberInfoBox/m
 import MeetYourTrainerBox from "../../components/memberPageComponents/meetYourTrainerBox/TrainerCarousel";
 import MemberSchedule from "../../components/memberPageComponents/memberSchedule/memberSchedule";
 import UserContext from "../../utilities/userContext";
-
 import UserInfoBox from "../../components/commonComponents/userInfoBox/userInfoBox";
 
 import {
