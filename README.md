@@ -10,6 +10,13 @@ This is a gym tracker app which allows clients to create accounts, log in with e
 
 [Dev Fit App](https://dev-fit-gym-app.herokuapp.com/)
 
+Sample Member Login: member@code.com
+Password: Pass1234
+Sample Trainer Login: trainer@code.com
+Password: Pass1234
+Sample Manager Login: manager@code.com
+Password: Pass1234
+
 ## Table of Contents
 
 - [Screenshots](#Screenshots)
