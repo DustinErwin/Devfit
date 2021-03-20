@@ -85,6 +85,13 @@ This is a gym tracker app which allows clients to create accounts, log in with e
 ## Installation
 
 - Deployed on Heroku
+- Want to try it out?:
+  - Sample Member Login: member@code.com
+    - Password: Pass1234
+  - Sample Trainer Login: trainer@code.com
+    - Password: Pass1234
+  - Sample Manager Login: manager@code.com
+    - Password: Pass1234
 
 ## Feedback
 
