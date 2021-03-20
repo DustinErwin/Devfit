@@ -1,4 +1,5 @@
 # Dev Fit Gym Logistical Tracker
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Description
@@ -22,6 +23,8 @@ This is a gym tracker app which allows clients to create accounts, log in with e
 
 ![HomePage](./client/src/images/screenshots/homePage.png)
 
+![Auth0](./client/src/images/screenshots/auth0.png)
+
 ![RegistrationPage](./client/src/images/screenshots/registrationPage.png)
 
 ![MemberPage](./client/src/images/screenshots/memberPage.png)
@@ -32,9 +35,11 @@ This is a gym tracker app which allows clients to create accounts, log in with e
 
 ![AddToRoster](./client/src/images/screenshots/addToRoster.png)
 
-![TrainerInfo](./client/src/images/screenshots/trainerInfo.png)
+![NewTrainer](./client/src/images/screenshots/newTrainer.png)
 
 ![StorePage](./client/src/images/screenshots/storePage.png)
+
+![StoreCart](./client/src/images/screenshots/storeCart.png)
 
 [(Back to Top)](#Description)
 
