@@ -12,6 +12,7 @@ import gymCoronavirus from "../../images/login/gym-coronavirus.jpg";
 import bench from "../../images/login/bench.jpg";
 import equipmentRoom from "../../images/login/equipmentroom.jpg";
 import SignUpButton from "../../components/commonComponents/signupButton/signupButton";
+import { LoginCredentials } from "../../components/loginCredentials/loginCredentials";
 
 function LoginPage() {
   return (
@@ -26,7 +27,7 @@ function LoginPage() {
             lg={6}
             className="order-sm-1 order-md-12 align-self-stretch justify-content-center text-center background-red"
           >
-            <Container className="my-5 py-4">
+            <Container className="my-5 ">
               <h3 className="text-white">
                 "Develop a Fitness Mindset <br />
                 and <br />
@@ -35,8 +36,8 @@ function LoginPage() {
               <p className="text-white mb-5">-Aarav Patel</p>
               <h4 className="py-3 text-white">Already have an account?</h4>
               <AuthenticationButton />
-              <br />
-              <br />
+
+              <LoginCredentials />
             </Container>
           </Col>
           <Col
